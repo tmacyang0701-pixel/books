@@ -16,7 +16,7 @@ const manifest = JSON.parse(readFileSync(resolve(root, 'manifest.json'), 'utf8')
 assert.equal(manifest.manifest_version, 3);
 assert.deepEqual(manifest.permissions, ['nativeMessaging']);
 assert.deepEqual(manifest.host_permissions, ['http://127.0.0.1/*', 'http://localhost/*']);
-for (const path of ['index.html', 'styles.css', 'exams.css', 'tutor.css', manifest.background.service_worker, ...Object.values(manifest.icons)]) assert.ok(existsSync(resolve(root,path)), '缺少分发文件：'+path);
+for (const path of ['index.html', 'styles.css', 'exams.css', 'tutor.css', 'start-learning.bat', 'restart-learning.bat', manifest.background.service_worker, ...Object.values(manifest.icons)]) assert.ok(existsSync(resolve(root,path)), '缺少分发文件：'+path);
 for (const path of ['src/exam-bank.js', 'src/exam-extra.js', 'src/exam-view.js', 'src/tutor-api.js', 'src/tutor-view.js', 'src/chapter-chat.js', 'src/chat-images.js', 'src/chat-voice.js', 'src/service-control.js', 'scripts/check-exams.mjs']) execFileSync(process.execPath, ['--check',resolve(root,path)], { stdio: 'pipe' });
 for (const path of ['background.js','src/app.js','src/curriculum.js','src/full-curriculum.js','src/practice-projects.js','src/simulations.js','src/simulation-view.js','src/simulation-scenes.js','src/simulation-lab.js','src/lab.js','src/world.js','scripts/check.mjs']) execFileSync(process.execPath, ['--check',resolve(root,path)], { stdio: 'pipe' });
 assert.equal(modules.length, 7);

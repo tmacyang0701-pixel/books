@@ -2,7 +2,7 @@ import { createTutorApi, normalizeServiceUrl, sharedServiceUrl } from './tutor-a
 
 export function sendNative(payload) {
   return new Promise((resolve,reject)=>{
-    if(!globalThis.chrome?.runtime?.sendNativeMessage){reject(Error('请在 Chrome 物理实验室扩展中点击启动；网页预览可先运行 GESP 的 start-learning.bat。'));return;}
+    if(!globalThis.chrome?.runtime?.sendNativeMessage){reject(Error('当前是网页模式。请双击 physics-lab-extension 目录下的 start-learning.bat（与 manifest.json 放在一起）；它会启动同级 GESP 的共享后台。'));return;}
     chrome.runtime.sendNativeMessage('com.codearena.cpp_judge',payload,response=>{
       const error=chrome.runtime.lastError;
       if(error){reject(Error('请先运行 GESP 目录下的 enable-page-start.bat，完成后重新加载物理扩展，即可从这里启动共用后台。'));return;}
@@ -37,22 +37,32 @@ export async function startSharedService({native=sendNative,getHealth,onEndpoint
 export function mountServiceControl({onReady,notify}) {
   let starting=null;
   const button=document.querySelector('#start-shared-service');
+  const extensionPage=globalThis.location?.protocol==='chrome-extension:';
+  const idleLabel=extensionPage?'启动／更新后台':'检测后台';
+  button.textContent=idleLabel;
   const remember=url=>{try{localStorage.setItem('physics-shared-service',normalizeServiceUrl(url));}catch{}};
   const status=text=>{button.textContent=text;document.querySelectorAll('[data-service-start]').forEach(b=>b.disabled=Boolean(starting));};
   function showError(text){
     const dialog=document.querySelector('#shared-service-dialog');dialog.querySelector('p').textContent=text;
     if(!dialog.open)dialog.showModal();
   }
+  async function checkWebService(){
+    let health;
+    try{health=await createTutorApi(sharedServiceUrl())('/health');}
+    catch{throw Error('当前是网页模式，暂未连上共享后台。请双击 physics-lab-extension 目录下的 start-learning.bat（与 manifest.json 放在一起），启动后回到本页点击“检测后台”。脚本会调用同级 gesp-lab-extension 的后台。');}
+    if(health.service!=='codearena-learning'||health.physicsSchema!==1||!health.chapterChat)throw Error('当前后台需要更新。请双击 physics-lab-extension 目录下的 restart-learning.bat，然后回到本页点击“检测后台”。');
+    return health;
+  }
   async function start(){
     if(starting)return starting;
     starting=(async()=>{
       try{
-        const health=await startSharedService({onEndpoint:remember,onProgress:status,getHealth:url=>createTutorApi(url)('/health')});
-        onReady();notify(health.configured?'共享后台已启动，可以继续提问。':'后台已启动，请在 GESP 中配置模型密钥。');
+        const health=extensionPage?await startSharedService({onEndpoint:remember,onProgress:status,getHealth:url=>createTutorApi(url)('/health')}):await checkWebService();
+        onReady();notify(health.configured?(extensionPage?'共享后台已启动，可以继续提问。':'共享后台已连接，可以继续提问。'):'后台已连接，请在 GESP 中配置模型密钥。');
       }catch(error){showError(error.message);}
-      finally{starting=null;status('启动／更新后台');}
+      finally{starting=null;status(idleLabel);}
     })();
-    status('正在启动后台…');return starting;
+    status(extensionPage?'正在启动后台…':'正在检测后台…');return starting;
   }
   document.addEventListener('click',event=>{if(event.target.closest('[data-service-start]'))start();});
   document.querySelector('#shared-service-dialog button').onclick=()=>document.querySelector('#shared-service-dialog').close();

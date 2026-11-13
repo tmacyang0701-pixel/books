@@ -1,6 +1,6 @@
 # 物理实验室 · Chrome 扩展
 
-独立的初中物理离线学习扩展，按《义务教育物理课程标准（2022年版）》组织七个模块：64 节讲解与自测、48 个 WebGL 三维交互实验、10 个实践项目。不需要启动原项目后端，支持笔记本和小屏幕。当前版本 2.1.0。
+独立的初中物理离线学习扩展，按《义务教育物理课程标准（2022年版）》组织七个模块：64 节讲解与自测、48 个 WebGL 三维交互实验、10 个实践项目。离线课程无需后台，AI 问答与讲解共用 GESP 后台，支持笔记本和小屏幕。当前版本 2.1.0。
 
 ## 安装与打开
 
@@ -9,12 +9,14 @@
 3. 选择本目录（有 `manifest.json` 的这一层）：
 
    ```text
-   C:\Users\TMACY\Desktop\gesp\number-garden-one-click-setup\books\physics-lab-extension
+   D:\books-angent\physics-lab-extension
    ```
 
 4. 在 Chrome 工具栏的扩展菜单中找到“物理实验室”，点击图标，在独立标签页中打开。也可以通过扩展的“选项”打开。
 
 不需要安装 npm 依赖或编译。更新代码后，在扩展管理页点击该扩展的重新加载按钮，再刷新学习页面。不要直接双击 `index.html`，浏览器的文件协议会限制 JavaScript 模块加载。
+
+网页模式（地址以 `http://` 开头）下，顶部“检测后台”只检测连接。若后台未启动，双击本目录的 **`start-learning.bat`**；更新后台则双击 **`restart-learning.bat`**。这两个入口与 `manifest.json` 同层，调用同级 `gesp-lab-extension` 的现有脚本，因此两个目录需要放在同一个父目录下。当前工作区可直接运行 `D:\books-angent\physics-lab-extension\start-learning.bat`。扩展模式仍支持页面上的“启动／更新后台”。
 
 ## 当前内容
 

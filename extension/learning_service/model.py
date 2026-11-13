@@ -86,6 +86,7 @@ SYSTEM = '''你是 GESP C++ 编程讲解老师。只输出完整 JSON，不输�
 讲解遵循：原题理解、知识依据、思路总览、详细步骤、C++实现、复杂度、易错点、总结。
 上屏内容简洁、讲稿解释充分；推导连贯，说明正确性与边界，不只有代码和结论。
 不输出 HTML、JavaScript、SVG。code 字段仅允许教学用 C++ 源码，pseudocode 字段用中文自然语言和缩进描述算法。伪代码中的变量、列表、状态和函数使用有实际含义的中文名称，不沿用 ans、sum_pos、cnt、tmp、high、low 等英文缩写；示例也使用同一套中文名称。图示用结构化 visual 或表格 trace 表达。
+所有 C++ 源码必须使用 ASCII 英文变量名、函数名、类型名和成员名，仅使用英文字母、数字和下划线。中文只允许在注释和字符串字面量中。中文变量名规则仅适用于 pseudocode，不能套用到可编译的 code。
 数学表达式使用清晰的普通文本或 Unicode（例如 gcd(a,b)、a^2、O(n log n)），不要使用 LaTeX 标记。
 不声称通过了未执行的编译、评测或人工复核。练习为原创变式，不能冒充历年真题。'''
 
@@ -276,6 +277,8 @@ def make_lesson(cfg, problem, level, outline, requirements, progress):
     instruction+='\n每页 questions 给出 3 个不同的启发式问题，供学生点击开始苏格拉底式问答。必须围绕该页实际知识点、变量、样例或边界，每个问题 8～40 字，问题中不要直接包含答案。各页不能重复套用“解释本页”“举个例子”等通用文案；不要引入本页没有涉及的算法。'
     instruction+='\nuseOriginalSample 仅在本页实际讲解原题输入输出或引用原题样例数值时为 true，复杂度、总结等无关页为 false，不要每页重复。全课提供 2～3 个不同的小例子，集中放到用到它的样例分析或推演页的 examples；其他页 examples=[]。每例说明输入、正确输出、解释，适合时配 visual 逐步动画，结构同页面 visual；不要重复原题样例充数。例子覆盖普通情况、小数/边界或一个典型误区，独立计算结果。讲解标题、结论、代码排序方向和示例必须一致。'
     result=completion(cfg,instruction,dict(problem=problem,targetLevel=level,levelGuide=outline,requirements=requirements),progress)
+    from .cpp_code import repair_lesson_identifiers
+    repair_lesson_identifiers(cfg,result,progress)
     validate_lesson(result)
     return result
 
@@ -339,6 +342,8 @@ def validate_lesson(result,knowledge=False):
             examples.append(clean)
         page['examples']=examples
         if not isinstance(page['code'],str): raise GenerationError('structure','课件代码格式无效。')
+        from .cpp_code import check_identifiers
+        check_identifiers(page['code'])
         if knowledge:
             if page['kind'] not in {'原理','语法','示例','动手实践','易错','总结'}:
                 raise GenerationError('structure','知识点讲解必须采用原理、语法与动手实验结构，请重试。')
@@ -347,12 +352,14 @@ def validate_lesson(result,knowledge=False):
                 if not isinstance(syntax,dict) or not isinstance(syntax.get('code'),str) or not 1<=len(syntax['code'])<=8000 or not isinstance(syntax.get('notes'),list) or not 1<=len(syntax['notes'])<=8 or any(not isinstance(v,str) or not 1<=len(v)<=1000 for v in syntax['notes']):
                     raise GenerationError('structure','语法片段或逐项说明不完整，请重试。')
                 page['syntax']={k:syntax[k] for k in ('code','notes')}
+                check_identifiers(syntax['code'])
             if lab is not None:
                 bounds={'title':120,'task':2000,'starterCode':20000,'input':10000,'expectedOutput':10000,'hint':1500}
                 if not isinstance(lab,dict) or any(not isinstance(lab.get(k),str) or len(lab[k])>limit or (k not in ('input','hint') and not lab[k].strip()) for k,limit in bounds.items()):
                     raise GenerationError('structure','动手实验缺少任务、程序框架或预期输出，请重试。')
                 if not re.search(r'\bmain\s*\(',lab['starterCode']):raise GenerationError('structure','动手实验需要含 main 的独立程序框架。')
                 page['lab']={k:lab[k] for k in bounds}
+                check_identifiers(lab['starterCode'])
             if page['kind']=='语法' and (syntax is None or lab is None):raise GenerationError('structure','语法页必须包含语法说明和可编辑的小实验。')
             if page['kind']=='动手实践' and lab is None:raise GenerationError('structure','动手实践页必须提供实验。')
         else:

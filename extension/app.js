@@ -52,6 +52,9 @@ const meta=p=>p.kind==='knowledge-topic'?`知识点专题 · GESP ${p.level} 级
 const allProblems=()=>[...state.bank,...state.uploaded];
 async function jsonAsset(path){const r=await fetch(asset(path));if(!r.ok)throw Error('题库文件加载失败');return r.json()}
 async function api(path,body,method=body?'POST':'GET'){
+  if(path==='/api/lesson-code'){
+    const health=await api('/api/health');if(!health.capabilities?.includes('regenerateLessonCode'))throw Error('重新生成本页代码需要更新后台，请点击“启动／更新后台”后重试。');
+  }
   if(path==='/api/practice'&&body?.problem){
     const health=await api('/api/health');if(!health.capabilities?.includes('practiceSourceSelection'))throw Error('切换题目后生成变式需要更新后台，请点击“启动／更新后台”后重试。');
   }
@@ -235,24 +238,29 @@ async function showGenerate(p){generationProblem=p;$('generationRequirements').v
 function taskStatus(title,message,status='running'){const panel=$('taskPanel');panel.hidden=false;panel.className='task-panel'+(status==='failed'?' failed':status==='completed'?' done':'');$('taskTitle').textContent=title;$('taskMessage').textContent=message;$('taskRetry').hidden=status!=='failed';$('taskDismiss').hidden=status==='running'}
 async function runTask(path,body,kind){
   if(activeTask){toast('已有任务正在进行，请等待完成');return}
-  retryAction=()=>runTask(path,body,kind);activeTask={kind};taskStatus(kind==='lesson'?'正在生成讲解':['practice','topic-practice'].includes(kind)?'正在生成练习':'正在读取题目','正在创建任务…');
+  retryAction=()=>runTask(path,body,kind);activeTask={kind};taskStatus(kind==='lesson-code'?'正在重新生成代码':kind==='lesson'?'正在生成讲解':['practice','topic-practice'].includes(kind)?'正在生成练习':'正在读取题目','正在创建任务…');
   try{const job=await api(path,body);activeTask={id:job.id,kind};lastTaskRequest={id:job.id,path,body,kind};saveLocal('ca-active-task',activeTask);saveLocal('ca-task-request',kind==='import'?null:lastTaskRequest);await watchTask(activeTask)}
   catch(e){taskStatus('任务未完成',e.message,'failed');activeTask=null}
 }
 async function watchTask(task){
   let job;
   try{
-    while(true){job=await api('/api/jobs/'+task.id);taskStatus(task.kind==='lesson'?'正在生成讲解':['practice','topic-practice'].includes(task.kind)?'正在生成练习':'正在识别题目',job.message);if(task.kind==='import')$('uploadStatus').textContent=job.message;if(['completed','failed'].includes(job.status))break;await new Promise(r=>setTimeout(r,1200))}
+    while(true){job=await api('/api/jobs/'+task.id);taskStatus(task.kind==='lesson-code'?'正在重新生成代码':task.kind==='lesson'?'正在生成讲解':['practice','topic-practice'].includes(task.kind)?'正在生成练习':'正在识别题目',job.message);if(task.kind==='import')$('uploadStatus').textContent=job.message;if(['completed','failed'].includes(job.status))break;await new Promise(r=>setTimeout(r,1200))}
   }catch(e){activeTask=null;retryAction=async()=>{activeTask=task;await watchTask(task)};taskStatus('连接已中断，任务可能仍在执行',e.message,'failed');return}
   localStorage.removeItem('ca-active-task');activeTask=null;
   if(job.status==='failed'){const saved=lastTaskRequest?.id===task.id?lastTaskRequest:readLocal('ca-task-request',null);retryAction=saved?.id===task.id?()=>runTask(saved.path,saved.body,saved.kind):task.kind==='import'?openUpload:()=>setView('library');taskStatus('任务未完成',job.error?.message||job.message,'failed');if(task.kind==='import')setUploadBusy(false);return}
   try{
+    if(task.kind==='lesson-code'){
+      const id=job.result.lessonId;
+      if(state.lesson?.id===id){const updated=await api('/api/lessons/'+id);if(state.lesson?.id===id){lessonRunner.forgetLesson(id);state.lesson=updated;saveLocal('ca-last-lesson',updated);renderLesson();}}
+      taskStatus('本页代码已重新生成',job.result.validation?.message||'英文标识符已检查，可点击运行代码验证。','completed');
+    }
     if(task.kind==='lesson'){await openLesson(job.result.lessonId);await refreshHistory();setView('lesson');taskStatus('讲解课件已生成','可以开始逐页学习，完成后进入相似题练习。','completed')}
     if(task.kind==='topic-practice'){state.practice.push(...job.result.problems);openKnowledge(job.result.topic,job.result.targetLevel);taskStatus('专项练习已生成','3 道练习只围绕当前知识点，AI 测试点尚未独立验证。','completed')}
     if(task.kind==='practice'){state.practice.push(...unpackPracticeRecords([job.result]));renderPractice();setView('practice');taskStatus('3 道变式已生成','已保存到对应原题；AI 生成的测试点尚未独立验证。','completed')}
     if(task.kind==='import'){fillUpload(job.result.problem);setUploadBusy(false);$('uploadStatus').textContent='识别完成，请核对题干、输入输出与数据范围。';if(!$('uploadDialog').open)$('uploadDialog').showModal();taskStatus('题目已读取','核对后可以保存或生成讲解。','completed')}
     lastTaskRequest=null;localStorage.removeItem('ca-task-request');retryAction=null;
-  }catch(e){retryAction=()=>task.kind==='lesson'?openLesson(job.result.lessonId):refreshPractice();taskStatus('内容已生成，加载未完成',e.message,'failed')}
+  }catch(e){retryAction=()=>task.kind==='lesson-code'?watchTask(task):task.kind==='lesson'?openLesson(job.result.lessonId):refreshPractice();taskStatus('内容已生成，加载未完成',e.message,'failed')}
 }
 async function openLesson(id){
   knowledgeReturn=false;
@@ -287,6 +295,7 @@ async function deleteLesson(id){if(!confirm('删除这份课件及本机问答�
 function renderLesson(){
   const lesson=state.lesson;if(!lesson?.pages?.length)return;$('lessonPlayer').hidden=false;$('lessonTitle').textContent=lesson.title;$('lessonModel').textContent=`GESP ${lesson.targetLevel} 级 · ${lesson.model} · AI 生成讲解`;
   const isTopic=lesson.problem?.kind==='knowledge-topic';$('backToKnowledge').hidden=!(isTopic||knowledgeReturn);$('topicLegacyNote').hidden=!(isTopic&&lesson.topicSchema!==2);
+  $('returnToProblem').hidden=isTopic||!lesson.problem?.title||!(lesson.problem.description||lesson.problem.statement);
   const page=lesson.pages[state.slide];$('slideKind').textContent=page.kind||'';$('slideContent').innerHTML=slideHtml(page,{interactive:true,lesson,codeUnlocked:codeAccess.has(lesson.id,state.slide)});$('narrationText').innerHTML=lessonProse(page.narration||'');$('slideCounter').textContent=`${state.slide+1} / ${lesson.pages.length}`;$('prevSlide').disabled=state.slide===0;$('nextSlide').textContent=state.slide===lesson.pages.length-1?'完成讲解，开始练习 →':'下一页 →';
   lessonVisual.setPage(lesson,state.slide);
   lessonExamples.setPage(lesson,state.slide);
@@ -349,6 +358,18 @@ document.addEventListener('click',async event=>{
     if(action==='delete-lesson')await deleteLesson(id);
     if(action==='finish')finishLesson();
     if(action==='lesson-code'&&state.lesson)loadWorkspace(state.lesson.problem);
+    if(action==='regenerate-lesson-code'&&state.lesson&&codeAccess.has(state.lesson.id,state.slide)){
+      if(activeTask){toast('已有任务正在进行，请等待完成');return;}
+      lessonRunner.forgetLesson(state.lesson.id);
+      runTask('/api/lesson-code',{lessonId:state.lesson.id,pageIndex:state.slide},'lesson-code');
+    }
+    if(action==='lesson-original'&&state.lesson?.problem&&state.lesson.problem.kind!=='knowledge-topic'){
+      if(judgeBusy){toast('请等待当前评测结束后再返回原题');return;}
+      if(document.fullscreenElement)await document.exitFullscreen();
+      loadWorkspace(state.lesson.problem);
+      if($('workspaceProblemPanel').hidden)$('workspaceProblemToggle').click();
+      $('workspaceProblem').scrollTop=0;
+    }
     if(action==='unlock-lesson-code'&&state.lesson){const lesson=state.lesson,index=state.slide;if(await codeAccess.ensure(lesson,index)&&state.lesson?.id===lesson.id&&state.slide===index)renderLesson();}
     if(action==='lock-lesson-code'&&state.lesson){codeAccess.lock(state.lesson.id,state.slide);lessonRunner.forgetLesson(state.lesson.id);renderLesson();}
     if(action==='run-lesson-code'&&state.lesson)lessonRunner.open(state.lesson,state.slide);

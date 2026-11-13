@@ -31,12 +31,15 @@ test('cancelled password requests cannot grant access after verification complet
 test('locked slides omit C++ source and run controls while keeping pseudocode visible',()=>{
   const locked=slideHtml(page,{interactive:true,lesson});
   assert.ok(!locked.includes('SECRET_CXX_TOKEN'));assert.ok(!locked.includes('run-lesson-code'));
+  assert.ok(!locked.includes('regenerate-lesson-code'));
   assert.ok(locked.includes('unlock-lesson-code'));assert.ok(locked.includes(page.pseudocode));
   const unlocked=slideHtml(page,{interactive:true,lesson,codeUnlocked:true});
   assert.ok(unlocked.includes('SECRET_CXX_TOKEN'));assert.ok(unlocked.includes('run-lesson-code'));assert.ok(unlocked.includes('lock-lesson-code'));
+  assert.ok(unlocked.includes('regenerate-lesson-code'));
 });
 test('exports omit complete code by default and include it only when requested after unlocking',()=>{
   assert.ok(!exportHtml(lesson).includes('SECRET_CXX_TOKEN'));
   const allowed=exportHtml(lesson,{includeCode:true});
   assert.ok(allowed.includes('SECRET_CXX_TOKEN'));assert.ok(!allowed.includes('run-lesson-code'));
+  assert.ok(!allowed.includes('regenerate-lesson-code'));
 });

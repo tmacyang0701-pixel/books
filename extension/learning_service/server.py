@@ -20,6 +20,7 @@ from .model import ROOT, GenerationError, PROBLEM_SHAPE, completion, make_lesson
 from .knowledge import validate_topic,bank_candidates,make_topic_practice
 from .code_analysis import analyze as analyze_code, authorize as authorize_analysis
 from .analysis_settings import AnalysisSettings
+from .cpp_code import regenerate_code
 
 MAX_BODY=12*1024*1024
 MAX_FILE=8*1024*1024
@@ -176,6 +177,8 @@ class Application:
 
     def enqueue(self, kind, payload):
         with self.lock:
+            if kind=='lesson-code' and any(j.get('kind')==kind and j.get('lessonId')==payload['lessonId'] and j.get('pageIndex')==payload['pageIndex'] and j['status'] in ('queued','running') for j in self.jobs.values()):
+                raise GenerationError('busy','本页代码正在重新生成，请等待完成。')
             key=problem_key(payload['problem']) if kind=='lesson' else None
             if key and any(j.get('kind')=='lesson' and j.get('problemId')==key and j['status'] in ('queued','running') for j in self.jobs.values()):
                 raise GenerationError('busy','本题已有课件正在生成，请等待完成。')
@@ -186,6 +189,7 @@ class Application:
                 raise GenerationError('busy','当前生成任务较多，请稍后重试。')
             ident=uuid.uuid4().hex
             job=dict(id=ident,kind=kind,status='queued',message='任务已排队',createdAt=time.time())
+            if kind=='lesson-code':job.update(lessonId=payload['lessonId'],pageIndex=payload['pageIndex'])
             if key: job['problemId']=key
             self.jobs[ident]=job
             if kind!='chat': self.save('jobs',ident,job)
@@ -202,7 +206,18 @@ class Application:
         try:
             self.update(ident,status='running',message='正在准备…')
             progress=lambda text:self.update(ident,message=text)
-            if kind=='lesson':
+            if kind=='lesson-code':
+                lesson=self.read('lessons',payload['lessonId']);index=payload['pageIndex']
+                original=lesson['pages'][index]['code']
+                updated=regenerate_code(self.config,lesson,index,progress)
+                with self.lock:
+                    latest=self.read('lessons',payload['lessonId'])
+                    if index>=len(latest['pages']) or latest['pages'][index].get('code')!=original:
+                        raise GenerationError('stale_code','本页代码已被其他操作更新，请刷新后重试。')
+                    latest['pages'][index].update(code=updated['code'],codeValidation=updated['validation'])
+                    latest['updatedAt']=time.time();self.save('lessons',payload['lessonId'],latest)
+                answer=dict(lessonId=payload['lessonId'],pageIndex=index,validation=updated['validation'])
+            elif kind=='lesson':
                 p=payload['problem']; level=payload['targetLevel']
                 result=make_lesson(self.config,p,level,self.levels[level-1],payload.get('requirements',''),progress)
                 result.update(id=ident,problem=p,targetLevel=level,createdAt=time.time(),model=self.config['model'],recommendations=self.recommend(p))
@@ -342,7 +357,7 @@ def make_handler(app):
             path=unquote(urlsplit(self.path).path)
             try:
                 if path=='/api/health':
-                    return self.respond(200,dict(service='codearena-learning',version=12,runCaseSchema=2,processId=os.getpid(),instancePath=str(ROOT),capabilities=['topicSyntaxLabs','knowledgeTopics','pageChat','socraticPageChat','imagePageChat','runCases','codeAnalysis','practiceSourceSelection','uniqueLessons','deleteLesson'],configured=bool(app.config['key']),model=app.config['model'],visionModel=app.config['visionModel'],configSource=app.config['source']))
+                    return self.respond(200,dict(service='codearena-learning',version=12,runCaseSchema=2,processId=os.getpid(),instancePath=str(ROOT),capabilities=['topicSyntaxLabs','knowledgeTopics','pageChat','socraticPageChat','imagePageChat','runCases','codeAnalysis','practiceSourceSelection','regenerateLessonCode','uniqueLessons','deleteLesson'],configured=bool(app.config['key']),model=app.config['model'],visionModel=app.config['visionModel'],configSource=app.config['source']))
                 if path=='/api/analysis-settings':return self.respond(200,app.analysis_settings.public())
                 if path.startswith('/api/jobs/'):
                     ident=identifier(path.rsplit('/',1)[-1])
@@ -393,6 +408,11 @@ def make_handler(app):
                             raise GenerationError('invalid_topic','知识点讲解必须保持入口等级，且只讲一个知识点。')
                         validate_topic(dict(topic=p['tags'][0],targetLevel=level))
                     job=app.enqueue('lesson',dict(problem=p,targetLevel=level,requirements=requirements))
+                elif path=='/api/lesson-code':
+                    ident=identifier(body.get('lessonId'));lesson=app.read('lessons',ident);index=body.get('pageIndex')
+                    if type(index)!=int or not 0<=index<len(lesson['pages']) or not lesson['pages'][index].get('code','').strip():
+                        raise GenerationError('invalid_page','请选择包含完整 C++ 示例的课件页。')
+                    job=app.enqueue('lesson-code',dict(lessonId=ident,pageIndex=index))
                 elif path=='/api/imports':
                     name=body.get('filename',''); encoded=body.get('contentBase64',''); level=body.get('level',5)
                     if not isinstance(name,str) or len(name)>250 or Path(name).suffix.lower() not in ('.json','.txt','.md','.pdf','.png','.jpg','.jpeg','.webp'):

@@ -1,6 +1,7 @@
 """Knowledge lessons teach principles and syntax independently of problem solutions."""
 import copy,json
 from .model import ROOT,LESSON_SHAPE,GenerationError,completion,validate_lesson
+from .cpp_code import CPP_RULE,repair_lesson_identifiers
 
 TOPIC_SYSTEM='''你是分级的 GESP C++ 知识点教师，只输出完整 JSON。当前任务是教原理、语言语法和短代码实验，不是讲一道算法题。
 严格以 targetLevel 为能力上限，可以复习前序基础，不能把高一级方法变成必备知识。使用 C++11 兼容语法（也可在项目 C++17 编译器运行），不用变长数组、未定义行为或无必要的高级模板。不要只换标题后继续套用题目、思路、完整解法的结构。
@@ -16,7 +17,8 @@ def make_topic_lesson(cfg,problem,level,outline,requirements,progress):
     instruction+='visual 仅 flow/array/grid，节点用 id/label/detail，edges 用 from/to，frames 用 caption/active/marked/values，每页 2～6 步足够。没有图时为 null。trace 表格是可选项，无表格时 headers 和 rows 都用空数组；有表格时每行列数要与表头一致。每页提供 3 个针对本页概念的苏格拉底式 questions。无 syntax 或 lab 时为 null，无完整参考代码时 code 为空；不强行给语法加伪代码。返回结构：'+json.dumps(shape,ensure_ascii=False)
     levels=json.loads((ROOT/'data/gesp/levels.json').read_text(encoding='utf-8'))['levels']
     scope={'targetLevel':level,'currentLevel':outline,'prerequisiteLevels':levels[:level-1],'higherLevelsExcluded':levels[level:],'standard':'C++11-compatible','source':'https://gesp.ccf.org.cn/101/attach/1725701770182688.pdf'}
-    result=completion(cfg,instruction,dict(topic=problem['tags'][0],targetLevel=level,abilityScope=scope,requirements=requirements),progress,system=TOPIC_SYSTEM)
+    result=completion(cfg,instruction,dict(topic=problem['tags'][0],targetLevel=level,abilityScope=scope,requirements=requirements),progress,system=TOPIC_SYSTEM+'\n'+CPP_RULE)
+    repair_lesson_identifiers(cfg,result,progress)
     validate_lesson(result,knowledge=True)
     result.update(lessonType='knowledge',topicSchema=2,teachingLevel=level)
     return result

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import './check-exams.mjs';
 import { modules, lessons } from '../src/curriculum.js';
 import {simulations,initialValues,lensImage,circuitValues,iceHeating} from '../src/simulations.js';
 import {sceneFor,stepPresets} from '../src/simulation-scenes.js';
@@ -13,7 +14,8 @@ const manifest = JSON.parse(readFileSync(resolve(root, 'manifest.json'), 'utf8')
 assert.equal(manifest.manifest_version, 3);
 assert.equal(manifest.permissions, undefined);
 assert.equal(manifest.host_permissions, undefined);
-for (const path of ['index.html', 'styles.css', manifest.background.service_worker, ...Object.values(manifest.icons)]) assert.ok(existsSync(resolve(root,path)), '缺少分发文件：'+path);
+for (const path of ['index.html', 'styles.css', 'exams.css', manifest.background.service_worker, ...Object.values(manifest.icons)]) assert.ok(existsSync(resolve(root,path)), '缺少分发文件：'+path);
+for (const path of ['src/exam-bank.js', 'src/exam-extra.js', 'src/exam-view.js', 'scripts/check-exams.mjs']) execFileSync(process.execPath, ['--check',resolve(root,path)], { stdio: 'pipe' });
 for (const path of ['background.js','src/app.js','src/curriculum.js','src/full-curriculum.js','src/practice-projects.js','src/simulations.js','src/simulation-view.js','src/simulation-scenes.js','src/simulation-lab.js','src/lab.js','src/world.js','scripts/check.mjs']) execFileSync(process.execPath, ['--check',resolve(root,path)], { stdio: 'pipe' });
 assert.equal(modules.length, 7);
 assert.equal(lessons.length, 64);

@@ -162,6 +162,39 @@ class PhysicsHttpTests(unittest.TestCase):
         for path in ('/physics/../gesp-lab-extension/learning_service/.env','/physics/.env','/physics/scripts/check.mjs','/physics/src/%2e%2e/manifest.json','/physics/src/..%5cmanifest.json'):
             self.assertEqual(self.request(path)[0],404,path)
 
+    def test_images_reach_vision_model_and_remain_in_their_chapter(self):
+        image='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aF9sAAAAASUVORK5CYII='
+        self.app.config={**CFG,'visionModel':'vision-fixture'}
+        messages=[dict(role='user',content='',attachments=[dict(name='crop.png',dataUrl=image)])]
+        self.assertTrue(self.request('/api/physics/health')[1]['chapterImages'])
+        with patch.object(physics,'completion',return_value={'answer':'图中是音叉，发声时在振动。'}) as call:
+            status,job=self.request('/api/physics/chat',dict(chapter=CHAPTER,messages=messages))
+            self.assertEqual(status,202);done=self.wait(job);self.assertEqual(done['status'],'completed',done)
+        self.assertEqual(done['result']['model'],'vision-fixture')
+        self.assertEqual(call.call_args.kwargs['images'],[image])
+        self.assertEqual(call.call_args.args[2]['messages'][0]['imageNumbers'],[1])
+        self.assertNotIn(image,json.dumps(call.call_args.args[2]))
+        self.assertFalse((Path(self.tmp.name)/'jobs'/(job['id']+'.json')).exists())
+        invalid=['https://example.com/image.png','data:image/svg+xml;base64,PHN2Zz4=','data:image/png;base64,aGVsbG8=', 'data:image/png;base64,'+'A'*2800001]
+        for url in invalid:
+            bad=[dict(role='user',content='image',attachments=[dict(dataUrl=url)])]
+            self.assertEqual(self.request('/api/physics/chat',dict(chapter=CHAPTER,messages=bad))[0],400)
+        for bad in ([dict(role='user',content='',attachments=[dict(dataUrl=image)]*4)],
+                    [dict(role='assistant',content='image',attachments=[dict(dataUrl=image)]),dict(role='user',content='why')],
+                    [dict(role='user',content='')]):
+            self.assertEqual(self.request('/api/physics/chat',dict(chapter=CHAPTER,messages=bad))[0],400)
+        # The same validator remains usable by the existing GESP chat API.
+        ident='e'*32
+        self.app.save('lessons',ident,dict(id=ident,pages=[dict(title='test')]))
+        with patch('learning_service.server.answer_page',return_value='GESP vision response') as answer:
+            _,job=self.request('/api/chat',dict(lessonId=ident,pageIndex=0,messages=[dict(role='user',content='why',attachments=[dict(dataUrl=image)])]))
+            for _ in range(100):
+                done=self.request('/api/jobs/'+job['id'])[1]
+                if done['status'] in ('completed','failed'):break
+                time.sleep(.01)
+        self.assertEqual(done['status'],'completed',done)
+        self.assertEqual(answer.call_args.args[3][0]['attachments'][0]['dataUrl'],image)
+
     def test_chapter_questions_cached_and_chat_context_kept_separate(self):
         prompts=['音色是什么，怎样辨认声源？','音调相同为何还能分清乐器？','响度相同时音色一定相同吗？']
         with patch.object(physics,'completion',return_value={'questions':prompts}) as call:

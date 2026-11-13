@@ -1,3 +1,9 @@
+export function extensionConnectionIssue(runtime=globalThis.chrome?.runtime) {
+  if(!runtime?.getManifest)return '';
+  const manifest=runtime.getManifest(),policy=manifest.content_security_policy?.extension_pages||'';
+  if(!manifest.host_permissions?.some(origin=>origin.includes('127.0.0.1')||origin==='<all_urls>')||policy.includes("connect-src 'none'"))return '扩展的后台连接权限尚未生效。请打开 chrome://extensions，点击“物理实验室”的重新加载，再打开页面。';
+  return '';
+}
 export const DEFAULT_SERVICE = 'http://127.0.0.1:8766';
 export function sharedServiceUrl() {
   try {
@@ -17,6 +23,7 @@ export function createTutorApi(baseUrl, fetcher = globalThis.fetch) {
   const base = normalizeServiceUrl(baseUrl);
   return async function api(path, body, signal) {
     if (!/^\/(health|questions|chat|lessons(?:\/sh-\d{4}-[\d-]+)?|jobs\/[a-f0-9]{32})$/.test(path)) throw Error('物理接口路径无效。');
+    const issue=extensionConnectionIssue();if(issue){const error=Error(issue);error.code='extension_reload';throw error;}
     let response;
     const timeout = AbortSignal.timeout(15000);
     try {

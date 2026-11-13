@@ -21,32 +21,11 @@ from .knowledge import validate_topic,bank_candidates,make_topic_practice
 from .code_analysis import analyze as analyze_code, authorize as authorize_analysis
 from .analysis_settings import AnalysisSettings
 from . import physics
+from .chat_media import chat_attachments
 from .cpp_code import regenerate_code
 
 MAX_BODY=12*1024*1024
 MAX_FILE=8*1024*1024
-
-
-def chat_attachments(message):
-    images=message.get('attachments',[])
-    if not isinstance(images,list) or len(images)>3 or (images and message['role']!='user'):
-        raise GenerationError('invalid_images','仅用户消息可以附带图片，每次最多 3 张。')
-    checked=[]
-    for image in images:
-        if not isinstance(image,dict): raise GenerationError('invalid_images','图片格式无效。')
-        url=image.get('dataUrl','')
-        if not isinstance(url,str) or len(url)>2800000:
-            raise GenerationError('invalid_images','每张图片不能超过 2 MiB。')
-        match=re.fullmatch(r'data:image/(png|jpeg|webp);base64,([A-Za-z0-9+/]+={0,2})',url)
-        if not match: raise GenerationError('invalid_images','仅支持 PNG、JPEG、WebP 图片。')
-        try: raw=base64.b64decode(match[2],validate=True)
-        except (ValueError,binascii.Error): raise GenerationError('invalid_images','图片编码无效。') from None
-        valid={'png':raw.startswith(b'\x89PNG\r\n\x1a\n'),'jpeg':raw.startswith(b'\xff\xd8\xff'),'webp':raw[:4]==b'RIFF' and raw[8:12]==b'WEBP'}[match[1]]
-        if not valid or not 12<=len(raw)<=2*1024*1024: raise GenerationError('invalid_images','图片内容或大小无效。')
-        name=image.get('name','提问图片')
-        if not isinstance(name,str) or len(name)>100: raise GenerationError('invalid_images','图片名称无效。')
-        checked.append(dict(dataUrl=url,name=name))
-    return checked
 
 
 def normalize_problem(value, level=5):
@@ -225,7 +204,7 @@ class Application:
                 answer=dict(id=ident,chapterId=context['id'],fingerprint=physics.chapter_fingerprint(context),questions=physics.make_questions(self.config,context,progress),model=self.config['model'],createdAt=time.time())
                 self.save('physics-questions',physics.questions_key(context['id']),answer)
             elif kind=='physics-chat':
-                answer=dict(chapterId=payload['chapter']['id'],answer=physics.answer_chapter(self.config,payload['chapter'],payload['messages'],progress),model=self.config['model'])
+                answer=dict(chapterId=payload['chapter']['id'],answer=physics.answer_chapter(self.config,payload['chapter'],payload['messages'],progress),model=self.config['visionModel'] if any(m.get('attachments') for m in payload['messages']) else self.config['model'])
             elif kind=='physics':
                 q=payload['question']
                 result=physics.generate(self.config,q,payload.get('requirements',''),progress)
@@ -388,7 +367,7 @@ def make_handler(app):
             path=unquote(urlsplit(self.path).path)
             try:
                 if path=='/api/physics/health':
-                    return self.respond(200,dict(service='codearena-learning',physicsSchema=1,chapterChat=True,configured=bool(app.config['key']),model=app.config['model']))
+                    return self.respond(200,dict(service='codearena-learning',physicsSchema=1,chapterChat=True,chapterImages=True,configured=bool(app.config['key']),model=app.config['model']))
                 if path.startswith('/api/physics/jobs/'):
                     ident=identifier(path.rsplit('/',1)[-1])
                     with app.lock: value=dict(app.jobs.get(ident) or {})

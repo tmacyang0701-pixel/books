@@ -81,3 +81,5 @@
 物理扩展的来源 ID 根据同级目录路径或 manifest.key 计算，与现有 Chromium 注册算法一致；该额外来源仅访问 `/api/physics/`。原有 GESP 来源规则不变。物理任务、课件和浏览器缓存均不包含模型凭证。
 
 章节问答同样共用物理命名空间：`POST /api/physics/questions` 接收 `{chapter}`，首次返回推荐问题生成任务，已缓存且正文指纹一致时直接返回 `{chapterId,questions}`。三个问题由模型生成并检查长度与去重，保存于 `.local/physics-questions/`。`POST /api/physics/chat` 接收 `{chapter,messages}`，messages 限 user/assistant、最多 20 条、合计最多 20000 字、最后为用户问题；完成结果为 `{chapterId,answer,model}`。两种任务均通过 `/api/physics/jobs/<id>` 查询；聊天任务仅在后台内存保存，正文与对话历史不落后台任务盘。前端按章节保存对话、草稿和任务关联。健康检查中的 `chapterChat:true` 标记能力。
+
+物理章节问答支持 `messages[].attachments: [{name, dataUrl}]`，图片格式和大小复用 GESP 校验（每次最多三张 PNG/JPEG/WebP、每张 2 MiB）。图片用 `imageNumbers` 与消息关联，实际图像交给已配置的视觉模型，问答任务不落盘。`GET /api/physics/health` 的 `chapterImages: true` 表示已启用图片问答。

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-06-3-2",
+  "level": 3,
+  "session": "2023-06",
+  "number": 2,
+  "title": "密码合规",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "分类统计"
+  ],
+  "description": "检查用逗号分隔的候选密码。合法密码长度为 6～12；字符只能是大小写字母、数字和 !@#$；大小写字母、数字三类中至少有两类，同时至少出现一个指定特殊字符。",
+  "input": "一行不含空格、长度不超过 100 的候选密码串，各候选之间用英文逗号分隔。",
+  "output": "按输入顺序逐行输出合法密码。",
+  "constraints": "候选内容按上述规则检查。",
+  "sampleInput": "Abc12!,abcdef!,ABC1@x\n",
+  "sampleOutput": "Abc12!\nABC1@x\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3843",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "Abc12!,abcdef!,ABC1@x\n",
+      "expected": "Abc12!\nABC1@x\n",
+      "score": 100
+    }
+  ]
+}

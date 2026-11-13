@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-7-2",
+  "level": 7,
+  "session": "2025-09",
+  "number": 2,
+  "title": "金币收集",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "最长不降子序列"
+  ],
+  "description": "时刻 0 从坐标 0 出发，每秒只能原地不动或向右走 1。金币 i 仅在时刻 t_i 的位置 x_i 可收集，求最多金币数。",
+  "input": "首行 n；随后 n 行 x_i、t_i。",
+  "output": "最多可收集的金币数。",
+  "constraints": "1 ≤ n ≤ 100000；1 ≤ x_i,t_i ≤ 10^9。",
+  "sampleInput": "3\n1 1\n2 3\n1 4\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14078",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1 1\n2 3\n1 4\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

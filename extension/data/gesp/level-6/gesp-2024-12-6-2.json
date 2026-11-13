@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-6-2",
+  "level": 6,
+  "session": "2024-12",
+  "number": 2,
+  "title": "运送物资",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "贪心"
+  ],
+  "description": "城市 A、B 坐标为 0、x，站点 i 位于 p_i、可容纳 c_i 辆车。货车 j 每天往返 A 共 a_j 次、往返 B 共 b_j 次，所有行程都返回分配的站点。求满足容量限制的最小总路程。",
+  "input": "首行 n、m、x；随后 n 行站点位置、容量；再给 m 行货车的 a_j、b_j。",
+  "output": "最小总路程。",
+  "constraints": "n、m ≤ 100000；2 ≤ x ≤ 10^8；0<p_i<x；1≤c_i≤100000；0≤a_j,b_j≤100000；总容量足够。",
+  "sampleInput": "2 2 10\n2 1\n8 1\n1 0\n0 1\n",
+  "sampleOutput": "8\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11376",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 2 10\n2 1\n8 1\n1 0\n0 1\n",
+      "expected": "8\n",
+      "score": 100
+    }
+  ]
+}

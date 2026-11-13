@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-4-1",
+  "level": 4,
+  "session": "2024-06",
+  "number": 1,
+  "title": "黑白方块",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "枚举"
+  ],
+  "description": "在 01 方格中找连续的轴对齐子矩形，要求 0 和 1 的数量相等。求最大面积，没有则为 0。",
+  "input": "首行 n、m；后续 n 行，每行 m 个连续的 0 或 1。",
+  "output": "最大面积。",
+  "constraints": "1 ≤ n,m ≤ 10。",
+  "sampleInput": "2 2\n01\n10\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4005",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 2\n01\n10\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

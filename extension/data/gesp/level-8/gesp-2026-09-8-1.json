@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-09-8-1",
+  "level": 8,
+  "session": "2026-09",
+  "number": 1,
+  "title": "生成树计数",
+  "kind": "past-paper",
+  "tags": [
+    "仙人掌图",
+    "环",
+    "组合计数"
+  ],
+  "description": "连通简单无向图中，每条边至多属于一个简单环。统计不同生成树数量，选中边集合不同即为不同方案。",
+  "input": "首行 n、m；随后 m 条无向边。",
+  "output": "生成树数量模 998244353。",
+  "constraints": "n,m ≤ 100000；无重边、自环。",
+  "sampleInput": "4 4\n1 2\n2 3\n3 1\n3 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17461",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 4\n1 2\n2 3\n3 1\n3 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

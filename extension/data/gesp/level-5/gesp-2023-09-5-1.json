@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2023-09-5-1",
+  "level": 5,
+  "session": "2023-09",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "因数分解",
+  "tags": [
+    "质因数分解",
+    "数论"
+  ],
+  "description": "把给定整数写成质数幂的乘积，并按质因子升序输出。",
+  "input": "一个整数 N。",
+  "output": "因子之间用空格、*、空格连接；重复因子写成 p^e，指数为 1 时只写 p。",
+  "constraints": "2 ≤ N ≤ 10^12。",
+  "sampleInput": "72\n",
+  "sampleOutput": "2^3 * 3^2\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "72\n",
+      "expected": "2^3 * 3^2\n",
+      "score": 33
+    },
+    {
+      "input": "97\n",
+      "expected": "97\n",
+      "score": 33
+    },
+    {
+      "input": "1000000\n",
+      "expected": "2^6 * 5^6\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3871",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1570611325304864.pdf"
+  }
+}

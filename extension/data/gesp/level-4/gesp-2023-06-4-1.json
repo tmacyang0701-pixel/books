@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-06-4-1",
+  "level": 4,
+  "session": "2023-06",
+  "number": 1,
+  "title": "幸运数",
+  "kind": "past-paper",
+  "tags": [
+    "数位",
+    "模拟"
+  ],
+  "description": "从个位开始编号。奇数位置的数字乘 7，再反复求各位数字之和，直到变为一位数；偶数位置不变。转换后的各位之和能被 8 整除时为幸运数。",
+  "input": "首行 N；随后 N 行各一个正整数。",
+  "output": "每个整数输出 T（幸运）或 F。",
+  "constraints": "1 ≤ N ≤ 20；整数小于 10^12。",
+  "sampleInput": "2\n11\n1\n",
+  "sampleOutput": "T\nF\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3850",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n11\n1\n",
+      "expected": "T\nF\n",
+      "score": 100
+    }
+  ]
+}

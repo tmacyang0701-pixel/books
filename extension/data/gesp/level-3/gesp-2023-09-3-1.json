@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-3-1",
+  "level": 3,
+  "session": "2023-09",
+  "number": 1,
+  "title": "小杨的储蓄",
+  "kind": "past-paper",
+  "tags": [
+    "数组",
+    "累加"
+  ],
+  "description": "N 个存钱罐编号 0～N−1，开始都没有钱。第 i 天向编号 a_i 的罐子存入 i 元。求 D 天后各罐中的金额。",
+  "input": "首行 N、D；次行 D 个编号 a_i。",
+  "output": "按编号顺序输出 N 个金额，空格分隔。",
+  "constraints": "1 ≤ N,D ≤ 1000；0 ≤ a_i < N。",
+  "sampleInput": "3 4\n2 0 2 1\n",
+  "sampleOutput": "2 4 4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3867",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 4\n2 0 2 1\n",
+      "expected": "2 4 4\n",
+      "score": 100
+    }
+  ]
+}

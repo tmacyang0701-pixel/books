@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-2-2",
+  "level": 2,
+  "session": "2024-03",
+  "number": 2,
+  "title": "小杨的日字矩阵",
+  "kind": "past-paper",
+  "tags": [
+    "嵌套循环",
+    "字符图形"
+  ],
+  "description": "绘制 N×N 的日字矩阵：两侧列用 |；第一、最后和正中间三行的内部位置用 -；其余内部位置用 x。",
+  "input": "奇数 N。",
+  "output": "N 行图案，每行 N 个字符。",
+  "constraints": "5 ≤ N ≤ 49。",
+  "sampleInput": "7\n",
+  "sampleOutput": "|-----|\n|xxxxx|\n|xxxxx|\n|-----|\n|xxxxx|\n|xxxxx|\n|-----|\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3955",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "7\n",
+      "expected": "|-----|\n|xxxxx|\n|xxxxx|\n|-----|\n|xxxxx|\n|xxxxx|\n|-----|\n",
+      "score": 100
+    }
+  ]
+}

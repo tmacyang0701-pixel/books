@@ -1,0 +1,12 @@
+{
+  "model": "qwen3.8-max",
+  "visionModel": "qwen3-vl-plus",
+  "port": 8766,
+  "timeout": 180,
+  "explanationEnv": "~/lfun-github/explanation/.env",
+  "codeAnalysis": {
+    "dailyMinutes": 15,
+    "failedChanges": 6,
+    "passwordSha256": "d9c3348b148dc5dac121cb45097d5ee87b431e395b065ae6f5a2997fb598a014"
+  }
+}

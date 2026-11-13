@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-6-2",
+  "level": 6,
+  "session": "2024-03",
+  "number": 2,
+  "title": "好斗的牛",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "全排列"
+  ],
+  "description": "在连续牛棚中安置 n 头牛，每棚最多一头。第 i 头牛左侧 a_i 个棚、右侧 b_i 个棚内不能有其他牛。可以任意安排顺序，求需要保留的最少连续牛棚数。",
+  "input": "首行 n；次行 n 个 a_i；第三行 n 个 b_i。",
+  "output": "最少牛棚数。",
+  "constraints": "1 ≤ n ≤ 9；1 ≤ a_i,b_i ≤ 1000。",
+  "sampleInput": "2\n1 4\n2 1\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10377",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n1 4\n2 1\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

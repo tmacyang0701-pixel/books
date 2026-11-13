@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-1-1",
+  "level": 1,
+  "session": "2024-12",
+  "number": 1,
+  "title": "温度转换",
+  "kind": "past-paper",
+  "tags": [
+    "浮点数",
+    "分支"
+  ],
+  "description": "将开尔文温度 K 换算为摄氏温度 C 和华氏温度 F：C=K−273.15，F=1.8×C+32。若 F 超过 212，输出指定提示。",
+  "input": "实数 K。",
+  "output": "F>212 时输出 Temperature is too high!；否则依次输出 C、F，空格分隔，各保留两位小数。",
+  "constraints": "0 < K < 100000。",
+  "sampleInput": "300\n",
+  "sampleOutput": "26.85 80.33\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4062",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "300\n",
+      "expected": "26.85 80.33\n",
+      "score": 100
+    }
+  ]
+}

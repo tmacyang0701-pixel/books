@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2026-09-5-1",
+  "level": 5,
+  "session": "2026-09",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "哥德巴赫猜想",
+  "tags": [
+    "筛法",
+    "素数判断"
+  ],
+  "description": "给定大于 2 的偶数 n，统计 n 能分解成两个质数之和的方案数。交换两项顺序视为同一个方案。",
+  "input": "一个偶数 n。",
+  "output": "输出不重复的方案数量。",
+  "constraints": "4 ≤ n ≤ 10^6。",
+  "sampleInput": "10\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "10\n",
+      "expected": "2\n",
+      "score": 33
+    },
+    {
+      "input": "4\n",
+      "expected": "1\n",
+      "score": 33
+    },
+    {
+      "input": "26\n",
+      "expected": "3\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17455",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1767258833551392.pdf"
+  }
+}

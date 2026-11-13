@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-4-2",
+  "level": 4,
+  "session": "2024-06",
+  "number": 2,
+  "title": "宝箱",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "区间枚举"
+  ],
+  "description": "从宝箱中挑选若干个，使所选最大价值与最小价值之差不超过 k，求所选价值总和最大值。",
+  "input": "首行 n、k；次行 n 个宝箱价值。",
+  "output": "最大价值和。",
+  "constraints": "1 ≤ n ≤ 1000；0 ≤ k ≤ 1000；价值为 1～1000。",
+  "sampleInput": "4 2\n1 2 3 4\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4006",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 2\n1 2 3 4\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

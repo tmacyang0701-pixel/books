@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-3-1",
+  "level": 3,
+  "session": "2025-12",
+  "number": 1,
+  "title": "密码强度",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "条件判断"
+  ],
+  "description": "按题设判断密码强度：长度至少 8，至少含一个大写字母和一个数字。三个条件必须同时成立。",
+  "input": "首行 T；之后 T 行各一个仅含大小写字母、数字的密码。",
+  "output": "每个密码输出 Y 或 N。",
+  "constraints": "1 ≤ T ≤ 100；密码长度 1～100。",
+  "sampleInput": "3\nA1234567\nabcdefgh\nAB12\n",
+  "sampleOutput": "Y\nN\nN\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4449",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\nA1234567\nabcdefgh\nAB12\n",
+      "expected": "Y\nN\nN\n",
+      "score": 100
+    }
+  ]
+}

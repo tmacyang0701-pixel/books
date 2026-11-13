@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-3-2",
+  "level": 3,
+  "session": "2026-09",
+  "number": 2,
+  "title": "分割字符串",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "模拟"
+  ],
+  "description": "依次用 1 个、2 个、3 个……连续空格作为分隔符。每次只在上次留下的右半串中寻找第一个匹配，删除恰好所需个数的空格，输出左半串，继续处理右半串。再找不到时输出余串。空子串也要输出为空行。",
+  "input": "一整行字符串，读入时保留空格。",
+  "output": "按分割顺序逐行输出子串，不能省略空行或剩余空格。",
+  "constraints": "长度不超过 1000；仅含英文字母、数字和空格；不以空格结尾。",
+  "sampleInput": "a b  c   d\n",
+  "sampleOutput": "a\nb\nc\nd\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4578",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "a b  c   d\n",
+      "expected": "a\nb\nc\nd\n",
+      "score": 100
+    }
+  ]
+}

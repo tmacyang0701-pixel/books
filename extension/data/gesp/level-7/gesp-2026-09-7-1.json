@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-7-1",
+  "level": 7,
+  "session": "2026-09",
+  "number": 1,
+  "title": "必经之路",
+  "kind": "past-paper",
+  "tags": [
+    "图遍历",
+    "必经点"
+  ],
+  "description": "有向图中，入度为 0 的点是合法起点，出度为 0 的点是合法终点。若所有从任意合法起点到任意合法终点的路径都经过某点，该点为必经点。求全部必经点。",
+  "input": "首行 n、m；随后 m 行有向边 u、v。",
+  "output": "首行必经点数量；若非零，次行升序输出编号。",
+  "constraints": "n ≤ 1000；m ≤ 2000；至少存在一条合法起终点路径，没有孤立点。",
+  "sampleInput": "4 3\n1 3\n2 3\n3 4\n",
+  "sampleOutput": "2\n3 4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17459",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 3\n1 3\n2 3\n3 4\n",
+      "expected": "2\n3 4\n",
+      "score": 100
+    }
+  ]
+}

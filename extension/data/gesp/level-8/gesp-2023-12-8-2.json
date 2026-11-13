@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-8-2",
+  "level": 8,
+  "session": "2023-12",
+  "number": 2,
+  "title": "大量的工作沟通",
+  "kind": "past-paper",
+  "tags": [
+    "最近公共祖先",
+    "倍增"
+  ],
+  "description": "员工 0 为老板，领导关系构成树。员工能管理自己和全部下属。每次给定一组合作员工，找能管理所有参与者且编号最大的员工。",
+  "input": "首行 N；次行员工 1～N-1 的领导编号；随后 Q；每个询问为人数 m 和 m 个互异员工编号。",
+  "output": "逐行输出各场合作主持人编号。",
+  "constraints": "3 ≤ N ≤ 100000；Q ≤ 100；2 ≤ m ≤ min(N,10000)。",
+  "sampleInput": "5\n0 1 1 3\n2\n2 2 4\n2 3 4\n",
+  "sampleOutput": "1\n3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10113",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "5\n0 1 1 3\n2\n2 2 4\n2 3 4\n",
+      "expected": "1\n3\n",
+      "score": 100
+    }
+  ]
+}

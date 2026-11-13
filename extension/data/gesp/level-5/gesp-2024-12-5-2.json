@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2024-12-5-2",
+  "level": 5,
+  "session": "2024-12",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "武器强化",
+  "tags": [
+    "贪心",
+    "枚举"
+  ],
+  "description": "有 n 类武器、m 种材料。材料 i 原本对应武器 p_i，支付 c_i 可改为对应任意武器。让对应武器 1 的材料数严格大于其他每类武器，求最小费用。",
+  "input": "第一行 n、m；接下来 m 行各为 p_i、c_i。",
+  "output": "输出最小总费用。",
+  "constraints": "1 ≤ n,m ≤ 1000；1 ≤ p_i ≤ n；1 ≤ c_i ≤ 10^9。",
+  "sampleInput": "3 4\n1 9\n2 7\n3 1\n3 4\n",
+  "sampleOutput": "1\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "3 4\n1 9\n2 7\n3 1\n3 4\n",
+      "expected": "1\n",
+      "score": 33
+    },
+    {
+      "input": "1 1\n1 8\n",
+      "expected": "0\n",
+      "score": 33
+    },
+    {
+      "input": "2 3\n2 3\n2 8\n2 2\n",
+      "expected": "5\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4071",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1650239731662880.pdf"
+  }
+}

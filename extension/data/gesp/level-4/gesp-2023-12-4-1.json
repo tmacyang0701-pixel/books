@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-4-1",
+  "level": 4,
+  "session": "2023-12",
+  "number": 1,
+  "title": "小杨的字典",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "映射"
+  ],
+  "description": "用字典翻译文本中的单词：连续小写字母组成一个单词，有对应词则替换，否则替换为 UNK；分隔标点原样保留。",
+  "input": "首行 N；随后 N 行各给出原词和译词；最后一行待翻译文本。",
+  "output": "翻译后的文本。",
+  "constraints": "N ≤ 100；字典词长不超过 10，原词互异；文本长不超过 1000，由小写字母和标点组成。",
+  "sampleInput": "2\ncat mao\ndog gou\ncat,dog!fox\n",
+  "sampleOutput": "mao,gou!UNK\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3927",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\ncat mao\ndog gou\ncat,dog!fox\n",
+      "expected": "mao,gou!UNK\n",
+      "score": 100
+    }
+  ]
+}

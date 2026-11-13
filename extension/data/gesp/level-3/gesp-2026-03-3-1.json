@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-3-1",
+  "level": 3,
+  "session": "2026-03",
+  "number": 1,
+  "title": "二进制回文串",
+  "kind": "past-paper",
+  "tags": [
+    "进制转换",
+    "回文"
+  ],
+  "description": "若正整数的二进制表示去掉前导零后正反读取一致，则称为二进制回文数。统计 1～n 内的数量。",
+  "input": "正整数 n。",
+  "output": "二进制回文数数量。",
+  "constraints": "1 ≤ n ≤ 100000。",
+  "sampleInput": "10\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4499",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "10\n",
+      "expected": "5\n",
+      "score": 100
+    }
+  ]
+}

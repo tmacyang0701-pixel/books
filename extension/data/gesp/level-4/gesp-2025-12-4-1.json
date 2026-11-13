@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-4-1",
+  "level": 4,
+  "session": "2025-12",
+  "number": 1,
+  "title": "建造",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "枚举"
+  ],
+  "description": "在 M×N 网格中选择连续 3×3 区域，区域内最大数与最小数之差不超过 H。在合法区域中，求九个数之和的最大值。",
+  "input": "首行 M、N、H；之后 M 行，每行 N 个整数。",
+  "output": "最大的区域总和。",
+  "constraints": "M、N ≤ 1000；H、格子数值为 1～100000；保证存在合法区域。",
+  "sampleInput": "3 3 2\n1 2 3\n2 3 1\n3 1 2\n",
+  "sampleOutput": "18\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4451",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 3 2\n1 2 3\n2 3 1\n3 1 2\n",
+      "expected": "18\n",
+      "score": 100
+    }
+  ]
+}

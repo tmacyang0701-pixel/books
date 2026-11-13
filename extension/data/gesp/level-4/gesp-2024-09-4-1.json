@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-4-1",
+  "level": 4,
+  "session": "2024-09",
+  "number": 1,
+  "title": "黑白方块",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "模式匹配"
+  ],
+  "description": "判断 01 网格内是否存在连续 4×4 子网格，其四行恰好为 0000、0110、0110、0000。",
+  "input": "首行 T；每组先给 n、m，再给 n 行连续 01 字符。",
+  "output": "每组输出 Yes 或 No。",
+  "constraints": "T ≤ 10；1 ≤ n,m ≤ 100。",
+  "sampleInput": "1\n4 4\n0000\n0110\n0110\n0000\n",
+  "sampleOutput": "Yes\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4040",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "1\n4 4\n0000\n0110\n0110\n0000\n",
+      "expected": "Yes\n",
+      "score": 100
+    }
+  ]
+}

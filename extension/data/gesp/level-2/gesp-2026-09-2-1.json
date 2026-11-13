@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-2-1",
+  "level": 2,
+  "session": "2026-09",
+  "number": 1,
+  "title": "直角三角形",
+  "kind": "past-paper",
+  "tags": [
+    "递推",
+    "浮点数"
+  ],
+  "description": "给出正数数列的前两项 a、b，后续每项是前两项平方和的算术平方根。求从第几项开始严格超过上限 M。下标从 1 开始，上限也需与前两项比较。",
+  "input": "三行实数 a、b、M。",
+  "output": "首个超过 M 的项的下标。",
+  "constraints": "0 < a < b ≤ 10000；0 < M ≤ 10000。",
+  "sampleInput": "3.0\n4.0\n5.0\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4575",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3.0\n4.0\n5.0\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

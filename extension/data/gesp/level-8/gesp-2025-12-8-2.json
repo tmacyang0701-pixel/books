@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-8-2",
+  "level": 8,
+  "session": "2025-12",
+  "number": 2,
+  "title": "宝石项链",
+  "kind": "past-paper",
+  "tags": [
+    "双指针",
+    "倍增"
+  ],
+  "description": "环形项链有 n 枚、m 种宝石。将整个环切成若干连续段，每段都必须包含全部 m 种宝石，求最多段数。",
+  "input": "首行 n、m；次行 n 个种类编号。",
+  "output": "最大段数。",
+  "constraints": "2 ≤ m ≤ n ≤ 100000；编号 1～m，每种均出现。",
+  "sampleInput": "6 2\n1 2 1 2 1 2\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14924",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "6 2\n1 2 1 2 1 2\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

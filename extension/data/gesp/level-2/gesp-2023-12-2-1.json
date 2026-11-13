@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-2-1",
+  "level": 2,
+  "session": "2023-12",
+  "number": 1,
+  "title": "小杨做题",
+  "kind": "past-paper",
+  "tags": [
+    "递推",
+    "模拟"
+  ],
+  "description": "前两天分别做 a、b 道题，之后每天题量为前两天之和。一旦某天题量达到 m，当天仍计入，随后不再做题。求前 N 天累计题量。",
+  "input": "四行整数 a、b、m、N。",
+  "output": "累计题量。",
+  "constraints": "0 ≤ a,b ≤ 10；a,b < m ≤ 1000000；3 ≤ N ≤ 364。",
+  "sampleInput": "2\n3\n12\n6\n",
+  "sampleOutput": "31\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3923",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n3\n12\n6\n",
+      "expected": "31\n",
+      "score": 100
+    }
+  ]
+}

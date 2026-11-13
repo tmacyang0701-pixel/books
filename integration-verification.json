@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-13",
+  "status": "passed",
+  "codearenaFrontendTests": {
+    "passed": 71,
+    "failed": 0,
+    "command": "node --test extension/tests/*.test.mjs"
+  },
+  "numberGardenTests": {
+    "applicationPassed": 25,
+    "installerPassed": 22,
+    "failed": 0,
+    "command": "node --test setup-tests/installer.test.mjs application/tests/*.test.mjs"
+  },
+  "powerShellSyntax": {
+    "scripts": 23,
+    "errors": 0
+  },
+  "powerShellBehaviorChecks": [
+    "setup-tests/gesp-integration.ps1: bundled checksums, offline reuse, malformed/stale paths, corruption rejection, missing debugger, Python repair dispatch",
+    "extension/tests/test_windows_bootstrap.ps1: prerequisite reuse, missing application preparation, download/install/runtime/pip failure stops",
+    "extension/tests/test_service_process.ps1: direct and venv process identification; wrong command, port, PID rejection"
+  ],
+  "realRuntimeChecks": {
+    "localPreflight": "extension/install-all.ps1 -CheckOnly -SkipNetwork: all checks passed",
+    "cpp17CompileRun": true,
+    "gdbWithPython": true,
+    "nativeSourceLauncherAndMessageFraming": true,
+    "debugPausedAtUserCode": true,
+    "pypdfOfflineInstall": "pypdf 6.11.0 installed into an isolated venv with PIP_NO_INDEX=1; import passed",
+    "pypdfWheelIntegrity": "SHA-256 matches PyPI 6.11.0 release metadata"
+  },
+  "fixesDuringIntegration": [
+    "PowerShell 5.1 does not treat harmless GDB Python SyntaxWarnings as failure",
+    "Previously selected drive paths are combined without requiring that drive to exist",
+    "Broken/moved project venv is recreated before dependency installation",
+    "GDB/Python availability is part of prerequisite readiness",
+    "Number Garden config backup uses individual file copies to avoid a reproduced Node recursive-copy crash on Chinese paths",
+    "PATH test checks the actual single environment entry because Windows lookups are case-insensitive"
+  ],
+  "scope": {
+    "systemInstallersExecuted": false,
+    "nativeHostRegistered": false,
+    "existingRegistrationChanged": false,
+    "existingNativeManifestUpdated": true,
+    "existingServiceRestarted": false,
+    "liveModelGenerationCalled": false,
+    "cleanWindowsFirstInstallTested": false
+  },
+  "layoutUpdate": {
+    "frontendTestsPassed": 71,
+    "javascriptSyntax": "passed",
+    "installerSyntax": "passed",
+    "behavior": "Compact rem-based viewport layout across all views; two-column six-question learning recommendations; knowledge dropdown and compact cards; library filters/import on one row, narrow two-line list and wide preview; persistent sidebar/header/lesson outline/workspace problem toggles; right-edge auto-retracting service menu with live status; aligned editor/results headers; one-line question suggestions with full hover text; 0.375rem scrollbars",
+    "cssSyntax": "passed",
+    "layoutControlIds": "passed",
+    "readingPaneStructure": "passed: title in directory, bottom tool drawer, persistent page navigation outside scrolling content, narration drawer, accessible icon composer controls",
+    "readingUpdate": "Local Microsoft YaHei @font-face after font feedback; fixed hover target prevents service ball oscillation; remembered chat collapse with edge restore; page kind in fixed toolbar; internal content margins",
+    "browserVisualVerification": false,
+    "browserBlocker": "Computer Use stopped because the current Windows browser URL could not be determined reliably."
+  },
+  "nativeRepair": {
+    "cause": "Defender quarantined native-host/dist/codearena_host.exe at 2026-11-13 10:13; detection Trojan:Win32/Bearfoos.B!ml",
+    "implementation": "Reviewed Python native-host source, started by start-host.bat using project .venv; source launcher is now the installer default",
+    "binaryRestored": false,
+    "protectionSettingsChanged": false,
+    "windowsRegistryChanged": false,
+    "nativeTestsPassed": 10,
+    "debuggerTestsPassed": 5,
+    "sourceLauncherCompileRunAndDebugProbe": "passed",
+    "localInstallerPreflight": "passed",
+    "installerBehaviorChecks": "passed",
+    "chromeEvaluationObservedFromUserScreenshot": true,
+    "repairEntry": "修复本地评测.cmd"
+  },
+  "analysisAndDebugUpdate": {
+    "frontendTestsPassed": 71,
+    "codeAnalysisTestsPassed": 7,
+    "knowledgePracticeTestsPassed": 9,
+    "modelNetworkTestsPassed": 8,
+    "javascriptAndCssSyntax": "passed",
+    "workspaceCollapse": "In-pane arrow shares saved state with reachable editor restore control",
+    "debugInspector": "Compact variable rows, expandable children and memory; traditional bug icon survives active state updates",
+    "thinking": "Code analysis, lesson variants, topic practice and its correction use enable_thinking=true, thinking_budget=8192; metadata-only SSE frames handled",
+    "analysisRecovery": "One correction against unchanged numbered source; invalid line references remain rejected",
+    "practiceRecovery": "Consistent case-count example, field-specific validation and one correction before publishing a complete set",
+    "liveModelCalled": false,
+    "existingServiceRestarted": false,
+    "restartBlocker": "Network preflight returned Windows 10013 in agent session; original service was not stopped. Apply backend updates using the page service menu.",
+    "browserVisualVerification": false
+  },
+  "practiceThinkingUpdate": {
+    "testsPassed": 24,
+    "testsFailed": 0,
+    "scope": [
+      "topic practice generation",
+      "topic practice correction",
+      "lesson variants"
+    ],
+    "streamMetadataRegression": "passed",
+    "existingBackendStillUsesOldValidation": true,
+    "requiresPageServiceUpdate": true,
+    "liveModelCalled": false
+  }
+}

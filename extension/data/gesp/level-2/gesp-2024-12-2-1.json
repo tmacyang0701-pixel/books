@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-2-1",
+  "level": 2,
+  "session": "2024-12",
+  "number": 1,
+  "title": "寻找数字",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "幂"
+  ],
+  "description": "对每个正整数 a，寻找满足 b⁴=a 的正整数 b。",
+  "input": "第一行 t，随后 t 行每行一个 a。",
+  "output": "存在时输出 b，不存在时输出 -1。",
+  "constraints": "1 ≤ t ≤ 100000；1 ≤ a ≤ 100000000。",
+  "sampleInput": "3\n1\n81\n80\n",
+  "sampleOutput": "1\n3\n-1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4064",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1\n81\n80\n",
+      "expected": "1\n3\n-1\n",
+      "score": 100
+    }
+  ]
+}

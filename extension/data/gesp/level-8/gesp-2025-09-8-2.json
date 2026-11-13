@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-8-2",
+  "level": 8,
+  "session": "2025-09",
+  "number": 2,
+  "title": "最小生成树",
+  "kind": "past-paper",
+  "tags": [
+    "最小生成树",
+    "替换边"
+  ],
+  "description": "给定带权连通无向图，逐一独立考虑删除每条边后最小生成树的权值和。删边导致不连通时输出 -1，原图可能有重边。",
+  "input": "首行 n、m；随后 m 行 u、v、w。",
+  "output": "m 行，第 i 行为仅删除第 i 条边后的答案。",
+  "constraints": "n,m ≤ 100000；1 ≤ w ≤ 10^9。",
+  "sampleInput": "3 3\n1 2 1\n2 3 2\n1 3 4\n",
+  "sampleOutput": "6\n5\n3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14080",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 3\n1 2 1\n2 3 2\n1 3 4\n",
+      "expected": "6\n5\n3\n",
+      "score": 100
+    }
+  ]
+}

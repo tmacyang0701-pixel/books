@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-4-2",
+  "level": 4,
+  "session": "2023-12",
+  "number": 2,
+  "title": "田忌赛马",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "贪心"
+  ],
+  "description": "两方各有 N 匹马，每匹恰好出赛一次。已知各马速度，你可以安排己方出场顺序，使速度更快的获胜场数最多。",
+  "input": "首行 N；第二行己方速度；第三行对方速度。",
+  "output": "最多获胜场数。",
+  "constraints": "1 ≤ N ≤ 50000；速度为 1～2N，全部速度互异。",
+  "sampleInput": "2\n1 4\n2 3\n",
+  "sampleOutput": "1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3928",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n1 4\n2 3\n",
+      "expected": "1\n",
+      "score": 100
+    }
+  ]
+}

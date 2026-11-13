@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-3-1",
+  "level": 3,
+  "session": "2026-09",
+  "number": 1,
+  "title": "公共二进制位",
+  "kind": "past-paper",
+  "tags": [
+    "位运算",
+    "数组"
+  ],
+  "description": "给出 n 个非负整数，统计有多少二进制位在所有整数中都为 1。某个数没有的高位视为 0。",
+  "input": "首行 n；次行 n 个 a_i。",
+  "output": "公共为 1 的二进制位数量。",
+  "constraints": "2 ≤ n ≤ 20000；0 ≤ a_i ≤ 1000000000。",
+  "sampleInput": "3\n7 3 11\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4577",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n7 3 11\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

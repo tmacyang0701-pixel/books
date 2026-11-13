@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-2-1",
+  "level": 2,
+  "session": "2024-03",
+  "number": 1,
+  "title": "乘法问题",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "溢出判断"
+  ],
+  "description": "计算 n 个正整数的乘积。如果最终乘积超过一百万，则改为输出指定字符串。",
+  "input": "第一行 n，随后 n 行每行一个整数 a。",
+  "output": "乘积不超过一百万时输出乘积，否则输出 >1000000。",
+  "constraints": "1 ≤ n ≤ 50；1 ≤ a ≤ 100。",
+  "sampleInput": "3\n2\n5\n7\n",
+  "sampleOutput": "70\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3954",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n2\n5\n7\n",
+      "expected": "70\n",
+      "score": 100
+    }
+  ]
+}

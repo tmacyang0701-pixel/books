@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2025-03-6-2",
+  "level": 6,
+  "session": "2025-03",
+  "number": 2,
+  "title": "环线",
+  "kind": "past-paper",
+  "tags": [
+    "动态规划",
+    "环形最大子段和"
+  ],
+  "description": "环线上各站有正负快乐值。选择一个起点，按环线方向经过至少一个、至多 n 个不同站点后结束；每站只算一次。求最大快乐值总和。",
+  "input": "首行 n；次行 n 个站点快乐值。",
+  "output": "最大快乐值。",
+  "constraints": "1 ≤ n ≤ 200000；|a_i| ≤ 10^9。",
+  "sampleInput": "4\n4 -9 2 3\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11963",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://www.hfoj.net/d/luogu/p/P11963"
+  },
+  "cases": [
+    {
+      "input": "4\n4 -9 2 3\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-6-1",
+  "level": 6,
+  "session": "2025-06",
+  "number": 1,
+  "title": "学习小组",
+  "kind": "past-paper",
+  "tags": [
+    "动态规划",
+    "完全背包"
+  ],
+  "description": "将 n 名同学分为若干非空小组，每人恰属一组。人数为 k 的小组贡献 a_k 的积极度，求各组积极度总和的最大值。",
+  "input": "首行 n；次行 n 个 a_k。",
+  "output": "最大总积极度。",
+  "constraints": "1 ≤ n ≤ 1000；0 ≤ a_k ≤ 10000。",
+  "sampleInput": "4\n1 5 6 7\n",
+  "sampleOutput": "10\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P13015",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n1 5 6 7\n",
+      "expected": "10\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-6-2",
+  "level": 6,
+  "session": "2026-06",
+  "number": 2,
+  "title": "满二叉树",
+  "kind": "past-paper",
+  "tags": [
+    "二叉树",
+    "树形动态规划"
+  ],
+  "description": "给定根为 1 的二叉树。统计有多少个节点的完整子树为满二叉树：所有叶子深度相同，且非叶子都有两个孩子；单个叶子也算。",
+  "input": "首行 n；随后 n 行左、右孩子编号，不存在用 0。",
+  "output": "满二叉子树数量。",
+  "constraints": "1 ≤ n ≤ 100000。",
+  "sampleInput": "5\n2 3\n4 5\n0 0\n0 0\n0 0\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17013",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://wiki.coderli.com/gesp/6/codereal/gesp-6-luogu-p17013/"
+  },
+  "cases": [
+    {
+      "input": "5\n2 3\n4 5\n0 0\n0 0\n0 0\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

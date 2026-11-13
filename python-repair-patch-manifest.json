@@ -1,0 +1,15 @@
+{
+  "patchRevision": 3,
+  "appliesTo": "number-garden-one-click-setup (GESP integrated)",
+  "extractInto": "directory containing install-all.cmd",
+  "files": {
+    "setup/engine.mjs": "45cf544cb4cd7fe4cd9dd9e049b35859b0dde7ad0777deb9ba79978030ffc156",
+    "setup/runtime-common.ps1": "0874a75d3c659be8639d039c193f35f816b34e9aca178e05b2615198f17638b9",
+    "setup/diagnose-python.ps1": "f22cceed9898c50f247f5f2bbe3233c5035c8b06d78ff25120ba0cc8fdaf4170",
+    "diagnose-python.cmd": "e86e9f0ca50158f4b21382e74e65346104514c85c4ac413880600f6a5d408e13",
+    "PYTHON-REPAIR.txt": "b193df4c2cb8a8e746b7661260ef4ec9cf55577c33a139a0b8f6b8862ebba48a"
+  },
+  "purpose": "Repair missing registered Python; preserve Dev-C++ configuration on Windows Unicode paths",
+  "flowTestsPassed": 22,
+  "windowsNativeExecutionTested": false
+}

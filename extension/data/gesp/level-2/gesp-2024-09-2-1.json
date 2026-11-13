@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-2-1",
+  "level": 2,
+  "session": "2024-09",
+  "number": 1,
+  "title": "数位之和",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "整除"
+  ],
+  "description": "逐个求正整数的十进制数位之和，判断这个和是否为 7 的倍数。",
+  "input": "第一行 n，随后 n 行每行一个 a。",
+  "output": "每个数对应一行 Yes 或 No。",
+  "constraints": "1 ≤ n,a ≤ 100000。",
+  "sampleInput": "3\n7\n16\n12\n",
+  "sampleOutput": "Yes\nYes\nNo\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4036",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n7\n16\n12\n",
+      "expected": "Yes\nYes\nNo\n",
+      "score": 100
+    }
+  ]
+}

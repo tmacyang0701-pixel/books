@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2024-03-5-1",
+  "level": 5,
+  "session": "2024-03",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "成绩排序",
+  "tags": [
+    "排序",
+    "结构体"
+  ],
+  "description": "每位学生有语数英成绩。依次按总分、语数之和、语数中的较高分降序比较，三项都相同则并列。并列会占用后续名次。",
+  "input": "第一行 N，随后 N 行依次给出各学生语文、数学、英语成绩。",
+  "output": "按原输入顺序，每行输出一位学生的排名。",
+  "constraints": "2 ≤ N ≤ 10^4；单科成绩 0～150。",
+  "sampleInput": "4\n90 80 70\n80 90 70\n100 70 70\n80 80 70\n",
+  "sampleOutput": "2\n2\n1\n4\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "4\n90 80 70\n80 90 70\n100 70 70\n80 80 70\n",
+      "expected": "2\n2\n1\n4\n",
+      "score": 33
+    },
+    {
+      "input": "2\n0 0 0\n1 0 0\n",
+      "expected": "2\n1\n",
+      "score": 33
+    },
+    {
+      "input": "3\n50 50 50\n50 50 50\n50 50 50\n",
+      "expected": "1\n1\n1\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3968",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1602047172411424.pdf"
+  }
+}

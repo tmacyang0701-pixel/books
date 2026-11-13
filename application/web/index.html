@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f8f4">
+<meta name="description" content="数字寻数、读色挑战与三项 AI 分级训练，支持1–10级难度、录音与成绩记录。">
+<title>数间 · 给专注一点时间</title>
+<style>
+:root{--paper:#f7f8f4;--ink:#253b32;--muted:#818b80;--green:#53765a;--pale:#eaf0e5;--line:#e4e8df;--white:#fff;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a1b694;outline-offset:4px}button{color:inherit}header{height:92px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5.2%;gap:20px}.brand{display:flex;align-items:center;gap:13px}.brandmark{display:grid;grid-template-columns:repeat(3,5px);gap:4px;padding:11px;border:1px solid #bac9b1;border-radius:12px;transform:rotate(-7deg)}.brandmark i{width:5px;height:5px;background:var(--green);border-radius:2px}.brandmark i:nth-child(3n){opacity:.35}.brandname{font-size:24px;letter-spacing:4px;font-weight:650}.brand small{display:block;letter-spacing:2.4px;color:var(--muted);font-size:9px;margin-top:-4px}.header-right{display:flex;align-items:center;gap:25px}.local-tag{color:var(--muted);font-size:12px}.local-tag::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#8ba179;margin-right:8px}.plain{border:0;background:none;padding:7px 0;color:#63715f;font-size:13px}.page{max-width:1420px;margin:auto;padding:40px 5.2% 24px}.intro{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:30px}.eyebrow{font-size:10px;letter-spacing:2.4px;color:#829174;font-weight:600}.intro h1{margin:7px 0 7px;font-size:31px;font-weight:550;letter-spacing:1px}.intro p{margin:0;color:var(--muted);font-size:13px}.date-note{font-size:12px;color:var(--muted);padding-bottom:4px}.layout{display:grid;grid-template-columns:260px minmax(0,1fr) 220px;gap:24px;align-items:start}.card{background:var(--white);border:1px solid var(--line);border-radius:18px}.settings{padding:24px 22px}.section-label{font-size:12px;font-weight:650;display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.section-label span{font-size:10px;color:var(--muted);font-weight:400}.mode{width:100%;text-align:left;border:1px solid var(--line);border-radius:10px;background:#fff;padding:12px 13px;margin-bottom:8px;display:flex;gap:10px;align-items:center}.mode.active{border-color:#809771;background:#f3f6ef}.mode-symbol{font-size:19px;width:24px;color:var(--green);font-family:var(--mono)}.mode b{display:block;font-size:12px;font-weight:600}.mode small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.mode .radio{width:12px;height:12px;border:1px solid #c8cfc3;border-radius:50%;margin-left:auto;flex-shrink:0}.mode.active .radio{border:4px solid var(--green)}.divider{height:1px;background:var(--line);margin:23px 0}.size-number{font-family:var(--mono);font-size:28px;font-weight:500;letter-spacing:-1.5px}.size-number small{font:11px -apple-system,sans-serif;letter-spacing:0;color:var(--muted);margin-left:7px}input[type=range]{width:100%;accent-color:var(--green);margin:15px 0 6px;cursor:pointer}.range-labels{display:flex;justify-content:space-between;font:10px var(--mono);color:var(--muted)}.presets{display:flex;gap:5px;margin-top:16px}.preset{flex:1;border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 1px;font:10px var(--mono);color:#82907b}.preset.active{background:var(--pale);border-color:#d2ddc8;color:var(--green)}.field{display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-top:17px;gap:10px}.field select{max-width:120px;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#62745a;font-size:11px}.switch{width:30px;height:18px;border:0;border-radius:20px;background:#d7ddcf;padding:3px;display:flex;align-items:center}.switch::after{content:"";width:12px;height:12px;border-radius:50%;background:#fff;transition:transform .15s}.switch[aria-checked=true]{background:var(--green)}.switch[aria-checked=true]::after{transform:translateX(12px)}.start{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;margin-top:23px;border:0;border-radius:9px;background:var(--green);color:#fff;padding:12px;font-size:12px;box-shadow:0 4px 8px #53765a16}.start:hover{background:#426348}.hint{color:#9aa291;font-size:10px;text-align:center;margin:10px 0 0}.board-card{padding:22px 25px 18px;position:relative;overflow:hidden}.board-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.board-title{font-size:12px;font-weight:600}.badge{font-size:10px;padding:3px 9px;color:#748965;background:#f0f4eb;border-radius:20px;margin-left:8px;font-weight:400}.icon-btn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 9px;color:var(--muted);font-size:15px;line-height:1.3}.stats{display:grid;grid-template-columns:1.2fr 1fr 1fr;margin:25px 0 21px}.stat{padding-left:18px;border-left:1px solid var(--line)}.stat:first-child{padding:0;border:0}.stat-label{color:var(--muted);font-size:10px;letter-spacing:1px;margin-bottom:5px}.stat-value{font:27px var(--mono);letter-spacing:-1px}.stat-value small{font:11px -apple-system,sans-serif;color:#a1a99a;margin-left:5px}.stat-value.target{color:var(--green)}.grid-scroll{overflow:auto;padding:3px;margin:-3px}.grid-wrap{position:relative}.grid{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:8px;aspect-ratio:1;min-width:280px}.cell{background:#f8f9f5;border:1px solid #e8ecdf;border-radius:9px;font:500 clamp(15px,2vw,27px) var(--mono);display:flex;align-items:center;justify-content:center;padding:0;touch-action:manipulation;transition:background .15s,border-color .15s,transform .1s;aspect-ratio:1}.cell:hover:not(:disabled){background:#eaf0e4;border-color:#bdcbb0;transform:translateY(-1px)}.cell:disabled{opacity:1}.cell.done{color:#a1b491;background:#eaf0e4;border-color:#e0e9d7}.cell.done::after{content:"·"}.cell.wrong{background:#fbe9e4;border-color:#d9a392;animation:shake .25s}.cell.masked::after{content:"·";color:#a7b59c}.dense .grid{gap:4px;min-width:440px}.dense .cell{font-size:clamp(11px,1.15vw,16px);border-radius:5px}.overlay{position:absolute;inset:0;z-index:2;background:#f7f8f4eF;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;padding:20px;backdrop-filter:blur(5px)}.overlay[hidden]{display:none}.overlay h2{font-size:23px;font-weight:500;margin:10px 0}.overlay p{font-size:12px;color:var(--muted);max-width:270px;margin:0}.overlay-symbol{font-size:32px;color:#809571}.overlay button{max-width:190px;margin-top:20px}.board-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;font-size:10px;color:var(--muted)}.live-indicator{display:inline-block;width:5px;height:5px;background:#91a27f;border-radius:50%;margin-right:6px}.progress-track{height:3px;background:#f0f2eb;margin-top:16px;border-radius:2px;overflow:hidden}.progress-track span{display:block;height:100%;width:0;background:#92aa7c;transition:width .2s}.rightcol{display:flex;flex-direction:column;gap:18px}.daily{padding:21px;background:#eaf0e3;border:1px solid #e0e8d7;border-radius:16px;position:relative;overflow:hidden}.daily:after{content:"✳";position:absolute;right:12px;top:38px;font-size:74px;font-weight:200;color:#d0ddc1;line-height:1}.daily .eyebrow{font-size:9px}.daily-count{font:38px var(--mono);margin:16px 0 4px;position:relative;z-index:1}.daily-count small{font:11px -apple-system,sans-serif;color:#7d8d71;margin-left:7px}.daily p{font-size:11px;color:#7d8d71;margin:0;position:relative;z-index:1}.records{padding:21px 18px}.record-empty{padding:18px 0 10px;font-size:11px;line-height:1.9;color:#a0a797}.record-list{list-style:none;margin:0;padding:0}.record-list li{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #f0f2eb;font-size:11px}.record-list li:last-child{border:0}.record-list small{display:block;color:var(--muted);font-size:9px}.record-time{font:14px var(--mono)}.best-label{font-size:10px;color:#8c997e;margin-top:16px}.best{font:24px var(--mono);margin-top:5px}.note{padding:4px 7px;font-size:11px;color:#89927f}.note h3{font-size:11px;color:#66775c;font-weight:600;margin:0 0 8px}.note p{margin:0;line-height:1.9}.footer{display:flex;justify-content:space-between;gap:15px;border-top:1px solid var(--line);margin-top:32px;padding-top:19px;font-size:10px;color:#9aa28e}.leaf{color:#809872;margin-right:6px}dialog{border:1px solid var(--line);border-radius:20px;padding:30px;max-width:450px;width:calc(100% - 32px);color:var(--ink);box-shadow:0 20px 90px #263a3220}dialog::backdrop{background:#253b3255;backdrop-filter:blur(3px)}dialog h2{font-size:23px;font-weight:500;margin:0 0 15px}dialog p,dialog li{font-size:13px;color:#77836c}dialog li{margin-bottom:12px}dialog .close{float:right}#notice{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:9px;padding:10px 20px;font-size:12px;z-index:9}#notice[hidden]{display:none}.cancel{border:0;background:none;color:var(--muted);font-size:11px;padding:8px}.controls{display:flex;gap:7px}.page:fullscreen{overflow:auto;background:var(--paper);max-width:none}.page:fullscreen .layout{max-width:1250px;margin:auto}.page:fullscreen .intro{max-width:1250px;margin:0 auto 25px}@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}@media(min-width:1450px){.grid{max-height:570px}}@media(max-width:1150px){.layout{grid-template-columns:235px minmax(0,1fr);gap:20px}.rightcol{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.4fr 1fr}.record-list{display:flex;gap:15px;flex-wrap:wrap}.record-list li{gap:15px}.best-label,.best{display:inline-block;margin-right:8px}.intro h1{font-size:28px}}@media(max-width:670px){header{height:73px;padding:0 20px}.brandname{font-size:21px}.header-right{gap:14px}.local-tag{display:none}.page{padding:25px 18px 20px}.intro{margin-bottom:22px}.intro h1{font-size:25px}.intro p{font-size:11px}.date-note{display:none}.layout{display:flex;flex-direction:column;gap:16px}.settings{width:100%;padding:17px}.settings .modes{display:flex;gap:8px}.mode{margin:0;padding:9px;gap:6px}.mode small{font-size:9px}.mode-symbol{font-size:16px}.divider{margin:15px 0}.settings .section-label{margin-bottom:9px}.size-number{font-size:24px}.presets{margin-top:11px}.settings .start{margin-top:15px;padding:10px}.settings .hint{display:none}.board-card{width:100%;padding:20px 16px 16px}.stats{margin:22px 0 18px}.stat-value{font-size:25px}.grid{gap:6px}.cell{font-size:24px;border-radius:7px}.dense .cell{font-size:13px}.rightcol{width:100%;display:grid;grid-template-columns:1fr 1.2fr;gap:14px}.note{grid-column:1/-1}.daily{padding:18px}.records{padding:18px}.record-list{display:block}.record-list li{padding:7px 0}.footer{font-size:9px;margin-top:24px}.footer span:last-child{display:none}.board-footer{font-size:9px}.badge{margin-left:4px}.size-row{display:flex;justify-content:space-between;align-items:center}.size-row .presets{width:165px;margin:0}.mode .radio{width:10px;height:10px}.grid-scroll{overscroll-behavior-x:contain}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>/*STROOP_STYLE*/</style>
+<style>/*GYM_STYLE*/</style>
+<style>/*PROGRAMMING_STYLE*/</style>
+<style>/*LAYOUT_STYLE*/</style>
+</head>
+<body>
+<header id="siteHeader"><div class="brand"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><div><div class="brandname">数间</div><small>ROOM TO FOCUS</small></div></div><div class="header-right"><span class="local-tag">留一点时间，给自己</span><button class="plain" id="helpBtn">训练指南 ↗</button></div></header>
+<main class="page" id="app">
+<div class="layout-controls" role="group" aria-label="布局显示"><button class="layout-control" id="sidebarToggle" aria-label="收起左侧菜单" aria-expanded="true"><span aria-hidden="true">◧</span></button><button class="layout-control" id="topbarToggle" aria-label="收起顶部栏" aria-expanded="true" aria-controls="siteHeader"><span aria-hidden="true">⌃</span></button></div>
+
+<section class="intro"><div><div class="eyebrow">A LITTLE FOCUS, EVERY DAY</div><h1>让专注，慢慢发生。</h1><p>在数字与颜色之间，找回清晰的节奏。一次只专注于下一步。</p></div><span class="date-note" id="dateNote"></span></section>
+<nav class="training-tabs" aria-label="选择训练"><button class="training-tab active" id="numberTab" data-training="numbers" aria-pressed="true">⌗ 数字训练</button><button class="training-tab" id="stroopTab" data-training="stroop" aria-pressed="false">◈ 读色挑战</button><button class="training-tab" data-training="digits" aria-pressed="false">↶ 倒序数字</button><button class="training-tab" data-training="words" aria-pressed="false">❋ 词语记忆</button><button class="training-tab" data-training="switch" aria-pressed="false">⇄ 规则切换</button><button class="training-tab" data-training="programming" aria-pressed="false">⌘ 编程学习</button></nav>
+<div class="layout" id="numberPanel">
+<aside class="settings card" aria-label="训练设置">
+<div class="section-label">训练模式 <span>01 / MODE</span></div>
+<div class="modes"><button class="mode active" data-mode="classic" aria-pressed="true"><span class="mode-symbol" aria-hidden="true">⌗</span><span><b>顺序寻数</b><small>从 1 开始，依次寻找数字</small></span><span class="radio" aria-hidden="true"></span></button><button class="mode" data-mode="memory" aria-pressed="false"><span class="mode-symbol" aria-hidden="true">◈</span><span><b>位置记忆</b><small>记住位置，再依序点击</small></span><span class="radio" aria-hidden="true"></span></button></div>
+<div class="divider"></div>
+<label class="section-label" for="size">方格大小 <span>02 / LEVEL</span></label>
+<div class="size-row"><div class="size-number"><span id="sizeValue">5 × 5</span><small id="totalLabel">25 个数字</small></div><div class="presets"><button class="preset" data-size="3">3×3</button><button class="preset active" data-size="5">5×5</button><button class="preset" data-size="9">9×9</button><button class="preset" data-size="15">15×15</button></div></div>
+<input id="size" type="range" min="3" max="15" value="5" step="1" aria-valuetext="5 乘 5"><div class="range-labels"><span>3 × 3 · 起步</span><span>15 × 15 · 挑战</span></div>
+<div class="divider"></div>
+<div class="section-label">偏好设置 <span>03 / PREFERENCES</span></div>
+<label class="field" id="memoryField" hidden>记忆时长<select id="memoryTime"><option value="5">5 秒</option><option value="10" selected>10 秒</option><option value="20">20 秒</option><option value="30">30 秒</option><option value="60">60 秒</option></select></label>
+<div class="field"><span>点击音效</span><button class="switch" id="sound" role="switch" aria-checked="false" aria-label="点击音效"></button></div>
+<button class="start" id="startBtn"><span aria-hidden="true">▷</span> 开始训练</button><p class="hint">不必追求速度，先找到自己的节奏</p>
+</aside>
+<section class="board-card card" aria-label="数字训练区">
+<div class="board-top"><div class="board-title">专注练习场 <span class="badge" id="modeBadge">顺序寻数</span></div><div class="controls"><button class="icon-btn" id="pauseBtn" title="暂停训练" aria-label="暂停训练" hidden>Ⅱ</button><button class="icon-btn" id="fullscreenBtn" title="切换全屏" aria-label="切换全屏">⛶</button></div></div>
+<div class="stats"><div class="stat"><div class="stat-label" id="timerLabel">训练用时</div><div class="stat-value" id="timer">00:00<small>.0</small></div></div><div class="stat"><div class="stat-label">下一个数字</div><div class="stat-value target" id="target">01</div></div><div class="stat"><div class="stat-label">点击错误</div><div class="stat-value" id="errors">0<small>次</small></div></div></div>
+<div class="grid-scroll" id="gridScroll"><div class="grid-wrap"><div class="grid" id="grid" style="--n:5" role="group" aria-label="数字方格"></div><div class="overlay" id="overlay" hidden></div></div></div>
+<div class="progress-track" role="progressbar" aria-label="完成进度" aria-valuemin="0" aria-valuemax="25" aria-valuenow="0" id="progress"><span id="progressFill"></span></div>
+<div class="board-footer"><span id="status" role="status"><i class="live-indicator"></i>准备好了，就从 1 开始</span><span id="count">0 / 25</span></div>
+</section>
+<aside class="rightcol"><section class="daily"><div class="eyebrow">YOUR DAILY PRACTICE</div><div class="daily-count"><span id="todayCount">0</span><small>次训练</small></div><p>今日已完成<br>每一次专注，都算数。</p></section><section class="records card"><div class="section-label">最近练习 <span>RECENT</span></div><div id="records"></div><div class="best-label" id="bestLabel">当前设置 · 最佳用时</div><div class="best" id="best">—</div></section><section class="note"><h3><span aria-hidden="true">✧</span> 给自己一点耐心</h3><p id="tip">让视线自然扫过方格，按顺序寻找数字。建议从 3×3 起步，熟悉后再逐级增加难度。</p></section></aside>
+</div>
+<section class="layout stroop-layout" id="stroopPanel" hidden aria-label="读色挑战">
+ <aside class="settings card">
+  <div class="section-label">读色，不读字 <span>STROOP</span></div>
+  <p class="stroop-description">把注意力放在字的<strong>颜色</strong>上，忽略文字本身，大声说出颜色。</p>
+  <div class="example-card"><span class="example-word">蓝</span><div>看到这个字<br>请读 <b>“红色”</b></div></div>
+  <div class="divider"></div>
+  <label class="section-label" for="stroopDuration">训练时限 <span>01 / TIME</span></label>
+  <select class="stroop-select" id="stroopDuration"><option value="30">30 秒 · 快速练习</option><option value="60" selected>60 秒 · 标准练习</option><option value="90">90 秒 · 从容挑战</option><option value="120">120 秒 · 耐力练习</option></select>
+  <label class="section-label spaced" for="stroopCount">本轮题数 <span>02 / CARDS</span></label>
+  <select class="stroop-select" id="stroopCount"><option value="12">12 题 · 起步</option><option value="24" selected>24 题 · 进阶</option><option value="36">36 题 · 挑战</option></select>
+  <button class="start" id="stroopStart">◉ 开始录音训练</button>
+  <button class="stroop-stop" id="stroopStop" hidden>■ 结束录音并评分</button>
+  <button class="plain" id="stroopRetry" hidden>↻ 重试评分（保留本次录音）</button>
+  <p class="microphone-note">开始时需要麦克风权限。结束后，录音将发送至阿里云百炼进行语音识别与评分，不在应用服务器保存。</p>
+ </aside>
+ <section class="card board-card stroop-board">
+  <div class="board-top"><div class="board-title">色字干扰练习 <span class="badge">只读颜色</span></div><span class="recording-pill" id="recordingPill">等待开始</span></div>
+  <div class="stats"><div class="stat"><div class="stat-label">剩余时间</div><div class="stat-value" id="stroopTimer">01:00</div></div><div class="stat"><div class="stat-label">本轮题数</div><div class="stat-value" id="stroopTotal">24<small>题</small></div></div><div class="stat"><div class="stat-label">训练得分</div><div class="stat-value target" id="stroopScore">—</div></div></div>
+  <p class="reading-order">按编号从左到右、从上到下朗读，只说颜色；不要读编号，不要跳题。</p>
+  <div class="stroop-grid-wrap"><div class="stroop-grid" id="stroopGrid" aria-label="按编号朗读颜色的题目"></div><div class="stroop-cover" id="stroopCover"><span aria-hidden="true">◈</span><h2>看到字，读出颜色。</h2><p>点击“开始录音训练”后显示本轮题目。<br>倒计时结束后自动提交，也可以提前结束。</p></div></div>
+  <div class="progress-track"><span id="stroopProgress"></span></div>
+  <p class="stroop-status" id="stroopStatus" role="status" aria-live="polite">准备好麦克风，在安静的环境里开始。</p>
+  <div class="recording-preview" id="recordingPreview" hidden><label for="stroopAudio">回听本次录音</label><audio controls id="stroopAudio" preload="metadata"></audio><a id="stroopDownload" download="读色练习.wav">下载录音 ↓</a></div>
+ </section>
+ <aside class="rightcol stroop-side">
+  <section class="daily"><div class="eyebrow">A DIFFERENT KIND OF FOCUS</div><div class="stroop-motto">看见颜色，<br>越过文字。</div><p>不抢快，先读准。<br>每一声回答，都是一次选择。</p></section>
+  <section class="records card"><div class="section-label">读色记录 <span>RECENT</span></div><div id="stroopRecords" class="record-empty">完成训练后，得分会保存在这里。</div></section>
+  <section class="note"><h3>✧ 评分规则</h3><p>得分 = 正确题数 ÷ 总题数 × 100。未读完的题目单列为未作答。每个颜色按顺序对应一题，重复或改口也算一次回答。</p></section>
+ </aside>
+ <section class="card stroop-results" id="stroopResults" hidden>
+  <div class="board-top"><div><div class="eyebrow">YOUR PRACTICE, REVIEWED</div><h2>这一轮，读得怎么样？</h2></div><span class="badge" id="stroopModel"></span></div>
+  <div class="result-metrics" id="resultMetrics"></div>
+  <p id="stroopFeedback" class="stroop-feedback"></p>
+  <details><summary>查看语音识别文字</summary><p class="transcript" id="stroopTranscript"></p></details>
+  <details open><summary>逐题核对 <span class="result-key">✓ 正确　× 错误　— 未作答</span></summary><div class="result-table-scroll"><table class="result-table"><thead><tr><th>题号</th><th>显示的字</th><th>应读颜色</th><th>识别回答</th><th>结果</th></tr></thead><tbody id="stroopRows"></tbody></table></div></details>
+  <p class="result-note">识别文字可能受收音和发音影响，请结合回听与逐题结果核对。本成绩仅反映本轮练习。</p>
+ </section>
+</section>
+<section class="layout gym-layout" id="gymPanel" hidden aria-label="分级训练">
+ <aside class="settings card gym-settings">
+  <div class="section-label"><span class="gym-side-title" id="gymName">倒序数字</span><span>AI PRACTICE</span></div>
+  <p class="gym-description" id="gymDescription"></p>
+  <div class="divider"></div>
+  <div class="section-label">选择难度 <span>LEVEL 01–10</span></div>
+  <div class="gym-level-heading"><strong id="gymLevelValue">Lv. 1</strong><span id="gymLevelBand">轻松起步</span></div>
+  <div class="gym-levels" id="gymLevels" role="group" aria-label="选择1至10级难度"></div>
+  <div class="gym-spec" id="gymSpec"></div>
+  <button class="start" id="gymStart">✧ AI 出题，开始训练</button>
+  <button class="gym-end" id="gymEnd" hidden>结束本轮并查看结果</button>
+  <button class="plain" id="gymRetry" hidden>↻ 重试提交本轮答案</button>
+  <p class="microphone-note">每轮由模型生成新题；答题无需录音。成绩按当前训练与级别单独记录。</p>
+ </aside>
+ <section class="card board-card gym-board">
+  <div class="board-top"><div class="board-title" id="gymBoardTitle">倒序数字练习</div><span class="badge" id="gymBadge">AI 动态出题</span></div>
+  <div class="stats"><div class="stat"><div class="stat-label" id="gymTimerLabel">阶段倒计时</div><div class="stat-value" id="gymTimer">—</div></div><div class="stat"><div class="stat-label" id="gymRoundLabel">本轮进度</div><div class="stat-value" id="gymRound">—</div></div><div class="stat"><div class="stat-label">训练得分</div><div class="stat-value target" id="gymScore">—</div></div></div>
+  <p class="reading-order" id="gymInstruction"></p>
+  <div class="gym-surface" id="gymSurface">
+   <div class="gym-welcome" id="gymWelcome"><span id="gymWelcomeIcon" aria-hidden="true">↶</span><h2 id="gymWelcomeTitle">看一遍，倒着记。</h2><p id="gymWelcomeText"></p></div>
+   <div class="gym-task" id="gymTask" hidden></div>
+   <div class="gym-pause" id="gymPauseOverlay" hidden><span aria-hidden="true">Ⅱ</span><h2>暂停一下，继续专注。</h2><p>计时已暂停，题目暂时遮住。</p><button class="start" id="gymResume">继续训练 →</button></div>
+  </div>
+  <div class="progress-track"><span id="gymProgress"></span></div>
+  <div class="gym-bottom"><p class="stroop-status" id="gymStatus" role="status" aria-live="polite">选择级别，开始一小段练习。</p><button class="plain" id="gymPause" hidden>Ⅱ 暂停</button></div>
+ </section>
+ <aside class="rightcol gym-side">
+  <section class="daily"><div class="eyebrow">ONE LEVEL AT A TIME</div><div class="stroop-motto">一步一步，<br>找到你的节奏。</div><p>从 1 级开始，或自由选择难度。<br>达到 80 分，可以试试下一级。</p></section>
+  <section class="records card"><div class="section-label">当前级别最佳 <span>PERSONAL BEST</span></div><div class="gym-best" id="gymBest">—</div><div class="divider"></div><div class="section-label">最近练习 <span>RECENT</span></div><div id="gymRecords" class="record-empty"></div></section>
+  <section class="note"><h3>✧ 这一级如何计分</h3><p id="gymScoring"></p></section>
+ </aside>
+ <section class="card gym-results" id="gymResults" hidden>
+  <div class="board-top"><div><div class="eyebrow">SMALL STEPS, VISIBLE PROGRESS</div><h2 id="gymResultTitle">本轮练习完成</h2></div><span class="badge" id="gymResultLevel"></span></div>
+  <div class="result-metrics gym-metrics" id="gymMetrics"></div>
+  <p class="stroop-feedback" id="gymFeedback"></p>
+  <details open><summary>查看本轮核对结果</summary><div class="result-table-scroll"><table class="result-table"><thead><tr><th>项目</th><th>题目</th><th>正确回答</th><th>你的回答</th><th>核对</th></tr></thead><tbody id="gymRows"></tbody></table></div></details>
+  <div class="gym-result-actions"><button class="start" id="gymAgain">再练当前级别</button><button class="gym-secondary" id="gymSuggested">试试下一级 →</button></div>
+  <p class="result-note">分数仅用于比较自己的练习表现。不同训练和级别的成绩分别记录。</p>
+ </section>
+</section>
+<section id="programmingPanel" class="program-layout" hidden aria-label="编程学习">
+ <aside class="card program-sidebar">
+  <div class="section-label">编程学习 <span>CODE & UNDERSTAND</span></div>
+  <button class="start" id="programNew">＋ 新建问题</button>
+  <label class="program-field" for="programLanguage">编程语言<select id="programLanguage"><option>Python</option><option>JavaScript / TypeScript</option><option>Java</option><option>C / C++</option><option>Go</option><option>Rust</option><option>SQL</option><option>通用编程</option></select></label>
+  <label class="program-field" for="programLevel">学习难度<select id="programLevel"></select></label>
+  <label class="program-field" for="programMode">讲解方式<select id="programMode"><option value="guided">逐步引导 · 先自己想</option><option value="explain">完整讲解 · 看懂依据</option></select></label>
+  <div class="divider"></div><div class="section-label">最近的问题 <span>LOCAL HISTORY</span></div><div id="programHistory"></div>
+  <p class="program-local-note">对话与代码仅保存在当前浏览器。发送时会交给模型讲解。</p>
+ </aside>
+ <section class="card program-main">
+  <div class="program-main-heading"><div><span class="eyebrow">LEARN BY REASONING</span><h2 id="programTitle">把代码，真正看懂。</h2></div><span class="badge" id="programSessionBadge">Python · Lv. 1</span></div>
+  <div class="program-messages" id="programMessages" role="log" aria-label="编程学习对话" tabindex="0">
+   <div class="program-welcome" id="programWelcome"><span aria-hidden="true">{ }</span><h3>从一个问题开始。</h3><p>贴一段代码，说说哪里不明白。<br>一起拆开思路、定位问题，再用练习巩固。</p><div class="program-starters" id="programStarters"></div></div>
+   <div id="programMessageList"></div>
+  </div>
+  <button class="program-to-bottom" id="programToBottom" hidden>回到最新 ↓</button>
+  <div class="program-suggestions" id="programSuggestions" aria-label="建议追问"></div>
+  <form class="program-composer" id="programForm">
+   <label class="sr-only" for="programInput">你的编程问题或追问</label><textarea id="programInput" rows="3" maxlength="6000" placeholder="输入问题、报错，或写下你的想法…"></textarea>
+   <details id="programCodeDetails"><summary>附上代码 <span id="programFileLabel"></span></summary><label class="sr-only" for="programCode">相关代码</label><textarea id="programCode" rows="7" maxlength="16000" spellcheck="false" placeholder="在这里粘贴代码，保留原始缩进…"></textarea><div class="program-file-actions"><button type="button" class="plain" id="programImport">导入代码文件</button><button type="button" class="plain" id="programClearCode">清空代码</button></div></details>
+   <input type="file" id="programFile" hidden accept=".txt,.py,.js,.ts,.jsx,.tsx,.java,.c,.cpp,.h,.cs,.go,.rs,.sql,.html,.css,.json,.md,.sh">
+   <div class="program-compose-footer"><span id="programStatus" role="status" aria-live="polite">一个具体问题，比一个宽泛目标更容易开始。</span><button type="button" class="program-stop" id="programStop" hidden>停止生成</button><button class="program-send" id="programSend" type="submit">发送 ↑</button></div>
+  </form>
+ </section>
+ <aside class="program-canvas">
+  <section class="card program-route"><div class="section-label">解题路线 <span>YOUR NEXT STEP</span></div><p id="programSummary" class="program-summary">开始对话后，这里会整理当前问题与解题步骤。</p><ol id="programSteps"></ol><div class="program-next" id="programNext" hidden></div><details id="programOriginal" hidden><summary>查看最初的问题</summary><p id="programOriginalText"></p></details></section>
+  <section class="card program-practice"><div class="section-label">巩固一下 <span>PRACTICE</span></div><div id="programPractice"><p>理解一个知识点后，试一道相近难度的新题。</p></div><button class="program-secondary" id="programMakePractice" disabled>出一道同类题 →</button></section>
+ </aside>
+</section>
+<dialog id="programKnowledge" class="program-knowledge"><button class="plain close" id="programKnowledgeClose" aria-label="关闭知识点">✕</button><div class="eyebrow">CONNECT THE DOTS</div><h2 id="programKnowledgeTitle">知识点讲解</h2><div id="programKnowledgeBody"></div><button class="program-secondary" id="programKnowledgeRetry" hidden>重新讲解</button></dialog>
+<footer class="footer"><span><span class="leaf" aria-hidden="true">✳</span> 练习视觉搜索、数字顺序与位置记忆</span><span>成绩存于本机 · 读色录音仅用于本次在线评分</span></footer>
+</main>
+<dialog id="help"><button class="plain close" id="closeHelp" aria-label="关闭指南">✕</button><div class="eyebrow">HOW TO PRACTICE</div><h2>给大脑，一小段练习。</h2><ol><li><b>选择难度：</b>拖动滑块选择 3×3 到 15×15 的任意整数尺寸。</li><li><b>顺序寻数：</b>开始后，从 1 到 N² 按顺序点击。错误点击会计数，正确数字会被标记。</li><li><b>位置记忆：</b>在设定时间内观察数字，数字隐藏后，凭位置记忆从 1 开始点击。也可以提前结束记忆。</li><li><b>读色挑战：</b>切换到读色页面，允许麦克风，倒计时后按编号依次说出字的颜色。到时自动结束，也可以提前提交。切到后台会提前结束录音。录音用于在线识别与模型评分，可回听和逐题核对。</li><li><b>AI 分级训练：</b>倒序数字、词语记忆和规则切换均支持 1–10 级。选择级别后由模型出题，完成后按固定规则计分。点击暂停或切到后台会暂停当前阶段，达到 80 分可尝试下一级。</li><li><b>按自己的节奏：</b>支持暂停、重新开始和全屏。大方格在小屏幕上可横向滚动。</li></ol><p>计时不包含记忆阶段和暂停时间。最佳成绩按模式、尺寸和记忆时长分别统计；用时相同时，错误更少的成绩优先。练习记录不代表医学评估。</p><button class="start" id="gotIt">开始我的练习</button></dialog>
+<div id="notice" role="status" hidden></div>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const KEY='number-garden-v1';
+let history=[],storageOK=true;
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(saved))history=saved.filter(r=>r&&Number.isInteger(r.size)&&r.size>=3&&r.size<=15&&['classic','memory'].includes(r.mode)&&Number.isFinite(r.ms)&&r.ms>=0&&Number.isInteger(r.errors)&&r.errors>=0&&Number.isFinite(r.at)&&Number.isFinite(r.memorySeconds)).slice(0,200);}catch{storageOK=false;}
+let size=5,mode='classic',state='ready',priorState='playing',next=1,errors=0,elapsed=0,started=0,memoryLeft=0,memoryDeadline=0,sound=false,frame=0,round=0,audioContext=null;
+const active=()=>['playing','memorizing','paused'].includes(state);
+const dayKey=t=>{const d=new Date(t);return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;};
+const seconds=()=>Number($('memoryTime').value);
+const matches=r=>r.size===size&&r.mode===mode&&(mode!=='memory'||r.memorySeconds===seconds());
+const format=ms=>{const t=Math.floor(ms/100);return `${String(Math.floor(t/600)).padStart(2,'0')}:${String(Math.floor(t/10)%60).padStart(2,'0')}.${t%10}`;};
+const bestOf=rows=>[...rows].sort((a,b)=>a.ms-b.ms||a.errors-b.errors)[0];
+function toast(msg){$('notice').textContent=msg;$('notice').hidden=false;clearTimeout(toast.timeout);toast.timeout=setTimeout(()=>$('notice').hidden=true,2600);}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(history));storageOK=true;}catch{storageOK=false;toast('浏览器无法保存记录，本次成绩仅在当前页面保留');}}
+function records(){
+ $('todayCount').textContent=history.filter(r=>dayKey(r.at)===dayKey(Date.now())).length;
+ const box=$('records');box.replaceChildren();
+ if(!history.length){const p=document.createElement('p');p.className='record-empty';p.textContent='这里将留下你的专注足迹。\n完成第一次训练，开始记录。';box.append(p);}
+ else {const ul=document.createElement('ul');ul.className='record-list';history.slice(0,3).forEach(r=>{const li=document.createElement('li'),a=document.createElement('span'),s=document.createElement('small'),b=document.createElement('span');a.textContent=`${r.size}×${r.size} · ${r.mode==='classic'?'寻数':'记忆'}`;s.textContent=`${new Date(r.at).toLocaleDateString('zh-CN',{month:'numeric',day:'numeric'})} · ${r.errors} 次错误`;a.append(s);b.className='record-time';b.textContent=format(r.ms);li.append(a,b);ul.append(li);});box.append(ul);}
+ const best=bestOf(history.filter(matches));$('best').textContent=best?format(best.ms):'—';$('bestLabel').textContent=`${size}×${size} · ${mode==='classic'?'寻数':seconds()+' 秒记忆'}最佳`;
+}
+function timer(){const ms=state==='playing'?elapsed+performance.now()-started:elapsed;const text=format(ms);$('timer').replaceChildren(document.createTextNode(text.slice(0,-2)));const small=document.createElement('small');small.textContent=text.slice(-2);$('timer').append(small);}
+function status(text){$('status').textContent=text;}
+function refresh(){
+ $('target').textContent=next>size*size?'✓':String(next).padStart(2,'0');$('errors').innerHTML=`${errors}<small>次</small>`;
+ $('count').textContent=`${Math.min(next-1,size*size)} / ${size*size}`;$('progressFill').style.width=`${(next-1)/(size*size)*100}%`;$('progress').setAttribute('aria-valuemax',size*size);$('progress').setAttribute('aria-valuenow',next-1);
+ $('pauseBtn').hidden=!active();$('pauseBtn').textContent=state==='paused'?'▷':'Ⅱ';$('pauseBtn').setAttribute('aria-label',state==='paused'?'继续训练':'暂停训练');$('pauseBtn').title=state==='paused'?'继续训练':'暂停训练';
+ $('startBtn').innerHTML=active()?'<span aria-hidden="true">↻</span> 重新开始':'<span aria-hidden="true">▷</span> '+(state==='complete'?'再练一次':'开始训练');
+}
+function shuffled(n){const a=Array.from({length:n},(_,i)=>i+1);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function draw(){const grid=$('grid');grid.replaceChildren();grid.style.setProperty('--n',size);$('gridScroll').classList.toggle('dense',size>=9);shuffled(size*size).forEach(n=>{const b=document.createElement('button');b.className='cell';b.dataset.n=n;b.textContent=n;b.setAttribute('aria-label',`数字 ${n}`);b.disabled=true;grid.append(b);});}
+function conceal(){for(const b of $('grid').children){if(!b.classList.contains('done')){b.classList.add('masked');b.textContent='';b.setAttribute('aria-label',`未揭晓方格，第 ${Array.prototype.indexOf.call($('grid').children,b)+1} 格`);}}}
+function maskForState(){for(const b of $('grid').children)b.disabled=state!=='playing'||b.classList.contains('done');}
+function reset(){$('earlyRecall')?.remove();cancelAnimationFrame(frame);round++;state='ready';next=1;errors=0;elapsed=0;$('overlay').hidden=true;$('timerLabel').textContent='训练用时';draw();timer();refresh();status('准备好了，就从 1 开始');}
+function configure(){if(active()){status('已结束本轮，按新设置准备训练');}size=Number($('size').value);$('sizeValue').textContent=`${size} × ${size}`;$('totalLabel').textContent=`${size*size} 个数字`;$('size').setAttribute('aria-valuetext',`${size} 乘 ${size}`);document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',Number(b.dataset.size)===size));$('memoryField').hidden=mode!=='memory';$('modeBadge').textContent=mode==='classic'?'顺序寻数':'位置记忆';$('tip').textContent=mode==='classic'?'让视线自然扫过方格，按顺序寻找数字。建议从 3×3 起步，熟悉后再逐级增加难度。':'先观察数字与位置的关系，数字隐藏后依次回忆。记忆模式建议从 3×3 和较长观察时间开始。';reset();records();}
+function tick(){if(state==='playing')timer();if(state==='memorizing'){memoryLeft=Math.max(0,memoryDeadline-performance.now());status(`记住数字的位置 · 还有 ${Math.ceil(memoryLeft/1000)} 秒`);$('timer').textContent=`${Math.ceil(memoryLeft/1000)}s`;$('target').textContent='—';if(memoryLeft<=0)beginRecall();}if(state==='playing'||state==='memorizing')frame=requestAnimationFrame(tick);}
+function beginRecall(){if(state!=='memorizing')return;state='playing';started=performance.now();conceal();maskForState();$('timerLabel').textContent='训练用时';$('startBtn').innerHTML='<span aria-hidden="true">↻</span> 重新开始';$('earlyRecall')?.remove();refresh();timer();status('数字已隐藏，请按记忆从 1 开始');}
+function start(){reset();if(sound)try{audioContext??=new(window.AudioContext||window.webkitAudioContext)();audioContext.resume().catch(()=>{});}catch{}state=mode==='memory'?'memorizing':'playing';started=performance.now();if(mode==='memory'){memoryLeft=seconds()*1000;memoryDeadline=performance.now()+memoryLeft;$('timerLabel').textContent='记忆倒计时';const b=document.createElement('button');b.id='earlyRecall';b.className='cancel';b.textContent='记好了，开始回忆 →';b.onclick=beginRecall;$('count').before(b);}else status('从 1 开始，按顺序点击数字');maskForState();refresh();frame=requestAnimationFrame(tick);}
+function beep(correct){if(!sound||!audioContext)return;try{const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.value=correct?620:210;g.gain.setValueAtTime(.04,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+.1);o.connect(g);g.connect(audioContext.destination);o.start();o.stop(audioContext.currentTime+.1);}catch{}}
+function overlay(title,desc,label,callback){const el=$('overlay');el.replaceChildren();const symbol=document.createElement('div');symbol.className='overlay-symbol';symbol.textContent=state==='complete'?'✳':'Ⅱ';const h=document.createElement('h2');h.textContent=title;const p=document.createElement('p');p.textContent=desc;const b=document.createElement('button');b.className='start';b.textContent=label;b.onclick=callback;el.append(symbol,h,p,b);el.hidden=false;}
+function complete(){elapsed+=performance.now()-started;state='complete';cancelAnimationFrame(frame);const record={size,mode,memorySeconds:seconds(),ms:Math.round(elapsed),errors,at:Date.now()};const prev=bestOf(history.filter(matches));const isBest=!prev||record.ms<prev.ms||(record.ms===prev.ms&&errors<prev.errors);history.unshift(record);history=history.slice(0,200);save();records();refresh();timer();status('训练完成 · 做得好，休息一下吧');overlay(isBest?'新的专注记录':'完成了，给自己一个停顿',`${size}×${size} · 用时 ${format(elapsed)} · ${errors} 次错误`,'再练一次 ↗',start);}
+function pause(){if(state==='paused'){state=priorState;$('overlay').hidden=true;if(state==='memorizing')memoryDeadline=performance.now()+memoryLeft;else started=performance.now();maskForState();refresh();status(state==='memorizing'?'继续记忆位置':'继续寻找下一个数字');frame=requestAnimationFrame(tick);return;}if(!active())return;priorState=state;if(state==='playing')elapsed+=performance.now()-started;else memoryLeft=Math.max(0,memoryDeadline-performance.now());state='paused';cancelAnimationFrame(frame);maskForState();refresh();overlay('暂停一下，也很好。','已暂停计时，准备好后继续。','继续训练 →',pause);status('已暂停');}
+$('grid').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||state!=='playing'||b.disabled)return;const n=Number(b.dataset.n);if(n!==next){errors++;beep(false);b.classList.remove('wrong');void b.offsetWidth;b.classList.add('wrong');const token=round;setTimeout(()=>{if(token===round)b.classList.remove('wrong');},300);refresh();status(`请先寻找数字 ${next}`);return;}beep(true);b.classList.remove('masked','wrong');b.classList.add('done');b.textContent='';b.disabled=true;b.setAttribute('aria-label',`数字 ${n} 已完成`);next++;refresh();status(`已找到 ${n}，下一个是 ${next}`);if(next>size*size)complete();});
+$('startBtn').onclick=()=>{if(active()){pauseForRestart();}else start();};
+function pauseForRestart(){if(state!=='paused')pause();overlay('重新开始这一轮？','本轮尚未完成的进度将被清除。','重新开始',()=>{$('earlyRecall')?.remove();start();});const b=document.createElement('button');b.className='cancel';b.textContent='保留进度，继续训练';b.onclick=pause;$('overlay').append(b);}
+$('pauseBtn').onclick=pause;
+$('size').addEventListener('input',configure);document.querySelectorAll('.preset').forEach(b=>b.onclick=()=>{$('size').value=b.dataset.size;configure();});
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{if(mode===b.dataset.mode)return;mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});configure();});$('memoryTime').onchange=configure;
+$('sound').onclick=()=>{sound=!sound;$('sound').setAttribute('aria-checked',String(sound));if(sound&&active())try{audioContext??=new(window.AudioContext||window.webkitAudioContext)();audioContext.resume().catch(()=>{});}catch{}};
+$('fullscreenBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if($('app').requestFullscreen)await $('app').requestFullscreen();else toast('当前浏览器不支持全屏，可使用浏览器全屏模式');}catch{toast('无法进入全屏，请使用浏览器的全屏功能');}};
+$('helpBtn').onclick=()=>{if(active()&&state!=='paused')pause();$('help').showModal();};$('closeHelp').onclick=$('gotIt').onclick=()=>$('help').close();$('help').addEventListener('click',e=>{if(e.target===$('help')){const r=$('help').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('help').close();}});
+document.addEventListener('training-switch',()=>{if(active()&&state!=='paused')pause();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&active()&&state!=='paused')pause();else records();});
+$('dateNote').textContent=new Date().toLocaleDateString('zh-CN',{month:'long',day:'numeric',weekday:'long'});configure();if(!storageOK)toast('本地存储不可用，成绩将在当前页面临时保留');
+})();
+</script>
+<script>/*NAVIGATION_SCRIPT*/</script>
+<script>/*STROOP_SCRIPT*/</script>
+<script>/*GYM_SCRIPT*/</script>
+<script>/*PROGRAMMING_SCRIPT*/</script>
+<script>/*LAYOUT_SCRIPT*/</script>
+</body>
+</html>

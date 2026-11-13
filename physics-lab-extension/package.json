@@ -1,0 +1,8 @@
+{
+  "name": "physics-lab-extension",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "离线声学学习 Chrome 扩展，无运行时依赖、无需构建",
+  "scripts": { "check": "node scripts/check.mjs" }
+}

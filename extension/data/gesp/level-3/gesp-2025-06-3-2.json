@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-3-2",
+  "level": 3,
+  "session": "2025-06",
+  "number": 2,
+  "title": "分糖果",
+  "kind": "past-paper",
+  "tags": [
+    "递推",
+    "贪心"
+  ],
+  "description": "按队列顺序分糖，第 i 人至少需要 a_i 颗，并且从第二人起所得糖数必须严格大于前一人。求满足所有人的最少糖果总数。",
+  "input": "首行 n；次行 n 个正整数 a_i。",
+  "output": "最少总糖数。",
+  "constraints": "1 ≤ n ≤ 1000；1 ≤ a_i ≤ 1000000000。",
+  "sampleInput": "3\n2 1 4\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4359",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n2 1 4\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

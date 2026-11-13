@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-8-1",
+  "level": 8,
+  "session": "2024-03",
+  "number": 1,
+  "title": "公倍数问题",
+  "kind": "past-paper",
+  "tags": [
+    "因数统计",
+    "筛法"
+  ],
+  "description": "N×M 矩阵中，第 i 行 j 列必须填 i 和 j 的公倍数。对每个 k=1～K，求最多有多少个位置可以填 k，记为 ans_k；各 k 独立考虑。输出所有 k×ans_k 的总和。",
+  "input": "一行 N、M、K。",
+  "output": "加权总和，使用 64 位整数。",
+  "constraints": "1 ≤ N,M ≤ 100000；1 ≤ K ≤ 1000000。",
+  "sampleInput": "2 3 3\n",
+  "sampleOutput": "15\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10263",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 3 3\n",
+      "expected": "15\n",
+      "score": 100
+    }
+  ]
+}

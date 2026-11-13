@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-7-2",
+  "level": 7,
+  "session": "2025-06",
+  "number": 2,
+  "title": "调味平衡",
+  "kind": "past-paper",
+  "tags": [
+    "差值背包",
+    "动态规划"
+  ],
+  "description": "每种食材至多选一次，酸度和甜度分别相加。要求最终总酸度等于总甜度，求两者之和的最大值；可以不选食材。",
+  "input": "首行 n；随后 n 行酸度 a_i、甜度 b_i。",
+  "output": "平衡时的最大总酸甜度。",
+  "constraints": "1 ≤ n ≤ 100；1 ≤ a_i,b_i ≤ 500。",
+  "sampleInput": "3\n3 1\n1 3\n2 2\n",
+  "sampleOutput": "12\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P13018",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n3 1\n1 3\n2 2\n",
+      "expected": "12\n",
+      "score": 100
+    }
+  ]
+}

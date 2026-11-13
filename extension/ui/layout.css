@@ -1,0 +1,82 @@
+/* Keep the layout controls reachable even with both panels collapsed. */
+html{height:100%;overflow:hidden}
+body{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.app-header{flex-shrink:0}
+.app-shell{height:auto;flex:1;min-height:0}
+.app-sidebar{width:202px;flex-shrink:0;display:flex;flex-direction:column;background:var(--panel);border-right:1px solid var(--border)}
+.layout-controls{display:flex;align-items:center;gap:5px;padding:16px 12px 8px;flex-shrink:0}
+.layout-controls-label{flex:1;font-size:10px;letter-spacing:1px;color:#7b89a1;white-space:nowrap}
+.layout-toggle{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex-shrink:0;padding:5px;border:1px solid var(--border);border-radius:7px;background:var(--panel);color:#607394}
+.layout-toggle:hover{background:#edf1ff;color:#405bc5;border-color:#bdc9ed}
+.layout-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}
+.layout-toggle .toggle-chevron{transform-origin:center;transform-box:fill-box}
+.layout-toggle[aria-expanded=false] .toggle-chevron{transform:rotate(180deg)}
+.app-sidebar .navigation{width:100%;flex:1;min-height:0;padding:10px 14px 20px;border:0;overflow:auto}
+.app-sidebar .nav-item,.app-sidebar .nav-bottom{flex-shrink:0}
+.sidebar-collapsed .app-sidebar{width:48px}
+.sidebar-collapsed .layout-controls{flex-direction:column;padding:14px 8px;gap:9px}
+.sidebar-collapsed .layout-controls-label{display:none}
+.main-content{min-height:0;overflow:hidden}
+.page{height:100%;min-height:0;width:100%;display:flex;flex-direction:column;overflow:hidden}
+.page>.page-heading,.page>.filters,.page>.courseware-filters,.page>.courseware-count,#libraryCount{flex-shrink:0}
+.page-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:8px;scrollbar-gutter:stable}
+.learn-toolbar{display:flex;justify-content:flex-end;align-items:center;gap:10px;flex-shrink:0;margin-bottom:14px;padding-right:24px}
+.learn-toolbar label{font-size:12px;color:var(--muted)}
+.learn-toolbar select{width:144px;max-width:60%;height:36px;padding:6px 10px;font-size:13px}
+.library-layout{flex:1;min-height:0;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);grid-template-rows:minmax(0,1fr);align-items:stretch}
+.question-list{height:100%;min-height:0;max-height:none;overflow:auto;padding-right:6px;overscroll-behavior:contain}
+.question-row{flex-shrink:0}
+.library-layout .problem-preview{position:relative;top:0;min-height:0;max-height:none;height:100%;overscroll-behavior:contain}
+.courseware-list{flex:1;min-height:0;overflow:auto;align-content:start;padding-right:6px;overscroll-behavior:contain}
+#lessonPlayer{height:100%;min-height:0;display:flex;flex-direction:column}
+.player-top,.topic-legacy-note{flex-shrink:0}
+.player-top .button-row{flex-wrap:wrap;justify-content:flex-end}
+.player-layout{flex:1;min-height:0;grid-template-rows:minmax(0,1fr);align-items:stretch}
+.slide-outline,.slide-main{min-height:0;overflow:auto;overscroll-behavior:contain}
+.slide-outline button{flex-shrink:0}
+.slide-main{padding-right:6px;scrollbar-gutter:stable}
+.player-layout>.page-chat{position:relative;top:0;height:100%;max-height:100%;overflow:hidden}
+#lessonPlayer:fullscreen{height:100%;overflow:hidden}
+.navigation,.workspace-problem,.drawer-body{overscroll-behavior:contain;scrollbar-gutter:stable}
+.workspace-view{min-height:0}
+.editor-bar,.code-toolbar{flex-shrink:0}
+#editor{min-height:0}
+@media(max-height:760px){
+  .page{padding-top:20px;padding-bottom:22px}
+  .page>.page-heading{margin-bottom:18px}
+}
+@media(max-width:1250px){
+  .app-sidebar{width:175px}
+  .layout-controls{padding-left:9px;padding-right:9px;gap:4px}
+  .layout-controls-label{letter-spacing:0}
+  .app-sidebar .navigation{padding-left:9px;padding-right:9px}
+}
+@media(min-width:721px) and (max-width:1000px){
+  .app-sidebar{width:145px}
+  .layout-controls{flex-wrap:wrap}
+  .layout-controls-label{flex-basis:100%;padding:0 4px 4px}
+}
+@media(max-width:1100px){
+  .player-layout{grid-template-rows:auto minmax(0,1fr)}
+  .slide-outline{max-height:80px}
+}
+@media(max-width:850px){
+  .player-layout>.page-chat{position:fixed;top:72px;height:auto;max-height:none;overflow:auto}
+  .header-collapsed .player-layout>.page-chat{top:12px}
+}
+@media(max-width:720px){
+  .app-shell{display:flex;flex-direction:column}
+  .app-sidebar,.sidebar-collapsed .app-sidebar{width:100%;border-right:0;border-bottom:1px solid var(--border)}
+  .layout-controls,.sidebar-collapsed .layout-controls{flex-direction:row;padding:5px 12px;gap:7px}
+  .sidebar-collapsed .layout-controls-label{display:block}
+  .app-sidebar .navigation{height:55px;flex:auto;padding:6px}
+  .main-content{height:auto;flex:1}
+  .library-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,.8fr) minmax(0,1.2fr);gap:12px}
+  .workspace-view{height:100%}
+  .workspace{margin:0 10px 10px}
+  #editor{min-height:280px}
+  .output-drawer{top:155px}
+  .sidebar-collapsed .output-drawer{top:100px}
+  .header-collapsed .output-drawer{top:95px}
+  .sidebar-collapsed.header-collapsed .output-drawer{top:40px}
+}

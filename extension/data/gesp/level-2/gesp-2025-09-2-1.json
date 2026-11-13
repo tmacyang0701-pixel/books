@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-2-1",
+  "level": 2,
+  "session": "2025-09",
+  "number": 1,
+  "title": "优美的数字",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "枚举"
+  ],
+  "description": "十进制各数位都相同的正整数称为优美数字，一位数也满足。统计不超过 n 的优美数字数量。",
+  "input": "正整数 n。",
+  "output": "数量。",
+  "constraints": "1 ≤ n ≤ 2025。",
+  "sampleInput": "100\n",
+  "sampleOutput": "18\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4411",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "100\n",
+      "expected": "18\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2026-09-5-2",
+  "level": 5,
+  "session": "2026-09",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "饮品调制",
+  "tags": [
+    "贪心",
+    "排序"
+  ],
+  "description": "有 n 种原料，第 i 种最多可取 v_i 升，含糖量 s_i 克/升。用量允许为小数。调制平均含糖量恰为 t 的饮品，求最大总体积；无法调制时为 0。",
+  "input": "第一行 n、t；随后 n 行为 v_i、s_i。",
+  "output": "输出最大体积，保留三位小数。",
+  "constraints": "1 ≤ n ≤ 2000；0 ≤ t,s_i ≤ 200；1 ≤ v_i ≤ 100。",
+  "sampleInput": "2 5\n2 0\n3 10\n",
+  "sampleOutput": "4.000\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "2 5\n2 0\n3 10\n",
+      "expected": "4.000\n",
+      "score": 33
+    },
+    {
+      "input": "1 5\n2 8\n",
+      "expected": "0.000\n",
+      "score": 33
+    },
+    {
+      "input": "2 5\n1 5\n4 5\n",
+      "expected": "5.000\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17456",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1767258833551392.pdf"
+  }
+}

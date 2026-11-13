@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-2-1",
+  "level": 2,
+  "session": "2026-06",
+  "number": 1,
+  "title": "完全平方数计数",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "平方"
+  ],
+  "description": "统计闭区间 [l,r] 中能写成正整数平方的数字个数。",
+  "input": "整数 l、r。",
+  "output": "完全平方数的数量。",
+  "constraints": "1 ≤ l ≤ r ≤ 2000。",
+  "sampleInput": "10 30\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4553",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://www.luogu.com.cn/article/hpfybsqj"
+  },
+  "cases": [
+    {
+      "input": "10 30\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

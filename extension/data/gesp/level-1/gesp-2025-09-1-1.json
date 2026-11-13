@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-1-1",
+  "level": 1,
+  "session": "2025-09",
+  "number": 1,
+  "title": "商店折扣",
+  "kind": "past-paper",
+  "tags": [
+    "分支",
+    "最小值"
+  ],
+  "description": "一件商品原价 p 元，两种优惠只能选一种：满 x 元减 y 元（只减一次），或者打 n 折。求最低实付金额。",
+  "input": "四行整数，依次为 x、y、n、p。",
+  "output": "最低金额，保留两位小数。",
+  "constraints": "1 ≤ y < x ≤ 100；1 ≤ n < 10；1 ≤ p ≤ 100。",
+  "sampleInput": "20\n5\n8\n30\n",
+  "sampleOutput": "24.00\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4409",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "20\n5\n8\n30\n",
+      "expected": "24.00\n",
+      "score": 100
+    }
+  ]
+}

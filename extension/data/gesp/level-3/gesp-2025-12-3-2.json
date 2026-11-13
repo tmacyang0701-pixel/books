@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-3-2",
+  "level": 3,
+  "session": "2025-12",
+  "number": 2,
+  "title": "小杨的智慧购物",
+  "kind": "past-paper",
+  "tags": [
+    "数组",
+    "分类最小值"
+  ],
+  "description": "有 M 类、共 N 件商品，每件给出类别和价格。每类恰好买一件，选择该类最便宜的，求总费用。",
+  "input": "首行 M、N；后续 N 行各为类别 K_i、价格 P_i。",
+  "output": "最小总费用。",
+  "constraints": "1 ≤ M ≤ N ≤ 100000；1 ≤ K_i ≤ M；1 ≤ P_i ≤ 1000；每类至少一件。",
+  "sampleInput": "2 4\n1 7\n2 4\n1 3\n2 6\n",
+  "sampleOutput": "7\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4450",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 4\n1 7\n2 4\n1 3\n2 6\n",
+      "expected": "7\n",
+      "score": 100
+    }
+  ]
+}

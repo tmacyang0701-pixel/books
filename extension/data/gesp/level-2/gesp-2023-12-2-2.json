@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-2-2",
+  "level": 2,
+  "session": "2023-12",
+  "number": 2,
+  "title": "小杨的 H 字矩阵",
+  "kind": "past-paper",
+  "tags": [
+    "嵌套循环",
+    "字符图形"
+  ],
+  "description": "绘制 N×N 的 H 字矩阵：首尾两列为 |，中间一行除两端外为 -，其余位置为小写 a。",
+  "input": "奇数 N。",
+  "output": "N 行图案，不加额外空格。",
+  "constraints": "5 ≤ N ≤ 49。",
+  "sampleInput": "7\n",
+  "sampleOutput": "|aaaaa|\n|aaaaa|\n|aaaaa|\n|-----|\n|aaaaa|\n|aaaaa|\n|aaaaa|\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3924",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "7\n",
+      "expected": "|aaaaa|\n|aaaaa|\n|aaaaa|\n|-----|\n|aaaaa|\n|aaaaa|\n|aaaaa|\n",
+      "score": 100
+    }
+  ]
+}

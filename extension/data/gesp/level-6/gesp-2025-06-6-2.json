@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-6-2",
+  "level": 6,
+  "session": "2025-06",
+  "number": 2,
+  "title": "最大因数",
+  "kind": "past-paper",
+  "tags": [
+    "因数分解",
+    "树路径"
+  ],
+  "description": "节点编号为 1～10^9，根为 1。节点 k>1 的父节点是 k 除自身外的最大因数。回答两个节点之间路径的边数。",
+  "input": "首行 q；随后 q 行，每行 x、y。",
+  "output": "逐行输出距离。",
+  "constraints": "1 ≤ q ≤ 1000；1 ≤ x,y ≤ 10^9。",
+  "sampleInput": "2\n12 6\n6 10\n",
+  "sampleOutput": "1\n4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P13016",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n12 6\n6 10\n",
+      "expected": "1\n4\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-6-1",
+  "level": 6,
+  "session": "2024-06",
+  "number": 1,
+  "title": "计算得分",
+  "kind": "past-paper",
+  "tags": [
+    "动态规划",
+    "字符串"
+  ],
+  "description": "从字符串中选取互不重叠的子串，每个子串必须由 k 个 abc 连续拼成，价值为 a_k（1≤k≤n）。可以不选某些字符，求最大总分。",
+  "input": "首行 n；次行 n 个分值；第三行字符串长度 m；第四行字符串。",
+  "output": "最大总分。",
+  "constraints": "1 ≤ n ≤ 20；1 ≤ m ≤ 100000；1 ≤ a_k ≤ 1000。",
+  "sampleInput": "2\n2 7\n9\nabcabcabc\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10721",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n2 7\n9\nabcabcabc\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

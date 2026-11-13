@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-7-1",
+  "level": 7,
+  "session": "2026-03",
+  "number": 1,
+  "title": "拆分",
+  "kind": "past-paper",
+  "tags": [
+    "贪心",
+    "快速幂"
+  ],
+  "description": "将正整数 n 拆成一个或多个正整数之和，最大化这些数的乘积。先求最大值，再对 10^9 取模。",
+  "input": "首行 T；随后 T 行各给 n。",
+  "output": "每组输出最大乘积模 1000000000 的值。",
+  "constraints": "1 ≤ T ≤ 10000；1 ≤ n ≤ 1000000。",
+  "sampleInput": "2\n5\n8\n",
+  "sampleOutput": "6\n18\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15802",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n5\n8\n",
+      "expected": "6\n18\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-03-1-2",
+  "level": 1,
+  "session": "2023-03",
+  "number": 2,
+  "title": "每月天数",
+  "kind": "past-paper",
+  "tags": [
+    "分支",
+    "日期"
+  ],
+  "description": "给定公历年份和月份，求这个月有多少天。闰年规则：能被 400 整除，或能被 4 整除但不能被 100 整除。",
+  "input": "一行：年份 y、月份 m。",
+  "output": "该月天数。",
+  "constraints": "2000 ≤ y ≤ 3000；1 ≤ m ≤ 12。",
+  "sampleInput": "2400 2\n",
+  "sampleOutput": "29\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3835",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2400 2\n",
+      "expected": "29\n",
+      "score": 100
+    }
+  ]
+}

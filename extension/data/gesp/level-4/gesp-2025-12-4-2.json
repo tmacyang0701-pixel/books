@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2025-12-4-2",
+  "level": 4,
+  "session": "2025-12",
+  "number": 2,
+  "title": "优先购买",
+  "kind": "past-paper",
+  "tags": [
+    "结构体",
+    "排序",
+    "模拟"
+  ],
+  "description": "在预算范围内按优先级选购商品：优先级数字越小越优先；相同时选价格较低的；仍相同时选名称字典序较小的。每件商品最多购买一次；买不起的商品跳过，继续考虑后面的商品。",
+  "input": "首行预算 M、商品数 N；随后每行商品名、价格、优先级。",
+  "output": "将购入商品名称按字典序升序逐行输出。",
+  "constraints": "1 ≤ M、价格 ≤ 100000；N ≤ 1000；优先级为 1～10；名称互异，仅含小写字母，长不超过 10。",
+  "sampleInput": "7 3\npen 3 1\nbook 4 2\nbag 9 3\n",
+  "sampleOutput": "book\npen\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4452",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "7 3\npen 3 1\nbook 4 2\nbag 9 3\n",
+      "expected": "book\npen\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-8-1",
+  "level": 8,
+  "session": "2025-12",
+  "number": 1,
+  "title": "猫和老鼠",
+  "kind": "past-paper",
+  "tags": [
+    "最短路",
+    "安全路径"
+  ],
+  "description": "猫从 a 同时出发，老鼠从候选节点 u 逃向洞 b。若存在一条逃跑路径，使每个经过节点（含 u、b）处猫的最早到达时间都严格晚于老鼠沿该路径的到达时间，则 u 安全。求所有安全节点的奶酪价值总和。",
+  "input": "首行 n、m；次行 a、b；第三行 n 个奶酪价值；随后 m 条边 u、v、通过时间。",
+  "output": "安全节点价值总和。",
+  "constraints": "n,m ≤ 100000；图连通，a≠b；边权为 1～10^9；原题未列奶酪上限，练习按 1～10^9。",
+  "sampleInput": "3 2\n1 3\n5 7 11\n1 2 1\n2 3 1\n",
+  "sampleOutput": "18\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14923",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2\n1 3\n5 7 11\n1 2 1\n2 3 1\n",
+      "expected": "18\n",
+      "score": 100
+    }
+  ]
+}

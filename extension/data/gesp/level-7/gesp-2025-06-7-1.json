@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2025-06-7-1",
+  "level": 7,
+  "session": "2025-06",
+  "number": 1,
+  "title": "线图",
+  "kind": "past-paper",
+  "tags": [
+    "图",
+    "度数",
+    "组合计数"
+  ],
+  "description": "简单无向图的每条边在线图中对应一个节点，原图两条不同边若共享端点，则在线图中连接对应节点。求线图的边数。",
+  "input": "首行 n、m；随后 m 条边。",
+  "output": "线图边数。",
+  "constraints": "1 ≤ n,m ≤ 100000；原图无重边、自环。",
+  "sampleInput": "4 3\n1 2\n1 3\n1 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P13017",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 3\n1 2\n1 3\n1 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

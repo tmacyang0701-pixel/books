@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-4-2",
+  "level": 4,
+  "session": "2026-06",
+  "number": 2,
+  "title": "身高体重指数",
+  "kind": "past-paper",
+  "tags": [
+    "结构体",
+    "排序"
+  ],
+  "description": "计算每人的 BMI＝体重÷身高的平方，按 BMI 从高到低排列，输出原编号。",
+  "input": "首行 n；次行 n 个体重（千克）；第三行 n 个身高（米）。",
+  "output": "排序后的编号，编号从 1 开始。",
+  "constraints": "1 ≤ n ≤ 1000；体重为 10～100；身高为 0.80～1.90，恰有两位小数；BMI 互异。",
+  "sampleInput": "3\n40 30 50\n1.00 1.00 1.00\n",
+  "sampleOutput": "3 1 2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4558",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://wiki.coderli.com/gesp/4/codereal/gesp-4-luogu-b4558/"
+  },
+  "cases": [
+    {
+      "input": "3\n40 30 50\n1.00 1.00 1.00\n",
+      "expected": "3 1 2\n",
+      "score": 100
+    }
+  ]
+}

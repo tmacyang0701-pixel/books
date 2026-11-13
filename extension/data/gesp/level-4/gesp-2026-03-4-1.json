@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-4-1",
+  "level": 4,
+  "session": "2026-03",
+  "number": 1,
+  "title": "山之谷",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "邻域判断"
+  ],
+  "description": "若一个格子的高度不大于周围八个方向中所有存在的邻格高度，它就是谷底。统计谷底格数；相等高度允许。",
+  "input": "首行 N、M；随后 N 行高度矩阵。",
+  "output": "谷底数量。",
+  "constraints": "1 ≤ N,M ≤ 100；高度为 1～100000。",
+  "sampleInput": "2 2\n1 2\n3 4\n",
+  "sampleOutput": "1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4501",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 2\n1 2\n3 4\n",
+      "expected": "1\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-6-2",
+  "level": 6,
+  "session": "2023-09",
+  "number": 2,
+  "title": "小杨的握手问题",
+  "kind": "past-paper",
+  "tags": [
+    "归并排序",
+    "顺序对"
+  ],
+  "description": "同学按给定排列进入教室。每人只和已经进入且学号比自己小的人握手，求总握手次数。",
+  "input": "首行 N；次行 0～N-1 的一个排列。",
+  "output": "总握手次数。",
+  "constraints": "2 ≤ N ≤ 300000。",
+  "sampleInput": "4\n0 2 1 3\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3874",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n0 2 1 3\n",
+      "expected": "5\n",
+      "score": 100
+    }
+  ]
+}

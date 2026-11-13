@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-6-1",
+  "level": 6,
+  "session": "2023-09",
+  "number": 1,
+  "title": "小杨买饮料",
+  "kind": "past-paper",
+  "tags": [
+    "01背包",
+    "动态规划"
+  ],
+  "description": "每种饮料最多买一瓶。在总容量至少为 L 的前提下，求最低总价格；无法达到容量要求则无解。",
+  "input": "首行 N、L；随后 N 行，每行价格、容量。",
+  "output": "最低价格；无解输出 no solution。",
+  "constraints": "N ≤ 500；1 ≤ L ≤ 2000；价格、容量为 1～10^6。",
+  "sampleInput": "3 6\n3 4\n2 3\n9 8\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3873",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 6\n3 4\n2 3\n9 8\n",
+      "expected": "5\n",
+      "score": 100
+    }
+  ]
+}

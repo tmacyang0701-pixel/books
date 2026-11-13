@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-3-1",
+  "level": 3,
+  "session": "2025-09",
+  "number": 1,
+  "title": "数组清零",
+  "kind": "past-paper",
+  "tags": [
+    "数组",
+    "模拟"
+  ],
+  "description": "反复执行：选出最大元素（并列时选下标最大者），减去数组中最小的非零元素。直到数组全为 0，统计操作次数。初始已经全零则无需操作。",
+  "input": "首行 n；次行 n 个非负整数。",
+  "output": "操作次数。",
+  "constraints": "1 ≤ n ≤ 100；0 ≤ a_i ≤ 100。",
+  "sampleInput": "3\n0 2 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4413",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n0 2 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-4-1",
+  "level": 4,
+  "session": "2024-12",
+  "number": 1,
+  "title": "Recamán",
+  "kind": "past-paper",
+  "tags": [
+    "递推",
+    "排序"
+  ],
+  "description": "数列首项为 1。第 k 项优先取前一项减 k，仅当结果为正且此前未出现时采用；否则取前一项加 k。生成前 n 项，然后升序输出。",
+  "input": "正整数 n。",
+  "output": "排序后的前 n 项，保留重复项。",
+  "constraints": "1 ≤ n ≤ 3000。",
+  "sampleInput": "4\n",
+  "sampleOutput": "1 2 3 6\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4068",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n",
+      "expected": "1 2 3 6\n",
+      "score": 100
+    }
+  ]
+}

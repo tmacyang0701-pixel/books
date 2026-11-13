@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-06-6-1",
+  "level": 6,
+  "session": "2026-06",
+  "number": 1,
+  "title": "条形蛋糕",
+  "kind": "past-paper",
+  "tags": [
+    "动态规划",
+    "完全背包"
+  ],
+  "description": "长度 n 的蛋糕可切成整数长度的小段，长为 i 的一段售价 p_i。求全部蛋糕能够卖出的最高总价，也允许不切。",
+  "input": "首行 n；次行 n 个价格 p_i。",
+  "output": "最大总售价。",
+  "constraints": "1 ≤ n ≤ 1000；1 ≤ p_i ≤ 100000。",
+  "sampleInput": "3\n3 4 5\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17012",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n3 4 5\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

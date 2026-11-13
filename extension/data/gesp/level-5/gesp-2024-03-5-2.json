@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2024-03-5-2",
+  "level": 5,
+  "session": "2024-03",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "B-smooth 数",
+  "tags": [
+    "质因数分解",
+    "筛法"
+  ],
+  "description": "统计 1 到 n 中所有质因子都不大于 B 的整数个数，数字 1 也计入。",
+  "input": "一行两个正整数 n、B。",
+  "output": "输出符合条件的整数个数。",
+  "constraints": "1 ≤ n,B ≤ 10^6。",
+  "sampleInput": "20 3\n",
+  "sampleOutput": "10\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "20 3\n",
+      "expected": "10\n",
+      "score": 33
+    },
+    {
+      "input": "1 1\n",
+      "expected": "1\n",
+      "score": 33
+    },
+    {
+      "input": "10 10\n",
+      "expected": "10\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3969",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1602047172411424.pdf"
+  }
+}

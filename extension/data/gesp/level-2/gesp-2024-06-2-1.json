@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-2-1",
+  "level": 2,
+  "session": "2024-06",
+  "number": 1,
+  "title": "平方之和",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "平方"
+  ],
+  "description": "判断每个 a 是否能写成 x²+y²，其中 x、y 必须都是正整数，允许相等。",
+  "input": "第一行 n，之后 n 行每行一个 a。",
+  "output": "对每个 a 输出 Yes 或 No。",
+  "constraints": "1 ≤ n ≤ 10；1 ≤ a ≤ 1000000。",
+  "sampleInput": "3\n2\n3\n5\n",
+  "sampleOutput": "Yes\nNo\nYes\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4002",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n2\n3\n5\n",
+      "expected": "Yes\nNo\nYes\n",
+      "score": 100
+    }
+  ]
+}

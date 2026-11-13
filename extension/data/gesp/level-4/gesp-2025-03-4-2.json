@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-4-2",
+  "level": 4,
+  "session": "2025-03",
+  "number": 2,
+  "title": "二阶矩阵",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "枚举"
+  ],
+  "description": "统计矩阵中连续 2×2 子矩阵满足左上角×右下角等于右上角×左下角的个数。",
+  "input": "首行 n、m；之后 n 行，每行 m 个整数。",
+  "output": "满足条件的子矩阵数。",
+  "constraints": "1 ≤ n,m ≤ 500；元素为 -100～100。",
+  "sampleInput": "2 3\n1 2 4\n2 4 8\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4264",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 3\n1 2 4\n2 4 8\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

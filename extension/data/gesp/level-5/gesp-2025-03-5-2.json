@@ -1,0 +1,47 @@
+{
+  "id": "gesp-2025-03-5-2",
+  "level": 5,
+  "session": "2025-03",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "原根判断",
+  "tags": [
+    "数论",
+    "快速幂",
+    "质因数分解"
+  ],
+  "description": "给定质数 p 和整数 a。判断 a 的模 p 乘法阶是否为 p−1：a^(p−1) mod p=1，且更小的正指数都不能得到 1。原根还须满足 1<a<p。",
+  "input": "第一行 T；接下来 T 行各有 a、p。",
+  "output": "每组满足条件输出 Yes，否则输出 No。",
+  "constraints": "1 ≤ T ≤ 20；3 ≤ p ≤ 10^9；1<a<p；p 为质数。",
+  "sampleInput": "3\n2 5\n4 5\n3 7\n",
+  "sampleOutput": "Yes\nNo\nYes\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "3\n2 5\n4 5\n3 7\n",
+      "expected": "Yes\nNo\nYes\n",
+      "score": 33
+    },
+    {
+      "input": "1\n2 3\n",
+      "expected": "Yes\n",
+      "score": 33
+    },
+    {
+      "input": "2\n2 7\n5 7\n",
+      "expected": "No\nYes\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11961",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1669256898936864.pdf"
+  }
+}

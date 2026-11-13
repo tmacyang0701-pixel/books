@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-2-2",
+  "level": 2,
+  "session": "2024-09",
+  "number": 2,
+  "title": "小杨的 N 字矩阵",
+  "kind": "past-paper",
+  "tags": [
+    "嵌套循环",
+    "字符图形"
+  ],
+  "description": "在 m×m 字符矩阵中绘制 N：第一列、最后一列和左上至右下的对角线填 +，其余填 -。",
+  "input": "奇数 m。",
+  "output": "输出 m 行，每行 m 个字符。",
+  "constraints": "3 ≤ m ≤ 49。",
+  "sampleInput": "3\n",
+  "sampleOutput": "+-+\n+++\n+-+\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4037",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n",
+      "expected": "+-+\n+++\n+-+\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-06-2-2",
+  "level": 2,
+  "session": "2023-06",
+  "number": 2,
+  "title": "自幂数判断",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "幂"
+  ],
+  "description": "一个有 k 位的正整数，如果等于其各位数字的 k 次方之和，则为自幂数。分别判断给出的 M 个数。",
+  "input": "第一行 M，后续 M 行每行一个正整数。",
+  "output": "每行输出 T（满足）或 F（不满足）。",
+  "constraints": "1 ≤ M ≤ 100；各数小于 100000000。",
+  "sampleInput": "3\n1\n10\n370\n",
+  "sampleOutput": "T\nF\nT\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3841",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1\n10\n370\n",
+      "expected": "T\nF\nT\n",
+      "score": 100
+    }
+  ]
+}

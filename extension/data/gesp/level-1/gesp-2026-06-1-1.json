@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-06-1-1",
+  "level": 1,
+  "session": "2026-06",
+  "number": 1,
+  "title": "去旅行",
+  "kind": "past-paper",
+  "tags": [
+    "最小值",
+    "算术"
+  ],
+  "description": "从 A 城到 B 城可选直飞，或先乘高铁到 C 城再乘飞机/高铁到 B 城。已知四段价格，求三种方案中的最低总价。",
+  "input": "四行正整数：A→B 机票、A→C 高铁、C→B 机票、C→B 高铁。",
+  "output": "最低总价。",
+  "constraints": "每段价格不超过 10000。",
+  "sampleInput": "100\n20\n60\n50\n",
+  "sampleOutput": "70\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4551",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "100\n20\n60\n50\n",
+      "expected": "70\n",
+      "score": 100
+    }
+  ]
+}

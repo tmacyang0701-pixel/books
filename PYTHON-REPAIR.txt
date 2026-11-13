@@ -1,0 +1,28 @@
+Python 文件缺失但安装器返回成功 · 修复补丁
+
+使用方法
+1. 关闭原来的安装窗口。
+2. 把补丁中的文件复制到原来「一键安装.cmd」所在的目录，允许覆盖 setup 里的同名文件。
+3. 双击「一键安装.cmd」。本补丁会自动处理，不需要先卸载 Python。
+4. 进度窗口出现「旧安装记录但 Python 文件缺失」后，会运行包内安装器的离线修复。
+5. 修复完成后重新检测实际 Python 路径，补齐 pip（如需要），再继续原有安装步骤。
+
+原因和处理
+移动/删除之前解压目录里的 runtime/python-full 后，Windows 可能仍保留 Python 安装记录。
+官方安装器检测到同一产品已注册，会将普通安装切换成维护/修改流程；
+它返回成功，并不保证丢失的 python.exe 已恢复。这个补丁显式调用 /repair 恢复缺失文件。
+仅对登记在旧整合包 runtime/python-full/python.exe 中的缺失 Python 自动执行修复。
+补丁不会删除注册表、卸载其他 Python，也不会重装已通过检查的 Node、Dev-C++。
+
+修复可能把 Python 恢复到系统登记的旧目录，而不是当前解压目录。
+启动脚本会保存并使用实际通过检查的 Python 路径，请保留对应的 Python 目录。
+
+日志
+.setup/logs/python-repair-*.log：官方安装器修复日志。
+installation-report.json 中的 pythonInstallation.repair：修复的路径、退出码和日志位置。
+若仍失败，请提供该修复日志末尾的错误信息，避免反复重跑。
+
+验证
+已通过 40 项安装/诊断流程测试，包含与用户报告相同的旧目录登记且文件缺失场景。
+尚未在 Windows 实机验证第三方安装程序。
+官方实现：https://github.com/python/cpython/blob/v3.14.0/Tools/msi/bundle/bootstrap/PythonBootstrapperApplication.cpp

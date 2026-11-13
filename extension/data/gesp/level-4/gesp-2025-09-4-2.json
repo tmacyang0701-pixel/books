@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-4-2",
+  "level": 4,
+  "session": "2025-09",
+  "number": 2,
+  "title": "最长连续段",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "去重"
+  ],
+  "description": "允许任意重排数组。求最长连续段长度，要求段内每个数恰好比前一个大 1。",
+  "input": "首行 n；次行 n 个整数。",
+  "output": "可得到的最长连续段长度。",
+  "constraints": "1 ≤ n ≤ 100000；元素为 -10^9～10^9。",
+  "sampleInput": "6\n5 2 3 3 4 9\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4416",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "6\n5 2 3 3 4 9\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-6-2",
+  "level": 6,
+  "session": "2026-03",
+  "number": 2,
+  "title": "完全二叉树",
+  "kind": "past-paper",
+  "tags": [
+    "二叉树",
+    "树形动态规划"
+  ],
+  "description": "给定根为 1 的二叉树，统计以各节点为根的完整子树中，有多少棵是完全二叉树。完全二叉树除最底层外各层填满，最底层节点集中在左侧。",
+  "input": "首行 n；随后 n 行左、右孩子编号，不存在用 0。",
+  "output": "完全二叉子树数量。",
+  "constraints": "1 ≤ n ≤ 100000。",
+  "sampleInput": "4\n2 3\n0 0\n4 0\n0 0\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15801",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n2 3\n0 0\n4 0\n0 0\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

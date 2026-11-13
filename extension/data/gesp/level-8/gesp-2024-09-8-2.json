@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-8-2",
+  "level": 8,
+  "session": "2024-09",
+  "number": 2,
+  "title": "美丽路径",
+  "kind": "past-paper",
+  "tags": [
+    "树形动态规划",
+    "最长路径"
+  ],
+  "description": "在黑白树中寻找简单路径，要求相邻节点颜色不同。求最长路径包含的节点数。",
+  "input": "首行 n；次行 n 个 0/1 颜色；随后 n-1 条边。",
+  "output": "最长美丽路径的节点数。",
+  "constraints": "1 ≤ n ≤ 100000。",
+  "sampleInput": "4\n0 1 0 0\n1 2\n2 3\n3 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11251",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n0 1 0 0\n1 2\n2 3\n3 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

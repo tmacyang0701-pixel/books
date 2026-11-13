@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-1-2",
+  "level": 1,
+  "session": "2025-06",
+  "number": 2,
+  "title": "值日",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "最小公倍数"
+  ],
+  "description": "两名同学今天一起值日，之后分别每隔 m 天和 n 天值日。求至少再过多少天，他们会再次一起值日。",
+  "input": "两行整数 m、n。",
+  "output": "首次再次同日值日的天数。",
+  "constraints": "1 ≤ m,n ≤ 100。",
+  "sampleInput": "4\n6\n",
+  "sampleOutput": "12\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4355",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n6\n",
+      "expected": "12\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-4-1",
+  "level": 4,
+  "session": "2025-03",
+  "number": 1,
+  "title": "荒地开垦",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "邻域统计"
+  ],
+  "description": "网格中 . 为平地、# 为石头。平地及其上下左右在网格内的相邻格全部为平地时可以耕种。至多移除一块石头，求最多可耕种格数；网格外不参与判断。",
+  "input": "首行 n、m；随后 n 行由 . 和 # 组成的网格。",
+  "output": "最多可耕种格数。",
+  "constraints": "1 ≤ n,m ≤ 1000。",
+  "sampleInput": "2 2\n#.\n..\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4263",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 2\n#.\n..\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

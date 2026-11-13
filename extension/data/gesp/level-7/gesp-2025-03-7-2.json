@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-7-2",
+  "level": 7,
+  "session": "2025-03",
+  "number": 2,
+  "title": "等价消除",
+  "kind": "past-paper",
+  "tags": [
+    "前缀异或",
+    "哈希计数"
+  ],
+  "description": "每次可以删除两个相同字符，不要求相邻。统计字符串中有多少个非空连续子串能够通过这种操作删空。",
+  "input": "首行长度 n；次行小写字母字符串。",
+  "output": "可删空的子串个数。",
+  "constraints": "1 ≤ n ≤ 200000。",
+  "sampleInput": "4\nabba\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11965",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\nabba\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-2-1",
+  "level": 2,
+  "session": "2026-03",
+  "number": 1,
+  "title": "数数",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "枚举"
+  ],
+  "description": "一个正整数的十进制数位中恰好出现三次数字 2 才算美丽。统计 [L,R] 内这样的整数个数。",
+  "input": "两行整数 L、R。",
+  "output": "符合条件的整数数量。",
+  "constraints": "1 ≤ L ≤ R ≤ 1000000。",
+  "sampleInput": "200\n230\n",
+  "sampleOutput": "1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4497",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "200\n230\n",
+      "expected": "1\n",
+      "score": 100
+    }
+  ]
+}

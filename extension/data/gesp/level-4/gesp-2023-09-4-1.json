@@ -1,0 +1,34 @@
+{
+  "id": "gesp-2023-09-4-1",
+  "level": 4,
+  "session": "2023-09",
+  "number": 1,
+  "title": "进制转换",
+  "kind": "past-paper",
+  "tags": [
+    "进制转换"
+  ],
+  "description": "把若干个 K 进制整数转换成十进制。超过 9 的数位用大写字母 A～F 表示。",
+  "input": "首行 N；随后每行给出 K 和一个 K 进制整数。",
+  "output": "按输入顺序逐行输出十进制值。",
+  "constraints": "1 ≤ N ≤ 1000；2 ≤ K ≤ 16；每个数最多 9 位，无多余前导零。",
+  "sampleInput": "2\n16 FF\n2 101\n",
+  "sampleOutput": "255\n5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3869",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n16 FF\n2 101\n",
+      "expected": "255\n5\n",
+      "score": 100
+    }
+  ]
+}

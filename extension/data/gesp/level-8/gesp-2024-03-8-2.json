@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2024-03-8-2",
+  "level": 8,
+  "session": "2024-03",
+  "number": 2,
+  "title": "接竹竿",
+  "kind": "past-paper",
+  "tags": [
+    "模拟",
+    "区间查询",
+    "倍增"
+  ],
+  "description": "从空牌列开始依次加牌。若新牌点数此前已在牌列中，将从旧同点数牌至新牌的整段全部移除。每次询问只使用原数组区间 [l,r] 的牌，求最终剩余牌数。",
+  "input": "首行 T；每组依次为 n、n 个点数、q、q 行 l 与 r。",
+  "output": "每个询问输出剩余牌数。",
+  "constraints": "T ≤ 5；n,q ≤ 15000；点数为 1～13；1≤l≤r≤n。",
+  "sampleInput": "1\n4\n1 2 1 3\n2\n1 4\n2 4\n",
+  "sampleOutput": "1\n3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10264",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "1\n4\n1 2 1 3\n2\n1 4\n2 4\n",
+      "expected": "1\n3\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-1-1",
+  "level": 1,
+  "session": "2025-06",
+  "number": 1,
+  "title": "假期阅读",
+  "kind": "past-paper",
+  "tags": [
+    "最小值",
+    "算术"
+  ],
+  "description": "一本书有 n 页，每天最多读 k 页。假期持续 t 天，求假期内最多能读多少页；读完后不重复计数。",
+  "input": "三行整数 n、k、t。",
+  "output": "最多阅读页数。",
+  "constraints": "1 ≤ n,k,t ≤ 1000。",
+  "sampleInput": "50\n12\n3\n",
+  "sampleOutput": "36\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4354",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "50\n12\n3\n",
+      "expected": "36\n",
+      "score": 100
+    }
+  ]
+}

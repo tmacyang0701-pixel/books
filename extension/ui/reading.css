@@ -1,0 +1,125 @@
+/* Readable Windows UI faces; source/code fonts stay monospace. */
+@font-face{font-family:"CodeArena UI";src:local("Microsoft YaHei UI"),local("Microsoft YaHei");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"CodeArena UI";src:local("Microsoft YaHei UI Bold"),local("Microsoft YaHei Bold");font-style:normal;font-weight:700;font-display:swap}
+:root{--ui-font:"CodeArena UI","Microsoft YaHei UI","Microsoft YaHei","Segoe UI",system-ui,sans-serif}
+body,button,input,select{font-family:var(--ui-font)}
+textarea:not([spellcheck=false]),#view-lesson .chat-composer textarea{font-family:var(--ui-font)}
+
+/* A fixed hover region contains both the tucked tab and the expanded ball.
+   Only the artwork moves inside it, so the pointer never loses the target. */
+.header-tools-menu,.header-tools-menu:is(:hover,:focus-within,[open]){right:0;bottom:4.25rem;width:4.25rem;height:3.5rem;transition:none}
+.header-tools-menu>summary{position:absolute;right:0;top:50%;transform:translateY(-50%);transition:width .18s ease,height .18s ease,border-radius .18s ease,right .18s ease}
+.header-tools-menu:is(:hover,:focus-within,[open])>summary{right:.5rem}
+.header-tools-panel{right:.5rem}
+
+/* The lesson identity and tools belong to its directory, not a top bar. */
+#view-lesson{padding:.5rem 0 0 .5rem}
+#view-lesson .player-layout{position:relative;--outline-size:11.5rem;--lesson-side:clamp(17rem,25vw,20rem);grid-template-columns:var(--outline-size) minmax(0,1fr) var(--lesson-side);grid-template-rows:minmax(0,1fr);gap:.625rem}
+#view-lesson .player-layout.chat-collapsed{grid-template-columns:var(--outline-size) minmax(0,1fr)}
+.outline-collapsed #view-lesson .player-layout{--outline-size:2.75rem;grid-template-columns:var(--outline-size) minmax(0,1fr) var(--lesson-side)}
+.outline-collapsed #view-lesson .player-layout.chat-collapsed{grid-template-columns:var(--outline-size) minmax(0,1fr)}
+.lesson-directory{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;background:#f9fbff;border:1px solid var(--border);border-bottom:0;border-radius:.75rem .75rem 0 0}
+.lesson-directory-heading{display:flex;align-items:flex-start;gap:.375rem;flex-shrink:0;padding:.75rem .5rem .625rem .75rem;border-bottom:1px solid #e5ebf5}
+.lesson-identity{min-width:0;flex:1}
+.lesson-identity .tiny-label{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.625rem;color:#7a89a3}
+#view-lesson .lesson-identity h2{font-size:1rem;line-height:1.5;margin:.1875rem 0 0;overflow-wrap:anywhere}
+.lesson-icon-button{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:1.875rem;height:1.875rem;padding:.375rem;border:0;border-radius:.5rem;background:transparent;color:#6a7c9c}
+.lesson-icon-button:hover{background:#e9efff;color:#4d61ce}
+.lesson-icon-button svg,.lesson-actions-menu svg,.lesson-chat-handle svg,.chat-panel-mark svg{width:1.125rem;height:1.125rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#view-lesson .lesson-directory .slide-outline{flex:1;min-height:0;max-height:none;padding:.375rem;gap:.25rem;overflow:auto}
+#view-lesson .lesson-directory .slide-outline button{border-radius:.5rem;padding:.625rem .5rem;font-size:.8125rem;line-height:1.65;color:#405272;letter-spacing:0}
+#view-lesson .lesson-directory .slide-outline button.active{background:#e8edff;color:#3e53bf;font-weight:600;box-shadow:inset .1875rem 0 #7f8be2}
+.lesson-actions-menu{position:relative;flex-shrink:0;margin:.375rem;padding:.25rem 0 .375rem}
+.lesson-actions-menu>summary{display:flex;align-items:center;gap:.5rem;list-style:none;padding:.625rem .5rem;border:1px solid #dbe3f3;border-radius:.625rem;background:#fff;box-shadow:0 .125rem .5rem #334c7b0a;color:#50648f;cursor:pointer;font-size:.8125rem}
+.lesson-actions-menu>summary::-webkit-details-marker{display:none}
+.lesson-actions-menu>summary span{flex:1}
+.lesson-actions-menu>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lesson-actions-menu[open] .drawer-chevron{transform:rotate(180deg)}
+.lesson-actions-drawer{position:absolute;bottom:calc(100% + .25rem);left:0;z-index:40;display:grid;gap:.375rem;width:max(100%,13rem);max-width:calc(100vw - 5rem);max-height:calc(100dvh - 7rem);overflow:auto;padding:.625rem;border:1px solid #d3ddef;border-radius:.75rem;background:#fff;box-shadow:0 -.375rem 1.5rem #243e7026;animation:drawer-reveal .15s ease-out}
+.lesson-actions-drawer button{padding:.5rem .625rem;text-align:left;font-size:.8125rem;border-radius:.5rem}
+.outline-collapsed .lesson-identity,.outline-collapsed .lesson-actions-menu>summary span,.outline-collapsed .lesson-actions-menu .drawer-chevron{display:none}
+.outline-collapsed .lesson-directory-heading{justify-content:center;padding:.5rem .25rem;border-bottom:0}
+.outline-collapsed #outlineToggle svg{transform:rotate(180deg)}
+.outline-collapsed .lesson-actions-menu{margin:auto .25rem .375rem;padding:0}
+.outline-collapsed .lesson-actions-menu>summary{justify-content:center;padding:.5rem .25rem}
+.lesson-chat-handle{position:absolute;right:0;top:1rem;z-index:25;display:flex;align-items:center;justify-content:center;width:2rem;height:2.75rem;padding:.375rem;border:1px solid #d5deef;border-right:0;border-radius:.625rem 0 0 .625rem;background:#fff;color:#6476b6;box-shadow:-.125rem .125rem .625rem #243e7012}
+.lesson-chat-handle:hover{background:#eef2ff;color:#435ac5}
+#view-lesson .slide-main,.outline-collapsed #view-lesson .slide-main,#view-lesson .player-layout.chat-collapsed .slide-main{position:relative;display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:0;border:1px solid var(--border);border-bottom:0;border-radius:.75rem .75rem 0 0;background:#f6f8fd}
+#view-lesson .slide-controls{display:flex;justify-content:flex-end;align-items:center;flex-shrink:0;flex-wrap:wrap;min-height:2.75rem;margin:0;padding:.375rem .625rem;gap:.375rem;border-bottom:1px solid #e5ebf5;background:#fff}
+#view-lesson .slide-controls button{height:2rem;padding:.3125rem .625rem;font-size:.75rem;border-radius:.5rem}
+#view-lesson .slide-controls #slideCounter{min-width:2.75rem;text-align:center;font-size:.75rem;font-variant-numeric:tabular-nums}
+#view-lesson .slide-controls .slide-kind{margin-right:auto;padding-left:.375rem;font-size:.75rem;font-weight:600;color:#6377ac}
+#slideContent>.eyebrow{display:none}
+#view-lesson #slideContent>h2:first-of-type{margin-top:0}
+.slide-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:.625rem .75rem 1rem;scroll-padding:.625rem}
+.slide-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+#view-lesson .slide{padding:1.25rem;font-size:.875rem;line-height:1.85;letter-spacing:0;word-spacing:normal}
+#view-lesson .slide h2{font-size:1.375rem;font-weight:700;line-height:1.5;letter-spacing:0}
+#view-lesson .narration{margin-bottom:.5rem;padding:.75rem 1rem}
+#view-lesson .lesson-finish{margin-bottom:.5rem}
+.narration-drawer{position:absolute;bottom:.75rem;left:.75rem;right:.75rem;z-index:25;max-height:min(45%,22rem);display:flex;flex-direction:column;min-height:0;background:#fff;border:1px solid #cdd8ed;border-radius:.75rem;box-shadow:0 -.375rem 1.75rem #20386b24;animation:drawer-reveal .15s ease-out}
+.narration-heading{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:.5rem .75rem;border-bottom:1px solid #e6ecf7}
+.narration-heading h3{font-size:.875rem}
+#narrationText{margin:0;overflow:auto;padding:.75rem 1rem 1rem;font-size:.875rem;line-height:1.85;white-space:pre-wrap;color:#415471}
+#toggleNarration[aria-expanded=true]{background:#edf1ff;border-color:#b7c4ee;color:var(--accent)}
+.lesson-chat-handle{top:50%;transform:translateY(-50%)}
+#view-lesson .player-layout>.page-chat{border-color:#d9e2f0;box-shadow:-.125rem 0 .75rem #334c7b05}
+
+/* Compact icon toolbar and an input box with its controls inside. */
+#view-lesson .chat-heading{min-height:2.5rem;height:2.5rem;padding:.25rem .5rem .25rem .875rem;border-bottom:1px solid #edf1f7;background:#fcfdff}
+.chat-panel-mark{display:inline-flex;align-items:center;justify-content:center;color:#6578b6}
+#view-lesson .chat-heading .button-row{gap:.125rem}
+#view-lesson .chat-heading .lesson-icon-button{width:1.875rem;height:1.875rem;padding:.375rem}
+#view-lesson .chat-page-context{margin:.5rem .625rem 0;padding:.4375rem .5625rem;background:#f3f6ff;border-color:#e3e9f8;border-radius:.5rem}
+#view-lesson .chat-page-context strong{font-size:.8125rem;line-height:1.5}
+#view-lesson .chat-composer{border-top:1px solid #edf1f7;padding:.5rem .625rem .625rem}
+.chat-input-shell{border:1px solid #d7e0f0;border-radius:.75rem;background:#f9fbff;padding:.25rem;transition:border-color .15s,box-shadow .15s}
+.chat-input-shell:focus-within{border-color:#93a1e8;box-shadow:0 0 0 .1875rem #6378d90c}
+#view-lesson .chat-composer textarea{display:block;min-height:3.5rem;max-height:9rem;resize:vertical;padding:.5rem .5rem .25rem;border:0;border-radius:.5rem;background:transparent;box-shadow:none;font-size:.8125rem;line-height:1.7}
+.chat-input-actions{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.25rem}
+#view-lesson .chat-media-tools{margin:0;gap:.125rem;flex-wrap:nowrap}
+#view-lesson .chat-media-tools button,.chat-send-icon{width:1.875rem;height:1.875rem;display:inline-flex;align-items:center;justify-content:center;padding:.375rem;border:0;border-radius:.5rem;background:transparent;color:#7c8eae}
+#view-lesson .chat-media-tools button:hover:not(:disabled){background:#e9effb;color:#4962ac}
+.chat-input-actions svg{width:1.125rem;height:1.125rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.chat-input-actions .chat-stop-icon{fill:currentColor;stroke:none}
+#view-lesson .chat-media-tools button[aria-pressed=true]{background:#fff0f4;color:#b34c66}
+#chatSend{position:relative;background:#596cda;color:#fff;border-radius:.625rem;box-shadow:0 .125rem .25rem #596cda18}
+#chatSend:hover:not(:disabled){background:#475bc7}
+#chatSend:disabled{opacity:.4;box-shadow:none}
+#chatSend[aria-busy=true] svg{visibility:hidden}
+#chatSend[aria-busy=true]::after{content:"";position:absolute;width:.875rem;height:.875rem;border:2px solid #ffffff66;border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
+.chat-input-shell .chat-attachments:not(:empty){padding:.375rem .375rem 0;margin-bottom:.25rem}
+#view-lesson .chat-storage-status{margin:0;padding:.25rem .75rem .5rem;font-size:.75rem;text-align:left}
+#view-lesson .chat-message-area{min-height:0}
+@keyframes drawer-reveal{from{opacity:0;transform:translateY(.375rem)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:56.25rem){
+  #view-lesson .player-layout,#view-lesson .player-layout.chat-collapsed{--outline-size:10rem;grid-template-columns:var(--outline-size) minmax(0,1fr)}
+  .outline-collapsed #view-lesson .player-layout,.outline-collapsed #view-lesson .player-layout.chat-collapsed{--outline-size:2.75rem;grid-template-columns:var(--outline-size) minmax(0,1fr)}
+  #view-lesson .player-layout>.page-chat,.header-collapsed #view-lesson .player-layout>.page-chat{position:absolute;top:0;right:0;bottom:0;width:min(21rem,calc(100% - 3rem));height:100%;max-height:100%;z-index:35;box-shadow:-.375rem 0 1.5rem #243e7020}
+}
+@media(prefers-reduced-motion:reduce){.header-tools-menu>summary,.chat-input-shell{transition:none}.lesson-actions-drawer,.narration-drawer{animation:none}}
+
+/* Keep scalar values visible together in a short debugger window. */
+.lesson-debug-dialog .debug-variable{margin:.25rem 0;padding:.375rem .5rem;border-radius:.375rem}
+.lesson-debug-dialog .debug-variable>.debug-variable-row{display:grid;grid-template-columns:minmax(4.5rem,1fr) minmax(3rem,1fr) auto;gap:.5rem;align-items:center}
+.debug-variable-identity{min-width:0}
+.debug-variable-identity strong,.debug-variable-identity small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4}
+.debug-variable-identity strong{font-size:.75rem}
+.debug-variable-identity small{margin:0;font-size:.625rem}
+.lesson-debug-dialog .debug-variable .debug-variable-value{min-width:0;margin:0;font-size:.75rem;line-height:1.5;max-height:3em;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.debug-variable-actions{display:flex;align-items:center;gap:.25rem}
+.debug-variable-actions button{min-height:1.75rem;white-space:nowrap}
+.lesson-debug-dialog .debug-variable .debug-address{display:inline-flex;align-items:center;justify-content:center;width:1.75rem;height:1.75rem;padding:.3125rem;border-radius:.3125rem;color:#7a88a0}
+.lesson-debug-dialog .debug-variable .debug-address:hover{background:#eaf0fd;color:#4e63ad}
+.debug-address svg{display:block;width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.debug-variable .debug-child-list:not(:empty){margin-top:.375rem;padding-left:.5rem;border-left:2px solid #e1e7f2}
+.lesson-debug-dialog .debug-memory{margin:.375rem 0 0}
+.lesson-debug-dialog .debug-note{margin:.375rem 0;line-height:1.5}
+@media(max-height:700px){
+  .lesson-debug-dialog{height:calc(100dvh - 1rem);padding:.75rem 1rem}
+  .debug-dialog-heading .eyebrow{display:none}
+  .debug-dialog-heading h2{margin:0;font-size:1.125rem}
+  .lesson-debug-dialog .lesson-debug{margin-top:.375rem;padding-top:.375rem}
+  .lesson-debug-dialog .debug-status{margin:.25rem 0 .375rem}
+  .lesson-debug-dialog .debug-controls button{padding:.375rem .625rem}
+}

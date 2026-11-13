@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-1-2",
+  "level": 1,
+  "session": "2024-09",
+  "number": 2,
+  "title": "美丽数字",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "条件计数"
+  ],
+  "description": "给出 n 个正整数，统计其中能被 9 整除但不能被 8 整除的个数。",
+  "input": "第一行 n，之后给出 n 个整数。",
+  "output": "符合条件的数量。",
+  "constraints": "1 ≤ n ≤ 100000；各数在 1～100000 之间。",
+  "sampleInput": "4\n18\n72\n27\n16\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4035",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n18\n72\n27\n16\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

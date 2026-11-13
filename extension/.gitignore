@@ -1,0 +1,15 @@
+.local/
+.tmp/
+__pycache__/
+.pytest_cache/
+node_modules/
+.venv/
+releases/
+native-host/build/
+native-host/dist/config.json
+native-host/com.codearena.cpp_judge.json
+learning_service/config.local.json
+learning_service/.env
+postman/.dependencies/
+sim.ndjson
+sim.err

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-1-2",
+  "level": 1,
+  "session": "2023-09",
+  "number": 2,
+  "title": "小明的幸运数",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "逻辑运算"
+  ],
+  "description": "在闭区间 [L,R] 中，把能被 k 整除或个位数字为 k 的整数视为幸运数。同时满足两个条件的只计算一次。求所有幸运数之和。",
+  "input": "三行整数，依次为 k、L、R。",
+  "output": "幸运数之和。",
+  "constraints": "2 ≤ k ≤ 9；1 ≤ L ≤ R ≤ 1000。",
+  "sampleInput": "5\n1\n12\n",
+  "sampleOutput": "15\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3864",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "5\n1\n12\n",
+      "expected": "15\n",
+      "score": 100
+    }
+  ]
+}

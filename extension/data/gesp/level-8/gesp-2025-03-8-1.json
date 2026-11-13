@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-8-1",
+  "level": 8,
+  "session": "2025-03",
+  "number": 1,
+  "title": "上学",
+  "kind": "past-paper",
+  "tags": [
+    "Dijkstra",
+    "最短路"
+  ],
+  "description": "城市道路为带正长度的无向边。学校位于 s，每位学生速度为每秒一米。分别求各家庭到学校的最短时间。",
+  "input": "首行 n、m、s、q；随后 m 行 u、v、长度；再给 q 行家庭节点编号。",
+  "output": "按询问顺序逐行输出最短时间。",
+  "constraints": "n,m,q ≤ 200000；长度为 1～1000000。",
+  "sampleInput": "3 2 3 2\n1 2 4\n2 3 5\n1\n2\n",
+  "sampleOutput": "9\n5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11966",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2 3 2\n1 2 4\n2 3 5\n1\n2\n",
+      "expected": "9\n5\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-3-2",
+  "level": 3,
+  "session": "2025-09",
+  "number": 2,
+  "title": "日历制作",
+  "kind": "past-paper",
+  "tags": [
+    "日期",
+    "格式化输出"
+  ],
+  "description": "输出 2025 年指定月份的日历。首行是 MON TUE WED THU FRI SAT SUN；下一行开始逐周排列日期，星期一在最左。每个日期占 3 个字符宽、右对齐，相邻列再用一个空格分隔，月初空缺补空格，月末不输出多余日期。",
+  "input": "月份 m。",
+  "output": "按星期对齐的月历，首行为英文星期标题。",
+  "constraints": "1 ≤ m ≤ 12；年份固定为 2025。",
+  "sampleInput": "2\n",
+  "sampleOutput": "MON TUE WED THU FRI SAT SUN\n                      1   2\n  3   4   5   6   7   8   9\n 10  11  12  13  14  15  16\n 17  18  19  20  21  22  23\n 24  25  26  27  28\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4414",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n",
+      "expected": "MON TUE WED THU FRI SAT SUN\n                      1   2\n  3   4   5   6   7   8   9\n 10  11  12  13  14  15  16\n 17  18  19  20  21  22  23\n 24  25  26  27  28\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "gesp-2026-03-5-2",
+  "level": 5,
+  "session": "2026-03",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "找数",
+  "tags": [
+    "排序",
+    "二分查找",
+    "双指针"
+  ],
+  "description": "两个数组各自没有重复元素。统计同时出现在两个数组中的数有多少个。",
+  "input": "第一行 n、m；第二行 n 个 A 元素；第三行 m 个 B 元素。",
+  "output": "输出交集大小。",
+  "constraints": "1 ≤ n,m ≤ 10^5；元素范围 1～10^9。",
+  "sampleInput": "3 4\n1 3 5\n2 3 5 8\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "3 4\n1 3 5\n2 3 5 8\n",
+      "expected": "2\n",
+      "score": 33
+    },
+    {
+      "input": "1 1\n1\n2\n",
+      "expected": "0\n",
+      "score": 33
+    },
+    {
+      "input": "2 2\n9 4\n4 9\n",
+      "expected": "2\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15799",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1734457367199776.pdf"
+  }
+}

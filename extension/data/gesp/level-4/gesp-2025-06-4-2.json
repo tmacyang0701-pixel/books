@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-4-2",
+  "level": 4,
+  "session": "2025-06",
+  "number": 2,
+  "title": "排序",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "逆序对"
+  ],
+  "description": "将同学按身高从高到低排列，身高相同时体重较大者在前。每次只能交换相邻两人，求最少交换次数。",
+  "input": "首行 n；随后 n 行各给身高、体重。",
+  "output": "最少相邻交换次数。",
+  "constraints": "1 ≤ n ≤ 3000；身高、体重为 0～10^9。",
+  "sampleInput": "3\n160 50\n170 60\n160 55\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4361",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n160 50\n170 60\n160 55\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

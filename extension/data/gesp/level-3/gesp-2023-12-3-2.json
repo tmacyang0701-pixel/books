@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-3-2",
+  "level": 3,
+  "session": "2023-12",
+  "number": 2,
+  "title": "单位转换",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "单位换算"
+  ],
+  "description": "完成同类单位由大到小的换算。长度单位 km、m、mm，以及质量单位 kg、g、mg，相邻两档相差 1000 倍。把每道算式中的 ? 替换为正确整数。",
+  "input": "首行 N；之后每行形如 x km = ? m，各部分用空格隔开。只会出现同类单位的大单位换小单位。",
+  "output": "逐行输出替换后的原算式，保留单位与空格。",
+  "constraints": "1 ≤ N ≤ 1000；0 ≤ x ≤ 1000。",
+  "sampleInput": "2\n2 kg = ? mg\n3 m = ? mm\n",
+  "sampleOutput": "2 kg = 2000000 mg\n3 m = 3000 mm\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3926",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n2 kg = ? mg\n3 m = ? mm\n",
+      "expected": "2 kg = 2000000 mg\n3 m = 3000 mm\n",
+      "score": 100
+    }
+  ]
+}

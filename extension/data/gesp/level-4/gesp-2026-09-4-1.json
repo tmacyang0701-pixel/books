@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-4-1",
+  "level": 4,
+  "session": "2026-09",
+  "number": 1,
+  "title": "新汉诺塔",
+  "kind": "past-paper",
+  "tags": [
+    "递推",
+    "汉诺塔"
+  ],
+  "description": "将 A 柱上的 n 个大小不同圆盘移至 C 柱。每次只移动顶部一盘，不能把大盘放在小盘上；方向仅允许 A→B、B→C、C→A。求最少移动次数。",
+  "input": "正整数 n。",
+  "output": "最少移动次数。",
+  "constraints": "1 ≤ n ≤ 20。",
+  "sampleInput": "3\n",
+  "sampleOutput": "21\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4579",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n",
+      "expected": "21\n",
+      "score": 100
+    }
+  ]
+}

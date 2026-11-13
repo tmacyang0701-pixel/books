@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-1-2",
+  "level": 1,
+  "session": "2024-06",
+  "number": 2,
+  "title": "立方数",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "立方"
+  ],
+  "description": "判断 n 能否表示成某个正整数的三次方。",
+  "input": "整数 n。",
+  "output": "能则输出 Yes，否则输出 No。",
+  "constraints": "1 ≤ n ≤ 1000。",
+  "sampleInput": "27\n",
+  "sampleOutput": "Yes\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4001",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "27\n",
+      "expected": "Yes\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-2-2",
+  "level": 2,
+  "session": "2024-12",
+  "number": 2,
+  "title": "数位和",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "最大值"
+  ],
+  "description": "分别计算 n 个正整数的十进制数位和，输出这些数位和中的最大值。",
+  "input": "第一行 n，随后 n 行每行一个正整数。",
+  "output": "最大的数位和。",
+  "constraints": "1 ≤ n ≤ 100000；每个整数不超过 1000000000000。",
+  "sampleInput": "3\n19\n88\n1000\n",
+  "sampleOutput": "16\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4065",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n19\n88\n1000\n",
+      "expected": "16\n",
+      "score": 100
+    }
+  ]
+}

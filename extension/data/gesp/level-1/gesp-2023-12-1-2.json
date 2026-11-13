@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-1-2",
+  "level": 1,
+  "session": "2023-12",
+  "number": 2,
+  "title": "小杨报数",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "整除"
+  ],
+  "description": "按从小到大的顺序报出 1 到 N 中所有不是 M 倍数的整数。",
+  "input": "两行整数 N、M。",
+  "output": "每行输出一个符合条件的整数。",
+  "constraints": "1 ≤ N ≤ 1000；2 ≤ M ≤ 100。",
+  "sampleInput": "6\n3\n",
+  "sampleOutput": "1\n2\n4\n5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3922",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "6\n3\n",
+      "expected": "1\n2\n4\n5\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-2-2",
+  "level": 2,
+  "session": "2024-06",
+  "number": 2,
+  "title": "计数",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "计数"
+  ],
+  "description": "把 1 到 n 的所有整数用十进制写出，统计数字 k 总共出现的次数。同一个整数中出现多次也分别计数。",
+  "input": "两行整数 n、k。",
+  "output": "出现总次数。",
+  "constraints": "1 ≤ n ≤ 1000；1 ≤ k ≤ 9。",
+  "sampleInput": "12\n1\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4007",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "12\n1\n",
+      "expected": "5\n",
+      "score": 100
+    }
+  ]
+}

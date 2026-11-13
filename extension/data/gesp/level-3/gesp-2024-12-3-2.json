@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-3-2",
+  "level": 3,
+  "session": "2024-12",
+  "number": 2,
+  "title": "打印数字",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "数组"
+  ],
+  "description": "把整数 n 的每个数字转换为 5×5 字符图案，再按原顺序横向紧密拼接（数字之间没有间隔）。下列四组图案依次对应 0、1、2、3：\n\n.....\n.***.\n.***.\n.***.\n.....\n\n****.\n****.\n****.\n****.\n****.\n\n.....\n****.\n.....\n.****\n.....\n\n.....\n****.\n.....\n****.\n.....",
+  "input": "非负整数 n。",
+  "output": "五行字符图案。",
+  "constraints": "0 ≤ n ≤ 1000000；十进制表示仅含 0、1、2、3。",
+  "sampleInput": "20\n",
+  "sampleOutput": "..........\n****..***.\n......***.\n.****.***.\n..........\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4067",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "20\n",
+      "expected": "..........\n****..***.\n......***.\n.****.***.\n..........\n",
+      "score": 100
+    }
+  ]
+}

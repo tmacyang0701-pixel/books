@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-8-2",
+  "level": 8,
+  "session": "2026-09",
+  "number": 2,
+  "title": "末班车",
+  "kind": "past-paper",
+  "tags": [
+    "最短路",
+    "时刻约束"
+  ],
+  "description": "有向地铁线 u→v 从第 0 分钟起到 l 分钟，每个整数分钟发一班，耗时 t。到站即可换乘同分钟发出的列车。每次询问从 x 在 s 分钟出发能否到 y。",
+  "input": "首行 n、m、q；随后 m 行 u、v、l、t；再给 q 行 x、y、s。",
+  "output": "每个询问输出 Yes 或 No。",
+  "constraints": "n ≤ 500；m ≤ 1000；q ≤ 500000；0≤l,s≤100000；1≤t≤10000。",
+  "sampleInput": "3 2 2\n1 2 3 2\n2 3 4 1\n1 3 2\n1 3 3\n",
+  "sampleOutput": "Yes\nNo\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17462",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2 2\n1 2 3 2\n2 3 4 1\n1 3 2\n1 3 3\n",
+      "expected": "Yes\nNo\n",
+      "score": 100
+    }
+  ]
+}

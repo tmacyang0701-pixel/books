@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-06-7-2",
+  "level": 7,
+  "session": "2026-06",
+  "number": 2,
+  "title": "消消乐",
+  "kind": "past-paper",
+  "tags": [
+    "区间动态规划"
+  ],
+  "description": "每次删除数组中的一个元素，得分等于它删除前左右相邻元素之和，缺失的邻居算 0。删完全部元素，求最大总分。",
+  "input": "首行 n；次行 n 个非负整数。",
+  "output": "最大总分。",
+  "constraints": "1 ≤ n ≤ 100；0 ≤ a_i ≤ 10^9。",
+  "sampleInput": "3\n2 1 4\n",
+  "sampleOutput": "10\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17015",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://www.hfoj.net/d/luogu/p/P17015"
+  },
+  "cases": [
+    {
+      "input": "3\n2 1 4\n",
+      "expected": "10\n",
+      "score": 100
+    }
+  ]
+}

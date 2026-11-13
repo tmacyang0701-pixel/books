@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-1-1",
+  "level": 1,
+  "session": "2025-12",
+  "number": 1,
+  "title": "小杨的爱心快递",
+  "kind": "past-paper",
+  "tags": [
+    "浮点数",
+    "条件判断"
+  ],
+  "description": "寄送快递可以按体积或按重量计费，取较低价格。体积为 v 时费用是 0.5v；重量 g 小于 300 时费用为 m，否则为 n。",
+  "input": "四行实数，依次为 v、g、m、n。",
+  "output": "最低费用，保留一位小数。",
+  "constraints": "各输入均为正数、仅一位小数且不超过 1000。",
+  "sampleInput": "20.0\n300.0\n6.0\n12.0\n",
+  "sampleOutput": "10.0\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4445",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "20.0\n300.0\n6.0\n12.0\n",
+      "expected": "10.0\n",
+      "score": 100
+    }
+  ]
+}

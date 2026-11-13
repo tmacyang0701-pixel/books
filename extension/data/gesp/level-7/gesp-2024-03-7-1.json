@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-7-1",
+  "level": 7,
+  "session": "2024-03",
+  "number": 1,
+  "title": "交流问题",
+  "kind": "past-paper",
+  "tags": [
+    "二分图",
+    "连通分量"
+  ],
+  "description": "n 名学生来自 A、B 两校，只会在不同学校间发生交流。已知所有交流边，求 B 校参与学生数量的最小值和最大值。",
+  "input": "首行 n、m；随后 m 行，每行一对交流学生编号。",
+  "output": "B 校人数下界和上界。",
+  "constraints": "n ≤ 100000；m ≤ 200000；编号 1～n；保证交流可由两校分组解释。",
+  "sampleInput": "4 2\n1 2\n2 3\n",
+  "sampleOutput": "1 3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10378",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 2\n1 2\n2 3\n",
+      "expected": "1 3\n",
+      "score": 100
+    }
+  ]
+}

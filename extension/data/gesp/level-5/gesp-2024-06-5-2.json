@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2024-06-5-2",
+  "level": 5,
+  "session": "2024-06",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "小杨的幸运数字",
+  "tags": [
+    "质因数分解",
+    "筛法"
+  ],
+  "description": "对于每个整数，判断其不同质因子的种类数是否恰好为 2。重复出现的同一质因子只计一种。",
+  "input": "第一行 n，之后 n 行各给一个整数。",
+  "output": "每个数对应一行：满足条件输出 1，否则输出 0。",
+  "constraints": "1 ≤ n ≤ 10^4；2 ≤ a_i ≤ 10^6。",
+  "sampleInput": "4\n18\n30\n49\n77\n",
+  "sampleOutput": "1\n0\n0\n1\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "4\n18\n30\n49\n77\n",
+      "expected": "1\n0\n0\n1\n",
+      "score": 33
+    },
+    {
+      "input": "1\n2\n",
+      "expected": "0\n",
+      "score": 33
+    },
+    {
+      "input": "3\n12\n100\n210\n",
+      "expected": "1\n1\n0\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10720",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1621071558082592.pdf"
+  }
+}

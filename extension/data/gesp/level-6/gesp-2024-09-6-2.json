@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-6-2",
+  "level": 6,
+  "session": "2024-09",
+  "number": 2,
+  "title": "算法学习",
+  "kind": "past-paper",
+  "tags": [
+    "贪心",
+    "排序"
+  ],
+  "description": "每道题只能学一次，题目 i 使算法 a_i 的掌握程度增加 b_i。初始各算法为 0，要求 m 种算法均达到 k，且学习顺序中相邻两题知识点不同。求最少题数。",
+  "input": "首行 m、n、k；次行 n 个知识点编号；第三行 n 个提升值。",
+  "output": "最少题数；无法实现输出 -1。",
+  "constraints": "1 ≤ m,n,k,b_i ≤ 100000；1 ≤ a_i ≤ m。",
+  "sampleInput": "2 3 3\n1 1 2\n1 2 3\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11247",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 3 3\n1 1 2\n1 2 3\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

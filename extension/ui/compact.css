@@ -1,0 +1,295 @@
+/* Keep native scrolling and keyboard access, with a quiet, narrow track. */
+*{scrollbar-width:thin;scrollbar-color:#a4b2c8 transparent}
+@supports selector(::-webkit-scrollbar){
+  *{scrollbar-width:auto;scrollbar-color:auto}
+  ::-webkit-scrollbar{width:.375rem;height:.375rem}
+  ::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#a4b2c8;border-radius:1rem}
+  ::-webkit-scrollbar-thumb:hover{background:#7487a5}
+  ::-webkit-scrollbar-button{display:none;width:0;height:0}
+}
+
+/* These views use the full viewport width. The scroll container, rather than
+   the page's outer padding, supplies the small right content inset. */
+#view-learn,#view-library{max-width:none;padding:clamp(.625rem,2dvh,1rem) 0 0 1rem;font-size:.875rem}
+#view-learn{--learn-gap:clamp(.5rem,1.6dvh,.875rem)}
+#view-learn button,#view-library button{font-size:.8125rem;padding:.4375rem .75rem;border-radius:.5rem;line-height:1.5}
+#view-learn .learn-toolbar{gap:.625rem;margin:0 0 var(--learn-gap);padding-right:1rem;min-height:2.25rem;flex-wrap:wrap}
+#view-learn .learn-toolbar label{font-size:.75rem}
+#view-learn .learn-toolbar select{width:9rem;max-width:none;height:2.25rem;padding:.375rem .625rem;font-size:.8125rem;border-radius:.5rem}
+.learn-metrics{display:flex;flex-wrap:wrap;gap:.875rem;margin-right:auto;font-size:.75rem;color:var(--muted)}
+.learn-metrics strong{font-weight:600;color:var(--text)}
+.learn-dashboard{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:auto;padding:0 1rem .75rem 0;display:flex;flex-direction:column;gap:var(--learn-gap)}
+.learn-dashboard>*{flex-shrink:0;min-width:0}
+#view-learn .level-overview{padding:clamp(.75rem,2dvh,1.125rem) 1rem;border-radius:.75rem}
+.learn-overview-heading{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+#view-learn h1{font-size:clamp(1.25rem,2.8dvh,1.5rem);line-height:1.35;letter-spacing:0}
+.learn-overview-heading button{flex-shrink:0}
+#view-learn .level-overview>p{font-size:.8125rem;max-width:none;margin-top:.375rem}
+#view-learn .topic-list{gap:.375rem;margin:var(--learn-gap) 0}
+#view-learn .tag{font-size:.75rem;padding:.1875rem .5rem;border-radius:.3125rem}
+#view-learn .knowledge-tag span,#view-library .knowledge-tag span{font-size:inherit}
+.learn-overview-footer{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;font-size:.75rem;color:var(--muted)}
+.learn-goals summary{cursor:pointer;width:fit-content}
+.learn-goals summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#view-learn .goal-list{font-size:.8125rem;line-height:1.7;margin:.375rem 0 0;padding-left:1.125rem}
+#view-learn .subtle-link{font-size:.75rem;margin:0;flex-shrink:0}
+#view-learn .section-heading{gap:.75rem;margin:0 0 .5rem}
+#view-learn .section-heading h2{font-size:.9375rem;line-height:1.5}
+.learn-problem-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+.learn-problem-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:clamp(.5rem,1.4dvh,.75rem) .875rem;background:var(--panel);border:1px solid var(--border);border-radius:.625rem}
+.learn-problem-info{min-width:0}
+.learn-problem-info h3{font-size:.875rem;line-height:1.5;overflow-wrap:anywhere}
+.learn-problem-meta{display:flex;align-items:center;flex-wrap:wrap;gap:.25rem .75rem;margin-top:.1875rem}
+#view-learn .card-meta{font-size:.75rem;letter-spacing:0}
+#view-learn .card-tags{gap:.3125rem}
+#view-learn .learn-problem-meta .tag{font-size:.75rem;padding:0 .3125rem}
+.learn-problem-row>.button-row{flex-shrink:0;gap:.375rem}
+
+/* Filters and import share one row on laptop screens. */
+#view-library .filters{display:grid;grid-template-columns:repeat(3,minmax(6.5rem,9rem)) minmax(9rem,1fr) auto;gap:.625rem;margin:0 1rem .4375rem 0;align-items:end}
+#view-library .filters label{width:auto;min-width:0;font-size:.75rem;line-height:1.5}
+#view-library .filters select,#view-library .filters input{margin-top:0;height:2.25rem;padding:.375rem .625rem;font-size:.8125rem;border-radius:.5rem}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+#view-library #importJsonBtn{height:2.25rem;white-space:nowrap}
+#libraryCount{font-size:.75rem;line-height:1.5;padding-right:1rem}
+#view-library .library-layout{grid-template-columns:clamp(14rem,26%,20rem) minmax(0,1fr);gap:.75rem;margin-top:.5rem}
+#view-library .question-list{gap:.375rem;padding:0 .25rem .5rem 0}
+#view-library .question-row{gap:.5rem;padding:.5625rem .625rem;border-radius:.5rem}
+#view-library .q-number{font-size:.6875rem;min-width:1rem}
+#view-library .q-info{min-width:0}
+.q-heading{display:flex;align-items:baseline;gap:.5rem}
+#view-library .q-heading strong{flex:1;min-width:0;margin:0;font-size:.875rem;line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#view-library .q-heading .card-meta{flex-shrink:0;font-size:.6875rem;letter-spacing:0}
+.q-tags{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:.1875rem;font-size:.75rem;line-height:1.5;color:var(--muted)}
+#view-library .problem-preview{display:flex;flex-direction:column;padding:0;border-radius:.75rem 0 0 0;overflow:hidden}
+.preview-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:.875rem 1rem .5rem}
+.preview-body:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.problem-title-row{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.25rem .75rem;margin-bottom:.375rem}
+#view-library .problem-title-row h2{margin:0;font-size:1.25rem;line-height:1.4;overflow-wrap:anywhere}
+#view-library .problem-title-row .card-meta{font-size:.75rem;letter-spacing:0}
+#view-library .card-tags{gap:.375rem}
+#view-library .card-tags .tag{padding:.125rem .4375rem;font-size:.75rem;border-radius:.3125rem}
+#view-library .problem-section{margin-top:.625rem}
+#view-library .problem-section h3{font-size:.75rem;line-height:1.5;margin-bottom:.1875rem}
+#view-library .problem-prose{font-size:.8125rem;line-height:1.7}
+.problem-samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}
+.problem-samples>div{min-width:0}
+#view-library .sample-box{font-size:.75rem;line-height:1.6;padding:.4375rem .625rem;margin:.25rem 0 0;border-radius:.4375rem}
+#view-library .source-note{font-size:.75rem;margin-top:.625rem}
+#view-library .source-note summary{cursor:pointer}
+#view-library .source-note[open] summary{margin-bottom:.375rem}
+#view-library .source-links{gap:.75rem;margin-top:.375rem}
+#view-library .preview-actions{position:static;flex-shrink:0;gap:.5rem;margin:0;padding:.5rem 1rem;border-top:1px solid var(--border)}
+#view-library .loading-text{padding:1rem}
+#view-library .empty-state{font-size:.8125rem;padding:1.5rem .875rem;overflow:auto}
+
+@media(max-height:36rem){
+  #view-learn,#view-library{padding-top:.5rem}
+  #view-learn{--learn-gap:.5rem}
+  #view-learn .level-overview{padding:.625rem .875rem}
+  .learn-problem-row{padding:.4375rem .75rem}
+  .preview-body{padding-top:.625rem}
+  #view-library .problem-section{margin-top:.5rem}
+}
+@media(max-width:62rem){
+  #view-library .filters{grid-template-columns:repeat(3,minmax(5.5rem,1fr)) minmax(7rem,1.4fr) auto;gap:.4375rem}
+  #view-library .library-layout{grid-template-columns:minmax(12rem,27%) minmax(0,1fr)}
+  .q-heading{flex-wrap:wrap;gap:0 .375rem}
+}
+@media(max-width:45rem){
+  #view-learn,#view-library{padding-left:.625rem}
+  #view-learn .learn-toolbar{padding-right:.625rem;gap:.375rem}
+  .learn-dashboard{padding-right:.625rem}
+  .learn-overview-heading{flex-wrap:wrap}
+  .learn-problem-row{flex-wrap:wrap;gap:.375rem}
+  #view-library .filters{grid-template-columns:repeat(3,minmax(0,1fr));margin-right:.625rem}
+  #view-library .filters .search-field{grid-column:span 2}
+  #view-library .library-layout{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,.7fr) minmax(0,1.3fr);gap:.5rem}
+  #view-library .question-row{padding:.375rem .5rem}
+  .preview-body{padding:.625rem}
+  .problem-samples{grid-template-columns:minmax(0,1fr);gap:.5rem}
+}
+
+/* Collapsed header actions float at the right, outside document flow. */
+.header-tools-menu{position:fixed;right:0;bottom:4.25rem;z-index:55;font-size:.75rem;transition:right .18s ease}
+.header-tools-menu>summary{width:1rem;height:2.5rem;border:1px solid #d5deed;border-right:0;border-radius:1rem 0 0 1rem;background:var(--panel);box-shadow:0 .125rem .5rem #22304a18;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;list-style:none;cursor:pointer;color:var(--muted);font-size:.6875rem;line-height:1.2;user-select:none;transition:width .18s ease,height .18s ease,border-radius .18s ease}
+.header-tools-menu #headerConnectionLabel{display:none}
+.header-tools-menu:is(:hover,:focus-within,[open]){right:.875rem}
+.header-tools-menu:is(:hover,:focus-within,[open])>summary{width:3.25rem;height:3.25rem;border-right:1px solid var(--border);border-radius:50%;box-shadow:0 .25rem 1rem #22304a26}
+.header-tools-menu:is(:hover,:focus-within,[open]) #headerConnectionLabel{display:block}
+.header-tools-menu>summary::-webkit-details-marker{display:none}
+.header-tools-menu>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.header-tools-menu .connection-dot{width:.4375rem;height:.4375rem;border-radius:50%;background:#d29b38}
+.header-tools-menu[data-state=ready]>summary{color:#168968;border-color:#b7decf}
+.header-tools-menu[data-state=ready] .connection-dot{background:#168968}
+.header-tools-menu[data-state=offline]>summary{color:#a54b58;border-color:#e5c6cc}
+.header-tools-menu[data-state=offline] .connection-dot{background:#bb5667}
+.header-tools-panel{position:absolute;bottom:calc(100% + .625rem);right:0;width:16rem;max-width:calc(100vw - 2rem);max-height:calc(100dvh - 8rem);overflow:auto;padding:.75rem;background:var(--panel);border:1px solid var(--border);border-radius:.75rem;box-shadow:0 .5rem 1.5rem #22304a24}
+.header-tools-panel .header-tools{display:flex;flex-direction:column;align-items:stretch;gap:.5rem}
+.header-tools-panel .service-status{display:flex;font-size:.6875rem;white-space:normal;overflow-wrap:anywhere;line-height:1.5;margin:0 0 .25rem}
+.header-tools-panel .service-status:before{flex-shrink:0}
+.header-tools-panel button{font-size:.8125rem;padding:.5rem .75rem}
+@media(prefers-reduced-motion:reduce){.header-tools-menu,.header-tools-menu>summary{transition:none}}
+
+/* Shared compact viewport layout for knowledge, courseware and practice. */
+.page{max-width:none;padding:.75rem 0 0 1rem}
+.page-scroll{padding:0 1rem .625rem 0;scrollbar-gutter:auto}
+.page>.page-heading,.page-scroll>.page-heading{gap:.75rem;margin:0 1rem .75rem 0;align-items:center}
+.page-scroll>.page-heading{margin-right:0}
+.page>.page-heading .eyebrow,.page-scroll>.page-heading .eyebrow{display:none}
+.page>.page-heading h1,.page-scroll>.page-heading h1{font-size:1.25rem;line-height:1.4;margin:0}
+.page>.page-heading p,.page-scroll>.page-heading p{display:none}
+.page>.page-heading button,.page-scroll>.page-heading button{font-size:.8125rem;padding:.4375rem .75rem}
+#view-knowledge,#view-practice,#view-courses,#view-lesson{font-size:.875rem}
+#view-knowledge button,#view-practice button,#view-courses button{font-size:.8125rem;padding:.4375rem .75rem;border-radius:.5rem}
+#view-knowledge .tag,#view-practice .tag{font-size:.75rem;padding:.125rem .4375rem}
+#view-knowledge .tag span,#view-practice .tag span{font-size:inherit}
+.knowledge-toolbar{display:flex;justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.knowledge-toolbar h1{font-size:1.25rem;line-height:1.4;letter-spacing:0}
+.knowledge-toolbar p{color:var(--muted);font-size:.75rem;margin-top:.125rem}
+.knowledge-toolbar select{width:9rem;height:2.25rem;font-size:.8125rem;padding:.375rem .625rem}
+#view-knowledge .knowledge-directory{margin-bottom:.75rem}
+#view-knowledge details.knowledge-directory{border:1px solid var(--border);border-radius:.625rem;background:#ffffffb3;padding:.5rem .75rem}
+#view-knowledge .knowledge-directory summary{font-size:.8125rem;font-weight:500;margin:0;color:#40567f}
+#view-knowledge .knowledge-directory summary span{font-size:.75rem;color:var(--muted);margin-left:.5rem}
+#view-knowledge .knowledge-directory[open] .knowledge-directory-grid{margin-top:.625rem}
+#view-knowledge .knowledge-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.625rem}
+#view-knowledge .knowledge-directory-card{padding:.875rem 1rem;border-radius:.625rem;background:linear-gradient(135deg,#fff,#f8faff);border-color:#d8e1f1}
+#view-knowledge .knowledge-directory-card h3{font-size:.875rem;margin:0 0 .625rem;border-left:.1875rem solid #7f8ee0;padding-left:.5rem}
+#view-knowledge .topic-list{gap:.375rem;margin:0}
+#view-knowledge .knowledge-tabs{gap:.375rem;margin-bottom:.625rem}
+#view-knowledge .knowledge-intro{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem 1rem;padding:1rem 1.125rem;border-radius:.75rem;border-color:#d1dbf3;background:radial-gradient(ellipse at right top,#e5ebff,transparent 65%),#fff}
+#view-knowledge .knowledge-intro .eyebrow{font-size:.6875rem;letter-spacing:.0625rem}
+#view-knowledge .knowledge-intro h2{font-size:1.375rem;line-height:1.4;margin:.25rem 0}
+#view-knowledge .knowledge-intro p{font-size:.8125rem}
+#view-knowledge .knowledge-entry{gap:.375rem;align-items:flex-end}
+#view-knowledge .knowledge-entry .small{font-size:.6875rem}
+.knowledge-path{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;border-top:1px solid #e3e8f5;padding-top:.75rem;color:#64789b;font-size:.75rem}
+.knowledge-path b{display:inline-flex;align-items:center;justify-content:center;width:1.375rem;height:1.375rem;background:#edf1ff;border-radius:.375rem;margin-right:.25rem;font-size:.6875rem;color:#576bca}
+#view-knowledge .section-heading,#view-practice .section-heading{gap:.625rem;flex-wrap:wrap;margin:.875rem 0 .5rem}
+#view-knowledge .section-heading h2,#view-practice .section-heading h2{font-size:.9375rem}
+#view-knowledge .problem-grid,#view-practice .problem-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.625rem}
+#view-knowledge .problem-card,#view-practice .problem-card{padding:.75rem .875rem;gap:.375rem;border-radius:.625rem}
+#view-knowledge .problem-card h3,#view-practice .problem-card h3{font-size:.875rem}
+#view-knowledge .card-meta,#view-practice .card-meta{font-size:.75rem}
+#view-knowledge .problem-card .button-row,#view-practice .problem-card .button-row{padding-top:0;gap:.375rem}
+#view-knowledge .problem-card .button-row button,#view-practice .problem-card .button-row button{font-size:.75rem;padding:.375rem .625rem}
+#view-knowledge .empty-state,#view-practice .empty-state{padding:1rem;font-size:.8125rem}
+#view-knowledge .empty-state button,#view-practice .empty-state button{margin-top:.625rem}
+#view-knowledge .footnote,#view-practice .footnote{font-size:.6875rem;margin-top:.75rem}
+#view-knowledge .knowledge-lesson-links{gap:.625rem}
+#view-knowledge .knowledge-lesson-links .lesson-link{padding:.75rem;border-radius:.625rem}
+#view-practice .context-card{padding:.75rem 1rem;margin:0;border-radius:.625rem}
+#view-practice .context-card h3{margin:.125rem 0 .375rem;font-size:1rem}
+#view-courses .courseware-filters{grid-template-columns:9rem minmax(0,1fr) auto;gap:.625rem;margin:0 1rem .5rem 0}
+#view-courses .courseware-filters label{font-size:.75rem}
+#view-courses .courseware-filters select,#view-courses .courseware-filters input{height:2.25rem;padding:.375rem .625rem;margin-top:.25rem;font-size:.8125rem}
+#view-courses .courseware-filters button{height:2.25rem}
+#view-courses .courseware-count{font-size:.75rem;margin-bottom:.5rem}
+#view-courses .courseware-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:.625rem;padding:0 1rem .625rem 0}
+#view-courses .history-card{padding:0 0 1.5rem;border-radius:.625rem}
+#view-courses .history-open{padding:.75rem}
+#view-courses .history-open strong{font-size:.875rem;margin:.25rem 0}
+
+/* Lesson panels occupy the remaining viewport down to its bottom edge. */
+#view-lesson{padding:.5rem 0 0 .75rem}
+#view-lesson .player-top{margin:0 .75rem .5rem 0;gap:.625rem;align-items:center;flex-direction:row;flex-wrap:wrap}
+#view-lesson .player-top>div:first-child{min-width:0;flex:1}
+#view-lesson .player-top h2{font-size:1rem;line-height:1.4;margin:0}
+#view-lesson .player-top .tiny-label{font-size:.625rem}
+#view-lesson .player-top .button-row{gap:.375rem}
+#view-lesson .player-top button{font-size:.75rem;padding:.375rem .625rem;border-radius:.5rem;white-space:nowrap}
+#view-lesson .player-layout{--outline-size:9rem;--lesson-side:clamp(16rem,25vw,20rem);grid-template-columns:var(--outline-size) minmax(0,1fr) var(--lesson-side);grid-template-rows:minmax(0,1fr);gap:.75rem}
+#view-lesson .player-layout.chat-collapsed{grid-template-columns:var(--outline-size) minmax(0,1fr)}
+.outline-collapsed #view-lesson .player-layout{grid-template-columns:minmax(0,1fr) var(--lesson-side)}
+.outline-collapsed #view-lesson .player-layout.chat-collapsed{grid-template-columns:minmax(0,1fr)}
+#view-lesson .slide-outline{grid-column:auto;grid-row:auto;flex-direction:column;max-height:none;gap:.25rem;padding-bottom:.5rem}
+#view-lesson .slide-outline button{min-width:0;padding:.5rem .625rem;font-size:.75rem;border-radius:.5rem}
+#view-lesson .slide-outline button span{font-size:.6875rem;margin-right:.375rem}
+#view-lesson .slide-main{padding-right:.375rem;scrollbar-gutter:auto}
+#view-lesson .slide{min-height:0;padding:clamp(1rem,2.5dvh,1.5rem);border-radius:.75rem}
+#view-lesson .slide h2{font-size:1.375rem;margin:.5rem 0 1rem;line-height:1.4}
+#view-lesson .slide li{margin:.5rem 0}
+#view-lesson .slide-controls{padding:.625rem 0;gap:.375rem;flex-wrap:wrap}
+#view-lesson .slide-controls button{font-size:.75rem;padding:.375rem .625rem}
+#view-lesson .page-visual{margin:1rem 0;padding:.75rem}
+#view-lesson .player-layout>.page-chat{border-radius:.75rem 0 0 0}
+#view-lesson .chat-heading{padding:.625rem .875rem}
+#view-lesson .chat-heading .eyebrow{display:none}
+#view-lesson .chat-heading h3{font-size:.9375rem;margin:0}
+#view-lesson .chat-page-context{margin:.625rem .75rem 0;padding:.5rem .625rem}
+#view-lesson .chat-empty{padding:.75rem .5rem}
+#view-lesson .chat-empty>span{display:none}
+#view-lesson .chat-messages{padding:.75rem}
+#view-lesson .chat-suggestions{display:grid;grid-template-columns:minmax(0,1fr);padding:0 .75rem .625rem;gap:.3125rem}
+#view-lesson .chat-suggestions button{display:block;width:100%;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal;font-size:.75rem;line-height:1.5;padding:.375rem .5rem}
+#view-lesson .chat-suggestions button p{display:inline;margin:0;white-space:nowrap;overflow-wrap:normal}
+#view-lesson .chat-composer{padding:.625rem .75rem .25rem}
+#view-lesson .chat-composer textarea{min-height:3.75rem;max-height:7rem}
+#lessonPlayer:fullscreen{padding:.5rem 0 0 .75rem}
+@media(max-width:56.25rem){
+  .learn-problem-list{grid-template-columns:minmax(0,1fr)}
+  #view-lesson .player-layout,#view-lesson .player-layout.chat-collapsed{--outline-size:7.5rem;grid-template-columns:var(--outline-size) minmax(0,1fr)}
+  .outline-collapsed #view-lesson .player-layout,.outline-collapsed #view-lesson .player-layout.chat-collapsed{grid-template-columns:minmax(0,1fr)}
+  #view-lesson .player-layout>.page-chat{position:fixed;top:8rem;right:.5rem;bottom:0;width:min(20rem,calc(100vw - 3rem));height:auto;max-height:none;z-index:30;box-shadow:-.25rem 0 1rem #22304a1f}
+  .header-collapsed #view-lesson .player-layout>.page-chat{top:4rem}
+}
+@media(max-width:45rem){
+  .page{padding-left:.625rem;padding-top:.5rem}
+  #view-knowledge .knowledge-directory-grid,#view-knowledge .problem-grid,#view-practice .problem-grid,#view-courses .courseware-list{grid-template-columns:minmax(0,1fr)}
+  #view-knowledge .knowledge-intro{grid-template-columns:minmax(0,1fr);padding:.875rem}
+  #view-knowledge .knowledge-entry{align-items:flex-start;margin:0}
+  .knowledge-path{gap:.25rem;font-size:.6875rem}
+  #view-courses .courseware-filters{grid-template-columns:minmax(0,1fr) auto}
+  #view-courses .courseware-filters label:nth-child(2){grid-column:1/-1;grid-row:2}
+}
+@media(forced-colors:active){
+  *{scrollbar-color:auto}
+  ::-webkit-scrollbar-thumb{background:ButtonText}
+}
+
+/* The question tools stay with the question, without a full-width header. */
+#view-workspace{position:relative}
+.workspace-problem-panel{position:relative;width:18.125rem;min-width:0;min-height:0;flex-shrink:0;display:flex;border-right:1px solid var(--border)}
+#workspaceProblem{width:100%;max-height:none;min-height:0;border-right:0}
+#workspaceProblem>.card-meta:first-child,#workspaceProblem>h2{padding-right:4.5rem}
+.workspace-menu{position:absolute;right:2.875rem;top:.5rem;z-index:24}
+.workspace-problem-collapse{position:absolute;right:.5rem;top:.5rem;z-index:24;display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;padding:.375rem;border:1px solid var(--border);border-radius:.5rem;background:var(--panel);color:var(--accent);box-shadow:0 .125rem .375rem #22304a12}
+.workspace-problem-collapse:hover{background:#edf1ff}
+.workspace-problem-collapse svg{width:1.125rem;height:1.125rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#debugBtn{display:inline-flex;align-items:center;justify-content:center;gap:.375rem}
+#debugBtn svg{width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none;flex-shrink:0}
+.practice-context-row{position:relative;display:flex;align-items:center;gap:1rem;border:1px solid var(--border);border-radius:.75rem;background:var(--panel);padding:.75rem 1rem}
+#view-practice .practice-context-row .context-card{flex:1;min-width:0;border:0;padding:0;background:transparent}
+#switchPracticeProblem{flex-shrink:0}
+.practice-picker{width:min(42rem,calc(100vw - 2rem));max-height:85dvh;padding:1rem}
+.practice-picker[open]{display:flex;flex-direction:column;overflow:hidden}
+.practice-picker .dialog-heading h2{font-size:1.125rem}
+.practice-picker-filters{display:flex;gap:.5rem;margin:1rem 0 .5rem}
+.practice-picker-filters input{flex:1;min-width:0}
+.practice-picker-filters select{width:8rem}
+.practice-picker-list{overflow:auto;min-height:0;display:grid;gap:.375rem;margin-top:.5rem}
+.practice-picker-list button{text-align:left;padding:.625rem .75rem;background:#fff;border:1px solid var(--border);border-radius:.5rem}
+.practice-picker-list button[aria-pressed=true]{background:#eef1ff;border-color:var(--accent)}
+.practice-picker-list strong,.practice-picker-list span{display:block;overflow-wrap:anywhere}
+.practice-picker-list span{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+.workspace-menu>summary{display:flex;align-items:center;justify-content:center;list-style:none;width:2rem;height:2rem;border:1px solid var(--border);border-radius:50%;background:var(--panel);color:var(--accent);font-size:1.25rem;font-weight:700;cursor:pointer;box-shadow:0 .125rem .375rem #22304a12}
+.workspace-menu>summary::-webkit-details-marker{display:none}
+.workspace-menu>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.workspace-menu-panel{position:absolute;top:calc(100% + .375rem);right:0;width:12rem;max-width:calc(100vw - 2rem);padding:.625rem;background:var(--panel);border:1px solid var(--border);border-radius:.625rem;box-shadow:0 .375rem 1.25rem #22304a20;display:grid;gap:.5rem}
+.workspace-menu-panel h2{font-size:.8125rem;line-height:1.5;margin:0;overflow-wrap:anywhere}
+.workspace-menu-panel button{font-size:.8125rem;padding:.4375rem .625rem;text-align:left}
+#workspace .editor-bar,#workspace .drawer-heading{height:2.75rem;min-height:2.75rem;padding:.375rem .75rem;flex-wrap:nowrap;gap:.5rem}
+#workspace .drawer-heading .eyebrow{display:none}
+#workspace .drawer-heading h3{margin:0;font-size:.875rem}
+#workspace .drawer-heading .icon-button{padding:.25rem .5rem}
+#workspace .editor-actions{flex-wrap:nowrap;gap:.375rem;min-width:0;overflow-x:auto}
+#workspace .editor-actions button,#workspace .file-tab{white-space:nowrap;flex-shrink:0}
+.editor-file-tools{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+#workspaceProblemToggle{font-size:.75rem;line-height:1.5;padding:.25rem .5rem;border-radius:.375rem}
+#workspaceProblemToggle[aria-expanded=false],#outlineToggle[aria-expanded=false]{color:var(--accent);background:#edf1ff}
+@media(min-width:93.75rem){.workspace-problem-panel{width:20.625rem}}
+@media(max-width:78.125rem){.workspace-problem-panel{width:16.875rem}}
+@media(max-width:62.5rem){.workspace-problem-panel{width:15rem}}
+@media(max-width:45rem){.workspace-problem-panel{width:auto;height:12.5rem;min-height:12.5rem;border-right:0;border-bottom:1px solid var(--border)}}

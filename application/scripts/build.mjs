@@ -1,0 +1,14 @@
+import {readFile,mkdir,writeFile,rm} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+const root=new URL('../',import.meta.url);
+const files=['web/index.html','worker/index.js','.openai/hosting.json','web/stroop.css','web/stroop.js','web/gym.css','web/gym.js','web/navigation.js','worker/gym.js','web/programming.css','web/programming.js','worker/programming.js','web/layout.css','web/layout.js'];
+const [page,source,manifest,css,js,gymCSS,gymJS,navigation,gymWorker,programCSS,programJS,programWorker,layoutCSS,layoutJS]=await Promise.all(files.map(p=>readFile(new URL(p,root),'utf8')));
+const html=page.replace('/*STROOP_STYLE*/',()=>css).replace('/*STROOP_SCRIPT*/',()=>js).replace('/*GYM_STYLE*/',()=>gymCSS).replace('/*GYM_SCRIPT*/',()=>gymJS).replace('/*NAVIGATION_SCRIPT*/',()=>navigation).replace('/*PROGRAMMING_STYLE*/',()=>programCSS).replace('/*PROGRAMMING_SCRIPT*/',()=>programJS).replace('/*LAYOUT_STYLE*/',()=>layoutCSS).replace('/*LAYOUT_SCRIPT*/',()=>layoutJS);
+const output=source.replace("import {createGymAPI} from './gym.js';",()=>gymWorker.replace('export function createGymAPI','function createGymAPI')).replace("import {createProgrammingAPI,programmingMessagePrefix} from './programming.js';",()=>programWorker.replace(/^export /gm,'')).replace("'__APP_HTML__'",()=>JSON.stringify(html));
+if(output===source)throw new Error('Missing HTML insertion marker');
+await rm(new URL('dist/',root),{recursive:true,force:true});
+await mkdir(new URL('dist/server/',root),{recursive:true});
+await mkdir(new URL('dist/.openai/',root),{recursive:true});
+await writeFile(new URL('dist/server/index.js',root),output);
+await writeFile(new URL('dist/.openai/hosting.json',root),manifest);
+console.log('Built '+fileURLToPath(new URL('dist/',root)));

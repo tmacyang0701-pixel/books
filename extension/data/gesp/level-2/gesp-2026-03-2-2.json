@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-2-2",
+  "level": 2,
+  "session": "2026-03",
+  "number": 2,
+  "title": "画画",
+  "kind": "past-paper",
+  "tags": [
+    "嵌套循环",
+    "字符图形"
+  ],
+  "description": "绘制 n×n 正方形：四角为 +，顶边底边其余位置为 -，左右边其余位置为 |，内部全为 *。",
+  "input": "整数 n。",
+  "output": "n 行图案。",
+  "constraints": "3 ≤ n ≤ 100。",
+  "sampleInput": "4\n",
+  "sampleOutput": "+--+\n|**|\n|**|\n+--+\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4498",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n",
+      "expected": "+--+\n|**|\n|**|\n+--+\n",
+      "score": 100
+    }
+  ]
+}

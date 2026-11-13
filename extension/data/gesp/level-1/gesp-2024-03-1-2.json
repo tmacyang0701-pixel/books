@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-1-2",
+  "level": 1,
+  "session": "2024-03",
+  "number": 2,
+  "title": "找因数",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "因数"
+  ],
+  "description": "找出正整数 a 的所有正因数，并按从小到大输出。",
+  "input": "正整数 a。",
+  "output": "每行一个因数。",
+  "constraints": "1 ≤ a ≤ 1000。",
+  "sampleInput": "10\n",
+  "sampleOutput": "1\n2\n5\n10\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3953",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "10\n",
+      "expected": "1\n2\n5\n10\n",
+      "score": 100
+    }
+  ]
+}

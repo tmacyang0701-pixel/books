@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-1-1",
+  "level": 1,
+  "session": "2026-09",
+  "number": 1,
+  "title": "新龟兔赛跑",
+  "kind": "past-paper",
+  "tags": [
+    "浮点数",
+    "比较"
+  ],
+  "description": "比赛路程固定为 1000。给定乌龟全程耗时、兔子的速度和途中睡眠时间，比较谁先到达，并计算兔子的总耗时。",
+  "input": "三行实数：乌龟耗时、兔速、兔子睡眠时间。",
+  "output": "首行输出 turtle、rabbit 或 tie；次行输出兔子总耗时，保留两位小数。",
+  "constraints": "输入均为不超过 1000.0 的正数，且只有一位小数。",
+  "sampleInput": "30.0\n100.0\n5.0\n",
+  "sampleOutput": "rabbit\n15.00\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4573",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "30.0\n100.0\n5.0\n",
+      "expected": "rabbit\n15.00\n",
+      "score": 100
+    }
+  ]
+}

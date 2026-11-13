@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-1-1",
+  "level": 1,
+  "session": "2024-09",
+  "number": 1,
+  "title": "小杨购物",
+  "kind": "past-paper",
+  "tags": [
+    "整除",
+    "算术"
+  ],
+  "description": "两种商品的单价为 a 和 b，预算 n 元。要求两种商品购买数量相同，求每种最多买多少件。",
+  "input": "三行整数 n、a、b。",
+  "output": "每种商品可买的最大数量。",
+  "constraints": "1 ≤ n,a,b ≤ 100000。",
+  "sampleInput": "17\n2\n3\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4034",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "17\n2\n3\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-8-1",
+  "level": 8,
+  "session": "2026-06",
+  "number": 1,
+  "title": "线网建设",
+  "kind": "past-paper",
+  "tags": [
+    "最小生成树",
+    "计算几何"
+  ],
+  "description": "平面上有 n 座基站。两站欧氏距离不超过 l 才能连线，线长等于两站距离。让所有站点通过线网连通，求最小线路总长。",
+  "input": "首行 n、l；随后 n 行整数坐标 x、y。",
+  "output": "最小总长保留两位小数；无法连通输出 Impossible。",
+  "constraints": "1 ≤ n ≤ 500；1 ≤ l ≤ 100；坐标为 -100～100。",
+  "sampleInput": "3 4\n0 0\n3 0\n3 4\n",
+  "sampleOutput": "7.00\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17016",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://dingdangpy.com/p/677"
+  },
+  "cases": [
+    {
+      "input": "3 4\n0 0\n3 0\n3 4\n",
+      "expected": "7.00\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-7-1",
+  "level": 7,
+  "session": "2024-12",
+  "number": 1,
+  "title": "武器购买",
+  "kind": "past-paper",
+  "tags": [
+    "01背包",
+    "动态规划"
+  ],
+  "description": "每件武器最多购买一次。要求总强度至少 P，总费用不超过 Q，求满足条件的最低费用。",
+  "input": "首行 T；每组先给 n、P、Q，随后 n 行强度、费用。",
+  "output": "每组输出最低费用，无解输出 -1。",
+  "constraints": "T ≤ 10；n ≤ 100；强度、费用、P、Q 为 1～50000。",
+  "sampleInput": "1\n3 7 8\n4 3\n3 4\n8 9\n",
+  "sampleOutput": "7\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11377",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "1\n3 7 8\n4 3\n3 4\n8 9\n",
+      "expected": "7\n",
+      "score": 100
+    }
+  ]
+}

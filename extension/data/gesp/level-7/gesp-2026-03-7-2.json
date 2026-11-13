@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-7-2",
+  "level": 7,
+  "session": "2026-03",
+  "number": 2,
+  "title": "物流网络",
+  "kind": "past-paper",
+  "tags": [
+    "最短路",
+    "枚举"
+  ],
+  "description": "道路为双向，每条有费用和景观评分。从城市 1 到 n，可免去路线中景观评分最高的一条道路费用；最高分并列时任选其中一条。求最低总费用。",
+  "input": "首行 n、m；随后 m 行 u、v、费用 w、评分 b。",
+  "output": "最小费用；不可达输出 -1。",
+  "constraints": "n,m ≤ 5000；1 ≤ w,b ≤ 10^9。",
+  "sampleInput": "3 2\n1 2 4 2\n2 3 7 3\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15803",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2\n1 2 4 2\n2 3 7 3\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

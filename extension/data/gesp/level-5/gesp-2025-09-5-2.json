@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2025-09-5-2",
+  "level": 5,
+  "session": "2025-09",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "有趣的数字和",
+  "tags": [
+    "分治",
+    "位运算"
+  ],
+  "description": "若整数的二进制表示中 1 的数量为奇数，就计入答案。求闭区间 [l,r] 中所有这类整数的总和。",
+  "input": "一行 l、r。",
+  "output": "输出总和，使用 long long。",
+  "constraints": "1 ≤ l ≤ r ≤ 10^9。",
+  "sampleInput": "1 10\n",
+  "sampleOutput": "22\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "1 10\n",
+      "expected": "22\n",
+      "score": 33
+    },
+    {
+      "input": "7 7\n",
+      "expected": "7\n",
+      "score": 33
+    },
+    {
+      "input": "8 20\n",
+      "expected": "81\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14074",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1704013600915488.pdf"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-2-1",
+  "level": 2,
+  "session": "2025-12",
+  "number": 1,
+  "title": "环保能量球",
+  "kind": "past-paper",
+  "tags": [
+    "整除",
+    "多组输入"
+  ],
+  "description": "每走 1 公里获得 1 点能量，每累计走满 x 公里再额外获得 1 点。给定总路程 n，求能量总数。",
+  "input": "第一行 t；每组两行，依次为 n 和 x。",
+  "output": "每组输出一个能量总数。",
+  "constraints": "1 ≤ t ≤ 100；1 ≤ n,x ≤ 1000。",
+  "sampleInput": "2\n8\n3\n4\n4\n",
+  "sampleOutput": "10\n5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4447",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n8\n3\n4\n4\n",
+      "expected": "10\n5\n",
+      "score": 100
+    }
+  ]
+}

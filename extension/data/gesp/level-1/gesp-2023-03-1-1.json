@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-03-1-1",
+  "level": 1,
+  "session": "2023-03",
+  "number": 1,
+  "title": "长方形面积",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "整除"
+  ],
+  "description": "面积为 A 的长方形，两边都是正整数。旋转后重合的算同一种，正方形也计入。求不同形状的数量。",
+  "input": "整数 A。",
+  "output": "形状数量。",
+  "constraints": "2 ≤ A ≤ 1000。",
+  "sampleInput": "12\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3834",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "12\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-06-1-2",
+  "level": 1,
+  "session": "2023-06",
+  "number": 2,
+  "title": "累计相加",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "累加"
+  ],
+  "description": "先分别计算 1、1+2、1+2+3，直到 1+2+…+n，再把这些结果相加。求最终总和。",
+  "input": "整数 n。",
+  "output": "累计总和。",
+  "constraints": "1 < n ≤ 100。",
+  "sampleInput": "5\n",
+  "sampleOutput": "35\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3839",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "5\n",
+      "expected": "35\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-8-2",
+  "level": 8,
+  "session": "2026-03",
+  "number": 2,
+  "title": "子图最短路",
+  "kind": "past-paper",
+  "tags": [
+    "Floyd",
+    "区间最短路"
+  ],
+  "description": "对每个编号区间 [l,r]，只保留这些节点及它们之间的边。在所得子图中求所有无序点对（含相同点）的最短距离之和；不连通点对距离按 0 计。再把所有区间的结果相加。",
+  "input": "首行 n、m；随后 m 行 u、v、边权。",
+  "output": "总和对 1000000000 取模。",
+  "constraints": "2 ≤ n ≤ 100；2 ≤ m ≤ n(n-1)/2；边权为 1～1000000；可有重边。",
+  "sampleInput": "3 2\n1 2 1\n2 3 2\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15805",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2\n1 2 1\n2 3 2\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2025-03-7-1",
+  "level": 7,
+  "session": "2025-03",
+  "number": 1,
+  "title": "图上移动",
+  "kind": "past-paper",
+  "tags": [
+    "图",
+    "动态规划",
+    "位集"
+  ],
+  "description": "在无向图上每步沿一条边移动，允许重复经过节点和边。对每个起点，分别求恰好走 1～k 步后可能所在的不同节点数。",
+  "input": "首行 n、m、k；随后 m 行边的两端。",
+  "output": "n 行，每行 k 个计数。",
+  "constraints": "n,m ≤ 500；1 ≤ k ≤ 20。",
+  "sampleInput": "3 2 2\n1 2\n2 3\n",
+  "sampleOutput": "1 2\n2 1\n1 2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11964",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2 2\n1 2\n2 3\n",
+      "expected": "1 2\n2 1\n1 2\n",
+      "score": 100
+    }
+  ]
+}

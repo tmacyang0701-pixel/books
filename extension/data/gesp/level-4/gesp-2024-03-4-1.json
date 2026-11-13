@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-4-1",
+  "level": 4,
+  "session": "2024-03",
+  "number": 1,
+  "title": "相似字符串",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "双指针"
+  ],
+  "description": "两个字符串相同，或者通过一次插入、删除、替换单个字符能够相同，就称它们相似。",
+  "input": "首行 T；随后每组给出两个小写字母字符串。",
+  "output": "每组输出 similar 或 not similar。",
+  "constraints": "T ≤ 100；字符串长不超过 50。",
+  "sampleInput": "2\nabc ab\nabc axd\n",
+  "sampleOutput": "similar\nnot similar\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3958",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\nabc ab\nabc axd\n",
+      "expected": "similar\nnot similar\n",
+      "score": 100
+    }
+  ]
+}

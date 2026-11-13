@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-6-2",
+  "level": 6,
+  "session": "2025-12",
+  "number": 2,
+  "title": "道具商店",
+  "kind": "past-paper",
+  "tags": [
+    "01背包",
+    "价值维度动态规划"
+  ],
+  "description": "每件道具只能购买一次，花费 c_i 金币可以增加 a_i 攻击力。预算为 k，求最多增加多少攻击力。",
+  "input": "首行 n、k；随后 n 行攻击力、价格。",
+  "output": "最大攻击力增量。",
+  "constraints": "1 ≤ n ≤ 500；1 ≤ k,c_i ≤ 10^9；1 ≤ a_i ≤ 500。",
+  "sampleInput": "3 6\n4 3\n7 5\n3 3\n",
+  "sampleOutput": "7\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14920",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 6\n4 3\n7 5\n3 3\n",
+      "expected": "7\n",
+      "score": 100
+    }
+  ]
+}

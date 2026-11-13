@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-3-1",
+  "level": 3,
+  "session": "2025-03",
+  "number": 1,
+  "title": "2025",
+  "kind": "past-paper",
+  "tags": [
+    "位运算",
+    "枚举"
+  ],
+  "description": "给定 x，求最小正整数 y，使 (x 按位与 y)+(x 按位或 y)=2025。若没有这样的 y 则输出 -1。",
+  "input": "整数 x。",
+  "output": "最小的 y 或 -1。",
+  "constraints": "0 ≤ x < 2025。",
+  "sampleInput": "25\n",
+  "sampleOutput": "2000\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4261",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "25\n",
+      "expected": "2000\n",
+      "score": 100
+    }
+  ]
+}

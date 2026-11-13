@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CodeArena · GESP 编程学伴</title><link rel="stylesheet" href="vendor/katex/katex.min.css"><link rel="stylesheet" href="styles.css?v=20261112-courseware-filters"><link rel="stylesheet" href="ui/chat.css?v=20261112-courseware-filters"><link rel="stylesheet" href="ui/code-analysis.css?v=20261112"><link rel="stylesheet" href="ui/knowledge.css?v=20261112"><link rel="stylesheet" href="ui/syntax-lab.css?v=20261112"><link rel="stylesheet" href="ui/courseware.css?v=20261112-filters"><link rel="stylesheet" href="ui/layout.css?v=20261113-practice6"><link rel="stylesheet" href="ui/compact.css?v=20261113-practice6"><link rel="stylesheet" href="ui/reading.css?v=20261113-practice6"></head><body>
+<header id="appHeader" class="app-header"><a class="logo" href="#learn"><span class="logo-mark">&lt;/&gt;</span><b>Code<span>Arena</span></b><small>GESP 编程学伴</small></a><div class="header-tools"><span id="serviceStatus" class="service-status">讲解服务连接中</span><button id="startServiceBtn" class="ghost">启动／更新后台</button><button id="serviceBtn" class="ghost">服务设置</button><button id="uploadBtn" class="primary">＋ 上传题目</button></div></header>
+<details id="headerToolsMenu" class="header-tools-menu" hidden>
+  <summary aria-label="讲解服务菜单" title="讲解服务菜单"><span class="connection-dot" aria-hidden="true"></span><span id="headerConnectionLabel">连接中</span></summary>
+  <div class="header-tools-panel"></div>
+</details>
+<div class="app-shell"><aside class="app-sidebar"><div class="layout-controls" role="group" aria-label="&#39029;&#38754;&#24067;&#23616;">
+<span class="layout-controls-label">&#23398;&#20064;&#24037;&#20316;&#21488;</span>
+<button id="sidebarToggle" class="layout-toggle" type="button" aria-controls="appNavigation" aria-expanded="true" aria-label="&#25910;&#36215;&#24038;&#20391;&#33756;&#21333;" title="&#25910;&#36215;&#24038;&#20391;&#33756;&#21333;"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path class="toggle-chevron" d="m16 9-3 3 3 3"/></svg></button>
+<button id="headerToggle" class="layout-toggle" type="button" aria-controls="appHeader" aria-expanded="true" aria-label="&#25910;&#36215;&#39030;&#37096;&#26639;" title="&#25910;&#36215;&#39030;&#37096;&#26639;"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path class="toggle-chevron" d="m9 16 3-3 3 3"/></svg></button>
+</div><nav id="appNavigation" class="navigation" aria-label="业务模块"><button data-view="learn" class="nav-item active"><span>◈</span>等级学习</button><button data-view="knowledge" data-action="knowledge-home" class="nav-item"><span>◇</span>知识点讲解</button><button data-view="library" class="nav-item"><span>▤</span>历年真题</button><button data-view="courses" class="nav-item"><span>▣</span>讲解课件</button><button data-view="practice" class="nav-item"><span>◎</span>相似题练习</button><button data-view="workspace" class="nav-item"><span>⌘</span>编程练习</button><div class="nav-bottom"><span class="tiny-label">当前学习等级</span><strong id="navLevel">GESP 5 级</strong><p>理解一道题，学会一类题。</p><span class="offline-dot">● 题库与本地评测可离线使用</span></div></nav></aside>
+<main class="main-content">
+<section id="view-learn" class="view page" aria-label="等级学习">
+  <div class="learn-toolbar">
+    <div class="learn-metrics"><span><strong id="bankCount">216</strong> 道真题</span><span>已学 <strong id="completedCount">0</strong> 份课件</span></div>
+    <label for="learnLevel">学习等级</label><select id="learnLevel" aria-label="选择 GESP 等级"></select>
+  </div>
+  <div class="learn-dashboard">
+    <article class="level-overview">
+      <div class="learn-overview-heading"><h1 id="levelTitle"></h1><button id="browseLevel" class="primary">进入本级题库 →</button></div>
+      <p id="levelSummary"></p>
+      <div id="levelTopics" class="topic-list"></div>
+      <div class="learn-overview-footer"><details class="learn-goals"><summary>学习目标</summary><ul id="levelGoals" class="goal-list"></ul></details><a id="syllabusLink" class="subtle-link" target="_blank" rel="noopener">CCF 认证大纲 ↗</a></div>
+    </article>
+    <div class="learn-recommendations"><div class="section-heading"><h2>从这些题开始</h2><button id="allProblems" class="text-button">浏览全部真题 →</button></div><div id="featuredProblems" class="learn-problem-list"></div></div>
+  </div>
+</section>
+<section id="view-knowledge" class="view page" hidden aria-label="知识点讲解与专项练习"><div class="page-scroll" id="knowledgeContent"></div></section>
+<section id="view-library" class="view page" hidden aria-label="历年真题"><div class="filters"><label><span class="visually-hidden">等级</span><select id="libraryLevel"></select></label><label><span class="visually-hidden">场次</span><select id="sessionFilter"><option value="">全部场次</option></select></label><label><span class="visually-hidden">知识点</span><select id="tagFilter"><option value="">全部知识点</option></select></label><label class="search-field"><span class="visually-hidden">搜索</span><input id="searchInput" type="search" placeholder="题目名称或知识点"></label><button id="importJsonBtn" class="ghost">导入题目 JSON</button></div><div id="libraryCount" class="muted small"></div><div class="library-layout"><div id="problemList" class="question-list"></div><article id="problemPreview" class="problem-preview" aria-label="题目详情"></article></div><input id="importFile" type="file" accept=".json" hidden></section>
+<section id="view-courses" class="view page" hidden><div class="page-heading"><div><div class="eyebrow">YOUR COURSEWARE</div><h1>讲解课件</h1><p class="muted">选择一份课件继续学习；所有课件集中保存在这里。</p></div><button id="chooseLessonProblem" class="primary">选择题目生成课件</button></div><div class="courseware-filters"><label>GESP 等级<select id="coursewareLevel"><option value="">全部等级</option><option value="1">GESP 1 级</option><option value="2">GESP 2 级</option><option value="3">GESP 3 级</option><option value="4">GESP 4 级</option><option value="5">GESP 5 级</option><option value="6">GESP 6 级</option><option value="7">GESP 7 级</option><option value="8">GESP 8 级</option></select></label><label>课件标题<input id="coursewareSearch" type="search" placeholder="输入标题关键词" maxlength="100" autocomplete="off"></label><button id="coursewareReset" type="button" class="ghost">清除筛选</button></div><p id="coursewareCount" class="courseware-count"></p><div id="lessonHistory" class="lesson-history courseware-list"></div></section><section id="view-lesson" class="view page" hidden><div id="lessonPlayer" hidden><div id="topicLegacyNote" class="topic-legacy-note" hidden><span>这份专题仍是旧版解题结构。重新生成可改为原理、C++ 语法与动手实验；成功前保留原课件。</span><button id="regenerateTopicLesson" class="primary">按新版结构重新生成</button></div><div class="player-layout"><aside class="lesson-directory" aria-label="课件标题与目录">
+  <div class="lesson-directory-heading">
+    <div class="lesson-identity"><span id="lessonModel" class="tiny-label"></span><h2 id="lessonTitle"></h2></div>
+    <button id="outlineToggle" type="button" class="lesson-icon-button" aria-controls="slideOutline" aria-expanded="true" aria-label="收起课件目录" title="收起课件目录"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+  </div>
+  <nav id="slideOutline" class="slide-outline" aria-label="课件目录"></nav>
+  <details id="lessonActionsMenu" class="lesson-actions-menu">
+    <summary title="课件工具" aria-label="打开课件工具抽屉"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v12H4zM4 8l3-4h10l3 4M9 12h6"/></svg><span>课件工具</span><svg class="drawer-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 14 5-5 5 5"/></svg></summary>
+    <div class="lesson-actions-drawer" role="group" aria-label="课件操作">
+      <button id="backToCourses" class="ghost">← 课件列表</button>
+      <button id="toggleLessonRun" class="ghost" aria-controls="lessonRunPanel" aria-expanded="false" hidden>运行结果</button>
+      <button id="togglePageChat" class="ghost" aria-controls="pageChat" aria-expanded="true">本页问答</button>
+      <button id="backToKnowledge" class="ghost" hidden>返回知识点练习</button>
+      <button id="exportLesson" class="ghost">导出 HTML</button>
+      <button id="fullScreenBtn" class="ghost">全屏讲解</button>
+    </div>
+  </details>
+</aside>
+<button id="lessonChatHandle" class="lesson-chat-handle" type="button" aria-controls="pageChat" aria-expanded="false" aria-label="展开本页问答" title="展开本页问答" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4zM8 8h8M8 12h5"/></svg></button><div class="slide-main">
+  <div class="slide-controls" role="group" aria-label="课件翻页与讲稿">
+    <span id="slideKind" class="slide-kind"></span>
+    <button id="prevSlide" class="ghost" title="上一页（←）">← 上一页</button>
+    <span id="slideCounter" aria-live="polite"></span>
+    <button id="nextSlide" class="primary" title="下一页（→）">下一页 →</button>
+    <button id="speakSlide" class="ghost">朗读讲稿</button>
+    <button id="toggleNarration" class="ghost" type="button" aria-controls="narrationPanel" aria-expanded="false">讲稿</button>
+  </div>
+  <div class="slide-scroll" tabindex="0" aria-label="课件正文">
+    <article id="slideContent" class="slide"></article>
+    <div id="lessonFinish" class="lesson-finish" hidden></div>
+  </div>
+  <section id="narrationPanel" class="narration-drawer" aria-label="本页讲稿" hidden>
+    <div class="narration-heading"><h3>本页讲稿</h3><button id="closeNarration" class="lesson-icon-button" type="button" aria-label="收起讲稿" title="收起讲稿"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+    <p id="narrationText"></p>
+  </section>
+</div>
+<aside id="pageChat" class="page-chat" aria-label="当前课件页问答">
+<div class="chat-heading">
+  <span class="chat-panel-mark" role="img" aria-label="本页问答" title="本页问答"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H9l-5 4zM8 8h8M8 12h5"/></svg></span>
+  <div class="button-row">
+    <button id="clearPageChat" type="button" class="lesson-icon-button" aria-label="清空本页对话" title="清空本页对话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/></svg></button>
+    <button id="closePageChat" type="button" class="lesson-icon-button" aria-label="收起问答" title="收起问答"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+  </div>
+</div>
+<div class="chat-page-context"><span id="chatPageLabel"></span><strong id="chatPageTitle"></strong></div>
+<div class="chat-message-area"><div id="chatMessages" class="chat-messages" role="log" aria-live="polite" aria-label="本页对话" tabindex="-1"></div><button id="chatToBottom" type="button" class="chat-to-bottom" aria-label="回到底部" title="回到底部" aria-controls="chatMessages" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button></div>
+<div id="chatSuggestions" class="chat-suggestions" aria-label="围绕当前页思考" hidden></div>
+<form id="chatForm" class="chat-composer">
+  <div class="chat-input-shell">
+    <div id="chatAttachments" class="chat-attachments" aria-label="待发送图片"></div>
+    <textarea id="chatInput" rows="3" maxlength="4000" aria-label="向学伴提问，Enter 发送，Shift 加 Enter 换行" title="Enter 发送 · Shift+Enter 换行" placeholder="对这一页有什么疑问？" disabled></textarea>
+    <div class="chat-input-actions">
+      <div class="chat-media-tools">
+        <button id="chatVoice" type="button" class="ghost" aria-label="语音输入" title="语音输入" aria-pressed="false" disabled><svg class="chat-mic-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 10.5v1a6.5 6.5 0 0 0 13 0v-1M12 18v3.5M8.5 21.5h7"/></svg><svg class="chat-stop-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+        <button id="chatChooseImage" type="button" class="ghost" aria-label="选择图片" title="选择图片" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button>
+        <button id="chatScreenshot" type="button" class="ghost" aria-label="截取课件" title="截取课件" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><rect x="7" y="7" width="10" height="10" rx="1" stroke-dasharray="2 3"/></svg></button>
+        <input id="chatImageFile" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+      </div>
+      <button id="chatSend" type="submit" class="primary chat-send-icon" aria-label="发送消息" title="发送消息" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>
+    </div>
+  </div>
+  <p id="chatMediaStatus" class="chat-media-status" role="status"></p>
+</form>
+<p id="chatStorageStatus" class="chat-storage-status" role="status" hidden></p>
+</aside><aside id="lessonRunPanel" class="page-chat lesson-runner" aria-label="课件代码运行结果" hidden>
+<div class="chat-heading"><div><span class="eyebrow">COMPILE &amp; RUN</span><h3>代码运行</h3></div><div class="button-row"><button id="runnerToChat" class="text-button" type="button">本页问答</button><button id="closeLessonRun" type="button" class="icon-button" aria-label="收起运行结果">×</button></div></div>
+<div class="chat-page-context"><span id="lessonRunPage"></span><strong id="lessonRunTitle"></strong></div>
+<div class="lesson-run-body"><div class="run-input-heading"><label class="field-label" for="lessonStdin">标准输入</label><button id="changeLessonCase" class="text-button" type="button" title="由 AI 按原题生成一个新用例">换个用例</button></div><textarea id="lessonStdin" rows="4" spellcheck="false" maxlength="20000" placeholder="填写程序需要的输入"></textarea><p class="small muted">默认带入原题示例，可修改后重新运行。</p><div id="lessonCaseInfo" class="lesson-case-info" hidden></div><div class="run-actions"><button id="runLessonBtn" type="button" class="primary">▶ 运行代码</button><button id="debugLessonBtn" type="button" class="ghost">开始调试</button></div><div class="result-heading"><strong>运行结果</strong><span id="lessonRunState"></span></div><div id="lessonRunOutput" class="result" aria-live="polite">点击代码块的“运行代码”开始。</div><section id="lessonDebug" class="lesson-debug" aria-label="代码调试" hidden></section></div>
+<p class="chat-storage-status">运行课件中的 C++ 代码 · 使用本机编译器</p>
+</aside></div></div></section>
+<section id="view-practice" class="view page" hidden><div class="page-scroll"><div class="page-heading"><div><div class="eyebrow">TRANSFER YOUR KNOWLEDGE</div><h1>相似题练习</h1><p class="muted">从刚学过的方法出发，尝试换一个情境独立解题。</p></div><button id="generateVariants" class="primary">生成 3 道变式</button></div><div class="practice-context-row"><div id="practiceContext" class="context-card"></div><button id="switchPracticeProblem" class="ghost" type="button" aria-haspopup="dialog">&#20999;&#25442;&#39064;&#30446;</button></div><div class="section-heading"><h2>同类真题</h2><span class="muted small">按共同知识点推荐</span></div><div id="recommendationList" class="problem-grid"></div><div class="section-heading"><h2>我的变式练习</h2><span class="muted small">AI 原创题目 · 与历年真题分开标注</span></div><div id="variantList" class="problem-grid"></div></div></section>
+<section id="view-workspace" class="view workspace-view" hidden><section id="workspaceDebug" class="lesson-debug" aria-label="编程练习代码调试" hidden></section><div id="workspace" class="workspace"><section id="workspaceProblemPanel" class="workspace-problem-panel">
+  <details id="workspaceMenu" class="workspace-menu">
+    <summary aria-label="题目操作菜单" title="题目操作">⋯</summary>
+    <div class="workspace-menu-panel"><h2 id="workspaceTitle">编程练习</h2><button id="workspaceLesson" class="ghost">生成本题讲解</button><button id="chooseProblem" class="ghost">换一道题</button></div>
+  </details>
+  <button id="workspaceProblemCollapse" class="workspace-problem-collapse" type="button" aria-controls="workspaceProblemPanel" aria-expanded="true" aria-label="收起题目面板" title="收起题目面板"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+  <article id="workspaceProblem" class="workspace-problem"></article>
+</section><section class="editor-column"><div class="editor-bar"><div class="editor-file-tools"><button id="workspaceProblemToggle" class="ghost" type="button" aria-controls="workspaceProblemPanel" aria-expanded="true">&#39064;&#38754;</button><span class="file-tab">● main.cpp</span></div><div class="editor-actions"><span id="editorStatus" class="tiny-label">准备编辑器</span><button id="analyzeBtn" class="ghost" aria-haspopup="dialog">代码分析</button><button id="analysisSettingsBtn" class="text-button" aria-haspopup="dialog">分析设置</button><button id="analysisHistoryBtn" class="text-button" aria-haspopup="dialog">分析记录</button></div></div><div id="editor"></div><div class="code-toolbar"><span class="tiny-label">C++17 · 自动保存</span><div class="button-row"><button id="runBtn">▶ 运行</button><button id="debugBtn" class="ghost" type="button" title="调试当前编辑器代码，使用右侧标准输入" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 3 2 3m6-3-2 3M9 6h6l2 3v6a5 5 0 0 1-10 0V9zM12 10v10M3 7l4 3m-4 3h4m-4 7 4-4m14-9-4 3m4 3h-4m4 7-4-4"/></svg><span>调试</span></button><button id="judgeBtn" class="primary">提交评测</button><button id="toggleOutput" class="ghost" aria-controls="outputDrawer" aria-expanded="false">结果侧栏</button></div></div></section><aside id="outputDrawer" class="output-drawer" aria-label="运行与评测结果" hidden><div class="drawer-heading"><div><span class="eyebrow">RESULTS</span><h3>运行 / 评测</h3></div><button id="closeOutput" class="icon-button" title="收起结果侧栏" aria-label="收起结果侧栏">×</button></div><div class="drawer-body"><label class="field-label" for="stdin">标准输入</label><textarea id="stdin" rows="4" spellcheck="false"></textarea><div class="result-heading"><strong id="resultTitle">输出结果</strong><span id="resultState"></span></div><div id="result" class="result" aria-live="polite">运行代码后，结果将在这里显示。</div></div></aside></div></section>
+</main></div>
+<div id="taskPanel" class="task-panel" hidden role="status" aria-live="polite"><div class="task-indicator"></div><div><strong id="taskTitle"></strong><p id="taskMessage"></p></div><button id="taskRetry" class="ghost" hidden>重试</button><button id="taskDismiss" class="icon-button" title="关闭提示" aria-label="关闭任务提示">×</button></div><div id="toast" class="toast" role="status" hidden></div>
+<dialog id="uploadDialog"><form id="uploadForm"><div class="dialog-heading"><div><span class="eyebrow">BRING YOUR QUESTION</span><h2>上传一道题目</h2></div><button type="button" class="icon-button" data-close="uploadDialog" aria-label="关闭">×</button></div><label class="upload-zone" for="questionFile"><strong>选择题目文件</strong><span>JSON / TXT / Markdown / 图片 / 文本 PDF · 最大 8 MiB</span><input id="questionFile" type="file" accept=".json,.txt,.md,.png,.jpg,.jpeg,.webp,.pdf"></label><p id="uploadStatus" class="small muted">图片和 PDF 识别后，请核对题面再生成课件。</p><div class="form-row"><label>题目标题<input id="uploadTitle" required maxlength="200" placeholder="为这道题起个名字"></label><label>目标等级<select id="uploadLevel"></select></label></div><label>完整题干<textarea id="uploadDescription" required rows="5" maxlength="40000" placeholder="也可以直接粘贴题目，保留数据范围和关键条件"></textarea></label><div class="form-row"><label>输入格式<textarea id="uploadInput" rows="2"></textarea></label><label>输出格式<textarea id="uploadOutput" rows="2"></textarea></label></div><label>数据范围<input id="uploadConstraints" placeholder="例如 1 ≤ n ≤ 10^5"></label><div class="form-row"><label>示例输入<textarea id="uploadSampleInput" rows="2"></textarea></label><label>示例输出<textarea id="uploadSampleOutput" rows="2"></textarea></label></div><div class="dialog-footer"><button type="button" data-close="uploadDialog" class="ghost">取消</button><button type="submit" name="action" value="save" class="ghost">保存到我的题目</button><button type="submit" name="action" value="generate" class="primary">保存并生成讲解</button></div></form></dialog>
+<dialog id="generateDialog"><form id="generateForm"><div class="dialog-heading"><div><span class="eyebrow">CREATE A LESSON</span><h2>生成讲解课件</h2></div><button type="button" class="icon-button" data-close="generateDialog" aria-label="关闭">×</button></div><div id="generateProblem" class="context-card"></div><label>面向哪个等级讲解<select id="targetLevel"></select></label><label>补充要求（可选）<textarea id="generationRequirements" rows="3" maxlength="2000" placeholder="例如：从暴力思路推导优化方法，多演示一个边界情况"></textarea></label><p class="small muted">可逐页讲解、朗读讲稿和导出 HTML，完成后推荐同类练习。</p><div class="dialog-footer"><button type="button" data-close="generateDialog" class="ghost">取消</button><button type="submit" class="primary">开始生成</button></div></form></dialog>
+<dialog id="serviceDialog"><div class="dialog-heading"><h2>讲解服务</h2><button class="icon-button" data-close="serviceDialog" aria-label="关闭">×</button></div><div id="serviceDetails" class="context-card"></div><p>首次安装运行一次 <code>install-all.bat</code>。已有旧版本的用户运行一次 <code>enable-page-start.bat</code> 更新组件注册。</p><p>之后，包括电脑重启后，都可以直接点击下方“启动／更新后台”，无需再运行 BAT。</p><p>服务优先读取本机 <code>learning_service/.env</code> 中的百炼配置；未设置时读取 <code>explanation/.env</code>。当前模型及配置来源见上方状态。</p><p class="muted small">请从 Chrome 扩展打开 CodeArena。更新扩展文件后，在 chrome://extensions 点击重新加载。</p><div class="dialog-footer"><button id="startServiceDialogBtn" class="primary">启动／更新后台</button><button id="checkService" class="ghost">重新检测</button></div></dialog>
+<script type="module" src="ui/layout.js?v=20261113-practice6"></script><script src="vendor/katex/katex.min.js"></script><script src="vendor/katex/auto-render.min.js"></script><script src="vendor/vs/loader.js"></script><script type="module" src="app.js?v=20261113-practice6"></script></body></html>

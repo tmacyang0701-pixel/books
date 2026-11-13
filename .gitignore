@@ -1,0 +1,26 @@
+# Local credentials and machine-specific state
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+config.local.json
+com.codearena.cpp_judge.json
+extension/native-host/dist/config.json
+runtime-selection.json
+installation-report.json
+StartupProfileData-NonInteractive
+*.log
+# Rebuildable caches
+.local/
+.tmp/
+.setup/
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+.playwright/
+*.pyc
+.aws/
+.codex/
+.agents/

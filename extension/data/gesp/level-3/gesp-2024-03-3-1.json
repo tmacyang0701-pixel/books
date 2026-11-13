@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-3-1",
+  "level": 3,
+  "session": "2024-03",
+  "number": 1,
+  "title": "字母求和",
+  "kind": "past-paper",
+  "tags": [
+    "字符编码",
+    "累加"
+  ],
+  "description": "小写字母 a～z 分别表示 1～26；大写字母表示其 ASCII 码的相反数。求整个字母串对应数值之和。",
+  "input": "首行长度 n；次行包含 n 个大小写字母的字符串。",
+  "output": "总和。",
+  "constraints": "1 ≤ n ≤ 100000。",
+  "sampleInput": "3\nbDz\n",
+  "sampleOutput": "-40\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3956",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\nbDz\n",
+      "expected": "-40\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-6-2",
+  "level": 6,
+  "session": "2026-09",
+  "number": 2,
+  "title": "分树规划",
+  "kind": "past-paper",
+  "tags": [
+    "树遍历",
+    "子树大小"
+  ],
+  "description": "删除树中的一条边，得到两个连通块。求两块节点数之差的绝对值的最小值。",
+  "input": "首行 n；随后 n-1 行给出边的两端。",
+  "output": "最小节点数差。",
+  "constraints": "2 ≤ n ≤ 20000。",
+  "sampleInput": "4\n1 2\n2 3\n3 4\n",
+  "sampleOutput": "0\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17458",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n1 2\n2 3\n3 4\n",
+      "expected": "0\n",
+      "score": 100
+    }
+  ]
+}

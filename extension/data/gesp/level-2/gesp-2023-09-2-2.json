@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-2-2",
+  "level": 2,
+  "session": "2023-09",
+  "number": 2,
+  "title": "数字黑洞",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "模拟"
+  ],
+  "description": "把三位数的各位从大到小和从小到大排列，用前者减后者得到新数，不足三位时补前导零继续。求第一次得到 495 需要多少次变换。",
+  "input": "各位数字互不相同的三位数 N。",
+  "output": "变换次数；初始为 495 时次数是 0。",
+  "constraints": "N 为三位正整数。",
+  "sampleInput": "954\n",
+  "sampleOutput": "1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3866",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "954\n",
+      "expected": "1\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-7-2",
+  "level": 7,
+  "session": "2024-03",
+  "number": 2,
+  "title": "俄罗斯方块",
+  "kind": "past-paper",
+  "tags": [
+    "洪水填充",
+    "形状归一化"
+  ],
+  "description": "网格中同色且上下左右连通的格子构成一块。两块只要能通过平移重合即为同种，与颜色无关；旋转或翻转不算。统计不同形状数。",
+  "input": "首行 n、m；随后 n 行，每行 m 个颜色编号。",
+  "output": "不同形状数量。",
+  "constraints": "1 ≤ n,m ≤ 500；颜色为 1～n×m。",
+  "sampleInput": "2 3\n1 1 2\n3 3 2\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10379",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2 3\n1 1 2\n3 3 2\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

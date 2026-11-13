@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-1-1",
+  "level": 1,
+  "session": "2023-09",
+  "number": 1,
+  "title": "买文具",
+  "kind": "past-paper",
+  "tags": [
+    "分支",
+    "算术"
+  ],
+  "description": "钢笔每支 2 元，练习本每本 5 元，直尺每把 3 元。需要买 x 支笔、y 本本子和 z 把尺，手头有 q 元。判断是否足够，并计算剩余金额或缺口。",
+  "input": "四行整数，依次为 x、y、z、q。",
+  "output": "够用时输出 Yes，下一行输出剩余钱数；否则输出 No，下一行输出还差的钱数。",
+  "constraints": "1 ≤ x,y,z ≤ 10；q 为正整数。",
+  "sampleInput": "2\n1\n1\n10\n",
+  "sampleOutput": "No\n2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3863",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n1\n1\n10\n",
+      "expected": "No\n2\n",
+      "score": 100
+    }
+  ]
+}

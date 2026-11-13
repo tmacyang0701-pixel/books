@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-1-2",
+  "level": 1,
+  "session": "2024-12",
+  "number": 2,
+  "title": "奇数和偶数",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "奇偶判断"
+  ],
+  "description": "读入 n 个正整数，分别统计奇数和偶数的数量。",
+  "input": "第一行 n，接下来 n 行每行一个整数。",
+  "output": "一行输出奇数个数、偶数个数。",
+  "constraints": "1 ≤ n ≤ 100000；各数不超过 100000。",
+  "sampleInput": "4\n2\n5\n7\n8\n",
+  "sampleOutput": "2 2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4063",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n2\n5\n7\n8\n",
+      "expected": "2 2\n",
+      "score": 100
+    }
+  ]
+}

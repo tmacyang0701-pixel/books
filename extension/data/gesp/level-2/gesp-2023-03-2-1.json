@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-03-2-1",
+  "level": 2,
+  "session": "2023-03",
+  "number": 1,
+  "title": "百鸡问题",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "整数运算"
+  ],
+  "description": "公鸡每只 x 元，母鸡每只 y 元，小鸡每 z 只 1 元。恰好花 n 元买 m 只鸡，每种鸡可买零只，求不同数量组合的个数。",
+  "input": "一行五个整数 x、y、z、n、m。",
+  "output": "可行组合数量。",
+  "constraints": "1 ≤ x,y,z ≤ 10；1 ≤ n,m ≤ 1000。",
+  "sampleInput": "1 1 1 2 2\n",
+  "sampleOutput": "6\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3836",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "1 1 1 2 2\n",
+      "expected": "6\n",
+      "score": 100
+    }
+  ]
+}

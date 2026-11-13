@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-8-1",
+  "level": 8,
+  "session": "2025-06",
+  "number": 1,
+  "title": "树上旅行",
+  "kind": "past-paper",
+  "tags": [
+    "倍增",
+    "树遍历"
+  ],
+  "description": "根为 1 的树上，正操作数表示向父节点走若干次，负数表示向编号最小的孩子走若干次。根向上、叶子向下均保持原位。对每次旅行求最终节点。",
+  "input": "首行 n、q；次行节点 2～n 的父节点；每次旅行两行：s、k，然后 k 个非零操作数。",
+  "output": "每次旅行输出终点。",
+  "constraints": "n ≤ 100000；q ≤ 20000；操作数总个数≤100000；1≤|操作数|≤n。",
+  "sampleInput": "4 2\n1 1 2\n3 2\n1 -2\n4 1\n4\n",
+  "sampleOutput": "4\n1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P13019",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 2\n1 1 2\n3 2\n1 -2\n4 1\n4\n",
+      "expected": "4\n1\n",
+      "score": 100
+    }
+  ]
+}

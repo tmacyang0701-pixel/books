@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-8-1",
+  "level": 8,
+  "session": "2026-03",
+  "number": 1,
+  "title": "消息查找",
+  "kind": "past-paper",
+  "tags": [
+    "最短路",
+    "稀疏跳转"
+  ],
+  "description": "消息 i 可以退到 i-1，也可直接跳到它所引用的更早消息 r_i（0 表示无引用）。每次询问从 x 到更早的 y，求最少操作数。",
+  "input": "首行 n、q；次行 n 个 r_i；随后 q 行 x、y。",
+  "output": "每个询问的最少操作数。",
+  "constraints": "n,q ≤ 100000；0≤r_i<i；1≤y<x≤n；有引用的消息至多 1000 条。",
+  "sampleInput": "5 2\n0 0 1 0 2\n5 1\n4 2\n",
+  "sampleOutput": "2\n2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15804",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "5 2\n0 0 1 0 2\n5 1\n4 2\n",
+      "expected": "2\n2\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-4-2",
+  "level": 4,
+  "session": "2026-03",
+  "number": 2,
+  "title": "礼盒排序",
+  "kind": "past-paper",
+  "tags": [
+    "结构体",
+    "多关键字排序"
+  ],
+  "description": "每个礼盒含 k 件物品。依次按价格总和、最高单价、最低单价、原编号升序排列礼盒。",
+  "input": "首行 n、k；随后 n 行，每行 k 个价格。",
+  "output": "排序后的礼盒编号，编号从 1 开始。",
+  "constraints": "1 ≤ n ≤ 1000；1 ≤ k ≤ 10；价格为 1～10000。",
+  "sampleInput": "3 2\n1 5\n2 4\n1 2\n",
+  "sampleOutput": "3 2 1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4502",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 2\n1 5\n2 4\n1 2\n",
+      "expected": "3 2 1\n",
+      "score": 100
+    }
+  ]
+}

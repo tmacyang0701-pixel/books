@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-1-2",
+  "level": 1,
+  "session": "2026-03",
+  "number": 2,
+  "title": "数字替换",
+  "kind": "past-paper",
+  "tags": [
+    "数位拆分",
+    "循环"
+  ],
+  "description": "把非负整数 A 的十进制表示中每一个数字 4 改成 8，其他数位保持不变。",
+  "input": "整数 A。",
+  "output": "替换后的整数。",
+  "constraints": "0 ≤ A ≤ 100000000。",
+  "sampleInput": "404\n",
+  "sampleOutput": "808\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4496",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "404\n",
+      "expected": "808\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2025-09-5-1",
+  "level": 5,
+  "session": "2025-09",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "数字选取",
+  "tags": [
+    "筛法",
+    "数论"
+  ],
+  "description": "在整数 1～n 中选尽量多的数，使任意两个被选中的不同整数互质。求可选的最大个数。",
+  "input": "一个正整数 n。",
+  "output": "输出最大个数。",
+  "constraints": "1 ≤ n ≤ 10^5。",
+  "sampleInput": "10\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "10\n",
+      "expected": "5\n",
+      "score": 33
+    },
+    {
+      "input": "1\n",
+      "expected": "1\n",
+      "score": 33
+    },
+    {
+      "input": "30\n",
+      "expected": "11\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14073",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1704013600915488.pdf"
+  }
+}

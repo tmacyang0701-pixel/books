@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-4-2",
+  "level": 4,
+  "session": "2024-03",
+  "number": 2,
+  "title": "做题",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "贪心"
+  ],
+  "description": "第 k 天要从一个此前未使用的题集中做 k 道题。每天只用一个题集，剩余题目不能留待以后。给出各题集题数，求从第 1 天起最多坚持多少天。",
+  "input": "首行 n；次行 n 个题集的题数。",
+  "output": "最多连续天数。",
+  "constraints": "1 ≤ n ≤ 1000000；题数为 1～10^9。",
+  "sampleInput": "4\n1 1 3 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3959",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n1 1 3 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

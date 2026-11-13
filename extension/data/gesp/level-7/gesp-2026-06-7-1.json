@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-7-1",
+  "level": 7,
+  "session": "2026-06",
+  "number": 1,
+  "title": "染色",
+  "kind": "past-paper",
+  "tags": [
+    "二分图",
+    "环"
+  ],
+  "description": "简单无向图中每个节点度数均为 2。为节点染色，要求每条边两端颜色不同，求最少颜色数。",
+  "input": "首行 T；每组先给 n，随后 n 行边的两端。",
+  "output": "每组输出最少颜色数。",
+  "constraints": "T ≤ 100；3 ≤ n ≤ 100000；各组 n 之和≤100000；无重边、自环。",
+  "sampleInput": "1\n4\n1 2\n2 3\n3 4\n4 1\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17014",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://dingdangpy.com/p/675"
+  },
+  "cases": [
+    {
+      "input": "1\n4\n1 2\n2 3\n3 4\n4 1\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

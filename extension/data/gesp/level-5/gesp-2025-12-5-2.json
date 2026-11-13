@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2025-12-5-2",
+  "level": 5,
+  "session": "2025-12",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "相等序列",
+  "tags": [
+    "质因数分解",
+    "中位数",
+    "贪心"
+  ],
+  "description": "每次花 1 枚金币，可将某个数乘以一个质数，或在能整除时除以一个质数。求把序列全部变成相同整数的最少操作数。",
+  "input": "第一行 N，第二行 N 个正整数。",
+  "output": "输出最少金币数。",
+  "constraints": "1 ≤ N,A_i ≤ 10^5。",
+  "sampleInput": "3\n2 4 8\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "3\n2 4 8\n",
+      "expected": "2\n",
+      "score": 33
+    },
+    {
+      "input": "3\n1 1 1\n",
+      "expected": "0\n",
+      "score": 33
+    },
+    {
+      "input": "2\n6 10\n",
+      "expected": "2\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14918",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。"
+  }
+}

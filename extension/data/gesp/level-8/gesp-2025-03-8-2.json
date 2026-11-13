@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-8-2",
+  "level": 8,
+  "session": "2025-03",
+  "number": 2,
+  "title": "割裂",
+  "kind": "past-paper",
+  "tags": [
+    "树上差分",
+    "最近公共祖先"
+  ],
+  "description": "逐一考虑删除树中的一个节点，要求每个好点对仍连通，而指定坏点对不再连通。若删除点对端点，也算该点对不连通。求符合要求的可删节点数量。",
+  "input": "首行 n、a；随后 n-1 条树边；再给 a 对好点；最后一对坏点。",
+  "output": "可单独删除的节点个数。",
+  "constraints": "n ≤ 1000000；0 ≤ a ≤ 100000；各点对两端不同。",
+  "sampleInput": "4 1\n1 2\n2 3\n3 4\n1 2\n1 4\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11967",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 1\n1 2\n2 3\n3 4\n1 2\n1 4\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

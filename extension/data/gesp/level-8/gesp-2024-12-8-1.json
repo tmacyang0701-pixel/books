@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-8-1",
+  "level": 8,
+  "session": "2024-12",
+  "number": 1,
+  "title": "树上移动",
+  "kind": "past-paper",
+  "tags": [
+    "树",
+    "路径枚举"
+  ],
+  "description": "在黑白树中任选起终点，沿不重复节点的路径移动，路径中黑节点至多 k 个。求最多能经过多少个节点，起终点也计入。",
+  "input": "首行 n、k；次行 n 个 0/1 颜色；随后 n-1 条边。",
+  "output": "最大节点数。",
+  "constraints": "1 ≤ n ≤ 1000；0 ≤ k ≤ 1000。",
+  "sampleInput": "4 1\n1 0 1 0\n1 2\n2 3\n3 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11379",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 1\n1 0 1 0\n1 2\n2 3\n3 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

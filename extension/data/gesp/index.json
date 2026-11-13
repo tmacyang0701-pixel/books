@@ -1,0 +1,2821 @@
+{
+  "version": 2,
+  "updatedAt": "2026-11-12",
+  "scope": "C++ 1～8 级历年编程题的题意整理版，覆盖各等级开考至 2026-09；不含选择题、判断题和官方隐藏评测数据。",
+  "problems": [
+    {
+      "id": "gesp-2023-03-1-1",
+      "level": 1,
+      "session": "2023-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "长方形面积",
+      "tags": [
+        "枚举",
+        "整除"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-03-1-1.json"
+    },
+    {
+      "id": "gesp-2023-03-1-2",
+      "level": 1,
+      "session": "2023-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "每月天数",
+      "tags": [
+        "分支",
+        "日期"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-03-1-2.json"
+    },
+    {
+      "id": "gesp-2023-06-1-1",
+      "level": 1,
+      "session": "2023-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "时间规划",
+      "tags": [
+        "时间换算",
+        "算术"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-06-1-1.json"
+    },
+    {
+      "id": "gesp-2023-06-1-2",
+      "level": 1,
+      "session": "2023-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "累计相加",
+      "tags": [
+        "循环",
+        "累加"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-06-1-2.json"
+    },
+    {
+      "id": "gesp-2023-09-1-1",
+      "level": 1,
+      "session": "2023-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "买文具",
+      "tags": [
+        "分支",
+        "算术"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-09-1-1.json"
+    },
+    {
+      "id": "gesp-2023-09-1-2",
+      "level": 1,
+      "session": "2023-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小明的幸运数",
+      "tags": [
+        "循环",
+        "逻辑运算"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-09-1-2.json"
+    },
+    {
+      "id": "gesp-2023-12-1-1",
+      "level": 1,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨的考试",
+      "tags": [
+        "取模",
+        "日期"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-12-1-1.json"
+    },
+    {
+      "id": "gesp-2023-12-1-2",
+      "level": 1,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨报数",
+      "tags": [
+        "循环",
+        "整除"
+      ],
+      "file": "data/gesp/level-1/gesp-2023-12-1-2.json"
+    },
+    {
+      "id": "gesp-2024-03-1-1",
+      "level": 1,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨买书",
+      "tags": [
+        "整除",
+        "取余"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-03-1-1.json"
+    },
+    {
+      "id": "gesp-2024-03-1-2",
+      "level": 1,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "找因数",
+      "tags": [
+        "枚举",
+        "因数"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-03-1-2.json"
+    },
+    {
+      "id": "gesp-2024-06-1-1",
+      "level": 1,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "休息时间",
+      "tags": [
+        "时间换算",
+        "进位"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-06-1-1.json"
+    },
+    {
+      "id": "gesp-2024-06-1-2",
+      "level": 1,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "立方数",
+      "tags": [
+        "枚举",
+        "立方"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-06-1-2.json"
+    },
+    {
+      "id": "gesp-2024-09-1-1",
+      "level": 1,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨购物",
+      "tags": [
+        "整除",
+        "算术"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-09-1-1.json"
+    },
+    {
+      "id": "gesp-2024-09-1-2",
+      "level": 1,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "美丽数字",
+      "tags": [
+        "循环",
+        "条件计数"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-09-1-2.json"
+    },
+    {
+      "id": "gesp-2024-12-1-1",
+      "level": 1,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "温度转换",
+      "tags": [
+        "浮点数",
+        "分支"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-12-1-1.json"
+    },
+    {
+      "id": "gesp-2024-12-1-2",
+      "level": 1,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "奇数和偶数",
+      "tags": [
+        "循环",
+        "奇偶判断"
+      ],
+      "file": "data/gesp/level-1/gesp-2024-12-1-2.json"
+    },
+    {
+      "id": "gesp-2025-03-1-1",
+      "level": 1,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "图书馆里的老鼠",
+      "tags": [
+        "向上取整",
+        "算术"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-03-1-1.json"
+    },
+    {
+      "id": "gesp-2025-03-1-2",
+      "level": 1,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "四舍五入",
+      "tags": [
+        "取整",
+        "循环"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-03-1-2.json"
+    },
+    {
+      "id": "gesp-2025-06-1-1",
+      "level": 1,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "假期阅读",
+      "tags": [
+        "最小值",
+        "算术"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-06-1-1.json"
+    },
+    {
+      "id": "gesp-2025-06-1-2",
+      "level": 1,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "值日",
+      "tags": [
+        "枚举",
+        "最小公倍数"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-06-1-2.json"
+    },
+    {
+      "id": "gesp-2025-09-1-1",
+      "level": 1,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "商店折扣",
+      "tags": [
+        "分支",
+        "最小值"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-09-1-1.json"
+    },
+    {
+      "id": "gesp-2025-09-1-2",
+      "level": 1,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "金字塔",
+      "tags": [
+        "循环",
+        "平方和"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-09-1-2.json"
+    },
+    {
+      "id": "gesp-2025-12-1-1",
+      "level": 1,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨的爱心快递",
+      "tags": [
+        "浮点数",
+        "条件判断"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-12-1-1.json"
+    },
+    {
+      "id": "gesp-2025-12-1-2",
+      "level": 1,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "手机电量显示",
+      "tags": [
+        "分支",
+        "多组输入"
+      ],
+      "file": "data/gesp/level-1/gesp-2025-12-1-2.json"
+    },
+    {
+      "id": "gesp-2026-03-1-1",
+      "level": 1,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "交朋友",
+      "tags": [
+        "绝对值",
+        "分支"
+      ],
+      "file": "data/gesp/level-1/gesp-2026-03-1-1.json"
+    },
+    {
+      "id": "gesp-2026-03-1-2",
+      "level": 1,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "数字替换",
+      "tags": [
+        "数位拆分",
+        "循环"
+      ],
+      "file": "data/gesp/level-1/gesp-2026-03-1-2.json"
+    },
+    {
+      "id": "gesp-2026-06-1-1",
+      "level": 1,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "去旅行",
+      "tags": [
+        "最小值",
+        "算术"
+      ],
+      "file": "data/gesp/level-1/gesp-2026-06-1-1.json"
+    },
+    {
+      "id": "gesp-2026-06-1-2",
+      "level": 1,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "交税",
+      "tags": [
+        "分支",
+        "累加",
+        "浮点数"
+      ],
+      "file": "data/gesp/level-1/gesp-2026-06-1-2.json"
+    },
+    {
+      "id": "gesp-2026-09-1-1",
+      "level": 1,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "新龟兔赛跑",
+      "tags": [
+        "浮点数",
+        "比较"
+      ],
+      "file": "data/gesp/level-1/gesp-2026-09-1-1.json"
+    },
+    {
+      "id": "gesp-2026-09-1-2",
+      "level": 1,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "棋盘上的奖赏",
+      "tags": [
+        "循环",
+        "等比数列"
+      ],
+      "file": "data/gesp/level-1/gesp-2026-09-1-2.json"
+    },
+    {
+      "id": "gesp-2023-03-2-1",
+      "level": 2,
+      "session": "2023-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "百鸡问题",
+      "tags": [
+        "枚举",
+        "整数运算"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-03-2-1.json"
+    },
+    {
+      "id": "gesp-2023-03-2-2",
+      "level": 2,
+      "session": "2023-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "画三角形",
+      "tags": [
+        "嵌套循环",
+        "字符"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-03-2-2.json"
+    },
+    {
+      "id": "gesp-2023-06-2-1",
+      "level": 2,
+      "session": "2023-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "找素数",
+      "tags": [
+        "素数判断",
+        "枚举"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-06-2-1.json"
+    },
+    {
+      "id": "gesp-2023-06-2-2",
+      "level": 2,
+      "session": "2023-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "自幂数判断",
+      "tags": [
+        "数位拆分",
+        "幂"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-06-2-2.json"
+    },
+    {
+      "id": "gesp-2023-09-2-1",
+      "level": 2,
+      "session": "2023-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨的 X 字矩阵",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-09-2-1.json"
+    },
+    {
+      "id": "gesp-2023-09-2-2",
+      "level": 2,
+      "session": "2023-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "数字黑洞",
+      "tags": [
+        "数位拆分",
+        "模拟"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-09-2-2.json"
+    },
+    {
+      "id": "gesp-2023-12-2-1",
+      "level": 2,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨做题",
+      "tags": [
+        "递推",
+        "模拟"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-12-2-1.json"
+    },
+    {
+      "id": "gesp-2023-12-2-2",
+      "level": 2,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的 H 字矩阵",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2023-12-2-2.json"
+    },
+    {
+      "id": "gesp-2024-03-2-1",
+      "level": 2,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "乘法问题",
+      "tags": [
+        "循环",
+        "溢出判断"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-03-2-1.json"
+    },
+    {
+      "id": "gesp-2024-03-2-2",
+      "level": 2,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的日字矩阵",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-03-2-2.json"
+    },
+    {
+      "id": "gesp-2024-06-2-1",
+      "level": 2,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "平方之和",
+      "tags": [
+        "枚举",
+        "平方"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-06-2-1.json"
+    },
+    {
+      "id": "gesp-2024-06-2-2",
+      "level": 2,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "计数",
+      "tags": [
+        "数位拆分",
+        "计数"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-06-2-2.json"
+    },
+    {
+      "id": "gesp-2024-09-2-1",
+      "level": 2,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数位之和",
+      "tags": [
+        "数位拆分",
+        "整除"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-09-2-1.json"
+    },
+    {
+      "id": "gesp-2024-09-2-2",
+      "level": 2,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的 N 字矩阵",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-09-2-2.json"
+    },
+    {
+      "id": "gesp-2024-12-2-1",
+      "level": 2,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "寻找数字",
+      "tags": [
+        "枚举",
+        "幂"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-12-2-1.json"
+    },
+    {
+      "id": "gesp-2024-12-2-2",
+      "level": 2,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "数位和",
+      "tags": [
+        "数位拆分",
+        "最大值"
+      ],
+      "file": "data/gesp/level-2/gesp-2024-12-2-2.json"
+    },
+    {
+      "id": "gesp-2025-03-2-1",
+      "level": 2,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "等差矩阵",
+      "tags": [
+        "嵌套循环",
+        "矩阵"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-03-2-1.json"
+    },
+    {
+      "id": "gesp-2025-03-2-2",
+      "level": 2,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "时间跨越",
+      "tags": [
+        "日期",
+        "模拟"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-03-2-2.json"
+    },
+    {
+      "id": "gesp-2025-06-2-1",
+      "level": 2,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数三角形",
+      "tags": [
+        "枚举",
+        "去重"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-06-2-1.json"
+    },
+    {
+      "id": "gesp-2025-06-2-2",
+      "level": 2,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "幂和数",
+      "tags": [
+        "枚举",
+        "去重"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-06-2-2.json"
+    },
+    {
+      "id": "gesp-2025-09-2-1",
+      "level": 2,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "优美的数字",
+      "tags": [
+        "数位拆分",
+        "枚举"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-09-2-1.json"
+    },
+    {
+      "id": "gesp-2025-09-2-2",
+      "level": 2,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "菱形",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-09-2-2.json"
+    },
+    {
+      "id": "gesp-2025-12-2-1",
+      "level": 2,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "环保能量球",
+      "tags": [
+        "整除",
+        "多组输入"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-12-2-1.json"
+    },
+    {
+      "id": "gesp-2025-12-2-2",
+      "level": 2,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "黄金格",
+      "tags": [
+        "嵌套循环",
+        "数学判断"
+      ],
+      "file": "data/gesp/level-2/gesp-2025-12-2-2.json"
+    },
+    {
+      "id": "gesp-2026-03-2-1",
+      "level": 2,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数数",
+      "tags": [
+        "数位拆分",
+        "枚举"
+      ],
+      "file": "data/gesp/level-2/gesp-2026-03-2-1.json"
+    },
+    {
+      "id": "gesp-2026-03-2-2",
+      "level": 2,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "画画",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2026-03-2-2.json"
+    },
+    {
+      "id": "gesp-2026-06-2-1",
+      "level": 2,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "完全平方数计数",
+      "tags": [
+        "枚举",
+        "平方"
+      ],
+      "file": "data/gesp/level-2/gesp-2026-06-2-1.json"
+    },
+    {
+      "id": "gesp-2026-06-2-2",
+      "level": 2,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "菱形",
+      "tags": [
+        "嵌套循环",
+        "字符图形"
+      ],
+      "file": "data/gesp/level-2/gesp-2026-06-2-2.json"
+    },
+    {
+      "id": "gesp-2026-09-2-1",
+      "level": 2,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "直角三角形",
+      "tags": [
+        "递推",
+        "浮点数"
+      ],
+      "file": "data/gesp/level-2/gesp-2026-09-2-1.json"
+    },
+    {
+      "id": "gesp-2026-09-2-2",
+      "level": 2,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "字符变换",
+      "tags": [
+        "字符",
+        "嵌套循环"
+      ],
+      "file": "data/gesp/level-2/gesp-2026-09-2-2.json"
+    },
+    {
+      "id": "gesp-2023-06-3-1",
+      "level": 3,
+      "session": "2023-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "春游",
+      "tags": [
+        "数组",
+        "标记"
+      ],
+      "file": "data/gesp/level-3/gesp-2023-06-3-1.json"
+    },
+    {
+      "id": "gesp-2023-06-3-2",
+      "level": 3,
+      "session": "2023-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "密码合规",
+      "tags": [
+        "字符串",
+        "分类统计"
+      ],
+      "file": "data/gesp/level-3/gesp-2023-06-3-2.json"
+    },
+    {
+      "id": "gesp-2023-09-3-1",
+      "level": 3,
+      "session": "2023-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨的储蓄",
+      "tags": [
+        "数组",
+        "累加"
+      ],
+      "file": "data/gesp/level-3/gesp-2023-09-3-1.json"
+    },
+    {
+      "id": "gesp-2023-09-3-2",
+      "level": 3,
+      "session": "2023-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "进制判断",
+      "tags": [
+        "进制",
+        "字符判断"
+      ],
+      "file": "data/gesp/level-3/gesp-2023-09-3-2.json"
+    },
+    {
+      "id": "gesp-2023-12-3-1",
+      "level": 3,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小猫分鱼",
+      "tags": [
+        "枚举",
+        "模拟"
+      ],
+      "file": "data/gesp/level-3/gesp-2023-12-3-1.json"
+    },
+    {
+      "id": "gesp-2023-12-3-2",
+      "level": 3,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "单位转换",
+      "tags": [
+        "字符串",
+        "单位换算"
+      ],
+      "file": "data/gesp/level-3/gesp-2023-12-3-2.json"
+    },
+    {
+      "id": "gesp-2024-03-3-1",
+      "level": 3,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "字母求和",
+      "tags": [
+        "字符编码",
+        "累加"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-03-3-1.json"
+    },
+    {
+      "id": "gesp-2024-03-3-2",
+      "level": 3,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "完全平方数",
+      "tags": [
+        "枚举",
+        "平方判断"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-03-3-2.json"
+    },
+    {
+      "id": "gesp-2024-06-3-1",
+      "level": 3,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "移位",
+      "tags": [
+        "字符",
+        "取模"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-06-3-1.json"
+    },
+    {
+      "id": "gesp-2024-06-3-2",
+      "level": 3,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "寻找倍数",
+      "tags": [
+        "数组",
+        "整除"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-06-3-2.json"
+    },
+    {
+      "id": "gesp-2024-09-3-1",
+      "level": 3,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "平衡序列",
+      "tags": [
+        "前缀和",
+        "数组"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-09-3-1.json"
+    },
+    {
+      "id": "gesp-2024-09-3-2",
+      "level": 3,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "回文拼接",
+      "tags": [
+        "字符串",
+        "回文"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-09-3-2.json"
+    },
+    {
+      "id": "gesp-2024-12-3-1",
+      "level": 3,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数字替换",
+      "tags": [
+        "数组",
+        "最大最小值"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-12-3-1.json"
+    },
+    {
+      "id": "gesp-2024-12-3-2",
+      "level": 3,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "打印数字",
+      "tags": [
+        "字符串",
+        "数组"
+      ],
+      "file": "data/gesp/level-3/gesp-2024-12-3-2.json"
+    },
+    {
+      "id": "gesp-2025-03-3-1",
+      "level": 3,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "2025",
+      "tags": [
+        "位运算",
+        "枚举"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-03-3-1.json"
+    },
+    {
+      "id": "gesp-2025-03-3-2",
+      "level": 3,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "词频统计",
+      "tags": [
+        "字符串",
+        "频次统计"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-03-3-2.json"
+    },
+    {
+      "id": "gesp-2025-06-3-1",
+      "level": 3,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "奇偶校验",
+      "tags": [
+        "位运算",
+        "奇偶校验"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-06-3-1.json"
+    },
+    {
+      "id": "gesp-2025-06-3-2",
+      "level": 3,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "分糖果",
+      "tags": [
+        "递推",
+        "贪心"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-06-3-2.json"
+    },
+    {
+      "id": "gesp-2025-09-3-1",
+      "level": 3,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数组清零",
+      "tags": [
+        "数组",
+        "模拟"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-09-3-1.json"
+    },
+    {
+      "id": "gesp-2025-09-3-2",
+      "level": 3,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "日历制作",
+      "tags": [
+        "日期",
+        "格式化输出"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-09-3-2.json"
+    },
+    {
+      "id": "gesp-2025-12-3-1",
+      "level": 3,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "密码强度",
+      "tags": [
+        "字符串",
+        "条件判断"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-12-3-1.json"
+    },
+    {
+      "id": "gesp-2025-12-3-2",
+      "level": 3,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的智慧购物",
+      "tags": [
+        "数组",
+        "分类最小值"
+      ],
+      "file": "data/gesp/level-3/gesp-2025-12-3-2.json"
+    },
+    {
+      "id": "gesp-2026-03-3-1",
+      "level": 3,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "二进制回文串",
+      "tags": [
+        "进制转换",
+        "回文"
+      ],
+      "file": "data/gesp/level-3/gesp-2026-03-3-1.json"
+    },
+    {
+      "id": "gesp-2026-03-3-2",
+      "level": 3,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "凯撒密码",
+      "tags": [
+        "字符串",
+        "循环位移"
+      ],
+      "file": "data/gesp/level-3/gesp-2026-03-3-2.json"
+    },
+    {
+      "id": "gesp-2026-06-3-1",
+      "level": 3,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "加密",
+      "tags": [
+        "数组",
+        "映射"
+      ],
+      "file": "data/gesp/level-3/gesp-2026-06-3-1.json"
+    },
+    {
+      "id": "gesp-2026-06-3-2",
+      "level": 3,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "字符转换",
+      "tags": [
+        "字符",
+        "字符串"
+      ],
+      "file": "data/gesp/level-3/gesp-2026-06-3-2.json"
+    },
+    {
+      "id": "gesp-2026-09-3-1",
+      "level": 3,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "公共二进制位",
+      "tags": [
+        "位运算",
+        "数组"
+      ],
+      "file": "data/gesp/level-3/gesp-2026-09-3-1.json"
+    },
+    {
+      "id": "gesp-2026-09-3-2",
+      "level": 3,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "分割字符串",
+      "tags": [
+        "字符串",
+        "模拟"
+      ],
+      "file": "data/gesp/level-3/gesp-2026-09-3-2.json"
+    },
+    {
+      "id": "gesp-2023-06-4-1",
+      "level": 4,
+      "session": "2023-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "幸运数",
+      "tags": [
+        "数位",
+        "模拟"
+      ],
+      "file": "data/gesp/level-4/gesp-2023-06-4-1.json"
+    },
+    {
+      "id": "gesp-2023-06-4-2",
+      "level": 4,
+      "session": "2023-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "图像压缩",
+      "tags": [
+        "频次统计",
+        "排序",
+        "进制转换"
+      ],
+      "file": "data/gesp/level-4/gesp-2023-06-4-2.json"
+    },
+    {
+      "id": "gesp-2023-09-4-1",
+      "level": 4,
+      "session": "2023-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "进制转换",
+      "tags": [
+        "进制转换"
+      ],
+      "file": "data/gesp/level-4/gesp-2023-09-4-1.json"
+    },
+    {
+      "id": "gesp-2023-09-4-2",
+      "level": 4,
+      "session": "2023-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "变长编码",
+      "tags": [
+        "位运算",
+        "编码"
+      ],
+      "file": "data/gesp/level-4/gesp-2023-09-4-2.json"
+    },
+    {
+      "id": "gesp-2023-12-4-1",
+      "level": 4,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨的字典",
+      "tags": [
+        "字符串",
+        "映射"
+      ],
+      "file": "data/gesp/level-4/gesp-2023-12-4-1.json"
+    },
+    {
+      "id": "gesp-2023-12-4-2",
+      "level": 4,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "田忌赛马",
+      "tags": [
+        "排序",
+        "贪心"
+      ],
+      "file": "data/gesp/level-4/gesp-2023-12-4-2.json"
+    },
+    {
+      "id": "gesp-2024-03-4-1",
+      "level": 4,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "相似字符串",
+      "tags": [
+        "字符串",
+        "双指针"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-03-4-1.json"
+    },
+    {
+      "id": "gesp-2024-03-4-2",
+      "level": 4,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "做题",
+      "tags": [
+        "排序",
+        "贪心"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-03-4-2.json"
+    },
+    {
+      "id": "gesp-2024-06-4-1",
+      "level": 4,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "黑白方块",
+      "tags": [
+        "二维数组",
+        "枚举"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-06-4-1.json"
+    },
+    {
+      "id": "gesp-2024-06-4-2",
+      "level": 4,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "宝箱",
+      "tags": [
+        "排序",
+        "区间枚举"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-06-4-2.json"
+    },
+    {
+      "id": "gesp-2024-09-4-1",
+      "level": 4,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "黑白方块",
+      "tags": [
+        "二维数组",
+        "模式匹配"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-09-4-1.json"
+    },
+    {
+      "id": "gesp-2024-09-4-2",
+      "level": 4,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "区间排序",
+      "tags": [
+        "数组",
+        "排序"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-09-4-2.json"
+    },
+    {
+      "id": "gesp-2024-12-4-1",
+      "level": 4,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "Recamán",
+      "tags": [
+        "递推",
+        "排序"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-12-4-1.json"
+    },
+    {
+      "id": "gesp-2024-12-4-2",
+      "level": 4,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "字符排序",
+      "tags": [
+        "字符串",
+        "排序"
+      ],
+      "file": "data/gesp/level-4/gesp-2024-12-4-2.json"
+    },
+    {
+      "id": "gesp-2025-03-4-1",
+      "level": 4,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "荒地开垦",
+      "tags": [
+        "二维数组",
+        "邻域统计"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-03-4-1.json"
+    },
+    {
+      "id": "gesp-2025-03-4-2",
+      "level": 4,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "二阶矩阵",
+      "tags": [
+        "二维数组",
+        "枚举"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-03-4-2.json"
+    },
+    {
+      "id": "gesp-2025-06-4-1",
+      "level": 4,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "画布裁剪",
+      "tags": [
+        "二维数组",
+        "字符串"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-06-4-1.json"
+    },
+    {
+      "id": "gesp-2025-06-4-2",
+      "level": 4,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "排序",
+      "tags": [
+        "排序",
+        "逆序对"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-06-4-2.json"
+    },
+    {
+      "id": "gesp-2025-09-4-1",
+      "level": 4,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "排兵布阵",
+      "tags": [
+        "二维数组",
+        "枚举"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-09-4-1.json"
+    },
+    {
+      "id": "gesp-2025-09-4-2",
+      "level": 4,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "最长连续段",
+      "tags": [
+        "排序",
+        "去重"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-09-4-2.json"
+    },
+    {
+      "id": "gesp-2025-12-4-1",
+      "level": 4,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "建造",
+      "tags": [
+        "二维数组",
+        "枚举"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-12-4-1.json"
+    },
+    {
+      "id": "gesp-2025-12-4-2",
+      "level": 4,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "优先购买",
+      "tags": [
+        "结构体",
+        "排序",
+        "模拟"
+      ],
+      "file": "data/gesp/level-4/gesp-2025-12-4-2.json"
+    },
+    {
+      "id": "gesp-2026-03-4-1",
+      "level": 4,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "山之谷",
+      "tags": [
+        "二维数组",
+        "邻域判断"
+      ],
+      "file": "data/gesp/level-4/gesp-2026-03-4-1.json"
+    },
+    {
+      "id": "gesp-2026-03-4-2",
+      "level": 4,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "礼盒排序",
+      "tags": [
+        "结构体",
+        "多关键字排序"
+      ],
+      "file": "data/gesp/level-4/gesp-2026-03-4-2.json"
+    },
+    {
+      "id": "gesp-2026-06-4-1",
+      "level": 4,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "扫雷",
+      "tags": [
+        "二维数组",
+        "邻域统计"
+      ],
+      "file": "data/gesp/level-4/gesp-2026-06-4-1.json"
+    },
+    {
+      "id": "gesp-2026-06-4-2",
+      "level": 4,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "身高体重指数",
+      "tags": [
+        "结构体",
+        "排序"
+      ],
+      "file": "data/gesp/level-4/gesp-2026-06-4-2.json"
+    },
+    {
+      "id": "gesp-2026-09-4-1",
+      "level": 4,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "新汉诺塔",
+      "tags": [
+        "递推",
+        "汉诺塔"
+      ],
+      "file": "data/gesp/level-4/gesp-2026-09-4-1.json"
+    },
+    {
+      "id": "gesp-2026-09-4-2",
+      "level": 4,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "有序网格",
+      "tags": [
+        "二维数组",
+        "排序"
+      ],
+      "file": "data/gesp/level-4/gesp-2026-09-4-2.json"
+    },
+    {
+      "id": "gesp-2023-09-5-1",
+      "level": 5,
+      "session": "2023-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "因数分解",
+      "tags": [
+        "质因数分解",
+        "数论"
+      ],
+      "file": "data/gesp/level-5/gesp-2023-09-5-1.json"
+    },
+    {
+      "id": "gesp-2023-09-5-2",
+      "level": 5,
+      "session": "2023-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "巧夺大奖",
+      "tags": [
+        "贪心",
+        "排序"
+      ],
+      "file": "data/gesp/level-5/gesp-2023-09-5-2.json"
+    },
+    {
+      "id": "gesp-2023-12-5-1",
+      "level": 5,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨的幸运数",
+      "tags": [
+        "筛法",
+        "二分查找"
+      ],
+      "file": "data/gesp/level-5/gesp-2023-12-5-1.json"
+    },
+    {
+      "id": "gesp-2023-12-5-2",
+      "level": 5,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "烹饪问题",
+      "tags": [
+        "位运算",
+        "贪心"
+      ],
+      "file": "data/gesp/level-5/gesp-2023-12-5-2.json"
+    },
+    {
+      "id": "gesp-2024-03-5-1",
+      "level": 5,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "成绩排序",
+      "tags": [
+        "排序",
+        "结构体"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-03-5-1.json"
+    },
+    {
+      "id": "gesp-2024-03-5-2",
+      "level": 5,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "B-smooth 数",
+      "tags": [
+        "质因数分解",
+        "筛法"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-03-5-2.json"
+    },
+    {
+      "id": "gesp-2024-06-5-1",
+      "level": 5,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "黑白格",
+      "tags": [
+        "枚举",
+        "双指针",
+        "前缀和"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-06-5-1.json"
+    },
+    {
+      "id": "gesp-2024-06-5-2",
+      "level": 5,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的幸运数字",
+      "tags": [
+        "质因数分解",
+        "筛法"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-06-5-2.json"
+    },
+    {
+      "id": "gesp-2024-09-5-1",
+      "level": 5,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "挑战怪物",
+      "tags": [
+        "枚举",
+        "素数判断"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-09-5-1.json"
+    },
+    {
+      "id": "gesp-2024-09-5-2",
+      "level": 5,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的武器",
+      "tags": [
+        "贪心",
+        "分类讨论"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-09-5-2.json"
+    },
+    {
+      "id": "gesp-2024-12-5-1",
+      "level": 5,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "奇妙数字",
+      "tags": [
+        "质因数分解",
+        "贪心"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-12-5-1.json"
+    },
+    {
+      "id": "gesp-2024-12-5-2",
+      "level": 5,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "武器强化",
+      "tags": [
+        "贪心",
+        "枚举"
+      ],
+      "file": "data/gesp/level-5/gesp-2024-12-5-2.json"
+    },
+    {
+      "id": "gesp-2025-03-5-1",
+      "level": 5,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "平均分配",
+      "tags": [
+        "贪心",
+        "排序"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-03-5-1.json"
+    },
+    {
+      "id": "gesp-2025-03-5-2",
+      "level": 5,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "原根判断",
+      "tags": [
+        "数论",
+        "快速幂",
+        "质因数分解"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-03-5-2.json"
+    },
+    {
+      "id": "gesp-2025-06-5-1",
+      "level": 5,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "奖品兑换",
+      "tags": [
+        "二分答案",
+        "数论"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-06-5-1.json"
+    },
+    {
+      "id": "gesp-2025-06-5-2",
+      "level": 5,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "最大公因数",
+      "tags": [
+        "最大公约数",
+        "数论"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-06-5-2.json"
+    },
+    {
+      "id": "gesp-2025-09-5-1",
+      "level": 5,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数字选取",
+      "tags": [
+        "筛法",
+        "数论"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-09-5-1.json"
+    },
+    {
+      "id": "gesp-2025-09-5-2",
+      "level": 5,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "有趣的数字和",
+      "tags": [
+        "分治",
+        "位运算"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-09-5-2.json"
+    },
+    {
+      "id": "gesp-2025-12-5-1",
+      "level": 5,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数字移动",
+      "tags": [
+        "二分答案",
+        "贪心"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-12-5-1.json"
+    },
+    {
+      "id": "gesp-2025-12-5-2",
+      "level": 5,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "相等序列",
+      "tags": [
+        "质因数分解",
+        "中位数",
+        "贪心"
+      ],
+      "file": "data/gesp/level-5/gesp-2025-12-5-2.json"
+    },
+    {
+      "id": "gesp-2026-03-5-1",
+      "level": 5,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "有限不循环小数",
+      "tags": [
+        "质因数分解",
+        "数论"
+      ],
+      "file": "data/gesp/level-5/gesp-2026-03-5-1.json"
+    },
+    {
+      "id": "gesp-2026-03-5-2",
+      "level": 5,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "找数",
+      "tags": [
+        "排序",
+        "二分查找",
+        "双指针"
+      ],
+      "file": "data/gesp/level-5/gesp-2026-03-5-2.json"
+    },
+    {
+      "id": "gesp-2026-06-5-1",
+      "level": 5,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "排排坐",
+      "tags": [
+        "排序",
+        "贪心"
+      ],
+      "file": "data/gesp/level-5/gesp-2026-06-5-1.json"
+    },
+    {
+      "id": "gesp-2026-06-5-2",
+      "level": 5,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "晚宴",
+      "tags": [
+        "最大公约数",
+        "枚举"
+      ],
+      "file": "data/gesp/level-5/gesp-2026-06-5-2.json"
+    },
+    {
+      "id": "gesp-2026-09-5-1",
+      "level": 5,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "哥德巴赫猜想",
+      "tags": [
+        "筛法",
+        "素数判断"
+      ],
+      "file": "data/gesp/level-5/gesp-2026-09-5-1.json"
+    },
+    {
+      "id": "gesp-2026-09-5-2",
+      "level": 5,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "饮品调制",
+      "tags": [
+        "贪心",
+        "排序"
+      ],
+      "file": "data/gesp/level-5/gesp-2026-09-5-2.json"
+    },
+    {
+      "id": "gesp-2023-09-6-1",
+      "level": 6,
+      "session": "2023-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨买饮料",
+      "tags": [
+        "01背包",
+        "动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2023-09-6-1.json"
+    },
+    {
+      "id": "gesp-2023-09-6-2",
+      "level": 6,
+      "session": "2023-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨的握手问题",
+      "tags": [
+        "归并排序",
+        "顺序对"
+      ],
+      "file": "data/gesp/level-6/gesp-2023-09-6-2.json"
+    },
+    {
+      "id": "gesp-2023-12-6-1",
+      "level": 6,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "闯关游戏",
+      "tags": [
+        "动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2023-12-6-1.json"
+    },
+    {
+      "id": "gesp-2023-12-6-2",
+      "level": 6,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "工作沟通",
+      "tags": [
+        "树",
+        "祖先"
+      ],
+      "file": "data/gesp/level-6/gesp-2023-12-6-2.json"
+    },
+    {
+      "id": "gesp-2024-03-6-1",
+      "level": 6,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "游戏",
+      "tags": [
+        "动态规划",
+        "计数"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-03-6-1.json"
+    },
+    {
+      "id": "gesp-2024-03-6-2",
+      "level": 6,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "好斗的牛",
+      "tags": [
+        "枚举",
+        "全排列"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-03-6-2.json"
+    },
+    {
+      "id": "gesp-2024-06-6-1",
+      "level": 6,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "计算得分",
+      "tags": [
+        "动态规划",
+        "字符串"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-06-6-1.json"
+    },
+    {
+      "id": "gesp-2024-06-6-2",
+      "level": 6,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "二叉树",
+      "tags": [
+        "树遍历",
+        "异或"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-06-6-2.json"
+    },
+    {
+      "id": "gesp-2024-09-6-1",
+      "level": 6,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "小杨和整数拆分",
+      "tags": [
+        "动态规划",
+        "完全背包"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-09-6-1.json"
+    },
+    {
+      "id": "gesp-2024-09-6-2",
+      "level": 6,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "算法学习",
+      "tags": [
+        "贪心",
+        "排序"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-09-6-2.json"
+    },
+    {
+      "id": "gesp-2024-12-6-1",
+      "level": 6,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "树上游走",
+      "tags": [
+        "栈",
+        "二叉树"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-12-6-1.json"
+    },
+    {
+      "id": "gesp-2024-12-6-2",
+      "level": 6,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "运送物资",
+      "tags": [
+        "排序",
+        "贪心"
+      ],
+      "file": "data/gesp/level-6/gesp-2024-12-6-2.json"
+    },
+    {
+      "id": "gesp-2025-03-6-1",
+      "level": 6,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "树上漫步",
+      "tags": [
+        "树",
+        "二分染色"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-03-6-1.json"
+    },
+    {
+      "id": "gesp-2025-03-6-2",
+      "level": 6,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "环线",
+      "tags": [
+        "动态规划",
+        "环形最大子段和"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-03-6-2.json"
+    },
+    {
+      "id": "gesp-2025-06-6-1",
+      "level": 6,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "学习小组",
+      "tags": [
+        "动态规划",
+        "完全背包"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-06-6-1.json"
+    },
+    {
+      "id": "gesp-2025-06-6-2",
+      "level": 6,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "最大因数",
+      "tags": [
+        "因数分解",
+        "树路径"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-06-6-2.json"
+    },
+    {
+      "id": "gesp-2025-09-6-1",
+      "level": 6,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "划分字符串",
+      "tags": [
+        "字符串",
+        "动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-09-6-1.json"
+    },
+    {
+      "id": "gesp-2025-09-6-2",
+      "level": 6,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "货物运输",
+      "tags": [
+        "树遍历",
+        "贪心"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-09-6-2.json"
+    },
+    {
+      "id": "gesp-2025-12-6-1",
+      "level": 6,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "路径覆盖",
+      "tags": [
+        "树形动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-12-6-1.json"
+    },
+    {
+      "id": "gesp-2025-12-6-2",
+      "level": 6,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "道具商店",
+      "tags": [
+        "01背包",
+        "价值维度动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2025-12-6-2.json"
+    },
+    {
+      "id": "gesp-2026-03-6-1",
+      "level": 6,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "选数",
+      "tags": [
+        "动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2026-03-6-1.json"
+    },
+    {
+      "id": "gesp-2026-03-6-2",
+      "level": 6,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "完全二叉树",
+      "tags": [
+        "二叉树",
+        "树形动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2026-03-6-2.json"
+    },
+    {
+      "id": "gesp-2026-06-6-1",
+      "level": 6,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "条形蛋糕",
+      "tags": [
+        "动态规划",
+        "完全背包"
+      ],
+      "file": "data/gesp/level-6/gesp-2026-06-6-1.json"
+    },
+    {
+      "id": "gesp-2026-06-6-2",
+      "level": 6,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "满二叉树",
+      "tags": [
+        "二叉树",
+        "树形动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2026-06-6-2.json"
+    },
+    {
+      "id": "gesp-2026-09-6-1",
+      "level": 6,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "数组划分",
+      "tags": [
+        "前缀和",
+        "动态规划"
+      ],
+      "file": "data/gesp/level-6/gesp-2026-09-6-1.json"
+    },
+    {
+      "id": "gesp-2026-09-6-2",
+      "level": 6,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "分树规划",
+      "tags": [
+        "树遍历",
+        "子树大小"
+      ],
+      "file": "data/gesp/level-6/gesp-2026-09-6-2.json"
+    },
+    {
+      "id": "gesp-2023-12-7-1",
+      "level": 7,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "商品交易",
+      "tags": [
+        "广度优先搜索",
+        "最短路"
+      ],
+      "file": "data/gesp/level-7/gesp-2023-12-7-1.json"
+    },
+    {
+      "id": "gesp-2023-12-7-2",
+      "level": 7,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "纸牌游戏",
+      "tags": [
+        "动态规划",
+        "状态设计"
+      ],
+      "file": "data/gesp/level-7/gesp-2023-12-7-2.json"
+    },
+    {
+      "id": "gesp-2024-03-7-1",
+      "level": 7,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "交流问题",
+      "tags": [
+        "二分图",
+        "连通分量"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-03-7-1.json"
+    },
+    {
+      "id": "gesp-2024-03-7-2",
+      "level": 7,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "俄罗斯方块",
+      "tags": [
+        "洪水填充",
+        "形状归一化"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-03-7-2.json"
+    },
+    {
+      "id": "gesp-2024-06-7-1",
+      "level": 7,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "黑白翻转",
+      "tags": [
+        "树",
+        "剪枝"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-06-7-1.json"
+    },
+    {
+      "id": "gesp-2024-06-7-2",
+      "level": 7,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "区间乘积",
+      "tags": [
+        "质因数",
+        "前缀异或",
+        "计数"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-06-7-2.json"
+    },
+    {
+      "id": "gesp-2024-09-7-1",
+      "level": 7,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "矩阵移动",
+      "tags": [
+        "网格动态规划"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-09-7-1.json"
+    },
+    {
+      "id": "gesp-2024-09-7-2",
+      "level": 7,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "小杨寻宝",
+      "tags": [
+        "树",
+        "路径判断"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-09-7-2.json"
+    },
+    {
+      "id": "gesp-2024-12-7-1",
+      "level": 7,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "武器购买",
+      "tags": [
+        "01背包",
+        "动态规划"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-12-7-1.json"
+    },
+    {
+      "id": "gesp-2024-12-7-2",
+      "level": 7,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "燃烧",
+      "tags": [
+        "树形动态规划",
+        "记忆化搜索"
+      ],
+      "file": "data/gesp/level-7/gesp-2024-12-7-2.json"
+    },
+    {
+      "id": "gesp-2025-03-7-1",
+      "level": 7,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "图上移动",
+      "tags": [
+        "图",
+        "动态规划",
+        "位集"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-03-7-1.json"
+    },
+    {
+      "id": "gesp-2025-03-7-2",
+      "level": 7,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "等价消除",
+      "tags": [
+        "前缀异或",
+        "哈希计数"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-03-7-2.json"
+    },
+    {
+      "id": "gesp-2025-06-7-1",
+      "level": 7,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "线图",
+      "tags": [
+        "图",
+        "度数",
+        "组合计数"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-06-7-1.json"
+    },
+    {
+      "id": "gesp-2025-06-7-2",
+      "level": 7,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "调味平衡",
+      "tags": [
+        "差值背包",
+        "动态规划"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-06-7-2.json"
+    },
+    {
+      "id": "gesp-2025-09-7-1",
+      "level": 7,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "连通图",
+      "tags": [
+        "并查集",
+        "连通分量"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-09-7-1.json"
+    },
+    {
+      "id": "gesp-2025-09-7-2",
+      "level": 7,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "金币收集",
+      "tags": [
+        "排序",
+        "最长不降子序列"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-09-7-2.json"
+    },
+    {
+      "id": "gesp-2025-12-7-1",
+      "level": 7,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "城市规划",
+      "tags": [
+        "广度优先搜索",
+        "图中心"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-12-7-1.json"
+    },
+    {
+      "id": "gesp-2025-12-7-2",
+      "level": 7,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "学习小组",
+      "tags": [
+        "排序",
+        "动态规划"
+      ],
+      "file": "data/gesp/level-7/gesp-2025-12-7-2.json"
+    },
+    {
+      "id": "gesp-2026-03-7-1",
+      "level": 7,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "拆分",
+      "tags": [
+        "贪心",
+        "快速幂"
+      ],
+      "file": "data/gesp/level-7/gesp-2026-03-7-1.json"
+    },
+    {
+      "id": "gesp-2026-03-7-2",
+      "level": 7,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "物流网络",
+      "tags": [
+        "最短路",
+        "枚举"
+      ],
+      "file": "data/gesp/level-7/gesp-2026-03-7-2.json"
+    },
+    {
+      "id": "gesp-2026-06-7-1",
+      "level": 7,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "染色",
+      "tags": [
+        "二分图",
+        "环"
+      ],
+      "file": "data/gesp/level-7/gesp-2026-06-7-1.json"
+    },
+    {
+      "id": "gesp-2026-06-7-2",
+      "level": 7,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "消消乐",
+      "tags": [
+        "区间动态规划"
+      ],
+      "file": "data/gesp/level-7/gesp-2026-06-7-2.json"
+    },
+    {
+      "id": "gesp-2026-09-7-1",
+      "level": 7,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "必经之路",
+      "tags": [
+        "图遍历",
+        "必经点"
+      ],
+      "file": "data/gesp/level-7/gesp-2026-09-7-1.json"
+    },
+    {
+      "id": "gesp-2026-09-7-2",
+      "level": 7,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "括号序列",
+      "tags": [
+        "动态规划",
+        "括号匹配"
+      ],
+      "file": "data/gesp/level-7/gesp-2026-09-7-2.json"
+    },
+    {
+      "id": "gesp-2023-12-8-1",
+      "level": 8,
+      "session": "2023-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "奖品分配",
+      "tags": [
+        "组合计数",
+        "多重集排列"
+      ],
+      "file": "data/gesp/level-8/gesp-2023-12-8-1.json"
+    },
+    {
+      "id": "gesp-2023-12-8-2",
+      "level": 8,
+      "session": "2023-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "大量的工作沟通",
+      "tags": [
+        "最近公共祖先",
+        "倍增"
+      ],
+      "file": "data/gesp/level-8/gesp-2023-12-8-2.json"
+    },
+    {
+      "id": "gesp-2024-03-8-1",
+      "level": 8,
+      "session": "2024-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "公倍数问题",
+      "tags": [
+        "因数统计",
+        "筛法"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-03-8-1.json"
+    },
+    {
+      "id": "gesp-2024-03-8-2",
+      "level": 8,
+      "session": "2024-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "接竹竿",
+      "tags": [
+        "模拟",
+        "区间查询",
+        "倍增"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-03-8-2.json"
+    },
+    {
+      "id": "gesp-2024-06-8-1",
+      "level": 8,
+      "session": "2024-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "最远点对",
+      "tags": [
+        "树形动态规划",
+        "树直径"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-06-8-1.json"
+    },
+    {
+      "id": "gesp-2024-06-8-2",
+      "level": 8,
+      "session": "2024-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "空间跳跃",
+      "tags": [
+        "图建模",
+        "最短路"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-06-8-2.json"
+    },
+    {
+      "id": "gesp-2024-09-8-1",
+      "level": 8,
+      "session": "2024-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "手套配对",
+      "tags": [
+        "组合计数"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-09-8-1.json"
+    },
+    {
+      "id": "gesp-2024-09-8-2",
+      "level": 8,
+      "session": "2024-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "美丽路径",
+      "tags": [
+        "树形动态规划",
+        "最长路径"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-09-8-2.json"
+    },
+    {
+      "id": "gesp-2024-12-8-1",
+      "level": 8,
+      "session": "2024-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "树上移动",
+      "tags": [
+        "树",
+        "路径枚举"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-12-8-1.json"
+    },
+    {
+      "id": "gesp-2024-12-8-2",
+      "level": 8,
+      "session": "2024-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "排队",
+      "tags": [
+        "图",
+        "链合并",
+        "排列计数"
+      ],
+      "file": "data/gesp/level-8/gesp-2024-12-8-2.json"
+    },
+    {
+      "id": "gesp-2025-03-8-1",
+      "level": 8,
+      "session": "2025-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "上学",
+      "tags": [
+        "Dijkstra",
+        "最短路"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-03-8-1.json"
+    },
+    {
+      "id": "gesp-2025-03-8-2",
+      "level": 8,
+      "session": "2025-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "割裂",
+      "tags": [
+        "树上差分",
+        "最近公共祖先"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-03-8-2.json"
+    },
+    {
+      "id": "gesp-2025-06-8-1",
+      "level": 8,
+      "session": "2025-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "树上旅行",
+      "tags": [
+        "倍增",
+        "树遍历"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-06-8-1.json"
+    },
+    {
+      "id": "gesp-2025-06-8-2",
+      "level": 8,
+      "session": "2025-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "遍历计数",
+      "tags": [
+        "树",
+        "组合计数"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-06-8-2.json"
+    },
+    {
+      "id": "gesp-2025-09-8-1",
+      "level": 8,
+      "session": "2025-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "最短距离",
+      "tags": [
+        "最大公约数",
+        "最短路性质"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-09-8-1.json"
+    },
+    {
+      "id": "gesp-2025-09-8-2",
+      "level": 8,
+      "session": "2025-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "最小生成树",
+      "tags": [
+        "最小生成树",
+        "替换边"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-09-8-2.json"
+    },
+    {
+      "id": "gesp-2025-12-8-1",
+      "level": 8,
+      "session": "2025-12",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "猫和老鼠",
+      "tags": [
+        "最短路",
+        "安全路径"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-12-8-1.json"
+    },
+    {
+      "id": "gesp-2025-12-8-2",
+      "level": 8,
+      "session": "2025-12",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "宝石项链",
+      "tags": [
+        "双指针",
+        "倍增"
+      ],
+      "file": "data/gesp/level-8/gesp-2025-12-8-2.json"
+    },
+    {
+      "id": "gesp-2026-03-8-1",
+      "level": 8,
+      "session": "2026-03",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "消息查找",
+      "tags": [
+        "最短路",
+        "稀疏跳转"
+      ],
+      "file": "data/gesp/level-8/gesp-2026-03-8-1.json"
+    },
+    {
+      "id": "gesp-2026-03-8-2",
+      "level": 8,
+      "session": "2026-03",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "子图最短路",
+      "tags": [
+        "Floyd",
+        "区间最短路"
+      ],
+      "file": "data/gesp/level-8/gesp-2026-03-8-2.json"
+    },
+    {
+      "id": "gesp-2026-06-8-1",
+      "level": 8,
+      "session": "2026-06",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "线网建设",
+      "tags": [
+        "最小生成树",
+        "计算几何"
+      ],
+      "file": "data/gesp/level-8/gesp-2026-06-8-1.json"
+    },
+    {
+      "id": "gesp-2026-06-8-2",
+      "level": 8,
+      "session": "2026-06",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "堆石子",
+      "tags": [
+        "组合计数",
+        "逆元"
+      ],
+      "file": "data/gesp/level-8/gesp-2026-06-8-2.json"
+    },
+    {
+      "id": "gesp-2026-09-8-1",
+      "level": 8,
+      "session": "2026-09",
+      "number": 1,
+      "kind": "past-paper",
+      "title": "生成树计数",
+      "tags": [
+        "仙人掌图",
+        "环",
+        "组合计数"
+      ],
+      "file": "data/gesp/level-8/gesp-2026-09-8-1.json"
+    },
+    {
+      "id": "gesp-2026-09-8-2",
+      "level": 8,
+      "session": "2026-09",
+      "number": 2,
+      "kind": "past-paper",
+      "title": "末班车",
+      "tags": [
+        "最短路",
+        "时刻约束"
+      ],
+      "file": "data/gesp/level-8/gesp-2026-09-8-2.json"
+    }
+  ]
+}

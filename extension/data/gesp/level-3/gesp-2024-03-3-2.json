@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-03-3-2",
+  "level": 3,
+  "session": "2024-03",
+  "number": 2,
+  "title": "完全平方数",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "平方判断"
+  ],
+  "description": "给定 n 个非负整数，统计下标对 i<j 中满足 A_i+A_j 是完全平方数的对数。0 也属于完全平方数；相同数值的不同下标分别计数。",
+  "input": "首行 n；次行 n 个 A_i。",
+  "output": "下标对数量。",
+  "constraints": "1 ≤ n ≤ 1000；0 ≤ A_i ≤ 100000。",
+  "sampleInput": "4\n0 0 1 3\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3957",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n0 0 1 3\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+﻿{
+    "filename":  "pypdf-6.11.0-py3-none-any.whl",
+    "url":  "https://files.pythonhosted.org/packages/07/b1/68feb7eb3b99f0c020b414234825f4a5d70e0126c18d933770e8c93a35fc/pypdf-6.11.0-py3-none-any.whl",
+    "sha256":  "769394d5756d5b304c9b6bef88b54b1816b328e7e6fc9254e625529a15ed4ab8",
+    "requiresPython":  "\u003e=3.9",
+    "source":  "https://pypi.org/project/pypdf/6.11.0/"
+}

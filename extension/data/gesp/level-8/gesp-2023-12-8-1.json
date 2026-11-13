@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-12-8-1",
+  "level": 8,
+  "session": "2023-12",
+  "number": 1,
+  "title": "奖品分配",
+  "kind": "past-paper",
+  "tags": [
+    "组合计数",
+    "多重集排列"
+  ],
+  "description": "N 名不同学生每人领取一件奖品，第 i 类有 a_i 件，同类奖品不区分个体。总奖品数为 N 或 N+1，统计分配方案；任一学生所得种类不同即为不同方案。",
+  "input": "首行 T；每组一行 N、M，随后 M 个库存。",
+  "output": "每组输出方案数模 1000000007。",
+  "constraints": "T ≤ 1000；N ≤ 1000；M ≤ 1001；库存为正数，总和为 N 或 N+1。",
+  "sampleInput": "1\n2 2 1 2\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10112",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "1\n2 2 1 2\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

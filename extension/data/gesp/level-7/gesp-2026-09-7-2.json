@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-7-2",
+  "level": 7,
+  "session": "2026-09",
+  "number": 2,
+  "title": "括号序列",
+  "kind": "past-paper",
+  "tags": [
+    "动态规划",
+    "括号匹配"
+  ],
+  "description": "从括号字符串中保留任意下标子集，保持原顺序，统计可形成合法括号序列的选择数，包含空串。下标不同即为不同方案。",
+  "input": "首行 n；次行 n 个左、右圆括号。",
+  "output": "方案数对 1000000000 取模。",
+  "constraints": "1 ≤ n ≤ 2000。",
+  "sampleInput": "4\n(())\n",
+  "sampleOutput": "6\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17460",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n(())\n",
+      "expected": "6\n",
+      "score": 100
+    }
+  ]
+}

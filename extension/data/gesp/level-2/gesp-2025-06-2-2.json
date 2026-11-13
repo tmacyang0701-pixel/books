@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-2-2",
+  "level": 2,
+  "session": "2025-06",
+  "number": 2,
+  "title": "幂和数",
+  "kind": "past-paper",
+  "tags": [
+    "枚举",
+    "去重"
+  ],
+  "description": "若正整数能表示成 2^x+2^y，其中 x、y 是非负整数且允许相等，就称它为幂和数。统计闭区间 [l,r] 内不同幂和数的数量。",
+  "input": "一行整数 l、r。",
+  "output": "不同幂和数的个数。",
+  "constraints": "1 ≤ l ≤ r ≤ 10000。",
+  "sampleInput": "1 10\n",
+  "sampleOutput": "8\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4357",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "1 10\n",
+      "expected": "8\n",
+      "score": 100
+    }
+  ]
+}

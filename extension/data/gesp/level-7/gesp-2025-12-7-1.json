@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-7-1",
+  "level": 7,
+  "session": "2025-12",
+  "number": 1,
+  "title": "城市规划",
+  "kind": "past-paper",
+  "tags": [
+    "广度优先搜索",
+    "图中心"
+  ],
+  "description": "连通无向图中，一座城市的建设难度是它到所有城市的最短边数的最大值。找难度最小的城市，并列取编号最小者。",
+  "input": "首行 n、m；随后 m 条无向边。",
+  "output": "城市编号。",
+  "constraints": "1 ≤ n,m ≤ 2000；保证图连通。",
+  "sampleInput": "4 3\n1 2\n2 3\n3 4\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14921",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 3\n1 2\n2 3\n3 4\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

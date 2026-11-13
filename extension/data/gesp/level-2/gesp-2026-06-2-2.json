@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-2-2",
+  "level": 2,
+  "session": "2026-06",
+  "number": 2,
+  "title": "菱形",
+  "kind": "past-paper",
+  "tags": [
+    "嵌套循环",
+    "字符图形"
+  ],
+  "description": "在边长 2n−1 的正方形画布上画一个空心菱形。四个顶点位于画布各边中点，菱形边用 + 表示，其余格子用 . 表示。",
+  "input": "正整数 n。",
+  "output": "2n−1 行，每行 2n−1 个字符。",
+  "constraints": "3 ≤ n ≤ 15。",
+  "sampleInput": "5\n",
+  "sampleOutput": "....+....\n...+.+...\n..+...+..\n.+.....+.\n+.......+\n.+.....+.\n..+...+..\n...+.+...\n....+....\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4554",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://wiki.coderli.com/gesp/2/codereal/gesp-2-luogu-b4554/"
+  },
+  "cases": [
+    {
+      "input": "5\n",
+      "expected": "....+....\n...+.+...\n..+...+..\n.+.....+.\n+.......+\n.+.....+.\n..+...+..\n...+.+...\n....+....\n",
+      "score": 100
+    }
+  ]
+}

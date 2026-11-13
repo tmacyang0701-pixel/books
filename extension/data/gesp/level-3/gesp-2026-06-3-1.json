@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2026-06-3-1",
+  "level": 3,
+  "session": "2026-06",
+  "number": 1,
+  "title": "加密",
+  "kind": "past-paper",
+  "tags": [
+    "数组",
+    "映射"
+  ],
+  "description": "给定一列十进制数字和一张替换表。表中第 1～10 项分别指定数字 0～9 的替换结果。对原序列中每个数字替换一次并输出。",
+  "input": "首行 n；次行 n 个数字；第三行 10 个数字组成的替换表。",
+  "output": "n 个替换后的数字，空格分隔。",
+  "constraints": "1 ≤ n ≤ 20000；各数字为 0～9；替换表是 0～9 的一个排列。",
+  "sampleInput": "4\n0 1 8 9\n1 2 3 4 5 6 7 8 9 0\n",
+  "sampleOutput": "1 2 9 0\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4555",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://wiki.coderli.com/gesp/3/codereal/gesp-3-luogu-b4555/"
+  },
+  "cases": [
+    {
+      "input": "4\n0 1 8 9\n1 2 3 4 5 6 7 8 9 0\n",
+      "expected": "1 2 9 0\n",
+      "score": 100
+    }
+  ]
+}

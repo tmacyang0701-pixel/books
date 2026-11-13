@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-1-1",
+  "level": 1,
+  "session": "2025-03",
+  "number": 1,
+  "title": "图书馆里的老鼠",
+  "kind": "past-paper",
+  "tags": [
+    "向上取整",
+    "算术"
+  ],
+  "description": "共有 n 本完整的书。老鼠连续啃书，啃完一本需要 x 小时，已经啃了 y 小时。开始啃但尚未啃完的书也不算完整。求剩余完整书的本数。",
+  "input": "三行整数 n、x、y。",
+  "output": "完整书的本数。",
+  "constraints": "n、x、y 均为 1～1000 的整数；保证至少剩余一本完整书。",
+  "sampleInput": "10\n3\n7\n",
+  "sampleOutput": "7\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4257",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "10\n3\n7\n",
+      "expected": "7\n",
+      "score": 100
+    }
+  ]
+}

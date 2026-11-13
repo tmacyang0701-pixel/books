@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2026-06-5-1",
+  "level": 5,
+  "session": "2026-06",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "排排坐",
+  "tags": [
+    "排序",
+    "贪心"
+  ],
+  "description": "每人手上有一个数。重新安排排队顺序后，每人获得的糖果数等于自己及左边所有人的数字之和。求全体糖果数的最大总和。",
+  "input": "第一行 n，第二行 n 个正整数。",
+  "output": "输出最大总和。",
+  "constraints": "1 ≤ n ≤ 1000；1 ≤ a_i ≤ 1000。",
+  "sampleInput": "3\n2 5 1\n",
+  "sampleOutput": "20\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "3\n2 5 1\n",
+      "expected": "20\n",
+      "score": 33
+    },
+    {
+      "input": "1\n9\n",
+      "expected": "9\n",
+      "score": 33
+    },
+    {
+      "input": "4\n3 3 3 3\n",
+      "expected": "30\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.acgo.cn/problemset/info/128409",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1753295343321120.pdf"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-3-1",
+  "level": 3,
+  "session": "2024-06",
+  "number": 1,
+  "title": "移位",
+  "kind": "past-paper",
+  "tags": [
+    "字符",
+    "取模"
+  ],
+  "description": "将完整大写字母表 A～Z 中的每个字母向后循环移动 n 个位置，超过 Z 后从 A 接着数。输出变换后的字母表。",
+  "input": "整数 n。",
+  "output": "26 个大写字母组成的结果串。",
+  "constraints": "1 ≤ n ≤ 100。",
+  "sampleInput": "27\n",
+  "sampleOutput": "BCDEFGHIJKLMNOPQRSTUVWXYZA\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4003",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "27\n",
+      "expected": "BCDEFGHIJKLMNOPQRSTUVWXYZA\n",
+      "score": 100
+    }
+  ]
+}

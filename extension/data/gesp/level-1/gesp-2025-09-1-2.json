@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-1-2",
+  "level": 1,
+  "session": "2025-09",
+  "number": 2,
+  "title": "金字塔",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "平方和"
+  ],
+  "description": "金字塔从上往下共有 n 层，第 i 层由 i×i 个小方块组成。求所有层需要的小方块总数。",
+  "input": "整数 n。",
+  "output": "方块总数。",
+  "constraints": "1 ≤ n ≤ 50。",
+  "sampleInput": "4\n",
+  "sampleOutput": "30\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4410",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n",
+      "expected": "30\n",
+      "score": 100
+    }
+  ]
+}

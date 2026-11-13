@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-06-2-1",
+  "level": 2,
+  "session": "2023-06",
+  "number": 1,
+  "title": "找素数",
+  "kind": "past-paper",
+  "tags": [
+    "素数判断",
+    "枚举"
+  ],
+  "description": "统计闭区间 [A,B] 中素数的个数。素数大于 1，只有 1 和自身两个正因数。",
+  "input": "一行整数 A、B。",
+  "output": "素数个数。",
+  "constraints": "2 ≤ A ≤ B ≤ 1000。",
+  "sampleInput": "10 20\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3840",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "10 20\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

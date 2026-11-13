@@ -1,0 +1,45 @@
+{
+  "id": "gesp-2024-09-5-1",
+  "level": 5,
+  "session": "2024-09",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "挑战怪物",
+  "tags": [
+    "枚举",
+    "素数判断"
+  ],
+  "description": "怪物血量必须恰好降为 0。第 i 次物理攻击伤害为 2^(i−1)；另可至多使用一次魔法攻击，伤害为不超过当前血量的任意质数。求最少攻击次数。",
+  "input": "第一行测试组数 t，随后每行一个血量 h。",
+  "output": "逐组输出最少次数；无法击败时输出 -1。",
+  "constraints": "1 ≤ t ≤ 10；1 ≤ h ≤ 10^5。",
+  "sampleInput": "5\n1\n2\n6\n9\n16\n",
+  "sampleOutput": "1\n1\n2\n4\n3\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "5\n1\n2\n6\n9\n16\n",
+      "expected": "1\n1\n2\n4\n3\n",
+      "score": 33
+    },
+    {
+      "input": "3\n3\n7\n31\n",
+      "expected": "1\n1\n1\n",
+      "score": 33
+    },
+    {
+      "input": "1\n10\n",
+      "expected": "3\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4050",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。"
+  }
+}

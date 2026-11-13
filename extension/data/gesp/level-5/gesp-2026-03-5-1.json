@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2026-03-5-1",
+  "level": 5,
+  "session": "2026-03",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "有限不循环小数",
+  "tags": [
+    "质因数分解",
+    "数论"
+  ],
+  "description": "当 1/a 能写成有限小数时，称 a 为终止数。统计闭区间 [L,R] 内的终止数个数。",
+  "input": "一行 L、R。",
+  "output": "输出终止数个数。",
+  "constraints": "1 ≤ L ≤ R ≤ 10^6。",
+  "sampleInput": "2 11\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "2 11\n",
+      "expected": "5\n",
+      "score": 33
+    },
+    {
+      "input": "1 1\n",
+      "expected": "1\n",
+      "score": 33
+    },
+    {
+      "input": "12 30\n",
+      "expected": "3\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P15798",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1734457367199776.pdf"
+  }
+}

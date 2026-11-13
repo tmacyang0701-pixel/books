@@ -1,0 +1,36 @@
+{
+  "id": "gesp-2024-12-8-2",
+  "level": 8,
+  "session": "2024-12",
+  "number": 2,
+  "title": "排队",
+  "kind": "past-paper",
+  "tags": [
+    "图",
+    "链合并",
+    "排列计数"
+  ],
+  "description": "n 名不同同学排成一行。每条关系 a、b 要求 a 紧邻在 b 前面。求满足全部关系的排列数，矛盾时为 0。",
+  "input": "首行 n、m；随后 m 行关系 a、b。",
+  "output": "方案数模 1000000007。",
+  "constraints": "1 ≤ n ≤ 200000；0 ≤ m ≤ 200000。",
+  "sampleInput": "4 1\n1 2\n",
+  "sampleOutput": "6\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11380",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 1\n1 2\n",
+      "expected": "6\n",
+      "score": 100
+    }
+  ]
+}

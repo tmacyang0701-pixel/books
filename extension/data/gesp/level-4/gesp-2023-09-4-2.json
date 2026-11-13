@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-4-2",
+  "level": 4,
+  "session": "2023-09",
+  "number": 2,
+  "title": "变长编码",
+  "kind": "past-paper",
+  "tags": [
+    "位运算",
+    "编码"
+  ],
+  "description": "把非负整数按二进制从低位起每 7 位分组，最高组不足补零。按低组到高组输出字节：除最后一组外，最高位补 1；最后一组最高位补 0。",
+  "input": "非负整数 N。",
+  "output": "编码字节，均为两位大写十六进制，空格分隔。",
+  "constraints": "0 ≤ N ≤ 10^18；0 也需要一个字节。",
+  "sampleInput": "128\n",
+  "sampleOutput": "80 01\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3870",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "128\n",
+      "expected": "80 01\n",
+      "score": 100
+    }
+  ]
+}

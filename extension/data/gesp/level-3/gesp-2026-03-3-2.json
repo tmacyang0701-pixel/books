@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-3-2",
+  "level": 3,
+  "session": "2026-03",
+  "number": 2,
+  "title": "凯撒密码",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "循环位移"
+  ],
+  "description": "凯撒加密将大写字母按同一偏移量循环替换。已知一组明文及其对应密文，用它确定偏移量，再还原另一段使用相同规则的密文。",
+  "input": "三行依次为：已知明文、与其对应的密文、需要解密的密文。",
+  "output": "第三行密文对应的明文。",
+  "constraints": "各字符串只含大写字母，长度不超过 1000；已知明密文相互对应。",
+  "sampleInput": "ABC\nCDE\nBCD\n",
+  "sampleOutput": "ZAB\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4500",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "ABC\nCDE\nBCD\n",
+      "expected": "ZAB\n",
+      "score": 100
+    }
+  ]
+}

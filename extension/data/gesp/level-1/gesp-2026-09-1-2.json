@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-1-2",
+  "level": 1,
+  "session": "2026-09",
+  "number": 2,
+  "title": "棋盘上的奖赏",
+  "kind": "past-paper",
+  "tags": [
+    "循环",
+    "等比数列"
+  ],
+  "description": "棋盘第一格放 1 粒麦子，之后每格数量是前一格的两倍。求前 n 格合计需要多少粒。",
+  "input": "整数 n。",
+  "output": "麦粒总数。",
+  "constraints": "1 ≤ n ≤ 30。",
+  "sampleInput": "6\n",
+  "sampleOutput": "63\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4574",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "6\n",
+      "expected": "63\n",
+      "score": 100
+    }
+  ]
+}

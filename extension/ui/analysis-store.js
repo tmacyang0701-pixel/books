@@ -1,0 +1,17 @@
+import {analysisProgress,analysisDayStart,canonicalCode,codeHash,attemptOutcome} from './analysis-policy.js';
+
+export function createAnalysisStore(){
+  let opening;
+  function db(){return opening??=new Promise((resolve,reject)=>{const request=indexedDB.open('codearena-code-analysis',1);request.onupgradeneeded=()=>{request.result.createObjectStore('attempts',{keyPath:'problemKey'});const history=request.result.createObjectStore('clicks',{keyPath:'id'});history.createIndex('problemKey','problemKey');};request.onsuccess=()=>resolve(request.result);request.onerror=()=>{opening=null;reject(Error('无法保存代码分析记录，请检查浏览器存储空间'));};request.onblocked=()=>{opening=null;reject(Error('分析记录暂时被旧页面占用，请关闭旧页面后重试'));};});}
+  async function change(store,key,transform){const database=await db();return new Promise((resolve,reject)=>{const tx=database.transaction(store,'readwrite'),table=tx.objectStore(store),read=table.get(key);let value;read.onsuccess=()=>{value=transform(read.result);table.put(value);};tx.oncomplete=()=>resolve(value);tx.onerror=tx.onabort=()=>reject(Error('代码分析记录保存失败'));});}
+  async function get(store,key){const database=await db();return new Promise((resolve,reject)=>{const r=database.transaction(store).objectStore(store).get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(Error('无法读取代码分析记录'));});}
+  async function baseline(problemKey,code){const hash=await codeHash(canonicalCode(code)),day=analysisDayStart();return change('attempts',problemKey,old=>old?.day===day?old:{problemKey,day,baseline:hash,events:[]});}
+  async function attempt(problem,code,input,mode,result){const status=attemptOutcome(result,mode);if(!status)return;const hash=await codeHash(canonicalCode(code)),now=Date.now(),day=analysisDayStart(now);return change('attempts',problem.id,old=>{const row=old?.day===day?old:{problemKey:problem.id,day,baseline:hash,events:[]};row.events=row.events.filter(e=>e.mode==='judge'&&e.at>=day);const last=row.events.at(-1);if(last?.hash!==hash||last.status!==status)row.events.push({hash,status,at:now,mode:'judge'});return row;});}
+  const progress=async (key,policy)=>analysisProgress(await get('attempts',key),Date.now(),policy);
+  async function success(problem,code,details){const id=crypto.randomUUID(),row={id,problemKey:problem.id,title:problem.title,codeHash:await codeHash(code),status:'分析完成',clickedAt:details.clickedAt,completedAt:Date.now(),unlockMethod:details.unlockMethod,issueCount:details.issueCount};return change('clicks',id,()=>row);}
+  // Migrate previous versions' incomplete click logs. Practice attempts live in a
+  // separate store and are deliberately unaffected by this cleanup.
+  async function cleanHistory(){const database=await db();return new Promise((resolve,reject)=>{const tx=database.transaction('clicks','readwrite'),cursor=tx.objectStore('clicks').openCursor();cursor.onsuccess=()=>{const item=cursor.result;if(!item)return;if(item.value.status!=='分析完成')item.delete();else if('failedPasswords' in item.value){const row={...item.value};delete row.failedPasswords;item.update(row);}item.continue();};tx.oncomplete=resolve;tx.onerror=tx.onabort=()=>reject(Error('分析记录清理失败'));});}
+  async function list(problemKey){await cleanHistory();const database=await db();return new Promise((resolve,reject)=>{const r=database.transaction('clicks').objectStore('clicks').index('problemKey').getAll(problemKey);r.onsuccess=()=>resolve(r.result.sort((a,b)=>b.clickedAt-a.clickedAt));r.onerror=()=>reject(Error('无法读取分析记录'));});}
+  return {baseline,attempt,progress,success,list,cleanHistory};
+}

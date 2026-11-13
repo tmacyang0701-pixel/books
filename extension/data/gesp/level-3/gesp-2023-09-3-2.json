@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2023-09-3-2",
+  "level": 3,
+  "session": "2023-09",
+  "number": 2,
+  "title": "进制判断",
+  "kind": "past-paper",
+  "tags": [
+    "进制",
+    "字符判断"
+  ],
+  "description": "逐个判断给定字符串能否分别作为二、八、十、十六进制数的表示。十六进制只使用 0～9、A～F，允许前导零。",
+  "input": "首行 N，后面 N 行各一个非空字符串，只含数字和大写字母。",
+  "output": "每行四个 0 或 1，分别表示能否为二、八、十、十六进制。",
+  "constraints": "1 ≤ N ≤ 1000；每串长度不超过 10。",
+  "sampleInput": "3\n007\n1F\nG\n",
+  "sampleOutput": "0 1 1 1\n0 0 0 1\n0 0 0 0\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3868",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n007\n1F\nG\n",
+      "expected": "0 1 1 1\n0 0 0 1\n0 0 0 0\n",
+      "score": 100
+    }
+  ]
+}

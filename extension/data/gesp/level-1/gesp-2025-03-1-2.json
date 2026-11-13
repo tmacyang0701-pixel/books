@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-1-2",
+  "level": 1,
+  "session": "2025-03",
+  "number": 2,
+  "title": "四舍五入",
+  "kind": "past-paper",
+  "tags": [
+    "取整",
+    "循环"
+  ],
+  "description": "把每个正整数四舍五入到最接近的十的倍数，个位达到 5 时进位。",
+  "input": "第一行 n，后续 n 行每行一个整数。",
+  "output": "每行输出相应的舍入结果。",
+  "constraints": "1 ≤ n ≤ 100；1 ≤ a_i ≤ 10000。",
+  "sampleInput": "3\n24\n25\n26\n",
+  "sampleOutput": "20\n30\n30\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4258",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n24\n25\n26\n",
+      "expected": "20\n30\n30\n",
+      "score": 100
+    }
+  ]
+}

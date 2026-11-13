@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-2-2",
+  "level": 2,
+  "session": "2025-03",
+  "number": 2,
+  "title": "时间跨越",
+  "kind": "past-paper",
+  "tags": [
+    "日期",
+    "模拟"
+  ],
+  "description": "给定合法的公历时刻 y 年 m 月 d 日 h 时，求经过 k 小时后的年、月、日、小时。需要处理跨月、跨年与闰年。",
+  "input": "五行整数 y、m、d、h、k。",
+  "output": "一行输出新的年、月、日、小时。",
+  "constraints": "2000 ≤ y ≤ 3000；1 ≤ m ≤ 12；1 ≤ d ≤ 31；0 ≤ h ≤ 23；1 ≤ k ≤ 24。",
+  "sampleInput": "2024\n2\n28\n23\n2\n",
+  "sampleOutput": "2024 2 29 1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4260",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2024\n2\n28\n23\n2\n",
+      "expected": "2024 2 29 1\n",
+      "score": 100
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2024-12-5-1",
+  "level": 5,
+  "session": "2024-12",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "奇妙数字",
+  "tags": [
+    "质因数分解",
+    "贪心"
+  ],
+  "description": "选取尽量多个互不相同的质数幂 p^a（a≥1），要求这些数的乘积能够整除 n。求最多能选几个。",
+  "input": "一个正整数 n。",
+  "output": "输出最大数量。",
+  "constraints": "2 ≤ n ≤ 10^12。",
+  "sampleInput": "72\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "72\n",
+      "expected": "3\n",
+      "score": 33
+    },
+    {
+      "input": "128\n",
+      "expected": "3\n",
+      "score": 33
+    },
+    {
+      "input": "97\n",
+      "expected": "1\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4070",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1650239731662880.pdf"
+  }
+}

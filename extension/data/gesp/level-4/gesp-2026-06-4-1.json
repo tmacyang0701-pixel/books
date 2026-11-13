@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-06-4-1",
+  "level": 4,
+  "session": "2026-06",
+  "number": 1,
+  "title": "扫雷",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "邻域统计"
+  ],
+  "description": "给定雷区坐标，生成扫雷网格。雷区输出 *，其他格输出八个方向相邻雷区的数量。",
+  "input": "首行 n、m、q；随后 q 行给出不重复的雷区行列坐标，下标从 1 开始。",
+  "output": "n 行，每行 m 个字符，以空格分隔。",
+  "constraints": "3 ≤ n,m ≤ 500；1 ≤ q ≤ n×m。",
+  "sampleInput": "3 3 1\n2 2\n",
+  "sampleOutput": "1 1 1\n1 * 1\n1 1 1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4557",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 3 1\n2 2\n",
+      "expected": "1 1 1\n1 * 1\n1 1 1\n",
+      "score": 100
+    }
+  ]
+}

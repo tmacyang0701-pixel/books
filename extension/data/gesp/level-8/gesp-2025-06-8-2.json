@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-8-2",
+  "level": 8,
+  "session": "2025-06",
+  "number": 2,
+  "title": "遍历计数",
+  "kind": "past-paper",
+  "tags": [
+    "树",
+    "组合计数"
+  ],
+  "description": "任选树的起点和每次访问相邻节点的顺序，进行深度优先遍历。每个节点只在首次访问时记一次，统计不同访问序列数量。",
+  "input": "首行 n；随后 n-1 条树边。",
+  "output": "序列数量模 1000000000。",
+  "constraints": "1 ≤ n ≤ 100000。",
+  "sampleInput": "3\n1 2\n2 3\n",
+  "sampleOutput": "4\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P13020",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1 2\n2 3\n",
+      "expected": "4\n",
+      "score": 100
+    }
+  ]
+}

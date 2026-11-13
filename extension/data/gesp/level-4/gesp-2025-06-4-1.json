@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-4-1",
+  "level": 4,
+  "session": "2025-06",
+  "number": 1,
+  "title": "画布裁剪",
+  "kind": "past-paper",
+  "tags": [
+    "二维数组",
+    "字符串"
+  ],
+  "description": "从字符画布中裁出第 x1～x2 行、第 y1～y2 列组成的矩形，保留原相对顺序。",
+  "input": "首行 h、w；次行 x1、x2、y1、y2；随后 h 行画布。",
+  "output": "裁剪后的字符矩形。",
+  "constraints": "h、w ≤ 100；下标从 1 开始；字符 ASCII 码为 33～126。",
+  "sampleInput": "3 4\n2 3 2 4\nabcd\nefgh\nijkl\n",
+  "sampleOutput": "fgh\njkl\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4360",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3 4\n2 3 2 4\nabcd\nefgh\nijkl\n",
+      "expected": "fgh\njkl\n",
+      "score": 100
+    }
+  ]
+}

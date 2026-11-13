@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-2-2",
+  "level": 2,
+  "session": "2025-12",
+  "number": 2,
+  "title": "黄金格",
+  "kind": "past-paper",
+  "tags": [
+    "嵌套循环",
+    "数学判断"
+  ],
+  "description": "H 行 W 列的网格编号从 1 开始。满足 sqrt(r²+c²) ≤ x+r−c 的格子称为黄金格。求黄金格总数。",
+  "input": "三行正整数 H、W、x。",
+  "output": "符合不等式的格子数量。",
+  "constraints": "H、W、x 均不超过 1000。",
+  "sampleInput": "2\n2\n2\n",
+  "sampleOutput": "2\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4448",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "2\n2\n2\n",
+      "expected": "2\n",
+      "score": 100
+    }
+  ]
+}

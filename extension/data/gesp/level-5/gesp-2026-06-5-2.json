@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2026-06-5-2",
+  "level": 5,
+  "session": "2026-06",
+  "number": 2,
+  "kind": "past-paper",
+  "title": "晚宴",
+  "tags": [
+    "最大公约数",
+    "枚举"
+  ],
+  "description": "必须从 n 道菜中选两道，要求两道菜的美味度互质。求合法选择中美味度之和的最大值。",
+  "input": "第一行 n，第二行 n 个互不相同的正整数 v_i。",
+  "output": "输出最大美味度之和。",
+  "constraints": "2 ≤ n ≤ 1000；1 ≤ v_i ≤ 10^6；保证有合法方案。",
+  "sampleInput": "4\n6 10 15 7\n",
+  "sampleOutput": "22\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "4\n6 10 15 7\n",
+      "expected": "22\n",
+      "score": 33
+    },
+    {
+      "input": "2\n1 9\n",
+      "expected": "10\n",
+      "score": 33
+    },
+    {
+      "input": "3\n3 8 9\n",
+      "expected": "17\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.hfoj.net/d/luogu/p/P17011",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1753295343321120.pdf"
+  }
+}

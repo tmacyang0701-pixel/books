@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-03-1-1",
+  "level": 1,
+  "session": "2026-03",
+  "number": 1,
+  "title": "交朋友",
+  "kind": "past-paper",
+  "tags": [
+    "绝对值",
+    "分支"
+  ],
+  "description": "四人的身高互不相同，第一人要从其余三人中选择身高差最小的朋友；若差值相同，选较矮的人。",
+  "input": "四行整数 H1、H2、H3、H4。",
+  "output": "被选中朋友的身高。",
+  "constraints": "100 ≤ H_i ≤ 199；身高两两不同。",
+  "sampleInput": "150\n140\n160\n180\n",
+  "sampleOutput": "140\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4495",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "150\n140\n160\n180\n",
+      "expected": "140\n",
+      "score": 100
+    }
+  ]
+}

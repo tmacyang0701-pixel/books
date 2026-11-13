@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-12-6-1",
+  "level": 6,
+  "session": "2024-12",
+  "number": 1,
+  "title": "树上游走",
+  "kind": "past-paper",
+  "tags": [
+    "栈",
+    "二叉树"
+  ],
+  "description": "在无限二叉树中，节点 i 的左右孩子为 2i、2i+1。从 s 出发按 U、L、R 移动：U 到父节点，根执行 U 不动。求最终编号。",
+  "input": "首行 n、s；次行 n 个 U/L/R 字符。",
+  "output": "最终节点编号。",
+  "constraints": "1 ≤ n ≤ 1000000；1 ≤ s ≤ 10^12；最终编号不超过 10^12，中间编号可能很大。",
+  "sampleInput": "4 3\nLURU\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P11375",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4 3\nLURU\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

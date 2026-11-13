@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-09-6-2",
+  "level": 6,
+  "session": "2025-09",
+  "number": 2,
+  "title": "货物运输",
+  "kind": "past-paper",
+  "tags": [
+    "树遍历",
+    "贪心"
+  ],
+  "description": "城市与双向道路构成带权树。从城市 1 出发，经过所有城市，允许重复经过，最终可以停在任意城市。求最短总路程。",
+  "input": "首行 n；随后 n-1 行给出 u、v、道路长度。",
+  "output": "最短总路程。",
+  "constraints": "1 ≤ n ≤ 100000；道路长度为 1～10^9。",
+  "sampleInput": "3\n1 2 2\n1 3 5\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14076",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1 2 2\n1 3 5\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

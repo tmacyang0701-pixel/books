@@ -1,0 +1,46 @@
+{
+  "id": "gesp-2023-12-5-1",
+  "level": 5,
+  "session": "2023-12",
+  "number": 1,
+  "kind": "past-paper",
+  "title": "小杨的幸运数",
+  "tags": [
+    "筛法",
+    "二分查找"
+  ],
+  "description": "不小于 a 的完全平方数及其正整数倍都算幸运数。对每个 x 判断是否幸运；若不是，找到大于 x 的最近幸运数。",
+  "input": "第一行 a、N，接下来 N 行各有一个 x。",
+  "output": "幸运数输出 lucky；否则输出向上调整后的幸运数。",
+  "constraints": "a ≤ 10^6；N ≤ 2×10^5；1 ≤ x ≤ 1000001。",
+  "sampleInput": "4 4\n1\n4\n5\n9\n",
+  "sampleOutput": "4\nlucky\n8\nlucky\n",
+  "sampleLabel": "自编示例",
+  "cases": [
+    {
+      "input": "4 4\n1\n4\n5\n9\n",
+      "expected": "4\nlucky\n8\nlucky\n",
+      "score": 33
+    },
+    {
+      "input": "1 2\n1\n10\n",
+      "expected": "lucky\nlucky\n",
+      "score": 33
+    },
+    {
+      "input": "10 2\n11\n25\n",
+      "expected": "16\nlucky\n",
+      "score": 34
+    }
+  ],
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B3929",
+    "checkedOn": "2026-11-11",
+    "edition": "题面整理版",
+    "note": "保留题意的整理表述；示例与测试点为本项目自编，非官方完整评测数据。",
+    "pdfUrl": "https://gesp.ccf.org.cn/101/attach/1584918075277344.pdf"
+  }
+}

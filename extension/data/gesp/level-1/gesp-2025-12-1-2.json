@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-1-2",
+  "level": 1,
+  "session": "2025-12",
+  "number": 2,
+  "title": "手机电量显示",
+  "kind": "past-paper",
+  "tags": [
+    "分支",
+    "多组输入"
+  ],
+  "description": "对每次给出的电量 P 显示状态：P≤10 显示 R，10<P≤20 显示 L，超过 20 则显示电量数值。",
+  "input": "第一行 T，接下来 T 行每行一个电量 P。",
+  "output": "每组一行输出对应状态。",
+  "constraints": "1 ≤ T ≤ 20；1 ≤ P ≤ 100。",
+  "sampleInput": "3\n10\n20\n21\n",
+  "sampleOutput": "R\nL\n21\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4446",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n10\n20\n21\n",
+      "expected": "R\nL\n21\n",
+      "score": 100
+    }
+  ]
+}

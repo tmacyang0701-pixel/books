@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-6-1",
+  "level": 6,
+  "session": "2025-12",
+  "number": 1,
+  "title": "路径覆盖",
+  "kind": "past-paper",
+  "tags": [
+    "树形动态规划"
+  ],
+  "description": "有根树根为 1，染黑节点 i 需代价 c_i。选择若干节点，使每条叶子到根的路径至少包含一个黑节点，求最小总代价。",
+  "input": "首行 n；次行 f_2～f_n；第三行 c_1～c_n。",
+  "output": "最小总代价。",
+  "constraints": "2 ≤ n ≤ 100000；f_i<i；1 ≤ c_i ≤ 10^9。",
+  "sampleInput": "3\n1 1\n10 2 3\n",
+  "sampleOutput": "5\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14919",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。",
+    "supplementUrl": "https://hfoj.net/d/luogu/p/P14919"
+  },
+  "cases": [
+    {
+      "input": "3\n1 1\n10 2 3\n",
+      "expected": "5\n",
+      "score": 100
+    }
+  ]
+}

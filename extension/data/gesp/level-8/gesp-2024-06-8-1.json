@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-8-1",
+  "level": 8,
+  "session": "2024-06",
+  "number": 1,
+  "title": "最远点对",
+  "kind": "past-paper",
+  "tags": [
+    "树形动态规划",
+    "树直径"
+  ],
+  "description": "树中节点颜色为黑或白，求不同颜色的两个节点之间最大的距离，距离按路径边数计算。",
+  "input": "首行 n；次行 n 个 0/1 颜色；随后 n-1 条边。",
+  "output": "最大距离。",
+  "constraints": "2 ≤ n ≤ 100000；保证两种颜色都存在。",
+  "sampleInput": "4\n0 0 0 1\n1 2\n2 3\n3 4\n",
+  "sampleOutput": "3\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10725",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\n0 0 0 1\n1 2\n2 3\n3 4\n",
+      "expected": "3\n",
+      "score": 100
+    }
+  ]
+}

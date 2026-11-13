@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-06-6-2",
+  "level": 6,
+  "session": "2024-06",
+  "number": 2,
+  "title": "二叉树",
+  "kind": "past-paper",
+  "tags": [
+    "树遍历",
+    "异或"
+  ],
+  "description": "二叉树根为 1。每次选择一个节点，将其整棵子树内黑白颜色反转。求全部操作后每个节点的颜色。",
+  "input": "首行 n；次行节点 2～n 的父节点；第三行初始 01 颜色串；随后 q 和 q 个被选节点。",
+  "output": "按节点编号输出最终 01 串，0 为白，1 为黑。",
+  "constraints": "1 ≤ n,q ≤ 100000；输入保证为二叉树。",
+  "sampleInput": "3\n1 1\n000\n2\n1\n2\n",
+  "sampleOutput": "101\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P10722",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1 1\n000\n2\n1\n2\n",
+      "expected": "101\n",
+      "score": 100
+    }
+  ]
+}

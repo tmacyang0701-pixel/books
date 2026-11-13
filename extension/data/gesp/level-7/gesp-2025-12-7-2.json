@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-12-7-2",
+  "level": 7,
+  "session": "2025-12",
+  "number": 2,
+  "title": "学习小组",
+  "kind": "past-paper",
+  "tags": [
+    "排序",
+    "动态规划"
+  ],
+  "description": "将所有同学分入非空小组。人数 k 的小组得分为 a_k 加组内个人积极度 c 的最大值减最小值。求所有组得分之和最大值。",
+  "input": "首行 n；次行 n 个 c_i；第三行 n 个 a_k。",
+  "output": "最大综合讨论积极度。",
+  "constraints": "1 ≤ n ≤ 300；0 ≤ c_i,a_k ≤ 10000。",
+  "sampleInput": "3\n1 2 5\n1 2 3\n",
+  "sampleOutput": "7\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P14922",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n1 2 5\n1 2 3\n",
+      "expected": "7\n",
+      "score": 100
+    }
+  ]
+}

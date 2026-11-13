@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2026-09-6-1",
+  "level": 6,
+  "session": "2026-09",
+  "number": 1,
+  "title": "数组划分",
+  "kind": "past-paper",
+  "tags": [
+    "前缀和",
+    "动态规划"
+  ],
+  "description": "把数组分成若干非空连续段。每段的代价为该段元素和的平方，求全部段代价之和的最小值。",
+  "input": "首行 n；次行 n 个整数。",
+  "output": "最小总代价。",
+  "constraints": "1 ≤ n ≤ 2000；-100 ≤ a_i ≤ 100。",
+  "sampleInput": "3\n2 -2 3\n",
+  "sampleOutput": "9\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/P17457",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n2 -2 3\n",
+      "expected": "9\n",
+      "score": 100
+    }
+  ]
+}

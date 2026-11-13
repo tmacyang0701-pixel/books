@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-06-3-1",
+  "level": 3,
+  "session": "2025-06",
+  "number": 1,
+  "title": "奇偶校验",
+  "kind": "past-paper",
+  "tags": [
+    "位运算",
+    "奇偶校验"
+  ],
+  "description": "把 n 个非负整数分别写成二进制，求所有表示中数字 1 的总数。总数为奇数时校验码为 1，偶数时为 0。",
+  "input": "首行 n；次行 n 个整数 c_i。",
+  "output": "一行输出 1 的总数和校验码。",
+  "constraints": "1 ≤ n ≤ 100；0 ≤ c_i ≤ 255。",
+  "sampleInput": "3\n0 3 4\n",
+  "sampleOutput": "3 1\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4358",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\n0 3 4\n",
+      "expected": "3 1\n",
+      "score": 100
+    }
+  ]
+}

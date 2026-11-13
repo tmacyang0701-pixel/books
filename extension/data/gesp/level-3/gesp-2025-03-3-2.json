@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2025-03-3-2",
+  "level": 3,
+  "session": "2025-03",
+  "number": 2,
+  "title": "词频统计",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "频次统计"
+  ],
+  "description": "统计单词出现频次，忽略大小写差异。找出唯一出现次数最多的单词，并用全小写形式输出。",
+  "input": "首行 n；之后 n 行每行一个单词。",
+  "output": "出现最多的单词的小写形式。",
+  "constraints": "1 ≤ n ≤ 100；单词长 1～30，仅含英文字母；最高频单词唯一。",
+  "sampleInput": "4\nCat\nDOG\ncat\nCAT\n",
+  "sampleOutput": "cat\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4262",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "4\nCat\nDOG\ncat\nCAT\n",
+      "expected": "cat\n",
+      "score": 100
+    }
+  ]
+}

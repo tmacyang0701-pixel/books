@@ -1,0 +1,35 @@
+{
+  "id": "gesp-2024-09-3-2",
+  "level": 3,
+  "session": "2024-09",
+  "number": 2,
+  "title": "回文拼接",
+  "kind": "past-paper",
+  "tags": [
+    "字符串",
+    "回文"
+  ],
+  "description": "判断每个字符串能否拆为前后相接的两段，两段都必须是长度至少 2 的回文串。拆分后要覆盖整个原串。",
+  "input": "首行 n；后续 n 行各一个只含小写字母的非空串。",
+  "output": "逐行输出 Yes 或 No。",
+  "constraints": "1 ≤ n ≤ 10；字符串长度不超过 100。",
+  "sampleInput": "3\naabb\naba\nabbaaa\n",
+  "sampleOutput": "Yes\nNo\nYes\n",
+  "sampleLabel": "自编示例",
+  "casesSource": "自编练习测试点（不代表官方满分）",
+  "source": {
+    "organization": "CCF GESP",
+    "url": "https://gesp.ccf.org.cn/101/1010/index.html",
+    "referenceUrl": "https://www.luogu.com.cn/problem/B4039",
+    "checkedOn": "2026-11-12",
+    "edition": "题意整理版",
+    "note": "题意整理与自编练习示例；非官方逐字题面、原卷样例或完整评测数据。题目序号用于本库排序。"
+  },
+  "cases": [
+    {
+      "input": "3\naabb\naba\nabbaaa\n",
+      "expected": "Yes\nNo\nYes\n",
+      "score": 100
+    }
+  ]
+}

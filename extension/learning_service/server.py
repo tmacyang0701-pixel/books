@@ -239,7 +239,7 @@ class Application:
                     p=normalize_problem(value,lesson['targetLevel'])
                     if not p['input'] or not p['output'] or not p['cases'] or sum(c['score'] for c in p['cases'])!=100:
                         raise GenerationError('structure','变式题缺少输入输出或测试点无效，请重试。')
-                    p.update(id=f'practice-{ident}-{i+1}',kind='generated',level=lesson['targetLevel'],
+                    p.update(id=f'practice-{ident}-{i+1}',kind='generated',level=lesson['targetLevel'],sourceProblemId=problem_key(lesson['problem']),
                              sampleLabel='AI 生成示例',casesSource='AI 生成练习点，尚未独立验证',difficulty=['巩固','同等','进阶'][i])
                     problems.append(p)
                 answer=dict(id=ident,lessonId=lesson['id'],sourceProblemId=problem_key(lesson['problem']),createdAt=time.time(),problems=problems)

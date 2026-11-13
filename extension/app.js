@@ -5,6 +5,7 @@ import {createLessonRunner} from './ui/lesson-runner.js';
 import {createLessonDebugger} from './ui/lesson-debugger.js';
 import {createCodeAnalysis} from './ui/code-analysis.js';
 import {createPracticePicker} from './ui/practice-picker.js';
+import {unpackPracticeRecords,variantsForProblem} from './ui/practice-source.js';
 import {createAnalysisSettings} from './ui/analysis-settings.js';
 import {createVisualPlayer} from './ui/visual-player.js';
 import {createExamplePlayer} from './ui/lesson-examples.js';
@@ -46,7 +47,7 @@ const analysisSettings=createAnalysisSettings({api,toast});
 let knowledgeCatalog=null,knowledgeContext=readLocal('ca-knowledge',null),knowledgeReturn=false;
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4200)}
 function empty(title,text,button=''){return `<div class="empty-state"><h3>${esc(title)}</h3><p class="small">${esc(text)}</p>${button}</div>`}
-const tagsHtml=p=>`<div class="card-tags">${(p.tags||[]).map(t=>`${knowledgeTag(t,state.level)}`).join('')}</div>`;
+const tagsHtml=p=>`<div class="card-tags">${(p.tags||[]).map(t=>`${knowledgeTag(t,p.level||state.level)}`).join('')}</div>`;
 const meta=p=>p.kind==='knowledge-topic'?`知识点专题 · GESP ${p.level} 级`:p.kind==='generated'?`AI 原创${p.knowledgeTopic?'专项练习':'变式'} · ${p.difficulty||'练习'} · ${p.level} 级`:p.kind==='uploaded'?`我的题目 · ${p.level} 级`:`${p.session||'入门示例'} · C++ ${p.level||1} 级`;
 const allProblems=()=>[...state.bank,...state.uploaded];
 async function jsonAsset(path){const r=await fetch(asset(path));if(!r.ok)throw Error('题库文件加载失败');return r.json()}
@@ -248,7 +249,7 @@ async function watchTask(task){
   try{
     if(task.kind==='lesson'){await openLesson(job.result.lessonId);await refreshHistory();setView('lesson');taskStatus('讲解课件已生成','可以开始逐页学习，完成后进入相似题练习。','completed')}
     if(task.kind==='topic-practice'){state.practice.push(...job.result.problems);openKnowledge(job.result.topic,job.result.targetLevel);taskStatus('专项练习已生成','3 道练习只围绕当前知识点，AI 测试点尚未独立验证。','completed')}
-    if(task.kind==='practice'){state.practice.push(...job.result.problems);renderPractice();setView('practice');taskStatus('3 道变式已生成','可独立练习；AI 生成的测试点尚未独立验证。','completed')}
+    if(task.kind==='practice'){state.practice.push(...unpackPracticeRecords([job.result]));renderPractice();setView('practice');taskStatus('3 道变式已生成','已保存到对应原题；AI 生成的测试点尚未独立验证。','completed')}
     if(task.kind==='import'){fillUpload(job.result.problem);setUploadBusy(false);$('uploadStatus').textContent='识别完成，请核对题干、输入输出与数据范围。';if(!$('uploadDialog').open)$('uploadDialog').showModal();taskStatus('题目已读取','核对后可以保存或生成讲解。','completed')}
     lastTaskRequest=null;localStorage.removeItem('ca-task-request');retryAction=null;
   }catch(e){retryAction=()=>task.kind==='lesson'?openLesson(job.result.lessonId):refreshPractice();taskStatus('内容已生成，加载未完成',e.message,'failed')}
@@ -295,16 +296,17 @@ function renderLesson(){
   $('lessonFinish').hidden=state.slide!==lesson.pages.length-1;$('lessonFinish').innerHTML=`<h2>把刚学会的方法，用在下一道题。</h2><p>先尝试独立分析，再查看提示或生成讲解。</p><div class="button-row"><button class="primary" data-action="finish">完成学习 · 进入相似题</button><button class="ghost" data-action="lesson-code">回到原题编程</button></div>`;if(isTopic)$('lessonFinish').innerHTML='<h2>用这个知识点，独立做一道练习。</h2><p>优先练习题库里的单知识点题目，没有匹配题时再生成原创练习。</p><button class="primary" data-action="finish">完成讲解 · 进入专项练习</button>';saveLocal('ca-slide-'+lesson.id,state.slide);
 }
 function moveSlide(n){stopSpeech();if(!state.lesson)return;state.slide=Math.max(0,Math.min(state.lesson.pages.length-1,n));renderLesson();document.querySelector('.slide-scroll').scrollTop=0;$('narrationText').scrollTop=0;}
-function finishLesson(){if(!state.lesson)return;const done=readLocal('ca-completed',{});done[state.lesson.id]=Date.now();saveLocal('ca-completed',done);renderLearn();if(state.lesson.problem?.kind==='knowledge-topic'){returnToKnowledge();return;}setView('practice')}
+function finishLesson(){if(!state.lesson)return;const done=readLocal('ca-completed',{});done[state.lesson.id]=Date.now();saveLocal('ca-completed',done);renderLearn();if(state.lesson.problem?.kind==='knowledge-topic'){returnToKnowledge();return;}practiceSource=state.lesson.problem;saveLocal('ca-practice-source',practiceSource);setView('practice')}
 function stopSpeech(){globalThis.speechSynthesis?.cancel();$('speakSlide').textContent='朗读讲稿'}
 function speak(){if(!state.lesson)return;if(!globalThis.speechSynthesis){toast('当前浏览器不支持朗读');return}if(speechSynthesis.speaking){stopSpeech();return}const speech=new SpeechSynthesisUtterance(state.lesson.pages[state.slide].narration);speech.lang='zh-CN';speech.rate=.95;speech.onend=speech.onerror=()=>$('speakSlide').textContent='朗读讲稿';speechSynthesis.speak(speech);$('speakSlide').textContent='停止朗读'}
-async function refreshPractice(){try{const records=await api('/api/practice');state.practice=records.flatMap(r=>r.problems);renderPractice();if(state.view==='knowledge')renderKnowledge()}catch{renderPractice()}}
+async function refreshPractice(){try{const records=await api('/api/practice');state.practice=unpackPracticeRecords(records);renderPractice();if(state.view==='knowledge')renderKnowledge()}catch{renderPractice()}}
 function renderPractice(){
   const p=practiceProblem();$('generateVariants').disabled=!p;
   $('practiceContext').innerHTML=p?`<span class="tiny-label">当前学习题目 · GESP ${esc(p.level)} 级</span><h3>${esc(p.title)}</h3>${tagsHtml(p)}`:'<h3>选择一道题，开始同类练习。</h3><p class="small muted">点击右侧“切换题目”，从题库或已有题目中选择。</p>';
   const list=p?recommendProblems(state.bank,p):[];
   $('recommendationList').innerHTML=list.length?list.map(item=>card(item,item.shared.length?'共同知识点：'+item.shared.join('、'):'同级拓展练习')).join(''):empty('暂无同级真题推荐','可以上传同类题，或先生成讲解后使用原创变式练习。');
-  $('variantList').innerHTML=state.practice.length?state.practice.map(p=>card(p,p.casesSource)).join(''):empty('还没有变式练习','讲解完成后，点击“生成 3 道变式”，巩固同一种方法。');
+  const variants=variantsForProblem(state.practice,p,[...state.lessons,state.lesson]);
+  $('variantList').innerHTML=variants.length?variants.map(item=>card(item,item.casesSource)).join(''):empty('当前题目还没有变式练习',p?'点击“生成 3 道变式”，为当前题目生成练习。':'请先选择一道原题。');
 }
 function setUploadBusy(value){uploadBusy=value;$('questionFile').disabled=value;for(const b of $('uploadForm').querySelectorAll('[type=submit]'))b.disabled=value}
 function openUpload(){uploadDraft=null;$('uploadForm').reset();$('uploadLevel').value=state.level;$('uploadStatus').textContent='图片和 PDF 识别后，请核对题面再生成课件。';setUploadBusy(false);$('uploadDialog').showModal()}

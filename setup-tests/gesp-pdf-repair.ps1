@@ -1,6 +1,6 @@
 $ErrorActionPreference='Stop'
 $bundleRoot=Split-Path -Parent $PSScriptRoot
-$extensionRoot=Join-Path $bundleRoot 'extension'
+$extensionRoot=Join-Path $bundleRoot 'gesp-lab-extension'
 . (Join-Path $extensionRoot 'scripts\windows-dependencies.ps1')
 . (Join-Path $extensionRoot 'scripts\bootstrap-windows.ps1')
 $python=Find-LearningPython

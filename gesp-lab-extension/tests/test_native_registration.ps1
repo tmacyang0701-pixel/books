@@ -1,7 +1,7 @@
 $ErrorActionPreference='Stop'
 . (Join-Path (Split-Path -Parent $PSScriptRoot) 'scripts\native-registration.ps1')
 $fixture=Join-Path ([IO.Path]::GetTempPath()) ('codearena-registration-'+[guid]::NewGuid().ToString('N'))
-$current=Join-Path $fixture 'books\extension'
+$current=Join-Path $fixture 'books\gesp-lab-extension'
 $legacy=Join-Path $fixture 'extension'
 New-Item -Path (Join-Path $current 'native-host'),(Join-Path $legacy 'native-host') -ItemType Directory -Force | Out-Null
 Set-Content -LiteralPath (Join-Path $current 'manifest.json') -Value '{}'

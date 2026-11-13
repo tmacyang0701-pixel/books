@@ -25,11 +25,7 @@ if($savedEndpoint){$port=[int]$savedEndpoint.port}
 $url = "http://127.0.0.1:$port"
 $logDir = Join-Path $PSScriptRoot '.local'
 $pidPath = Join-Path $logDir 'service.pid'
-$allowedRoots=@($PSScriptRoot)
-$bundleRoot=Split-Path -Parent $PSScriptRoot
-if ((Split-Path -Leaf $bundleRoot) -eq 'books') {
-    $allowedRoots+=Join-Path (Split-Path -Parent $bundleRoot) 'extension'
-}
+$allowedRoots=@(Get-CodeArenaInstallationRoots $PSScriptRoot)
 $lookupProcess={param($processIdToRead) Get-CimInstance Win32_Process -Filter "ProcessId = $processIdToRead" -ErrorAction Stop}
 $lookupChildren={param($parentIdToRead) Get-CimInstance Win32_Process -Filter "ParentProcessId = $parentIdToRead" -ErrorAction Stop}
 $existingHealth = $null

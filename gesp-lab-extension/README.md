@@ -12,7 +12,7 @@
 
 页面按当前浏览器视口布局，窗口边缘没有整页滚动条。首次打开默认收起左侧菜单和顶部栏；左侧两个图标可分别展开或收起，手动切换后记住选择，刷新或重新打开继续保持。两者都收起时，左侧窄栏仍可展开。题库列表、题目详情、课件正文、问答与代码区域按需内部滚动，适应笔记本窗口缩放。
 
-本副本已整合到上一级 GESP 安装包。首次运行上一级的 `一键安装.bat`，Chrome 加载本 `extension` 目录；上一级的 `打开GESP.cmd` 用于日常打开。安装器复用原 `runtime-selection.json` 中可用的 Python/编译器，优先校验并使用上一级 `python/`、`devcpp/` 里的安装文件以及 `python/wheels/` 的离线 PDF 依赖，不要求 Node.js。原数间应用保留在 `application/`，详见上一级 `README.txt`。
+本副本已整合到上一级 GESP 安装包。首次运行上一级的 `一键安装.bat`，Chrome 加载本 `gesp-lab-extension` 目录；上一级的 `打开GESP.cmd` 用于日常打开。安装器复用原 `runtime-selection.json` 中可用的 Python/编译器，优先校验并使用上一级 `python/`、`devcpp/` 里的安装文件以及 `python/wheels/` 的离线 PDF 依赖，不要求 Node.js。原数间应用保留在 `application/`，详见上一级 `README.txt`。
 
 本次复制的是干净运行文件，旧安装的密钥、课件、浏览器聊天和组件注册不在本包中。首次加载新路径后，以 Chrome 当前显示的扩展 ID 完成注册。
 
@@ -52,9 +52,9 @@
 
 ## 开始使用
 
-1. 完整解压新版安装包到本机可写目录，例如 `C:\CodeArena`；本地组件已包含在 `extension\native-host` 中。已有 Chrome、Python、GCC 会直接复用。
-2. 首次双击包根目录的 **`一键安装.bat`**（或 `extension\install-all.bat`）。安装器检查系统和项目文件，下载并校验缺失的 Chrome、Python、带 GCC 的 Dev-C++，安装 Python 依赖，再注册扩展并启动学习服务。失败会说明原因并停止后续步骤。首次按提示填写百炼配置；安装软件时可能需要确认 Windows 权限提示。
-3. 首次安装时，在 `chrome://extensions` 开启开发者模式，选择“加载已解压的扩展程序”并选中本 `extension` 目录。安装器会根据目录自动注册扩展 ID，并保留迁移前的本项目注册。看到 `Ready` 和 `Installation complete` 后，在扩展管理页点击重新加载，再打开 CodeArena。
+1. 完整解压新版安装包到本机可写目录，例如 `C:\CodeArena`；本地组件已包含在 `gesp-lab-extension\native-host` 中。已有 Chrome、Python、GCC 会直接复用。
+2. 首次双击包根目录的 **`一键安装.bat`**（或 `gesp-lab-extension\install-all.bat`）。安装器检查系统和项目文件，下载并校验缺失的 Chrome、Python、带 GCC 的 Dev-C++，安装 Python 依赖，再注册扩展并启动学习服务。失败会说明原因并停止后续步骤。首次按提示填写百炼配置；安装软件时可能需要确认 Windows 权限提示。
+3. 首次安装时，在 `chrome://extensions` 开启开发者模式，选择“加载已解压的扩展程序”并选中本 `gesp-lab-extension` 目录。安装器会根据目录自动注册扩展 ID，并保留迁移前的本项目注册。看到 `Ready` 和 `Installation complete` 后，在扩展管理页点击重新加载，再打开 CodeArena。
 4. 在等级学习中选级别，进入真题库；选择题目后点击“生成讲解课件”。也可通过右上角“上传题目”使用 JSON、TXT、Markdown、图片或文本 PDF。识别结果确认后再生成。
 5. 逐页查看课件、播放图解动画、展开讲稿、朗读或导出独立 HTML。右侧“本页问答”可以解释当前知识点和当前动画步骤，每页独立保存聊天。C++ 代码块点击“运行代码”，会在右侧显示输入和运行结果。最后一页点击完成学习，会推荐共同知识点的真题；还可以生成三道原创变式。
 

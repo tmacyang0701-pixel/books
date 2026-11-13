@@ -1,7 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0extension\scripts\register-page-control.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0gesp-lab-extension\scripts\register-page-control.ps1"
 if errorlevel 1 (
   echo Repair failed. Read the message above.
   pause

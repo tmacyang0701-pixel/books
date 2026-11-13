@@ -1,6 +1,6 @@
 $ErrorActionPreference='Stop'
 $root=Split-Path -Parent $PSScriptRoot
-$extension=Join-Path $root 'extension'
+$extension=Join-Path $root 'gesp-lab-extension'
 . (Join-Path $extension 'scripts\windows-dependencies.ps1')
 $chrome=Find-LearningChrome
 if (-not $chrome) { throw 'Chrome is missing. Run install-all.cmd first.' }

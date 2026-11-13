@@ -3,7 +3,7 @@
   "platform": "Windows 10 1809+ / Windows 11, x64",
   "primaryApplication": "CodeArena GESP",
   "version": "3.0.0",
-  "extensionDirectory": "extension",
+  "extensionDirectory": "gesp-lab-extension",
   "installer": "一键安装.bat",
   "installerAliases": [
     "一键安装.cmd",
@@ -34,12 +34,12 @@
       "Bailian connectivity and AI features"
     ],
     "requiresUserSteps": [
-      "Load extension directory in Chrome developer mode",
+      "Load gesp-lab-extension directory in Chrome developer mode",
       "Configure own API key if missing"
     ],
     "skipAdequateExisting": true,
     "modifyGlobalPath": false,
-    "report": "extension/.local/install-check.json"
+    "report": "gesp-lab-extension/.local/install-check.json"
   },
   "optionalNumberGarden": {
     "directory": "application",

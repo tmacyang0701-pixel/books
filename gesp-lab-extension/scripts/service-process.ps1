@@ -1,5 +1,12 @@
 # Identify this installation by its PID record, creation time and exact Python command.
 # TCP CIM queries are deliberately not required (they can miss valid user-session listeners).
+function Get-CodeArenaInstallationRoots([string]$Root) {
+    $parent=Split-Path -Parent $Root
+    $roots=@($Root,(Join-Path $parent 'gesp-lab-extension'),(Join-Path $parent 'extension'))
+    if((Split-Path -Leaf $parent) -eq 'books'){$roots+=Join-Path (Split-Path -Parent $parent) 'extension'}
+    return @($roots | Select-Object -Unique)
+}
+
 function Get-LearningRestartProcessIds {
     param([int]$RecordedId,[datetime]$RecordedStart,[datetime]$PidWritten,[int]$Port,[scriptblock]$Lookup,[scriptblock]$Children)
     $delay=($PidWritten-$RecordedStart).TotalSeconds

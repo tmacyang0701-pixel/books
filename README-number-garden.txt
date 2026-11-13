@@ -58,7 +58,7 @@ python.cmd：使用选定的 Python，例如 python.cmd --version 或 python.cmd
 包内内容与适用范围
 Windows x64：Node 22.23.5、Python 3.14.10（完整安装器与备用嵌入版）、
 Dev-C++ 6.3 完整安装器（TDM-GCC 9.2、GCC/G++、GDB、Make 和标准库）、数间完整源码。
-GESP 编程插件已另行整合至 extension 目录，使用根目录的一键安装入口；详见 README.txt。
+GESP 编程插件已另行整合至 gesp-lab-extension 目录，使用根目录的一键安装入口；详见 README.txt。
 安装程序不适用于 macOS。建议使用支持官方组件的 Windows 10/11 x64。
 Node/Python 已按官方 SHA-256 校验；Dev-C++ 已核对官方资产大小并记录本地 SHA-256，
 其官方发布资产未提供摘要。SHA256SUMS.txt 列出包内每个文件的摘要。

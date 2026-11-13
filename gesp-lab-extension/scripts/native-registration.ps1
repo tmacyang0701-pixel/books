@@ -1,5 +1,6 @@
 # Match Chromium's GenerateIdForPath on Windows (UTF-16 path, uppercase drive).
 # https://chromium.googlesource.com/chromium/src/+/refs/heads/main/components/crx_file/id_util.cc
+. (Join-Path $PSScriptRoot 'service-process.ps1')
 function Get-CodeArenaExtensionId([string]$ExtensionRoot) {
     $path=[IO.Path]::GetFullPath($ExtensionRoot).TrimEnd('\','/')
     if($path -match '^[a-zA-Z]:'){$path=$path.Substring(0,1).ToUpperInvariant()+$path.Substring(1)}
@@ -15,9 +16,7 @@ function Get-CodeArenaExtensionId([string]$ExtensionRoot) {
 function Get-CodeArenaNativeOrigins([string]$ExtensionRoot,[string]$ExtensionId) {
     $ids=@((Get-CodeArenaExtensionId $ExtensionRoot))
     if($ExtensionId -cmatch '^[a-p]{32}$'){$ids+=$ExtensionId}
-    $roots=@($ExtensionRoot)
-    $parent=Split-Path -Parent $ExtensionRoot
-    if((Split-Path -Leaf $parent) -eq 'books'){$roots+=Join-Path (Split-Path -Parent $parent) 'extension'}
+    $roots=@(Get-CodeArenaInstallationRoots $ExtensionRoot)
     foreach($root in $roots){
         $manifest=Join-Path $root 'native-host\com.codearena.cpp_judge.json'
         if(Test-Path -LiteralPath $manifest){

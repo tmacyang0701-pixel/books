@@ -101,5 +101,13 @@
     "existingBackendStillUsesOldValidation": true,
     "requiresPageServiceUpdate": true,
     "liveModelCalled": false
+  },
+  "directoryRenameVerification": {
+    "date": "2026-11-13",
+    "directory": "gesp-lab-extension",
+    "localPreflight": "All project and dependency checks passed; network skipped",
+    "nativeHost": "Source launcher, C++17 compile/run, GDB/Python and messaging protocol passed",
+    "stopScript": "Six fixture scenarios passed; user confirmed the live service stopped",
+    "liveService": "Health instancePath confirmed the renamed directory; native registration includes new and legacy IDs"
   }
 }

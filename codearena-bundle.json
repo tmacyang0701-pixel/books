@@ -1,10 +1,13 @@
 {
   "schema": 1,
   "primaryApplication": "CodeArena GESP",
-  "extension": "extension",
+  "extension": "gesp-lab-extension",
   "installer": "install-all.cmd",
   "optionalApplication": "application",
   "optionalInstaller": "install-number-garden.cmd",
-  "offlineInstallers": {"python": "python", "compiler": "devcpp"},
+  "offlineInstallers": {
+    "python": "python",
+    "compiler": "devcpp"
+  },
   "requiresNode": false
 }

@@ -1,7 +1,7 @@
 $ErrorActionPreference='Stop'
 $sourceRoot=Split-Path -Parent $PSScriptRoot
 $fixtureRoot=Join-Path ([IO.Path]::GetTempPath()) ('codearena-start-test-'+[guid]::NewGuid().ToString('N'))
-$fixture=Join-Path $fixtureRoot 'books\extension'
+$fixture=Join-Path $fixtureRoot 'books\gesp-lab-extension'
 $scripts=Join-Path $fixture 'scripts'
 New-Item -ItemType Directory -Path $scripts -Force | Out-Null
 Copy-Item -LiteralPath (Join-Path $sourceRoot 'start-learning.ps1') -Destination $fixture

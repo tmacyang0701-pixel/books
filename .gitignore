@@ -7,6 +7,7 @@
 config.local.json
 com.codearena.cpp_judge.json
 extension/native-host/dist/config.json
+gesp-lab-extension/native-host/dist/config.json
 runtime-selection.json
 installation-report.json
 StartupProfileData-NonInteractive

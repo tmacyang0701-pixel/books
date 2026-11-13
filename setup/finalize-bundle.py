@@ -15,7 +15,7 @@ def main():
         'platform': 'Windows 10 1809+ / Windows 11, x64',
         'primaryApplication': 'CodeArena GESP',
         'version': '3.0.0',
-        'extensionDirectory': 'extension',
+        'extensionDirectory': 'gesp-lab-extension',
         'installer': '一键安装.bat',
         'installerAliases': ['一键安装.cmd', 'install-all.cmd'],
         'launcher': '打开GESP.cmd',
@@ -39,10 +39,10 @@ def main():
             'offline': False,
             'bundledPythonCppAndPdf': True,
             'networkRequired': ['Chrome download if absent', 'Bailian connectivity and AI features'],
-            'requiresUserSteps': ['Load extension directory in Chrome developer mode', 'Configure own API key if missing'],
+            'requiresUserSteps': ['Load gesp-lab-extension directory in Chrome developer mode', 'Configure own API key if missing'],
             'skipAdequateExisting': True,
             'modifyGlobalPath': False,
-            'report': 'extension/.local/install-check.json',
+            'report': 'gesp-lab-extension/.local/install-check.json',
         },
         'optionalNumberGarden': {
             'directory': 'application', 'installer': 'install-number-garden.cmd',
@@ -59,14 +59,14 @@ def main():
     for path in ROOT.iterdir():
         if path.is_file() and path.suffix in {'.cmd', '.bat', '.mjs', '.txt', '.json'} and path.name not in STATE_FILES:
             files.append(path)
-    for folder in ['setup', 'setup-tests', 'extension', 'physics-lab-extension', 'application', 'node', 'python', 'devcpp']:
+    for folder in ['setup', 'setup-tests', 'gesp-lab-extension', 'physics-lab-extension', 'application', 'node', 'python', 'devcpp']:
         for path in (ROOT / folder).rglob('*'):
             if not path.is_file():
                 continue
             relative = path.relative_to(ROOT)
             if set(relative.parts) & EXCLUDED_PARTS or path.name in EXCLUDED_FILES:
                 continue
-            if relative.as_posix() == 'extension/native-host/dist/config.json':
+            if relative.as_posix() == 'gesp-lab-extension/native-host/dist/config.json':
                 continue
             if relative.parts[:2] == ('physics-lab-extension', 'dist'):
                 continue

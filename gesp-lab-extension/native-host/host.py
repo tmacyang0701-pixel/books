@@ -28,7 +28,7 @@ def install_config():
 
 def learning_root(config):
     base=Path(sys.executable if getattr(sys,'frozen',False) else __file__).resolve().parent
-    candidates=[Path(config['extensionRoot'])] if config.get('extensionRoot') else [base.parent.parent/'extension',base.parent/'extension',base.parent.parent,base.parent]
+    candidates=([Path(config['extensionRoot'])] if config.get('extensionRoot') else []) + [base.parent,base.parent.parent/'gesp-lab-extension',base.parent/'gesp-lab-extension',base.parent.parent/'extension',base.parent/'extension',base.parent.parent]
     for root in candidates:
         if (root/'manifest.json').is_file() and (root/'scripts/launch-learning.ps1').is_file():return root.resolve()
     raise ValueError('未找到学习服务目录，请运行 install-all.bat 更新本地组件。')

@@ -13,9 +13,9 @@ def main():
     parser.add_argument('--source', type=Path, required=True)
     args = parser.parse_args()
     source = args.source.resolve()
-    target = ROOT / 'extension'
+    target = ROOT / 'gesp-lab-extension'
     if target.exists():
-        raise SystemExit('extension already exists; refusing to overwrite this installation.')
+        raise SystemExit('gesp-lab-extension already exists; refusing to overwrite this installation.')
     names = ['manifest.json', 'background.js', 'index.html', 'app.js', 'styles.css',
              'problem.json', 'README.md', 'package.json', '.gitignore', 'install-all.bat',
              'install-all.ps1', 'enable-page-start.bat', 'start-learning.bat',
@@ -31,10 +31,10 @@ def main():
     files[Path('learning_service/config.json')] = source / 'learning_service/config.json'
     for name in ['windows-dependencies.ps1', 'find-compiler.ps1', 'bootstrap-windows.ps1',
                  'windows-installers.json', 'check-native-host.py', 'service-process.ps1',
-                 'launch-learning.ps1', 'register-page-control.ps1']:
+                 'launch-learning.ps1', 'register-page-control.ps1', 'bundle-runtime.ps1', 'native-registration.ps1']:
         files[Path('scripts') / name] = source / 'scripts' / name
     for name in ['host.py', 'judge.py', 'debugger.py', 'gdb_support.py', 'install-host.ps1',
-                 'build-host.bat', 'dist/codearena_host.exe']:
+                 'build-host.bat', 'start-host.bat']:
         files[Path('native-host') / name] = source / 'native-host' / name
     for name in ['install-windows.md', 'verification.md', 'learning-api.md']:
         files[Path('docs') / name] = source / 'docs' / name

@@ -3,7 +3,7 @@ setlocal
 echo CodeArena GESP - integrated installer
 echo Chrome / Python / C++ / GDB. Node.js is not required.
 echo.
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0extension\install-all.ps1" %*
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0gesp-lab-extension\install-all.ps1" %*
 set "install_status=%errorlevel%"
 echo.
 if not "%install_status%"=="0" echo Installation did not finish. Error code: %install_status%

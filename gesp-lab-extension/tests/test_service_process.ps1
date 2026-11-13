@@ -28,7 +28,7 @@ $testDirectory=Join-Path ([IO.Path]::GetTempPath()) ('codearena-pid-test-'+[guid
 $recordPath=Join-Path $testDirectory 'service.pid'
 $health=[pscustomobject]@{service='codearena-learning';processId=101;instancePath='C:\Project\extension'}
 $snapshots[101] | Add-Member -NotePropertyName CreationDate -NotePropertyValue $start -Force
-$recovery=@{Health=$health;AllowedRoots=@('C:\Project\books\extension','C:\Project\extension');PidPath=$recordPath;Port=8766;Lookup=$options.Lookup;Children=$options.Children}
+$recovery=@{Health=$health;AllowedRoots=@('C:\Project\books\gesp-lab-extension','C:\Project\extension');PidPath=$recordPath;Port=8766;Lookup=$options.Lookup;Children=$options.Children}
 try {
     $recovery.Health=$null
     $first=@(Resolve-LearningServiceProcessIds @recovery)
@@ -45,7 +45,7 @@ try {
     }
     $health.instancePath='C:\OtherProject\extension'
     Assert-Fails {Resolve-LearningServiceProcessIds @recovery} 'Another installation must not be adopted'
-    $health.instancePath='C:\Project\books\extension'
+    $health.instancePath='C:\Project\books\gesp-lab-extension'
     $snapshots[101].CommandLine='python unrelated.py'
     Assert-Fails {Resolve-LearningServiceProcessIds @recovery} 'Health must not authorize an unrelated process'
     $snapshots[101].CommandLine='python -m learning_service.server --port 9999'

@@ -11,8 +11,8 @@
 1. 完整解压 `CodeArena-Windows-20261112.zip`，例如放到 `C:\CodeArena`，不要在压缩包内直接运行。
 2. 双击根目录 `一键安装.bat` 或 `install-all.bat`。不要使用旧目录外层遗留的安装脚本。
 3. 程序检查 Windows、文件和已有依赖；所有缺失应用的安装包先下载并校验，再依次安装。按 Windows 提示允许安装；取消、下载失败、校验失败或实际运行检查失败都会停止，不继续注册或启动服务。
-4. 首次填写模型、兼容接口地址、API Key。已有本机配置会直接复用；Key 输入隐藏，保存在 `extension\learning_service\.env`。请使用自己账号有权限的模型和地址。
-5. 在 Chrome 打开 `chrome://extensions`，开启“开发者模式”，点击“加载已解压的扩展程序”，选择包里的 `extension` 文件夹。
+4. 首次填写模型、兼容接口地址、API Key。已有本机配置会直接复用；Key 输入隐藏，保存在 `gesp-lab-extension\learning_service\.env`。请使用自己账号有权限的模型和地址。
+5. 在 Chrome 打开 `chrome://extensions`，开启“开发者模式”，点击“加载已解压的扩展程序”，选择包里的 `gesp-lab-extension` 文件夹。
 6. 安装器自动识别当前目录对应的扩展 ID；如需指定其他 CodeArena 安装实例，可向 `install-all.ps1` 传入 `-ExtensionId`。
 7. 安装器注册本地组件，验证 C++ 编译运行，启动学习服务。看到 `Ready` 和 `Installation complete` 后打开 CodeArena。若扩展页面已打开，请先重新加载扩展。
 
@@ -20,7 +20,7 @@
 
 打开 Chrome 的 CodeArena 扩展，点击右上角 **“启动／更新后台”**。电脑重启后同样这样操作，不必再双击 BAT；目前不设置开机自启动。启动过程在页面显示进度，失败会显示原因。
 
-旧版已经安装的电脑，只需双击一次 `extension\enable-page-start.bat` 更新组件注册，看到 `Ready` 后重新打开扩展。首次安装新版完整包已经包含这一步，无需单独执行。
+旧版已经安装的电脑，只需双击一次 `gesp-lab-extension\enable-page-start.bat` 更新组件注册，看到 `Ready` 后重新打开扩展。首次安装新版完整包已经包含这一步，无需单独执行。
 
 `start-learning.bat` 仅启动服务；`restart-learning.bat` 会重新加载服务代码；两个脚本作为兼容入口保留。网页按钮和一键安装器均已调用同一套启动逻辑。
 
@@ -60,7 +60,7 @@
 只检测、不安装或重启：
 
 ```powershell
-cd C:\CodeArena\extension
+cd C:\CodeArena\gesp-lab-extension
 powershell -NoProfile -ExecutionPolicy Bypass -File .\install-all.ps1 -CheckOnly -SkipNetwork
 ```
 

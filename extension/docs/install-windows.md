@@ -12,8 +12,8 @@
 2. 双击根目录 `一键安装.bat` 或 `install-all.bat`。不要使用旧目录外层遗留的安装脚本。
 3. 程序检查 Windows、文件和已有依赖；所有缺失应用的安装包先下载并校验，再依次安装。按 Windows 提示允许安装；取消、下载失败、校验失败或实际运行检查失败都会停止，不继续注册或启动服务。
 4. 首次填写模型、兼容接口地址、API Key。已有本机配置会直接复用；Key 输入隐藏，保存在 `extension\learning_service\.env`。请使用自己账号有权限的模型和地址。
-5. 在安装器打开的 `chrome://extensions` 页面开启“开发者模式”，点击“加载已解压的扩展程序”，选择包里的 `extension` 文件夹。
-6. 复制 CodeArena 卡片的 **32 位扩展 ID** 到安装窗口。它是 Chrome 生成的 ID，不是 API Key，也不是课件密码。
+5. 在 Chrome 打开 `chrome://extensions`，开启“开发者模式”，点击“加载已解压的扩展程序”，选择包里的 `extension` 文件夹。
+6. 安装器自动识别当前目录对应的扩展 ID；如需指定其他 CodeArena 安装实例，可向 `install-all.ps1` 传入 `-ExtensionId`。
 7. 安装器注册本地组件，验证 C++ 编译运行，启动学习服务。看到 `Ready` 和 `Installation complete` 后打开 CodeArena。若扩展页面已打开，请先重新加载扩展。
 
 ## 以后每次使用
@@ -45,6 +45,10 @@
 不依赖 winget、Node.js、npm 或数据库。新机器无需有 explanation 项目。需要能访问 Python、Google、GitHub、PyPI 和自己的百炼端点；网络受限、系统策略或权限不足时会停止。软件要求 Windows 重启时，按提示重启后重新运行安装入口。
 
 ## 错误排查
+
+重复执行安装会复用已通过检测的依赖。后台占用端口时，先验证 CodeArena 的安装目录、PID 与启动命令，再停止旧后台并启动当前版本；PID 文件缺失或损坏会依据正在运行的服务补回。若端口属于其他程序或无法确认身份，则保留该进程并选择空闲端口。就绪地址写入 `.local/service-endpoint.json`，扩展通过本地组件自动读取，安装器也使用该地址验收。
+
+迁移目录后，一键安装依据当前目录计算 Chrome 未打包扩展 ID，并保留本项目旧目录的已注册 ID。注册完成后，在 `chrome://extensions` 重新加载 CodeArena，再关闭并重新打开旧标签页。C++ 本地评测走 Native Messaging，和讲解后台的 HTTP 端口独立。
 
 - **本地组件仍是旧版**：已有安装执行一次 `enable-page-start.bat`，随后重新打开扩展。未执行注册时，仅刷新网页不会更新本地组件。
 - **安装依赖失败**：修复窗口中显示的具体缺项，重新运行一键安装；已可用的依赖会复用。

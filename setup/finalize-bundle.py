@@ -23,7 +23,7 @@ def main():
         'dependencies': {
             'chrome': 'Reuse installed Chrome; signed official download if absent',
             'python': '3.10+ with ssl/sqlite3/venv; reuse selected runtime or registry installation',
-            'pypdf': '6.11.0; PyPI-verified universal wheel bundled, installed into project venv',
+            'pypdf': '6.11.0; includes typing_extensions 4.15.0 for Python 3.10; PyPI-verified wheels installed into project venv',
             'cpp': 'g++ with real C++17 compile/run validation',
             'gdb': 'Working GDB with Python support and native debug validation',
             'nativeHost': 'Auditable Python source through start-host.bat and project venv; no packaged EXE or PyInstaller required',
@@ -33,12 +33,13 @@ def main():
             'python': 'python/python-3.14.10-amd64.exe',
             'cppToolchain': 'devcpp/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_Setup.exe',
             'pypdf': 'python/wheels/pypdf-6.11.0-py3-none-any.whl',
+            'typingExtensions': 'python/wheels/typing_extensions-4.15.0-py3-none-any.whl',
         },
         'installation': {
             'offline': False,
             'bundledPythonCppAndPdf': True,
             'networkRequired': ['Chrome download if absent', 'Bailian connectivity and AI features'],
-            'requiresUserSteps': ['Load extension directory in Chrome developer mode', 'Paste extension ID', 'Configure own API key if missing'],
+            'requiresUserSteps': ['Load extension directory in Chrome developer mode', 'Configure own API key if missing'],
             'skipAdequateExisting': True,
             'modifyGlobalPath': False,
             'report': 'extension/.local/install-check.json',
@@ -49,6 +50,7 @@ def main():
             'requiresNode': '22+', 'originalManifest': 'bundle-manifest.number-garden.json',
         },
         'questionBank': {'levels': 8, 'problems': 216},
+        'physicsLab': {'directory': 'physics-lab-extension', 'version': '2.1.0', 'lessons': 64, 'webglLabs': 48, 'practiceProjects': 10},
         'verificationFile': 'integration-verification.json',
         'sourceImportFile': 'codearena-import.json',
     }
@@ -57,7 +59,7 @@ def main():
     for path in ROOT.iterdir():
         if path.is_file() and path.suffix in {'.cmd', '.bat', '.mjs', '.txt', '.json'} and path.name not in STATE_FILES:
             files.append(path)
-    for folder in ['setup', 'setup-tests', 'extension', 'application', 'node', 'python', 'devcpp']:
+    for folder in ['setup', 'setup-tests', 'extension', 'physics-lab-extension', 'application', 'node', 'python', 'devcpp']:
         for path in (ROOT / folder).rglob('*'):
             if not path.is_file():
                 continue
@@ -65,6 +67,8 @@ def main():
             if set(relative.parts) & EXCLUDED_PARTS or path.name in EXCLUDED_FILES:
                 continue
             if relative.as_posix() == 'extension/native-host/dist/config.json':
+                continue
+            if relative.parts[:2] == ('physics-lab-extension', 'dist'):
                 continue
             if path.suffix in {'.pyc', '.log'}:
                 continue

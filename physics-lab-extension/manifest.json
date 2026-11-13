@@ -1,11 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "物理实验室 · 声学",
-  "version": "1.0.0",
-  "description": "依据义务教育物理课程标准（2022年版）整理七大模块，先学习声学，用可交互的三维实验理解声音。离线可用。",
-  "icons": { "16": "icons/icon-16.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
-  "action": { "default_title": "打开物理实验室", "default_icon": { "16": "icons/icon-16.png", "48": "icons/icon-48.png" } },
-  "background": { "service_worker": "background.js" },
+  "name": "物理实验室",
+  "version": "2.1.0",
+  "description": "初中物理七大模块：64节课程、48个交互实验、10个实践项目。支持笔记本和小屏幕，离线可用。",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "打开物理实验室",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
   "options_page": "index.html",
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; base-uri 'none'; frame-src 'none'"

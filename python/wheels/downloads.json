@@ -1,7 +1,16 @@
-﻿{
-    "filename":  "pypdf-6.11.0-py3-none-any.whl",
-    "url":  "https://files.pythonhosted.org/packages/07/b1/68feb7eb3b99f0c020b414234825f4a5d70e0126c18d933770e8c93a35fc/pypdf-6.11.0-py3-none-any.whl",
-    "sha256":  "769394d5756d5b304c9b6bef88b54b1816b328e7e6fc9254e625529a15ed4ab8",
-    "requiresPython":  "\u003e=3.9",
-    "source":  "https://pypi.org/project/pypdf/6.11.0/"
+{
+  "filename": "pypdf-6.11.0-py3-none-any.whl",
+  "url": "https://files.pythonhosted.org/packages/07/b1/68feb7eb3b99f0c020b414234825f4a5d70e0126c18d933770e8c93a35fc/pypdf-6.11.0-py3-none-any.whl",
+  "sha256": "769394d5756d5b304c9b6bef88b54b1816b328e7e6fc9254e625529a15ed4ab8",
+  "requiresPython": ">=3.9",
+  "source": "https://pypi.org/project/pypdf/6.11.0/",
+  "dependencies": [
+    {
+      "filename": "typing_extensions-4.15.0-py3-none-any.whl",
+      "sha256": "f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548",
+      "requiresPython": ">=3.9",
+      "source": "https://pypi.org/project/typing-extensions/4.15.0/",
+      "neededFor": "pypdf on Python < 3.11"
+    }
+  ]
 }

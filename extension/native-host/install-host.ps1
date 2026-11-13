@@ -6,6 +6,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $hostDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+. (Join-Path $ExtensionRoot 'scripts\native-registration.ps1')
 $launcherPath = Join-Path $hostDir 'start-host.bat'
 $pythonPath = Join-Path $ExtensionRoot '.venv\Scripts\python.exe'
 foreach ($required in @($launcherPath,$pythonPath,(Join-Path $hostDir 'host.py'))) {
@@ -21,7 +22,7 @@ $manifest = @{
   description = 'CodeArena local C++ judge'
   path = (Resolve-Path -LiteralPath $launcherPath).Path
   type = 'stdio'
-  allowed_origins = @("chrome-extension://$ExtensionId/")
+  allowed_origins = @(Get-CodeArenaNativeOrigins -ExtensionRoot $ExtensionRoot -ExtensionId $ExtensionId)
 }
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 New-Item -Path (Join-Path $hostDir 'dist') -ItemType Directory -Force | Out-Null
@@ -35,5 +36,6 @@ New-Item -Path $key -Force | Out-Null
 Set-Item -Path $key -Value $manifestPath
 Write-Host 'Native Messaging host installed for current Windows user.' -ForegroundColor Green
 Write-Host "Extension ID: $ExtensionId"
+Write-Host ('Allowed CodeArena extensions: '+($manifest.allowed_origins -join ', '))
 Write-Host "Compiler: $compilerPath"
 Write-Host 'Now close and reopen CodeArena extension tab.'

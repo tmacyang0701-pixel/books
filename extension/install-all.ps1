@@ -71,11 +71,8 @@ if ($CheckOnly) { Write-Host $(if($SkipNetwork){'Local dependency checks passed.
 
 Write-Host '[2/4] Preparing and registering the local C++ judge.' -ForegroundColor Cyan
 $manifestPath=Join-Path $hostDir 'com.codearena.cpp_judge.json'
-foreach($existingManifest in @($manifestPath,(Join-Path $legacyHostDir 'com.codearena.cpp_judge.json'))) {
-    if (-not $ExtensionId -and (Test-Path -LiteralPath $existingManifest)) {
-        try { $origin=(Get-Content -LiteralPath $existingManifest -Raw -Encoding UTF8 | ConvertFrom-Json).allowed_origins[0]; if($origin -cmatch '^chrome-extension://([a-p]{32})/$'){$ExtensionId=$Matches[1]} } catch {}
-    }
-}
+. (Join-Path $PSScriptRoot 'scripts\native-registration.ps1')
+if(-not $ExtensionId){$ExtensionId=Get-CodeArenaExtensionId $PSScriptRoot}
 if (-not $ExtensionId) {
     Write-Host "Open chrome://extensions, enable Developer mode, Load unpacked: $PSScriptRoot" -ForegroundColor Yellow
     Write-Host 'Copy the 32-letter extension ID from the CodeArena card.'
@@ -94,7 +91,10 @@ $env:CODEARENA_PORT=[string]$modelConfig.port
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'start-learning.ps1') -Restart
 if ($LASTEXITCODE -ne 0) { Stop-WithMessage 'Learning service startup failed. See .local\service-error.log and .local\network-check.json.' }
 Write-Host '[4/4] Verifying the installed service.' -ForegroundColor Cyan
-$health=Invoke-RestMethod -Uri "http://127.0.0.1:$($modelConfig.port)/api/health" -TimeoutSec 5
+. (Join-Path $PSScriptRoot 'scripts\service-process.ps1')
+$endpoint=Read-LearningEndpoint $PSScriptRoot
+$serviceUrl=if($endpoint){$endpoint.serviceUrl}else{"http://127.0.0.1:$($modelConfig.port)"}
+$health=Invoke-RestMethod -Uri "$serviceUrl/api/health" -TimeoutSec 5
 if ($health.service -ne 'codearena-learning' -or -not $health.configured -or $health.version -lt 12) { Stop-WithMessage 'Service verification failed. The expected updated service is not ready.' }
-Write-Host "Installation complete. Model: $($health.model). Reload CodeArena in chrome://extensions and reopen its page." -ForegroundColor Green
+Write-Host "Installation complete. Service: $serviceUrl | Model: $($health.model). Reload CodeArena in chrome://extensions and reopen its page." -ForegroundColor Green
 Write-Host 'Next time, including after reboot, open the Chrome extension and click its startup button. No BAT is required for daily use.'

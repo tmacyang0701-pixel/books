@@ -34,10 +34,24 @@ def learning_root(config):
     raise ValueError('未找到学习服务目录，请运行 install-all.bat 更新本地组件。')
 
 
+def learning_endpoint(config):
+    try:
+        root=learning_root(config)
+        path=root/'.local/service-endpoint.json'
+        if path.is_file():
+            endpoint=json.loads(path.read_text(encoding='utf-8-sig'))
+            port=endpoint.get('port')
+            if type(port) is int and 1024<=port<=65535 and Path(endpoint.get('instancePath','')).resolve()==root:
+                return f'http://127.0.0.1:{port}'
+    except (OSError,ValueError,TypeError):
+        pass
+    return 'http://127.0.0.1:8766'
+
+
 def dispatch(request,config,debugger=None):
     if not isinstance(request,dict):raise ValueError('消息必须为 JSON 对象。')
     mode=request.get('mode')
-    if mode=='capabilities':return dict(nativeVersion=3,capabilities=['judge','learningServiceControl','cppDebugger'],debuggerAvailable=bool(debugger_path()))
+    if mode=='capabilities':return dict(nativeVersion=3,capabilities=['judge','learningServiceControl','cppDebugger','serviceEndpoint'],debuggerAvailable=bool(debugger_path()),serviceUrl=learning_endpoint(config))
     if isinstance(mode,str) and mode.startswith('debug_'):
         if debugger is None:raise ValueError('调试需要保持本地连接，请使用页面调试入口')
         return debugger.handle(request)

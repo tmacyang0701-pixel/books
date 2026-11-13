@@ -104,11 +104,18 @@ function Install-LearningPythonPackages($ExtensionRoot,$HostDirectory) {
     if (-not (Test-PythonDependency $python 'pypdf')) {
         $wheel=Get-CodeArenaPdfWheel
         if ($wheel) {
+            # Python 3.10 needs typing_extensions for pypdf's typing.Self backport.
+            # Supply its verified wheel explicitly when installing without indexes/dependency resolution.
+            $dependencyWheels=@(Get-CodeArenaPdfDependencyWheels)
             Write-Host 'Installing the verified bundled PDF dependency (offline)...'
             $previousError=$ErrorActionPreference
-            try { $ErrorActionPreference='Continue'; & $python -m pip install --disable-pip-version-check --no-index --no-deps $wheel; $pipStatus=$LASTEXITCODE }
+            try { $ErrorActionPreference='Continue'; & $python -I -m pip install --disable-pip-version-check --no-index --no-deps @dependencyWheels $wheel; $pipStatus=$LASTEXITCODE }
             finally { $ErrorActionPreference=$previousError }
-            if ($pipStatus -ne 0 -or -not (Test-PythonDependency $python 'pypdf')) { throw 'Bundled PDF dependency installation failed.' }
+            if ($pipStatus -ne 0) { throw "Bundled PDF dependency installation failed (pip exit $pipStatus)." }
+            if (-not (Test-PythonDependency $python 'pypdf')) {
+                & $python -I -c 'import pypdf'
+                throw 'PDF package is installed but cannot be imported. See the Python error above; check that the complete python\wheels directory is present.'
+            }
         } else { $packages+='pypdf>=5,<7' }
     }
     if ($packages.Count) {

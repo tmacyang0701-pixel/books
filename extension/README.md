@@ -54,7 +54,7 @@
 
 1. 完整解压新版安装包到本机可写目录，例如 `C:\CodeArena`；本地组件已包含在 `extension\native-host` 中。已有 Chrome、Python、GCC 会直接复用。
 2. 首次双击包根目录的 **`一键安装.bat`**（或 `extension\install-all.bat`）。安装器检查系统和项目文件，下载并校验缺失的 Chrome、Python、带 GCC 的 Dev-C++，安装 Python 依赖，再注册扩展并启动学习服务。失败会说明原因并停止后续步骤。首次按提示填写百炼配置；安装软件时可能需要确认 Windows 权限提示。
-3. 首次安装时，按提示在 `chrome://extensions` 开启开发者模式，选择“加载已解压的扩展程序”并选中本 `extension` 目录，将 CodeArena 卡片上的 **32 位扩展 ID** 粘贴到安装窗口。之后会复用记录的 ID。看到 `Ready` 和 `Installation complete` 后，在扩展管理页点击重新加载，再打开 CodeArena。
+3. 首次安装时，在 `chrome://extensions` 开启开发者模式，选择“加载已解压的扩展程序”并选中本 `extension` 目录。安装器会根据目录自动注册扩展 ID，并保留迁移前的本项目注册。看到 `Ready` 和 `Installation complete` 后，在扩展管理页点击重新加载，再打开 CodeArena。
 4. 在等级学习中选级别，进入真题库；选择题目后点击“生成讲解课件”。也可通过右上角“上传题目”使用 JSON、TXT、Markdown、图片或文本 PDF。识别结果确认后再生成。
 5. 逐页查看课件、播放图解动画、展开讲稿、朗读或导出独立 HTML。右侧“本页问答”可以解释当前知识点和当前动画步骤，每页独立保存聊天。C++ 代码块点击“运行代码”，会在右侧显示输入和运行结果。最后一页点击完成学习，会推荐共同知识点的真题；还可以生成三道原创变式。
 

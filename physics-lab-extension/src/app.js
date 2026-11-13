@@ -1,13 +1,20 @@
 import { standard, modules, lessons } from './curriculum.js';
 import { World, forkScene, vacuumScene, waveScene } from './world.js';
-import { experiments, mountLab } from './lab.js';
+import { experiments as acousticExperiments, mountLab } from './lab.js';
+import {simulations,initialValues} from './simulations.js';
+import {sceneFor} from './simulation-scenes.js';
+import {mountSimulation} from './simulation-view.js';
+import {projects,requiredExperiments} from './practice-projects.js';
+const experiments=[...acousticExperiments.map(e=>({...e,module:'acoustics'})),...simulations];
 
 const main = document.querySelector('#main');
 const storageKey = 'physics-lab-learning-v1';
-let cleanup = () => {}, toastTimer, state = { completed: [], answers: {}, notes: {} }, storageAvailable = true;
+let cleanup = () => {}, toastTimer, state = { completed: [], answers: {}, notes: {}, records: {},projects:{} }, storageAvailable = true;
 try {
   const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
   if (saved && typeof saved === 'object') {
+    for(const project of projects)if(typeof saved.projects?.[project.id]==='string')state.projects[project.id]=saved.projects[project.id].slice(0,6000);
+    state.records = saved.records && typeof saved.records === 'object' ? saved.records : {};
     state.completed = Array.isArray(saved.completed) ? [...new Set(saved.completed.filter(id => lessons.some(x => x.id === id)))] : [];
     for (const lesson of lessons) {
       const answer = saved.answers?.[lesson.id];
@@ -36,133 +43,61 @@ const icons = {
   arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',
 };
 const icon = name => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.sound}</svg>`;
-const source = lesson => `<a class="source-link" href="${standard.url}#page=${lesson.page}" target="_blank" rel="noopener noreferrer">课标 ${lesson.code} · 原书第 ${lesson.page-7} 页 ↗</a>`;
-const moduleNav = document.querySelector('#module-nav');
-document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); main.focus(); main.scrollIntoView(); });
-moduleNav.innerHTML = modules.map((m,i) => `<a href="#${m.id}" data-module="${m.id}" class="module-link">${icon(m.icon)}<span>${m.name}</span><span class="nav-meta">${m.ready ? '学习中' : String(i+1).padStart(2,'0')}</span></a>`).join('');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const moduleNav=document.querySelector('#module-nav');
+const byModule=(items,module)=>items.filter(x=>x.module===module);
+let currentModule='acoustics';
+const source=l=>`<a class="source-link" href="${standard.url}" target="_blank" rel="noopener noreferrer">课标范围 ${esc(l.code)} · 查看原文 ↗</a>`;
+function navProgress(){moduleNav.innerHTML=modules.map(m=>{const list=byModule(lessons,m.id),done=list.filter(x=>state.completed.includes(x.id)).length;return `<a href="#${m.id}" data-module="${m.id}" class="module-link" ${currentModule===m.id?'aria-current="page"':''}>${icon(m.icon)}<span>${m.name}</span><span class="nav-meta">${done}/${list.length}</span></a>`;}).join('');}
+function tabs(active,module=currentModule){const ls=byModule(lessons,module),es=byModule(experiments,module);return `<nav class="content-tabs" aria-label="模块内容"><a href="#${module}" ${active==='learn'?'aria-current="page"':''}>学习路径<span>${ls.length}</span></a><a href="#experiments/${module}" ${active==='lab'?'aria-current="page"':''}>实验室<span>${es.length}</span></a><a href="#practice/${module}" ${active==='quiz'?'aria-current="page"':''}>随堂自测<span>${ls.length}</span></a></nav>`;}
+function heading(module=currentModule){const m=modules.find(x=>x.id===module),list=byModule(lessons,module),done=list.filter(l=>state.completed.includes(l.id)).length;return `<div class="page-heading"><div><span class="eyebrow">JUNIOR PHYSICS / ${module.toUpperCase()}</span><h1>${m.name}<span class="heading-dot">.</span></h1><p>${m.subtitle}</p></div><div class="learning-progress"><span><strong>${done}</strong> / ${list.length}</span><small>已学课程</small><progress max="${list.length}" value="${done}" aria-label="本模块学习进度"></progress></div></div>`;}
+function renderOverview(module){
+ const m=modules.find(x=>x.id===module);if(!m)return renderNotFound();const list=byModule(lessons,module),labs=byModule(experiments,module),next=list.find(l=>!state.completed.includes(l.id))||list[0];
+ main.innerHTML=heading(module)+`<section class="hero ${module==='acoustics'?'':'compact-hero'}"><div class="hero-copy"><span class="pill">从现象走向原理</span><h2>${{acoustics:'听见世界，<br>也<span>看见声音。</span>',optics:'跟着光线，<span>看懂成像。</span>',thermal:'温度背后，<span>能量在流动。</span>',mechanics:'从运动出发，<span>发现力的规律。</span>',electricity:'连通电路，<span>理解电的世界。</span>',magnetism:'看不见的磁场，<span>看得见的作用。</span>',energy:'追踪能量，<span>连接生活。</span>'}[module]}</h2><p>概念、规律与例题相连；先做预测，再通过实验收集证据。</p><div class="hero-actions"><a class="button" href="#lesson/${next.id}">继续学习 ${icon('arrow')}</a><a class="text-link" href="#experiments/${module}">进入实验室 ↗</a></div><div class="hero-facts"><span><strong>${list.length}</strong> 节讲解</span><span><strong>${labs.length}</strong> 个交互实验</span><span>无需联网</span></div></div>${module==='acoustics'?'<div class="hero-art"><canvas id="hero-world" tabindex="0" aria-label="音叉三维模型，可以拖动旋转"></canvas><span class="art-label">振动，是声音的起点。</span><p id="hero-fallback" hidden>音叉振动 → 悬球被弹开<br>当前设备无法显示 3D，可继续阅读课程。</p></div>':`<div class="module-emblem" aria-hidden="true">${icon(m.icon)}<span>${m.name}</span></div>`}</section>`+tabs('learn',module)+`<div class="section-top"><div><h2>${m.name}学习路径</h2><p>理解 → 实验 → 自测</p></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="lesson-search" type="search" placeholder="查找知识点" aria-label="查找本模块知识点"></label></div><div class="lesson-grid" id="lesson-grid"></div><div class="curriculum-note"><span class="note-mark">▤</span><div><strong>初中物理全模块</strong><p>${lessons.length} 节讲解 · ${experiments.length} 个交互实验 · 学习进度保存在本机</p></div><a href="#curriculum">知识地图 ↗</a></div>`;
+ const cards=query=>{const term=query.trim().toLowerCase(),found=list.filter(l=>(l.title+l.subtitle+l.sections.map(s=>s.text).join('')).toLowerCase().includes(term));document.querySelector('#lesson-grid').innerHTML=found.length?found.map(l=>`<a class="lesson-card" href="#lesson/${l.id}"><div class="card-top"><span class="lesson-number">${String(list.indexOf(l)+1).padStart(2,'0')}</span><span class="lesson-kind ${state.completed.includes(l.id)?'done':''}">${state.completed.includes(l.id)?'✓ 已学习':l.lab?'配套实验':'知识应用'}</span></div><h3>${esc(l.title)}</h3><p>${esc(l.summary)}</p><div class="card-bottom"><span>约 ${l.minutes} 分钟</span><span aria-hidden="true">↗</span></div></a>`).join(''):'<p class="empty-state">没有匹配的知识点，换个关键词试试。</p>';};
+ cards('');document.querySelector('#lesson-search').oninput=e=>cards(e.target.value);
+ if(module==='acoustics'){const world=new World(document.querySelector('#hero-world'),status=>{document.querySelector('#hero-fallback').hidden=status==='ready';});world.camera=[.3,.2,8.4];world.update(forkScene(0,false));cleanup=()=>world.dispose();}
+}
+function renderExperiments(module){
+ const list=byModule(experiments,module),m=modules.find(x=>x.id===module);if(!m)return renderNotFound();
+ main.innerHTML=heading(module)+tabs('lab',module)+`<div class="section-top"><div><h2>把问题，交给实验。</h2><p>提出预测 → 调整参数 → 记录证据 → 解释结论</p></div></div><div class="experiment-grid">${list.map(e=>`<a href="#lab/${e.id}" class="experiment-card"><div class="experiment-illustration ${e.module==='acoustics'?'experiment-'+e.id:'model-preview'}">${e.module==='acoustics'?`<canvas id="preview-${e.id}" aria-hidden="true"></canvas><span id="preview-error-${e.id}" class="preview-fallback" hidden>3D 预览不可用</span>`:`<img id="preview-${e.id}" alt="${esc(e.title)} 3D" hidden><span id="preview-error-${e.id}">${icon(m.icon)}</span>`}<small>3D 实验</small></div><div class="experiment-copy"><h3>${esc(e.title)}</h3><p>${esc(e.description)}</p><div class="experiment-tags">${e.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="card-bottom"><span>进入实验</span>${icon('arrow')}</div></div></a>`).join('')}</div><p class="bottom-note">模拟帮助理解规律；真实测量、仪器操作与实践调查仍需亲手完成。每个实验都说明模型条件。</p>`;
+ main.insertAdjacentHTML('beforeend',projectCards(module));
+ if(module==='acoustics'){const worlds=list.map(e=>{const w=new World(document.querySelector('#preview-'+e.id),status=>{document.querySelector('#preview-error-'+e.id).hidden=status==='ready';});w.camera=[.32,.28,10.5];w.update(e.id==='fork'?forkScene(0,false):e.id==='vacuum'?vacuumScene(0,100):waveScene(0,220,.35,'pure'));return w;});cleanup=()=>worlds.forEach(w=>w.dispose());}
+ else {
+  const canvas=document.createElement('canvas');canvas.style.cssText='position:fixed;left:-9999px;width:480px;height:260px;';document.body.append(canvas);
+  const renderer=new World(canvas);renderer.camera=[.4,.35,6.8];renderer.target=[0,1.6,0];
+  if(renderer.ready)for(const experiment of list){const p=initialValues(experiment);renderer.update(sceneFor(experiment,p,experiment.calculate(p)).items);const img=document.querySelector('#preview-'+experiment.id);img.src=renderer.canvas.toDataURL('image/png');img.hidden=false;document.querySelector('#preview-error-'+experiment.id).hidden=true;}
+  renderer.dispose();renderer.canvas.remove();
+ }
 
-function tabs(active) {
-  return `<nav class="content-tabs" aria-label="声学内容"><a href="#acoustics" ${active === 'learn' ? 'aria-current="page"' : ''}>学习路径<span>08</span></a><a href="#experiments" ${active === 'lab' ? 'aria-current="page"' : ''}>3D 实验室<span>03</span></a><a href="#practice" ${active === 'quiz' ? 'aria-current="page"' : ''}>随堂自测<span>08</span></a></nav>`;
 }
-function acousticHeading() {
-  return `<div class="page-heading"><div><div class="eyebrow">CHAPTER 01 / ACOUSTICS</div><h1>声学<span class="heading-dot">.</span></h1><p>从一场振动出发，理解我们听见的世界。</p></div><div class="learning-progress"><span><strong>${state.completed.length}</strong> / ${lessons.length}</span><small>已学课程</small><progress max="${lessons.length}" value="${state.completed.length}" aria-label="已学课程进度"></progress></div></div>`;
+function renderLab(id,focus){const e=experiments.find(x=>x.id===id);if(!e)return renderNotFound();main.innerHTML=`<div class="back-row"><a href="#experiments/${e.module}">← ${modules.find(x=>x.id===e.module).name}实验室</a><a href="#lesson/${e.lesson}">相关知识 ↗</a></div><section class="lab" id="lab-root"></section>`;const options={focus:Number.isInteger(focus)&&focus>=0?focus:0,note:state.notes[id]||'',saveNote(value){state.notes[id]=value;return save();},records:state.records[id]||[],saveRecords(value){state.records[id]=value;save();},toast};cleanup=(e.module==='acoustics'?mountLab:mountSimulation)(document.querySelector('#lab-root'),id,options);}
+function quizMarkup(l){const q=l.question;return `<form class="quiz" data-quiz="${l.id}"><span class="eyebrow">检查一下理解</span><fieldset><legend>${esc(q.prompt)}</legend><div class="quiz-options">${q.options.map((option,i)=>`<label><input type="radio" name="answer-${l.id}" value="${i}" required><span class="option-letter">${String.fromCharCode(65+i)}</span><span>${esc(option)}</span></label>`).join('')}</div></fieldset><button class="button secondary" type="submit">检查答案</button><div class="quiz-feedback" role="status" hidden></div></form>`;}
+function wireQuizzes(){main.querySelectorAll('[data-quiz]').forEach(form=>{const l=lessons.find(x=>x.id===form.dataset.quiz),q=l.question;const feedback=answer=>{const el=form.querySelector('.quiz-feedback');el.hidden=false;el.classList.toggle('correct',answer===q.answer);el.textContent=(answer===q.answer?'回答正确。':'再想一想，正确选项是 '+String.fromCharCode(65+q.answer)+'。')+' '+q.explanation;};if(state.answers[l.id]!==undefined){form.querySelector(`input[value="${state.answers[l.id]}"]`).checked=true;feedback(state.answers[l.id]);}form.onchange=()=>form.querySelector('.quiz-feedback').hidden=true;form.onsubmit=e=>{e.preventDefault();const selected=form.querySelector('input:checked');if(!selected)return;state.answers[l.id]=Number(selected.value);save();feedback(Number(selected.value));const score=main.querySelector('#quiz-score'),list=byModule(lessons,l.module);if(score)score.textContent=list.filter(x=>state.answers[x.id]===x.question.answer).length+' / '+list.length;};});}
+function renderLesson(id){
+ const l=lessons.find(x=>x.id===id);if(!l)return renderNotFound();const list=byModule(lessons,l.module),i=list.indexOf(l),m=modules.find(x=>x.id===l.module),done=state.completed.includes(id),e=experiments.find(x=>x.id===l.lab);
+ main.innerHTML=`<nav class="reading-toolbar" aria-label="课程操作"><a href="#${l.module}">← ${m.name}</a><div><a class="button secondary ${i===0?'is-disabled':''}" ${i>0?`href="#lesson/${list[i-1].id}"`:'aria-disabled="true"'}>← 上一节</a><span>${i+1} / ${list.length}</span><a class="button" href="${i<list.length-1?'#lesson/'+list[i+1].id:'#practice/'+l.module}">${i<list.length-1?'下一节 →':'去自测 →'}</a></div></nav><div class="lesson-heading"><span class="eyebrow">${esc(l.subtitle)} · 约 ${l.minutes} 分钟</span><h1>${esc(l.title)}</h1><p>${esc(l.goal)}</p>${source(l)}</div><div class="reading-layout"><article class="reading-content">${l.sections.map((s,n)=>`<section class="knowledge-section"><span class="section-number">${String(n+1).padStart(2,'0')}</span><div><h2>${esc(s.title)}</h2><p>${esc(s.text)}</p></div></section>`).join('')}${l.formula?`<div class="formula-card"><strong>${esc(l.formula.expression)}</strong><span>${esc(l.formula.caption)}</span></div>`:''}${l.example?`<section class="example-card"><h2>${esc(l.example.title)}</h2><p>${esc(l.example.question)}</p><ol>${l.example.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section>`:''}<div class="takeaway"><span aria-hidden="true">✦</span><p>${esc(l.takeaway)}</p></div><div class="pitfall"><strong>分清这一点</strong><p>${esc(l.pitfall)}</p></div>${id==='echo'?'<section class="mini-tool"><h2>回声测距计算器</h2><p>声源和接收者在同一位置，障碍物静止。</p><div class="calculator-fields"><label>往返时间（s）<input id="echo-time" type="number" min="0.01" max="60" step="0.01" value="0.80"></label><label>给定声速<select id="echo-speed"><option value="340">空气约 15 ℃：340 m/s</option><option value="1500">水中示例：1500 m/s</option></select></label></div><output id="echo-result" aria-live="polite"></output></section>':''}${id==='noise'?'<section class="mini-tool"><h2>噪声控制环节</h2><div class="noise-options"><button class="button secondary" data-noise="声源处减少振动">设备减振</button><button class="button secondary" data-noise="传播途中隔声">隔声窗</button><button class="button secondary" data-noise="人耳处防护">耳罩</button></div><p id="noise-result" aria-live="polite">选择措施，辨认作用位置。</p></section>':''}${quizMarkup(l)}<div class="lesson-complete"><button class="button" id="complete-lesson" aria-pressed="${done}">${done?'✓ 已学完':'标记为已学完'}</button>${e?`<a class="text-link" href="#lab/${e.id}/${l.labFocus||0}">进入相关实验 →</a>`:''}</div></article><aside class="reading-aside">${e?`<a class="lab-invite" href="#lab/${e.id}/${l.labFocus||0}"><span class="pill">动手探索</span><h3>${esc(e.title)}</h3><p>${esc(e.description)}</p><span class="button">进入实验 →</span></a>`:''}<div class="activity-card"><span class="eyebrow">试一试</span><p>${esc(l.activity)}</p></div><details class="outline-drawer" open><summary>本模块目录 <span>${list.length} 节</span></summary><nav class="lesson-outline" aria-label="本模块课程">${list.map((x,n)=>`<a href="#lesson/${x.id}" ${x.id===id?'aria-current="page"':''}><span>${String(n+1).padStart(2,'0')}</span>${esc(x.subtitle)}</a>`).join('')}</nav></details></aside></div>`;
+ if(matchMedia('(max-width: 900px)').matches)main.querySelector('.outline-drawer').open=false;
+ wireQuizzes();document.querySelector('#complete-lesson').onclick=e=>{if(!state.completed.includes(id))state.completed.push(id);const saved=save();navProgress();e.currentTarget.textContent='✓ 已学完';e.currentTarget.setAttribute('aria-pressed','true');if(saved)toast('学习进度已保存。');};
+ if(id==='echo'){const input=main.querySelector('#echo-time'),select=main.querySelector('#echo-speed'),output=main.querySelector('#echo-result');const calculate=()=>{const t=Number(input.value),v=Number(select.value);output.textContent=!input.value||!input.validity.valid?'请输入 0.01～60 s 的有效时间。':`距离 = ${v} × ${t} ÷ 2 = ${Number((v*t/2).toFixed(3))} m`;};input.oninput=select.onchange=calculate;calculate();}
+ main.querySelectorAll('[data-noise]').forEach(b=>b.onclick=()=>{main.querySelector('#noise-result').textContent=b.dataset.noise;});
 }
-function renderOverview() {
-  main.innerHTML = acousticHeading() + `<section class="hero"><div class="hero-copy"><span class="pill">从现象走向原理</span><h2>听见世界，<br>也<span>看见声音。</span></h2><p>拨动琴弦，轻敲音叉，抽走空气。<br>在一次次观察与对照中，发现声音的秘密。</p><div class="hero-actions"><a class="button" href="#lesson/${lessons.find(x => !state.completed.includes(x.id))?.id || 'vibration'}">${state.completed.length ? '继续学习' : '开始学习'} ${icon('arrow')}</a><a class="text-link" href="#experiments">先去做实验 ↗</a></div><div class="hero-facts"><span><strong>8</strong> 节知识讲解</span><span><strong>3</strong> 个三维实验</span><span>无需联网</span></div></div><div class="hero-art"><div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><canvas id="hero-world" tabindex="0" aria-label="音叉与悬球三维模型，可以拖拽旋转"></canvas><span class="art-label">振动，是声音的起点。</span><span class="art-hint">拖动，换个角度观察 ↗</span><p id="hero-fallback" hidden>音叉振动 → 悬球被弹开 → 观察振动证据<br>当前设备无法显示 3D，可继续阅读课程。</p></div></section>` + tabs('learn') + `<div class="section-top"><div><h2>你的声学学习路径</h2><p>先认识现象，再控制变量，最后回到生活。</p></div><label class="search-box"><span aria-hidden="true">⌕</span><input type="search" id="lesson-search" placeholder="查找知识点" aria-label="查找声学知识点"></label></div><div class="lesson-grid" id="lesson-grid"></div><div class="curriculum-note"><span class="note-mark">▤</span><div><strong>与课标同行</strong><p>围绕 2.3.1「声的产生和传播条件」与 2.3.2「声的特性、应用及噪声控制」展开。</p></div><a href="#curriculum">查看知识地图 ↗</a></div>`;
-  const grid = document.querySelector('#lesson-grid');
-  function cards(query = '') {
-    const found = lessons.filter(x => `${x.title} ${x.subtitle} ${x.summary} ${x.sections.map(s=>s.text).join(' ')}`.includes(query.trim()));
-    grid.innerHTML = found.length ? found.map(l => {
-      const n = lessons.indexOf(l)+1, done = state.completed.includes(l.id);
-      return `<a class="lesson-card" href="#lesson/${l.id}"><div class="card-top"><span class="lesson-number">${String(n).padStart(2,'0')}</span><span class="lesson-kind ${done ? 'done' : ''}">${done ? '✓ 已学习' : l.lab ? '3D 实验' : '知识应用'}</span></div><span class="lesson-subtitle">${l.subtitle}</span><h3>${l.title}</h3><p>${l.summary}</p><div class="card-bottom"><span>约 ${l.minutes} 分钟</span><span aria-hidden="true">↗</span></div></a>`;
-    }).join('') : '<p class="empty-state">没有匹配的知识点，试试“振动”“音调”或“噪声”。</p>';
-  }
-  cards(); document.querySelector('#lesson-search').addEventListener('input', e => cards(e.target.value));
-  const world = new World(document.querySelector('#hero-world'), status => { document.querySelector('#hero-fallback').hidden = status === 'ready'; });
-  world.camera = [.3,.2,8.4]; world.update(forkScene(0, false));
-  cleanup = () => world.dispose();
-}
+function renderPractice(module){const list=byModule(lessons,module);if(!list.length)return renderNotFound();main.innerHTML=heading(module)+tabs('quiz',module)+`<div class="section-top"><div><h2>不只记住，更要理解。</h2><p>检查后显示解析，修改选项可再次作答。</p></div><div class="quiz-score"><strong id="quiz-score">${list.filter(x=>state.answers[x.id]===x.question.answer).length} / ${list.length}</strong><span>最近一次作答正确数</span></div></div><div class="practice-grid">${list.map(l=>`<section class="practice-card"><a class="practice-lesson" href="#lesson/${l.id}">${esc(l.subtitle)} ↗</a>${quizMarkup(l)}</section>`).join('')}</div>`;wireQuizzes();}
+function renderCurriculum(){main.innerHTML=`<div class="page-heading"><div><span class="eyebrow">CURRICULUM / 2022</span><h1>课标与知识地图</h1><p>${lessons.length} 节课程 · ${experiments.length} 个交互实验 · 七个学习模块</p></div><a class="button secondary" href="${standard.url}" target="_blank" rel="noopener noreferrer">课标原文 ↗</a></div><div class="standards-explainer"><h2>五个课标主题，七个学习入口</h2><p>七个模块是本应用的学习分类；实验探究与跨学科实践贯穿其中。讲解、题目与模型为配套教学内容，模型范围和近似条件在实验页面说明。</p><div class="theme-list">${standard.themes.map(t=>`<span>${t}</span>`).join('')}</div><p>实物测量、制作、调查和交流需结合课堂与生活完成，模拟结果不能冒充实测数据。</p></div><div class="map-list">${modules.map(m=>`<section class="map-module"><div class="map-title">${icon(m.icon)}<h2>${m.name}</h2><a href="#${m.id}">${byModule(lessons,m.id).length} 节课程 →</a><a href="#experiments/${m.id}">${byModule(experiments,m.id).length} 个实验 →</a></div><div class="topic-grid">${m.topics.map(t=>`<section class="topic-card"><h3>${t.title}</h3><small>课标范围 ${t.code}</small><ul>${t.points.map(p=>`<li>${p}</li>`).join('')}</ul></section>`).join('')}</div></section>`).join('')}</div>`;}
+function renderNotFound(){main.innerHTML='<div class="empty-state"><h1>没有找到这个页面</h1><a class="button" href="#curriculum">返回知识地图</a></div>';}
+function projectCards(module){const list=projects.filter(p=>!module||p.module===module);return `<section class="project-section"><div class="section-top"><div><h2>实践与小制作</h2><p>把模拟中的预测，带到真实测量与生活中验证。</p></div></div><div class="lesson-grid">${list.map(p=>`<a class="lesson-card" href="#project/${p.id}"><span class="pill">实践任务 · 可保存报告</span><h3>${esc(p.title)}</h3><p>${esc(p.question)}</p><div class="card-bottom"><span>查看材料、步骤与记录要求</span><span>↗</span></div></a>`).join('')}</div></section>`;}
+function renderExperimentMap(){main.insertAdjacentHTML('beforeend',`<section class="required-experiments"><div class="section-top"><div><h2>学生实验学习清单</h2><p>10 类测量、12 类探究的配套模型入口；实际仪器操作仍需在实验课完成。</p></div></div><div class="required-grid">${requiredExperiments.map(([type,title,...ids],i)=>`<article><span>${String(i+1).padStart(2,'0')} · ${type}</span><h3>${title}</h3><div>${ids.map(id=>`<a href="#lab/${id}">${experiments.find(x=>x.id===id).title} →</a>`).join('')}</div></article>`).join('')}</div><p class="bottom-note">依据《义务教育物理课程标准（2022年版）》组织；<a href="https://www.moe.gov.cn/jyb_xwfb/moe_2082/2023/2023_zl24/202311/t20231123_1091839.html" target="_blank" rel="noopener noreferrer">教育部实验教学说明 ↗</a></p></section>`+projectCards());}
+function renderProject(id){const p=projects.find(x=>x.id===id);if(!p)return renderNotFound();main.innerHTML=`<div class="back-row"><a href="#experiments/${p.module}">← 返回实验室</a><a href="#lab/${p.lab}">先用模型做预测 ↗</a></div><div class="lesson-heading"><span class="eyebrow">真实实践 / 探究报告</span><h1>${esc(p.title)}</h1><p>${esc(p.question)}</p></div><article class="project-worksheet"><section class="activity-card"><h2>材料与准备</h2><p>${esc(p.materials)}</p></section>${p.steps.map((s,i)=>`<section class="knowledge-section"><span class="section-number">0${i+1}</span><div><h2>${['预测与设计','观察与记录','解释与改进'][i]}</h2><p>${esc(s)}</p></div></section>`).join('')}<div class="takeaway"><p><strong>证据记录：</strong>${esc(p.evidence)}</p></div><p><strong>完成成果：</strong>${esc(p.deliverable)}</p><label class="experiment-note">我的实践报告<textarea id="project-report" rows="10" maxlength="6000" placeholder="我的预测：\n我控制的条件：\n我的记录：\n结论与证据：\n误差和改进：">${esc(state.projects[id]||'')}</textarea></label><p id="report-status" role="status" class="muted">在本机自动保存，最多 6000 字。</p></article>`;main.querySelector('#project-report').oninput=e=>{state.projects[id]=e.target.value;main.querySelector('#report-status').textContent=save()?'报告已保存到本机。':'保存未成功，请复制保留内容。';};}
 
-function renderExperiments() {
-  main.innerHTML = acousticHeading() + tabs('lab') + `<div class="section-top"><div><h2>把问题，交给实验。</h2><p>每一步都有操作、观察和结论。先预测，再动手。</p></div><span class="muted">旋转 · 缩放 · 分步对照</span></div><div class="experiment-grid">${experiments.map(e => `<a href="#lab/${e.id}" class="experiment-card"><div class="experiment-illustration experiment-${e.id}"><canvas id="preview-${e.id}" aria-hidden="true"></canvas><small>实验 ${e.number}</small><span class="preview-fallback" id="preview-error-${e.id}" hidden>3D 预览暂不可用</span></div><div class="experiment-copy"><span class="lesson-subtitle">${e.subtitle}</span><h3>${e.title}</h3><p>${e.description}</p><div class="experiment-tags">${e.tags.map(t=>`<span>${t}</span>`).join('')}</div><div class="card-bottom"><span>进入实验</span>${icon('arrow')}</div></div></a>`).join('')}</div><p class="bottom-note">实验为教学模拟，不能代替真实实验测量。试听需主动开启，切换实验或离开页面会停止。</p>`;
-  const previews = experiments.map(e => {
-    const world = new World(document.querySelector('#preview-'+e.id), status => { document.querySelector('#preview-error-'+e.id).hidden = status === 'ready'; });
-    world.camera = [.32,.28,10.5]; world.update(e.id === 'fork' ? forkScene(0,false) : e.id === 'vacuum' ? vacuumScene(0,100) : waveScene(0,220,.35,'pure')); return world;
-  });
-  cleanup = () => previews.forEach(world=>world.dispose());
-}
-
-function renderLab(id, focus) {
-  const e = experiments.find(x => x.id === id);
-  if (!e) { renderNotFound(); return; }
-  main.innerHTML = `<div class="back-row"><a href="#experiments">← 全部实验</a><a href="#lesson/${e.lesson}">阅读相关知识 ↗</a></div><section class="lab" id="lab-root"></section>`;
-  cleanup = mountLab(document.querySelector('#lab-root'), id, { focus: Number.isInteger(focus) && focus >= 0 ? focus : 0, note: state.notes[id] || '', saveNote(value) { state.notes[id] = value; return save(); }, toast });
-}
-
-function quizMarkup(lesson) {
-  const q = lesson.question;
-  return `<form class="quiz" data-quiz="${lesson.id}"><span class="eyebrow">检查一下理解</span><fieldset><legend>${q.prompt}</legend><div class="quiz-options">${q.options.map((option,i) => `<label><input type="radio" name="answer-${lesson.id}" value="${i}" required><span class="option-letter">${String.fromCharCode(65+i)}</span><span>${option}</span></label>`).join('')}</div></fieldset><button class="button secondary" type="submit">检查答案</button><div class="quiz-feedback" role="status" hidden></div></form>`;
-}
-function wireQuizzes() {
-  main.querySelectorAll('[data-quiz]').forEach(form => {
-    const lesson = lessons.find(x => x.id === form.dataset.quiz);
-    function result(answer) {
-      const feedback = form.querySelector('.quiz-feedback'), correct = answer === lesson.question.answer;
-      feedback.hidden = false; feedback.classList.toggle('correct', correct);
-      feedback.textContent = `${correct ? '回答正确。' : `再想一想，正确选项是 ${String.fromCharCode(65+lesson.question.answer)}。`} ${lesson.question.explanation}`;
-    }
-    const answer = state.answers[lesson.id];
-    if (answer !== undefined) { form.querySelector(`input[value="${answer}"]`).checked = true; result(answer); }
-    form.addEventListener('change', () => { form.querySelector('.quiz-feedback').hidden = true; });
-    form.addEventListener('submit', e => {
-      e.preventDefault(); const selected = form.querySelector('input:checked'); if (!selected) return;
-      state.answers[lesson.id] = Number(selected.value); save(); result(Number(selected.value));
-      const score = main.querySelector('#quiz-score');
-      if (score) score.textContent = `${lessons.filter(x=>state.answers[x.id] === x.question.answer).length} / 8`;
-    });
-  });
-}
-
-function renderLesson(id) {
-  const l = lessons.find(x => x.id === id);
-  if (!l) { renderNotFound(); return; }
-  const i = lessons.indexOf(l), done = state.completed.includes(id);
-  main.innerHTML = `<div class="back-row"><a href="#acoustics">← 声学学习路径</a><span>第 ${String(i+1).padStart(2,'0')} 节 / 08</span></div><div class="lesson-heading"><span class="eyebrow">${l.subtitle} · 约 ${l.minutes} 分钟</span><h1>${l.title}</h1><p>${l.goal}</p>${source(l)}</div><div class="reading-layout"><article class="reading-content">${l.sections.map((s,n)=>`<section class="knowledge-section"><span class="section-number">${String(n+1).padStart(2,'0')}</span><div><h2>${s.title}</h2><p>${s.text}</p></div></section>`).join('')}${l.formula ? `<div class="formula-card"><strong>${l.formula.expression}</strong><span>${l.formula.caption}</span></div>` : ''}${l.example ? `<section class="example-card"><h2>${l.example.title}</h2><p>${l.example.question}</p><h3>解题思路</h3><ol>${l.example.steps.map(s=>`<li>${s}</li>`).join('')}</ol></section>` : ''}<div class="takeaway"><span aria-hidden="true">✦</span><p>${l.takeaway}</p></div><div class="pitfall"><strong>分清这一点</strong><p>${l.pitfall}</p></div>${id === 'echo' ? '<section class="mini-tool"><h2>回声测距计算器</h2><p>声源与接收者在同一位置，障碍物静止，往返声速相同。</p><div class="calculator-fields"><label>往返时间（s）<input id="echo-time" type="number" min="0.01" max="60" step="0.01" value="0.80"></label><label>给定声速<select id="echo-speed"><option value="340">空气约 15 ℃：340 m/s</option><option value="1500">水中示例：1500 m/s</option></select></label></div><output id="echo-result" aria-live="polite"></output><small>水中声速只是本例给定值，实际随温度等条件变化。</small></section>' : ''}${id === 'noise' ? '<section class="mini-tool"><h2>把措施放在合适的位置</h2><div class="noise-options"><button data-noise="source" class="button secondary">设备减振</button><button data-noise="path" class="button secondary">安装隔声窗</button><button data-noise="ear" class="button secondary">佩戴耳罩</button></div><p id="noise-result" aria-live="polite">选择一个措施，看看它作用于传播链条的哪个位置。</p></section>' : ''}${quizMarkup(l)}<div class="lesson-complete"><button id="complete-lesson" class="button" aria-pressed="${done}">${done ? '✓ 已标记学完' : '标记为已学完'}</button><a class="text-link" href="${i < lessons.length-1 ? '#lesson/'+lessons[i+1].id : '#practice'}">${i < lessons.length-1 ? '下一节：'+lessons[i+1].subtitle : '完成学习，去自测'} →</a></div></article><aside class="reading-aside">${l.lab ? `<a href="#lab/${l.lab}/${l.labFocus || 0}" class="lab-invite"><span class="invite-symbol" aria-hidden="true">∿</span><span class="pill">动手探索</span><h3>${experiments.find(e=>e.id === l.lab).subtitle}</h3><p>${l.summary}</p><span class="button">进入 3D 实验 ${icon('arrow')}</span></a>` : ''}<div class="activity-card"><span class="eyebrow">试一试</span><p>${l.activity}</p></div><nav class="lesson-outline" aria-label="其他声学课程">${lessons.map((item,n)=>`<a href="#lesson/${item.id}" ${item.id === id ? 'aria-current="page"' : ''}><span>${String(n+1).padStart(2,'0')}</span>${item.subtitle}</a>`).join('')}</nav></aside></div>`;
-  wireQuizzes();
-  document.querySelector('#complete-lesson').addEventListener('click', e => {
-    if (!state.completed.includes(id)) state.completed.push(id);
-    const persisted = save(); e.currentTarget.textContent = '✓ 已标记学完'; e.currentTarget.setAttribute('aria-pressed','true'); if (persisted) toast('已保存学习进度。');
-  });
-  if (id === 'echo') {
-    const input = main.querySelector('#echo-time'), select = main.querySelector('#echo-speed'), output = main.querySelector('#echo-result');
-    const calculate = () => { const t = Number(input.value), v = Number(select.value); output.textContent = !input.value || !input.validity.valid || !Number.isFinite(t) ? '请输入 0.01～60 s 的有效往返时间。' : `距离 = ${v} × ${t} ÷ 2 = ${Number((v*t/2).toFixed(3))} m`; };
-    input.addEventListener('input',calculate); select.addEventListener('change',calculate); calculate();
-  }
-  if (id === 'noise') main.querySelectorAll('[data-noise]').forEach(button => button.addEventListener('click', () => {
-    main.querySelectorAll('[data-noise]').forEach(b=>b.setAttribute('aria-pressed',String(b === button)));
-    main.querySelector('#noise-result').textContent = { source: '声源处：设备减振，减少产生的噪声。', path: '传播途径中：隔声窗减弱传入室内的声音。', ear: '人耳处：防护耳罩减弱进入耳朵的声音。' }[button.dataset.noise];
-  }));
-}
-
-function renderPractice() {
-  const score = lessons.filter(x => state.answers[x.id] === x.question.answer).length;
-  main.innerHTML = acousticHeading() + tabs('quiz') + `<div class="section-top"><div><h2>不只记住，更要理解。</h2><p>每题检查后显示解析。可以修改选项，再次作答。</p></div><div class="quiz-score"><strong id="quiz-score">${score} / 8</strong><span>最近一次作答正确数</span></div></div><div class="practice-grid">${lessons.map(l=>`<section class="practice-card"><a class="practice-lesson" href="#lesson/${l.id}">${l.subtitle} ↗</a>${quizMarkup(l)}</section>`).join('')}</div>`;
-  wireQuizzes();
-}
-
-function topicMarkup(m) {
-  return m.topics.map(t => `<section class="topic-card"><div class="topic-header"><h3>${t.title}</h3><a href="${standard.url}#page=${t.page}" target="_blank" rel="noopener noreferrer">${t.code} ↗</a></div><ul>${t.points.map(p=>`<li>${p}</li>`).join('')}</ul></section>`).join('');
-}
-function renderModule(id) {
-  const m = modules.find(x=>x.id === id);
-  if (!m) { renderNotFound(); return; }
-  main.innerHTML = `<div class="page-heading"><div><span class="eyebrow">PHYSICS / KNOWLEDGE MAP</span><h1>${m.name}<span class="heading-dot">.</span></h1><p>${m.subtitle}</p></div><span class="pill outline">知识目录</span></div><div class="module-scope"><strong>本模块已整理知识目录</strong><p>本版先完整制作声学。下面是按课标整理的学习范围，${m.name}讲解、练习与实验尚未制作。</p><a href="#acoustics" class="text-link">前往声学学习 →</a></div><div class="topic-grid">${topicMarkup(m)}</div><p class="bottom-note">条款编号对应原课标；点击编号可查看原文。实验探究与跨学科实践贯穿各模块。</p>`;
-}
-function renderCurriculum() {
-  main.innerHTML = `<div class="page-heading"><div><span class="eyebrow">CURRICULUM / 2022</span><h1>课标与知识地图<span class="heading-dot">.</span></h1><p>用熟悉的学科模块组织学习，保留与原课标的联系。</p></div><a class="button secondary" href="${standard.url}" target="_blank" rel="noopener noreferrer">打开课标原文 ↗</a></div><div class="standards-explainer"><h2>五个课标主题，七个学习入口</h2><p>原课标的一级主题是下列五项。“声学、光学、热学、力学、电学、磁学、能源”是本应用按学习习惯整理的导航，不是课标的原始一级分类。</p><div class="theme-list">${standard.themes.map(t=>`<span>${t}</span>`).join('')}</div><p>实验探究与跨学科实践贯穿各模块。声学里的音叉和真空罩对应 2.3.1 的示例；声速、回声、超声与次声的细节为配套教学拓展，不称为该条款逐项列出的要求。</p><small>来源：${standard.title}，教育部制定。表 1：原书第 8 页（PDF 第 15 页）；声学：原书第 16–17 页（PDF 第 23–24 页）。页面链接使用 PDF 页序。</small></div><div class="map-list">${modules.map(m=>`<section class="map-module"><div class="map-title">${icon(m.icon)}<h2>${m.name}</h2><a href="#${m.id}">${m.ready ? '开始学习' : '查看目录'} →</a></div><div class="topic-grid">${topicMarkup(m)}</div></section>`).join('')}</div>`;
-}
-function renderNotFound() { main.innerHTML = '<div class="empty-state"><h1>没有找到这个学习页面</h1><a class="button" href="#acoustics">返回声学首页</a></div>'; }
-
-function route() {
-  cleanup(); cleanup = () => {};
-  const [rawPage, id, focus] = location.hash.slice(1).split('/');
-  const page = rawPage || 'acoustics';
-  const active = modules.some(x=>x.id === page) ? page : ['lesson','lab','practice','experiments'].includes(page) ? 'acoustics' : '';
-  moduleNav.querySelectorAll('[data-module]').forEach(node => { if (node.dataset.module === active) node.setAttribute('aria-current','page'); else node.removeAttribute('aria-current'); });
-  const label = modules.find(x=>x.id === active)?.name || '课标与知识地图';
-  document.querySelector('#breadcrumb').textContent = `物理 / ${label}${page === 'lab' ? ' / 3D 实验室' : page === 'lesson' ? ' / 知识讲解' : ''}`;
-  document.title = `${label} · 物理实验室`;
-  if (!page || page === 'acoustics') renderOverview();
-  else if (page === 'experiments') renderExperiments();
-  else if (page === 'lab') renderLab(id, Number(focus || 0));
-  else if (page === 'lesson') renderLesson(id);
-  else if (page === 'practice') renderPractice();
-  else if (page === 'curriculum') renderCurriculum();
-  else renderModule(page);
-  window.scrollTo({ top: 0, behavior: 'instant' });
-}
-window.addEventListener('hashchange', () => { route(); main.focus({ preventScroll: true }); });
-window.addEventListener('pagehide', () => cleanup());
-window.addEventListener('pageshow', event => { if (event.persisted) route(); });
-route();
-if (!storageAvailable) toast('未能读取本机学习进度。可以继续学习，保存失败时会提示。');
+const menu=document.querySelector('#menu-toggle'),sidebar=document.querySelector('.sidebar'),backdrop=document.querySelector('#nav-backdrop');
+let collapsed=false;try{collapsed=localStorage.getItem('physics-nav-collapsed')==='true';}catch{}
+const small=()=>matchMedia('(max-width: 900px)').matches;
+function navState(open){if(small()){document.body.classList.toggle('nav-open',open);document.body.classList.remove('nav-collapsed');sidebar.inert=!open;backdrop.hidden=!open;}else{document.body.classList.remove('nav-open');document.body.classList.toggle('nav-collapsed',collapsed);sidebar.inert=collapsed;backdrop.hidden=true;}const expanded=small()?open:!collapsed;menu.setAttribute('aria-expanded',String(expanded));menu.setAttribute('aria-label',expanded?'收起模块导航':'展开模块导航');}
+menu.onclick=()=>{if(small())navState(!document.body.classList.contains('nav-open'));else{collapsed=!collapsed;try{localStorage.setItem('physics-nav-collapsed',String(collapsed));}catch{}navState(!collapsed);}};
+document.querySelector('#nav-close').onclick=backdrop.onclick=()=>{navState(false);menu.focus();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('nav-open')){navState(false);menu.focus();}if(e.key==='Tab'&&small()&&document.body.classList.contains('nav-open')){const nodes=[...sidebar.querySelectorAll('a,button')],first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}});
+menu.addEventListener('click',()=>{if(small()&&document.body.classList.contains('nav-open'))document.querySelector('#nav-close').focus();});
+matchMedia('(max-width: 900px)').addEventListener('change',()=>navState(false));navState(false);
+document.querySelector('.skip-link').onclick=e=>{e.preventDefault();main.focus();main.scrollIntoView();};
+function route(){cleanup();cleanup=()=>{};const [raw,id,focus]=location.hash.slice(1).split('/'),page=raw||'acoustics';currentModule=modules.some(m=>m.id===page)?page:page==='lesson'?lessons.find(l=>l.id===id)?.module:page==='lab'?experiments.find(l=>l.id===id)?.module:page==='project'?projects.find(p=>p.id===id)?.module:['experiments','practice'].includes(page)?id||'acoustics':'';navProgress();navState(false);const label=modules.find(m=>m.id===currentModule)?.name||'知识地图';document.querySelector('#breadcrumb').textContent='物理 / '+label+(page==='lesson'?' / 知识讲解':page==='lab'?' / 实验室':'');document.title=label+' · 物理实验室';main.className=page==='lab'?'lab-page':page==='lesson'?'lesson-page':'';if(page==='lesson')renderLesson(id);else if(page==='lab')renderLab(id,Number(focus||0));else if(page==='experiments')renderExperiments(currentModule);else if(page==='practice')renderPractice(currentModule);else if(page==='project')renderProject(id);else if(page==='curriculum'){renderCurriculum();renderExperimentMap();}else renderOverview(page);window.scrollTo({top:0,behavior:'instant'});}
+window.addEventListener('hashchange',()=>{route();main.focus({preventScroll:true});});window.addEventListener('pagehide',()=>cleanup());window.addEventListener('pageshow',e=>{if(e.persisted)route();});route();if(!storageAvailable)toast('未能读取本机进度，可以继续学习。');

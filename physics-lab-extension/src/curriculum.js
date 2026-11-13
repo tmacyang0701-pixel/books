@@ -1,3 +1,4 @@
+import {additionalLessons} from './full-curriculum.js';
 export const standard = {
   title: '义务教育物理课程标准（2022年版）',
   url: 'https://www.ictr.edu.cn/Uploads/File/2022/04/28/11.%E4%B9%89%E5%8A%A1%E6%95%99%E8%82%B2%E7%89%A9%E7%90%86%E8%AF%BE%E7%A8%8B%E6%A0%87%E5%87%86%EF%BC%882022%E5%B9%B4%E7%89%88%EF%BC%89.20220428160444.pdf',
@@ -40,7 +41,7 @@ export const modules = [
   ] },
 ];
 
-export const lessons = [
+const acousticLessons = [
   { id: 'vibration', title: '声音是怎样产生的？', subtitle: '声音的产生', summary: '轻敲音叉，把看不见的振动变成看得见的证据。', minutes: 6, code: '2.3.1', page: 23, lab: 'fork',
     goal: '用实验现象说明声音由物体振动产生，并理解转换法。',
     sections: [
@@ -140,3 +141,6 @@ export const lessons = [
     question: { prompt: '临街教室安装隔声窗，主要在哪个位置控制噪声？', options: ['改变声源的振动频率', '传播途径中', '人耳处', '把空气变成真空'], answer: 1, explanation: '隔声窗位于声音从街道到教室的传播途径上，减弱传入教室的声音，并未停止街道声源的振动。' },
   },
 ];
+
+export const lessons = [...acousticLessons.map(l=>({...l,module:"acoustics"})),...additionalLessons];
+for(const module of modules) module.ready=true;

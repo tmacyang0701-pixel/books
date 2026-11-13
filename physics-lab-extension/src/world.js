@@ -20,7 +20,16 @@ export const palette = { teal: [0.12, 0.52, 0.45], blue: [0.34, 0.52, 0.64], ste
 export const shape = (kind, pos, scale, color, alpha = 1, angle = 0) => ({ kind, pos, scale, color, alpha, angle });
 
 export class World {
-  constructor(canvas, onStatus = () => {}) {
+  constructor(canvas, onStatus = () => {}, {reuseContext=true} = {}) {
+    // Keep one released context between routes. Rapidly creating 48 independent
+    // contexts can exhaust the browser/GPU budget even when old canvases are removed.
+    if(World.idleCanvas&&!World.idleCanvas.isConnected&&World.idleCanvas.getContext('webgl')?.isContextLost())World.idleCanvas=null;
+    if(reuseContext&&World.idleCanvas&&!World.idleCanvas.isConnected){
+      const reused=World.idleCanvas;World.idleCanvas=null;
+      for(const attribute of [...reused.attributes])reused.removeAttribute(attribute.name);
+      for(const attribute of [...canvas.attributes])reused.setAttribute(attribute.name,attribute.value);
+      canvas.replaceWith(reused);canvas=reused;
+    }
     this.canvas = canvas;
     this.onStatus = onStatus;
     this.items = [];
@@ -64,6 +73,7 @@ export class World {
     }, opts);
     canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); this.ready = false; this.meshes = null; this.program = null; canvas.dataset.rendered = 'false'; this.onStatus('lost'); }, opts);
     canvas.addEventListener('webglcontextrestored', () => this.init(), opts);
+    canvas.addEventListener('webglcontextcreationerror', e => {canvas.dataset.contextError=e.statusMessage;}, opts);
     this.resize = new ResizeObserver(() => this.draw());
     this.resize.observe(canvas);
     this.init();
@@ -72,19 +82,20 @@ export class World {
     try {
       this.clearResources();
       const gl = this.canvas.getContext('webgl', { alpha: true, antialias: true });
-      if (!gl || gl.isContextLost()) throw new Error('webgl-unavailable');
+      if (!gl) throw new Error('webgl-context-unavailable');
+      if (gl.isContextLost()) throw new Error('webgl-context-lost');
       this.gl = gl;
       this.lossExtension = gl.getExtension('WEBGL_lose_context');
       const shader = (type, source) => {
         const s = gl.createShader(type); gl.shaderSource(s, source); gl.compileShader(s);
-        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); throw new Error('shader'); }
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { const message=gl.getShaderInfoLog(s); gl.deleteShader(s); throw new Error('shader: '+message); }
         return s;
       };
-      const vs = shader(gl.VERTEX_SHADER, 'attribute vec3 aPos;attribute vec3 aNormal;uniform mat4 uView;uniform vec3 uPos;uniform vec3 uScale;uniform float uAngle;varying vec3 vNormal;void main(){float c=cos(uAngle);float s=sin(uAngle);mat3 r=mat3(c,s,0.,-s,c,0.,0.,0.,1.);vNormal=normalize(r*(aNormal/uScale));gl_Position=uView*vec4(r*(aPos*uScale)+uPos,1.);}');
+      const vs = shader(gl.VERTEX_SHADER, 'attribute vec3 aPos;attribute vec3 aNormal;uniform mat4 uView;uniform vec3 uPos;uniform vec3 uScale;uniform mat3 uRotation;varying vec3 vNormal;void main(){vNormal=normalize(uRotation*(aNormal/uScale));gl_Position=uView*vec4(uRotation*(aPos*uScale)+uPos,1.);}');
       const fs = shader(gl.FRAGMENT_SHADER, 'precision mediump float;uniform vec4 uColor;uniform float uUnlit;varying vec3 vNormal;void main(){vec3 n=normalize(vNormal);float key=max(dot(n,normalize(vec3(-.5,1.,.8))),0.);float rim=max(dot(n,normalize(vec3(.8,.3,-.6))),0.);float light=mix(.42+.53*key+.15*rim,1.,uUnlit);gl_FragColor=vec4(uColor.rgb*light,uColor.a);}');
       this.program = gl.createProgram(); gl.attachShader(this.program, vs); gl.attachShader(this.program, fs); gl.linkProgram(this.program); gl.deleteShader(vs); gl.deleteShader(fs);
       if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) throw new Error('program');
-      this.uniforms = Object.fromEntries(['uView', 'uPos', 'uScale', 'uAngle', 'uColor', 'uUnlit'].map(key => [key, gl.getUniformLocation(this.program, key)]));
+      this.uniforms = Object.fromEntries(['uView', 'uPos', 'uScale', 'uRotation', 'uColor', 'uUnlit'].map(key => [key, gl.getUniformLocation(this.program, key)]));
       this.attrs = [gl.getAttribLocation(this.program, 'aPos'), gl.getAttribLocation(this.program, 'aNormal')];
       this.meshes = new Map();
       const upload = (name, data, lines = false) => { const buffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buffer); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW); this.meshes.set(name, { buffer, count: data.length / 6, lines }); };
@@ -107,8 +118,9 @@ export class World {
       }
       upload('tube', sides); upload('cylinder', [...sides, ...caps]);
       upload('line', [-.5,0,0,0,1,0,.5,0,0,0,1,0], true);
-      this.ready = true; this.draw(); this.onStatus('ready');
-    } catch {
+      this.ready = true; delete this.canvas.dataset.renderError; delete this.canvas.dataset.contextError; this.draw(); this.onStatus('ready');
+    } catch(error) {
+      this.canvas.dataset.renderError=error.message;
       this.ready = false; this.clearResources(); this.onStatus('unavailable');
     }
   }
@@ -139,10 +151,19 @@ export class World {
       gl.depthMask(item.alpha === 1); gl.bindBuffer(gl.ARRAY_BUFFER, mesh.buffer);
       for (const a of this.attrs) gl.enableVertexAttribArray(a);
       gl.vertexAttribPointer(this.attrs[0], 3, gl.FLOAT, false, 24, 0); gl.vertexAttribPointer(this.attrs[1], 3, gl.FLOAT, false, 24, 12);
-      gl.uniform3fv(this.uniforms.uPos, item.pos); gl.uniform3fv(this.uniforms.uScale, item.scale); gl.uniform1f(this.uniforms.uAngle, item.angle); gl.uniform4fv(this.uniforms.uColor, [...item.color, item.alpha]); gl.uniform1f(this.uniforms.uUnlit, mesh.lines ? 1 : 0);
+      const c=Math.cos(item.angle||0),s=Math.sin(item.angle||0);
+      gl.uniform3fv(this.uniforms.uPos, item.pos); gl.uniform3fv(this.uniforms.uScale, item.scale); gl.uniformMatrix3fv(this.uniforms.uRotation,false,item.orientation||[c,s,0,-s,c,0,0,0,1]); gl.uniform4fv(this.uniforms.uColor, [...item.color, item.alpha]); gl.uniform1f(this.uniforms.uUnlit, mesh.lines ? 1 : 0);
       gl.drawArrays(mesh.lines ? gl.LINES : gl.TRIANGLES, 0, mesh.count);
     }
     gl.depthMask(true); canvas.dataset.rendered = 'true';
+    this.onDraw?.();
+  }
+  project(point){
+    if(!this.matrix)return null;
+    const v=[...point,1],q=[0,0,0,0];
+    for(let r=0;r<4;r++)for(let c=0;c<4;c++)q[r]+=this.matrix[c*4+r]*v[c];
+    if(q[3]<=.1)return null;
+    return [(q[0]/q[3]+1)*this.canvas.clientWidth/2,(1-q[1]/q[3])*this.canvas.clientHeight/2];
   }
   clearResources() {
     if (!this.gl) return;
@@ -150,7 +171,12 @@ export class World {
     if (this.program) this.gl.deleteProgram(this.program);
     this.meshes = null; this.program = null;
   }
-  dispose() { this.disposed = true; this.ready = false; this.abort.abort(); this.resize.disconnect(); this.clearResources(); this.gl?.getExtension('WEBGL_lose_context')?.loseContext(); }
+  dispose() {
+    if(this.disposed)return;
+    this.disposed = true; this.ready = false; this.abort.abort(); this.resize.disconnect(); this.clearResources();this.onDraw=null;
+    if(this.gl&&!this.gl.isContextLost()&&!World.idleCanvas)World.idleCanvas=this.canvas;
+    else this.gl?.getExtension('WEBGL_lose_context')?.loseContext();
+  }
 }
 
 export function ground() {

@@ -25,6 +25,17 @@ class NativeServiceControlTests(unittest.TestCase):
         with patch.object(host.subprocess,'Popen') as launch:
             self.assertIn('learningServiceControl',host.dispatch({'mode':'capabilities'},{} )['capabilities']);launch.assert_not_called()
 
+    def test_capability_reports_only_verified_local_endpoint(self):
+        (self.root/'.local').mkdir()
+        endpoint=self.root/'.local/service-endpoint.json'
+        endpoint.write_text(json.dumps(dict(port=8767,instancePath=str(self.root),serviceUrl='https://untrusted.invalid')))
+        self.assertEqual(host.dispatch({'mode':'capabilities'},self.config)['serviceUrl'],'http://127.0.0.1:8767')
+        for bad in (dict(port=0,instancePath=str(self.root)),dict(port='8767',instancePath=str(self.root)),dict(port=8767,instancePath=str(self.root.parent))):
+            endpoint.write_text(json.dumps(bad))
+            self.assertEqual(host.learning_endpoint(self.config),'http://127.0.0.1:8766')
+        endpoint.write_text('broken')
+        self.assertEqual(host.learning_endpoint(self.config),'http://127.0.0.1:8766')
+
     def test_only_fixed_launcher_is_spawned_and_status_is_readable(self):
         with patch.object(host.subprocess,'Popen') as launch:
             job=host.dispatch({'mode':'learning_service_start','restart':True,'command':'ignore-me','path':'C:/untrusted.ps1'},self.config)

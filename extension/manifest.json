@@ -4,7 +4,7 @@
   "version": "3.0.0",
   "description": "GESP 1-8 级学习、五级真题、千问讲解课件、相似题练习与本机 C++ 评测",
   "permissions": ["nativeMessaging", "storage"],
-  "host_permissions": ["http://127.0.0.1:8766/*"],
+  "host_permissions": ["http://127.0.0.1/*"],
   "action": {"default_title": "打开 CodeArena"},
   "background": {"service_worker": "background.js"}
 }

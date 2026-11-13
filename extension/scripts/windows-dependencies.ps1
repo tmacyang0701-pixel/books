@@ -37,7 +37,7 @@ function Find-LearningPython {
 
 function Test-PythonDependency($PythonPath,$ModuleName) {
     try {
-        & $PythonPath -c 'import importlib,sys; importlib.import_module(sys.argv[1])' $ModuleName 2>$null
+        & $PythonPath -I -c 'import importlib,sys; importlib.import_module(sys.argv[1])' $ModuleName 2>$null
         return ($LASTEXITCODE -eq 0)
     } catch { return $false }
 }

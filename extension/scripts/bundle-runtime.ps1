@@ -79,3 +79,18 @@ function Get-CodeArenaPdfWheel {
     if ((Get-FileHash -LiteralPath $wheel -Algorithm SHA256).Hash -ine $spec.sha256) { throw 'Bundled pypdf checksum mismatch; nothing was installed from this file.' }
     return $wheel
 }
+
+function Get-CodeArenaPdfDependencyWheels {
+    $bundle=Get-CodeArenaBundleRoot
+    if (-not $bundle) { return }
+    $directory=Join-Path $bundle 'python\wheels'
+    $metadata=Get-Content -LiteralPath (Join-Path $directory 'downloads.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($spec in @($metadata.dependencies)) {
+        if (-not $spec) { continue }
+        if ($spec.filename -notmatch '^typing_extensions-[0-9.]+-py3-none-any\.whl$' -or $spec.sha256 -notmatch '^[a-fA-F0-9]{64}$') { throw 'Invalid bundled PDF transitive dependency metadata.' }
+        $wheel=Join-Path $directory $spec.filename
+        if (-not (Test-Path -LiteralPath $wheel -PathType Leaf)) { throw 'The bundled typing_extensions wheel is missing. Extract the complete package.' }
+        if ((Get-FileHash -LiteralPath $wheel -Algorithm SHA256).Hash -ine $spec.sha256) { throw 'Bundled typing_extensions checksum mismatch; nothing was installed from this file.' }
+        $wheel
+    }
+}

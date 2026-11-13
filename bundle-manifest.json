@@ -14,7 +14,7 @@
   "dependencies": {
     "chrome": "Reuse installed Chrome; signed official download if absent",
     "python": "3.10+ with ssl/sqlite3/venv; reuse selected runtime or registry installation",
-    "pypdf": "6.11.0; PyPI-verified universal wheel bundled, installed into project venv",
+    "pypdf": "6.11.0; includes typing_extensions 4.15.0 for Python 3.10; PyPI-verified wheels installed into project venv",
     "cpp": "g++ with real C++17 compile/run validation",
     "gdb": "Working GDB with Python support and native debug validation",
     "nativeHost": "Auditable Python source through start-host.bat and project venv; no packaged EXE or PyInstaller required",
@@ -23,7 +23,8 @@
   "bundledInstallers": {
     "python": "python/python-3.14.10-amd64.exe",
     "cppToolchain": "devcpp/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_Setup.exe",
-    "pypdf": "python/wheels/pypdf-6.11.0-py3-none-any.whl"
+    "pypdf": "python/wheels/pypdf-6.11.0-py3-none-any.whl",
+    "typingExtensions": "python/wheels/typing_extensions-4.15.0-py3-none-any.whl"
   },
   "installation": {
     "offline": false,
@@ -34,7 +35,6 @@
     ],
     "requiresUserSteps": [
       "Load extension directory in Chrome developer mode",
-      "Paste extension ID",
       "Configure own API key if missing"
     ],
     "skipAdequateExisting": true,
@@ -52,6 +52,13 @@
   "questionBank": {
     "levels": 8,
     "problems": 216
+  },
+  "physicsLab": {
+    "directory": "physics-lab-extension",
+    "version": "2.1.0",
+    "lessons": 64,
+    "webglLabs": 48,
+    "practiceProjects": 10
   },
   "verificationFile": "integration-verification.json",
   "sourceImportFile": "codearena-import.json"

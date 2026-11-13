@@ -12,12 +12,14 @@ import {createExamplePlayer} from './ui/lesson-examples.js';
 import {pagePseudocode} from './ui/pseudocode.js';
 import {createCodeAccess} from './ui/code-access.js';
 import {startLearningService} from './ui/service-control.js';
+import {createServiceEndpoint} from './ui/service-endpoint.js';
 import {knowledgeTag,knowledgeParts,knowledgeId,topicProblems,topicProblem,topicPage,knowledgeHtml,knowledgeDirectoryHtml} from './ui/knowledge.js';
 import {lessonProse} from './ui/lesson-prose.js';
 import {createSyntaxLab} from './ui/syntax-lab.js';
 const $=id=>document.getElementById(id);
 const asset=path=>globalThis.chrome?.runtime?.getURL?chrome.runtime.getURL(path):new URL(path,location.href).href;
 const API=location.protocol==='chrome-extension:'?'http://127.0.0.1:8766':location.origin;
+const serviceEndpoint=createServiceEndpoint({sendNative,defaultUrl:API,extensionPage:location.protocol==='chrome-extension:'});
 const blankCode='#include <iostream>\nusing namespace std;\n\nint main() {\n    // 在这里开始解题\n    return 0;\n}\n';
 const starter='#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}\n';
 function readLocal(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
@@ -75,7 +77,7 @@ async function api(path,body,method=body?'POST':'GET'){
     if(body?.messages?.some(m=>m.attachments?.length)&&!health.capabilities?.includes('imagePageChat'))throw Error('图片问答需要更新后台，请点击“启动／更新后台”后重试。');
   }
   let response;
-  try{response=await fetch(API+path,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(12000)})}
+  try{response=await fetch((await serviceEndpoint(path==='/api/health'))+path,{method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(12000)})}
   catch{throw Error('无法连接本地讲解服务，请点击页面上的“启动／更新后台”')}
   let value;try{value=await response.json()}catch{throw Error('本地服务返回格式异常')}
   if(!response.ok){const error=Error(value.error?.message||`请求失败（${response.status}）`);error.status=response.status;error.code=value.error?.code;throw error}

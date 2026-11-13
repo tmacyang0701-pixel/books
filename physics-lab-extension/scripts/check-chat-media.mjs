@@ -30,4 +30,7 @@ try{
 console.log('图片与语音检查通过：图片边界、最近三图、内容转义、框选坐标、语音草稿与切页清理。');
 
 assert.match(extensionConnectionIssue({getManifest:()=>({content_security_policy:{extension_pages:"connect-src 'none'"}})}),/重新加载/);
+assert.match(extensionConnectionIssue({}, {protocol:'chrome-extension:'}),/只刷新页面不会更新权限/);
+assert.equal(extensionConnectionIssue({}, {protocol:'http:'}),'');
+assert.match(extensionConnectionIssue({getManifest:()=>{throw Error('Extension context invalidated');}}),/重新加载/);
 assert.equal(extensionConnectionIssue({getManifest:()=>({host_permissions:['http://127.0.0.1/*'],content_security_policy:{extension_pages:"connect-src 'self' http://127.0.0.1:*"}})}),'');

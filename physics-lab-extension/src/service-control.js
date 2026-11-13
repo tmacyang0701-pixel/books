@@ -1,10 +1,10 @@
-import { createTutorApi, normalizeServiceUrl, sharedServiceUrl } from './tutor-api.js';
+import { createTutorApi, normalizeServiceUrl, sharedServiceUrl, EXTENSION_RELOAD_MESSAGE } from './tutor-api.js';
 
-export function sendNative(payload) {
+export function sendNative(payload,{runtime=globalThis.chrome?.runtime,location=globalThis.location}={}) {
   return new Promise((resolve,reject)=>{
-    if(!globalThis.chrome?.runtime?.sendNativeMessage){reject(Error('当前是网页模式。请双击 physics-lab-extension 目录下的 start-learning.bat（与 manifest.json 放在一起）；它会启动同级 GESP 的共享后台。'));return;}
-    chrome.runtime.sendNativeMessage('com.codearena.cpp_judge',payload,response=>{
-      const error=chrome.runtime.lastError;
+    if(!runtime?.sendNativeMessage){const error=Error(location?.protocol==='chrome-extension:'?EXTENSION_RELOAD_MESSAGE:'当前是网页模式。请双击 physics-lab-extension 目录下的 start-learning.bat（与 manifest.json 放在一起）；它会启动同级 GESP 的共享后台。');if(location?.protocol==='chrome-extension:')error.code='extension_reload';reject(error);return;}
+    runtime.sendNativeMessage('com.codearena.cpp_judge',payload,response=>{
+      const error=runtime.lastError;
       if(error){reject(Error('请先运行 GESP 目录下的 enable-page-start.bat，完成后重新加载物理扩展，即可从这里启动共用后台。'));return;}
       if(!response||response.error){reject(Error(response?.error||'本地组件没有响应。'));return;}
       resolve(response);
@@ -43,12 +43,15 @@ export function mountServiceControl({onReady,notify}) {
   button.textContent=idleLabel;
   const remember=url=>{try{localStorage.setItem('physics-shared-service',normalizeServiceUrl(url));}catch{}};
   function renderHealth(health,error){
+    const reload=error?.code==='extension_reload';
     const outdated=health&&(health.service!=='codearena-learning'||health.physicsSchema!==1||!health.chapterChat);
     const ready=health?.configured&&!outdated;
-    menu.dataset.state=ready?'ready':health?'attention':'offline';
-    label.textContent=ready?'已连接':outdated?'需更新':health?'待配置':'未连接';
-    serviceStatus.textContent=ready?health.model+' · 本地服务已连接':outdated?'后台需要更新':health?'本地服务已连接 · 待配置密钥':'讲解服务未连接';
+    menu.dataset.state=ready?'ready':reload||health?'attention':'offline';
+    label.textContent=reload?'需重载':ready?'已连接':outdated?'需更新':health?'待配置':'未连接';
+    serviceStatus.textContent=reload?'请重新加载物理扩展':ready?health.model+' · 本地服务已连接':outdated?'后台需要更新':health?'本地服务已连接 · 待配置密钥':'讲解服务未连接';
     detail.textContent=error?.message||('后台地址：'+sharedServiceUrl()+(outdated?'\n请启动／更新后台。':!health?.configured?'\n请在 GESP 中配置模型密钥。':''));
+    menu.querySelector('[data-extension-reload]').hidden=!reload;
+    button.hidden=reload;
   }
   async function syncEndpoint(){
     if(!extensionPage||!globalThis.chrome?.runtime?.sendNativeMessage)return;
@@ -62,8 +65,9 @@ export function mountServiceControl({onReady,notify}) {
     catch(error){if(version===statusVersion)renderHealth(null,error);}
   }
   const progress=text=>{button.textContent=text;label.textContent='连接中';serviceStatus.textContent=text;menu.dataset.state='checking';document.querySelectorAll('[data-service-start]').forEach(b=>b.disabled=Boolean(starting));};
-  function showError(text){
-    const dialog=document.querySelector('#shared-service-dialog');dialog.querySelector('p').textContent=text;
+  function showError(text,reload=false){
+    const dialog=document.querySelector('#shared-service-dialog');dialog.querySelector('h2').textContent=reload?'重新加载物理扩展':'启动共享后台';dialog.querySelector('p').textContent=text;
+    dialog.querySelector('[data-extension-reload]').hidden=!reload;
     if(!dialog.open)dialog.showModal();
   }
   async function start(){
@@ -74,17 +78,20 @@ export function mountServiceControl({onReady,notify}) {
       try{
         const health=await startSharedService({onEndpoint:remember,onProgress:progress,getHealth:url=>createTutorApi(url)('/health')});
         renderHealth(health);onReady();notify(health.configured?'共享后台已启动，可以继续提问。':'后台已连接，请在 GESP 中配置模型密钥。');
-      }catch(error){renderHealth(null,error);showError(error.message);}
+      }catch(error){renderHealth(null,error);showError(error.message,error.code==='extension_reload');}
       finally{starting=null;button.textContent=idleLabel;document.querySelectorAll('[data-service-start]').forEach(b=>b.disabled=false);}
     })();
     progress('正在启动后台…');return starting;
   }
   document.addEventListener('click',event=>{
-    if(event.target.closest('[data-service-start]'))start();
+    if(event.target.closest('[data-extension-reload]')){
+      if(globalThis.chrome?.runtime?.reload)chrome.runtime.reload();
+      else showError(EXTENSION_RELOAD_MESSAGE);
+    }else if(event.target.closest('[data-service-start]'))start();
     else if(!menu.contains(event.target))menu.open=false;
   });
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.open){menu.open=false;menu.querySelector('summary').focus({preventScroll:true});}});
-  document.querySelector('#shared-service-dialog button').onclick=()=>document.querySelector('#shared-service-dialog').close();
+  document.querySelector('#shared-service-dialog [data-service-dismiss]').onclick=()=>document.querySelector('#shared-service-dialog').close();
   document.querySelector('#check-shared-service').onclick=checkConnection;
   menu.addEventListener('toggle',()=>{if(menu.open)checkConnection();});
   window.addEventListener('focus',()=>{if(!document.hidden)checkConnection();});

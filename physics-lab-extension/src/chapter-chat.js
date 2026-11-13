@@ -68,7 +68,7 @@ export function mountChapterChat(root, lesson) {
   function setOpen(open,{remember=false,focus=false}={}){
     if(!open)voice?.cancel();
     root.hidden=!open;document.body.classList.toggle('chapter-chat-open',open);
-    toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'收起问答':'本节问答';
+    toggle.setAttribute('aria-expanded',String(open));toggle.hidden=open;
     if(remember){explicitOpen=open;try{localStorage.setItem('physics-chapter-chat-open',String(open));}catch{}}
     if(focus)(open?root.querySelector('textarea'):toggle).focus({preventScroll:true});
   }
@@ -201,7 +201,7 @@ export function mountChapterChat(root, lesson) {
   (async()=>{
     const badge=root.querySelector('.chapter-ai-badge');
     try{const health=await api('/health',undefined,controller.signal);if(!alive)return;badge.textContent=health.configured?'后台已连接':'待配置模型';badge.title=sharedServiceUrl()+' · '+health.model;badge.dataset.state=health.configured?'ready':'error';}
-    catch(error){if(alive){badge.textContent='后台未连接';badge.title=displayError(error);badge.dataset.state='error';}}
+    catch(error){if(alive){badge.textContent=error.code==='extension_reload'?'需重载扩展':'后台未连接';badge.title=displayError(error);badge.dataset.state='error';}}
   })();
   return ()=>{alive=false;voice.dispose();controller.abort();narrow.removeEventListener('change',onResize);document.body.classList.remove('has-chapter-chat','chapter-chat-open');};
 }

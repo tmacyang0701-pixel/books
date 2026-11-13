@@ -78,14 +78,28 @@ export function previewCrop(canvas,signal) {
   return new Promise(resolve=>{
     if(signal?.aborted){resolve(null);return;}
     const dialog=document.createElement('dialog');dialog.className='chat-crop-dialog';
-    dialog.innerHTML='<div class="dialog-heading"><h2>截取本节内容</h2><button type="button" data-cancel class="icon-button" aria-label="取消截图">×</button></div><p class="small muted">拖动框选要提问的区域；不框选则使用整页。只截取本节正文。</p><div class="chat-crop-stage"><img alt="课件截图预览" draggable="false"><div class="chat-crop-selection" hidden></div></div><p class="small muted" data-crop-status role="status">已选择整页</p><div class="dialog-footer"><button type="button" class="ghost" data-reset>使用整页</button><button type="button" class="ghost" data-cancel>取消</button><button type="button" class="primary" data-attach>加入问题</button></div>';
-    const stage=dialog.querySelector('.chat-crop-stage'),img=stage.querySelector('img'),box=stage.querySelector('div'),status=dialog.querySelector('[data-crop-status]');
-    img.src=canvas.toDataURL('image/png');let start=null,selection=null,done=false;
-    const finish=value=>{if(done)return;done=true;signal?.removeEventListener('abort',cancel);dialog.close();dialog.remove();resolve(value);};
+    dialog.innerHTML='<div class="dialog-heading"><h2>截取本节内容</h2><button type="button" data-cancel class="icon-button" aria-label="取消截图">×</button></div><p class="small muted">拖动框选，滚轮滚动；Ctrl + 滚轮缩放。不框选则使用整页。</p><div class="chat-crop-zoom" role="group" aria-label="截图缩放"><button type="button" data-zoom-out aria-label="缩小截图">−</button><output data-zoom-label aria-live="polite"></output><button type="button" data-zoom-in aria-label="放大截图">+</button><button type="button" data-zoom-actual>100%</button><button type="button" data-zoom-fit>适应窗口</button></div><div class="chat-crop-viewport" tabindex="0" aria-label="截图预览，可滚动"><div class="chat-crop-stage"><img alt="课件截图预览" draggable="false"><div class="chat-crop-selection" hidden></div></div></div><p class="small muted" data-crop-status role="status">已选择整页</p><div class="dialog-footer"><button type="button" class="ghost" data-reset>使用整页</button><button type="button" class="ghost" data-cancel>取消</button><button type="button" class="primary" data-attach>加入问题</button></div>';
+    const viewport=dialog.querySelector('.chat-crop-viewport'),stage=dialog.querySelector('.chat-crop-stage'),img=stage.querySelector('img'),box=stage.querySelector('div'),status=dialog.querySelector('[data-crop-status]');
+    img.src=canvas.toDataURL('image/png');let start=null,selection=null,done=false,scale=1,fitted=true,resize;
+    const finish=value=>{if(done)return;done=true;resize?.disconnect();signal?.removeEventListener('abort',cancel);dialog.close();dialog.remove();resolve(value);};
     const cancel=()=>finish(null);signal?.addEventListener('abort',cancel,{once:true});
     const point=e=>{const r=img.getBoundingClientRect();return{x:Math.max(0,Math.min(canvas.width,(e.clientX-r.left)*canvas.width/r.width)),y:Math.max(0,Math.min(canvas.height,(e.clientY-r.top)*canvas.height/r.height))};};
+    const zoom=(next,anchor)=>{
+      const r=viewport.getBoundingClientRect(),center=anchor||{clientX:r.left+viewport.clientWidth/2,clientY:r.top+viewport.clientHeight/2},p=point(center);
+      scale=Math.max(.05,Math.min(3,next));stage.style.width=canvas.width*scale+'px';stage.style.height=canvas.height*scale+'px';
+      const after=img.getBoundingClientRect();viewport.scrollLeft+=after.left+p.x*scale-center.clientX;viewport.scrollTop+=after.top+p.y*scale-center.clientY;
+      dialog.querySelector('[data-zoom-label]').textContent=Math.round(scale*100)+'%';
+      dialog.querySelector('[data-zoom-out]').disabled=scale<=.05;dialog.querySelector('[data-zoom-in]').disabled=scale>=3;
+    };
+    const fit=()=>{fitted=true;zoom(Math.min(1,viewport.clientWidth/canvas.width,viewport.clientHeight/canvas.height));viewport.scrollTo(0,0);};
+    const adjust=next=>{fitted=false;zoom(next);};
+    dialog.querySelector('[data-zoom-in]').onclick=()=>adjust(scale*1.25);
+    dialog.querySelector('[data-zoom-out]').onclick=()=>adjust(scale/1.25);
+    dialog.querySelector('[data-zoom-actual]').onclick=()=>adjust(1);
+    dialog.querySelector('[data-zoom-fit]').onclick=fit;
+    viewport.addEventListener('wheel',event=>{if(!event.ctrlKey)return;event.preventDefault();fitted=false;zoom(scale*Math.exp(-event.deltaY*.002),event);},{passive:false});
     const reset=()=>{selection=null;box.hidden=true;status.textContent='已选择整页';};
-    stage.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();start=point(e);stage.setPointerCapture(e.pointerId);};
+    stage.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();reset();start=point(e);stage.setPointerCapture(e.pointerId);};
     stage.onpointermove=e=>{if(!start)return;selection=cropBounds(start,point(e),canvas.width,canvas.height);box.hidden=false;Object.assign(box.style,{left:selection.x/canvas.width*100+'%',top:selection.y/canvas.height*100+'%',width:selection.width/canvas.width*100+'%',height:selection.height/canvas.height*100+'%'});status.textContent=`已框选 ${Math.round(selection.width)} × ${Math.round(selection.height)} 像素`;};
     stage.onpointerup=()=>{start=null;if(!selection||selection.width<10||selection.height<10)reset();};
     stage.onpointercancel=()=>{start=null;reset();};
@@ -97,6 +111,7 @@ export function previewCrop(canvas,signal) {
       const cropped=document.createElement('canvas');cropped.width=Math.max(1,Math.round(selection.width));cropped.height=Math.max(1,Math.round(selection.height));
       cropped.getContext('2d').drawImage(canvas,selection.x,selection.y,selection.width,selection.height,0,0,cropped.width,cropped.height);finish(cropped);
     };
-    document.body.append(dialog);dialog.showModal();
+    document.body.append(dialog);dialog.showModal();fit();
+    resize=new ResizeObserver(()=>{if(fitted&&!done)fit();});resize.observe(viewport);
   });
 }

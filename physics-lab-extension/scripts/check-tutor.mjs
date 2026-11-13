@@ -4,7 +4,7 @@ import { questionContext, checkedPackage } from '../src/tutor-view.js';
 import { examQuestions, restoreQuestionAnswers, examOutcome } from '../src/exam-bank.js';
 import { questionMarkup } from '../src/exam-view.js';
 import { chapterContext, chapterHistory, chapterAnswer } from '../src/chapter-chat.js';
-import { startSharedService } from '../src/service-control.js';
+import { startSharedService, sendNative } from '../src/service-control.js';
 import { lessons } from '../src/curriculum.js';
 
 assert.equal(normalizeServiceUrl('http://127.0.0.1:8766/'),'http://127.0.0.1:8766');
@@ -41,6 +41,8 @@ await api('/questions',{chapter:timbre});assert.ok(call.at(-1).url.endsWith('/ap
 console.log('讲解与变式检查通过：共享接口、来源隔离、章节上下文、变式判题、缓存记录与内容转义。');
 
 const nativeCalls=[];let polls=0,endpoint;
+await assert.rejects(()=>sendNative({mode:'capabilities'},{runtime:{},location:{protocol:'chrome-extension:'}}),error=>error.code==='extension_reload'&&/重新加载扩展/.test(error.message)&&!error.message.includes('网页模式'));
+await assert.rejects(()=>sendNative({mode:'capabilities'},{runtime:{},location:{protocol:'http:'}}),/网页模式/);
 const native=async payload=>{nativeCalls.push(payload);return payload.mode==='capabilities'?{capabilities:['learningServiceControl'],serviceUrl:'http://127.0.0.1:8771'}:payload.mode==='learning_service_start'?{id:'a'.repeat(32)}:{status:++polls<2?'running':'completed'};};
 await startSharedService({native,onEndpoint:url=>endpoint=url,getHealth:async url=>{assert.equal(url,'http://127.0.0.1:8771');return {service:'codearena-learning',physicsSchema:1,chapterChat:true,configured:true};},sleep:async()=>{}});
 assert.equal(endpoint,'http://127.0.0.1:8771');assert.equal(nativeCalls.filter(c=>c.mode==='learning_service_start').length,1);assert.equal(nativeCalls.find(c=>c.mode==='learning_service_start').restart,true);

@@ -1,8 +1,11 @@
-export function extensionConnectionIssue(runtime=globalThis.chrome?.runtime) {
-  if(!runtime?.getManifest)return '';
-  const manifest=runtime.getManifest(),policy=manifest.content_security_policy?.extension_pages||'';
-  if(!manifest.host_permissions?.some(origin=>origin.includes('127.0.0.1')||origin==='<all_urls>')||policy.includes("connect-src 'none'"))return '扩展的后台连接权限尚未生效。请打开 chrome://extensions，点击“物理实验室”的重新加载，再打开页面。';
-  return '';
+export const EXTENSION_RELOAD_MESSAGE='物理扩展的后台访问或启动权限尚未生效，需要重新加载扩展（只刷新页面不会更新权限）。请点击“重新加载扩展”，再刷新当前页面；也可到 chrome://extensions，点击“物理实验室”的重新加载按钮。';
+export function extensionConnectionIssue(runtime=globalThis.chrome?.runtime,location=globalThis.location) {
+  if(!runtime?.getManifest)return location?.protocol==='chrome-extension:'?EXTENSION_RELOAD_MESSAGE:'';
+  try{
+    const manifest=runtime.getManifest(),policy=manifest.content_security_policy?.extension_pages||'';
+    if(!manifest.host_permissions?.some(origin=>origin.includes('127.0.0.1')||origin==='<all_urls>')||policy.includes("connect-src 'none'"))return EXTENSION_RELOAD_MESSAGE;
+    return '';
+  }catch{return EXTENSION_RELOAD_MESSAGE;}
 }
 export const DEFAULT_SERVICE = 'http://127.0.0.1:8766';
 export function sharedServiceUrl() {
@@ -33,7 +36,7 @@ export function createTutorApi(baseUrl, fetcher = globalThis.fetch) {
       });
     } catch (error) {
       if (signal?.aborted) throw error;
-      throw Error('未连上共享后台。请点击本页“启动／更新后台”后重试。');
+      throw Error(globalThis.location?.protocol==='chrome-extension:'?`未连上共享后台（${base}）。若后台已启动，请重新加载“物理实验室”扩展，再刷新本页；否则请启动／更新后台。`:`未连上共享后台（${base}）。请运行 start-learning.bat，完成后点击连接菜单中的“重新检测”。`);
     }
     let data;
     try { data = await response.json(); } catch { throw Error('后台返回的内容无法读取，请点击本页“启动／更新后台”后重试。'); }

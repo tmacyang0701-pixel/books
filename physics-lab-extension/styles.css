@@ -66,3 +66,18 @@ h1,h2,h3{overflow-wrap:anywhere}.hero{min-height:310px}.hero-copy{padding:30px}.
 .model-preview img{width:100%;height:100%;object-fit:cover}
 @media(max-width:680px){.simulation-world{height:300px}.world-labels span{font-size:10px;max-width:145px}.world-help{font-size:10px;bottom:53px;left:10px}.simulation.expanded{padding:14px}.simulation.expanded .experiment-actions{top:-14px}.simulation.expanded .simulation-world{height:350px}}
 @media(max-height:650px) and (min-width:681px){.simulation-world{height:280px}.simulation .simulation-heading{margin-bottom:8px}.simulation .simulation-heading p{margin-top:5px}}
+
+/* Keep native scrolling and keyboard access, with a quiet, narrow track. */
+*{scrollbar-width:thin;scrollbar-color:#a4b2c8 transparent}
+@supports selector(::-webkit-scrollbar){
+  *{scrollbar-width:auto;scrollbar-color:auto}
+  ::-webkit-scrollbar{width:.375rem;height:.375rem}
+  ::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#a4b2c8;border-radius:1rem}
+  ::-webkit-scrollbar-thumb:hover{background:#7487a5}
+  ::-webkit-scrollbar-button{display:none;width:0;height:0}
+}
+@media(forced-colors:active){*{scrollbar-color:auto}::-webkit-scrollbar-thumb{background:ButtonText}}
+
+.lab-heading{gap:12px;margin:0 0 12px}.lab-heading>div{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;min-width:0}.lab-heading h2{font-size:20px;line-height:1.4;margin:0}.lab-heading .eyebrow{font-size:10px;letter-spacing:.5px}.lab-heading .button{min-height:32px;padding:6px 12px}.lab-page{padding-top:18px}
+@media(max-width:680px){.lab-heading{gap:8px}.lab-heading>div{gap:3px 8px}.lab-heading h2{font-size:18px}.lab-heading .button{padding:6px 9px;font-size:11px}}

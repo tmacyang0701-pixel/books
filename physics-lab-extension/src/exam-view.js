@@ -44,7 +44,7 @@ export function mountExamBank(root, { module = '', lessonId = '', questionId, re
       <label>题型<select name="type"><option value="">全部题型</option>${[...new Set(examQuestions.map(q => q.type))].map(t => `<option>${t}</option>`).join('')}</select></label>
       <label class="exam-search">关键词<input name="search" type="search" placeholder="搜索题干、章节或知识点…"></label>
       <button class="button secondary" type="reset">清除筛选</button></form>`}
-    <p class="exam-summary" role="status" aria-live="polite"></p><nav class="exam-pagination" aria-label="题目翻页"></nav><div class="exam-list"></div><nav class="exam-pagination" aria-label="底部题目翻页"></nav>`;
+    <p class="exam-summary" role="status" aria-live="polite"></p><nav class="exam-pagination exam-pagination-top" aria-label="题目翻页"></nav><div class="exam-list"></div><nav class="exam-pagination" aria-label="底部题目翻页"></nav>`;
   let displayed = [], matched = [], page = 1;
   const pageSize = 10;
   const listRoot = root.querySelector('.exam-list');
@@ -66,7 +66,9 @@ export function mountExamBank(root, { module = '', lessonId = '', questionId, re
         page += Number(direction); draw();
         const topNav = root.querySelector('.exam-pagination');
         const target = topNav.querySelector(`[data-page="${direction}"]:not(:disabled)`) || topNav.querySelector('button:not(:disabled)');
-        target?.focus({ preventScroll: true }); topNav.scrollIntoView({ block: 'start' });
+        target?.focus({ preventScroll: true });
+        listRoot.style.scrollMarginTop = `${52 + topNav.offsetHeight + 14}px`;
+        listRoot.scrollIntoView({ block: 'start' });
       });
     });
     listRoot.innerHTML = displayed.length ? displayed.map(q => questionMarkup(q, records[q.id])).join('') : '<div class="empty-state">没有符合条件的题目，试试其他年份或清除筛选。</div>';

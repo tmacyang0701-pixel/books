@@ -35,40 +35,58 @@ export async function startSharedService({native=sendNative,getHealth,onEndpoint
 }
 
 export function mountServiceControl({onReady,notify}) {
-  let starting=null;
-  const button=document.querySelector('#start-shared-service');
+  let starting=null,statusVersion=0;
+  const button=document.querySelector('#start-shared-service'),menu=document.querySelector('#shared-service-menu');
+  const label=document.querySelector('#shared-connection-label'),serviceStatus=document.querySelector('#shared-service-status'),detail=document.querySelector('#shared-service-detail');
   const extensionPage=globalThis.location?.protocol==='chrome-extension:';
-  const idleLabel=extensionPage?'启动／更新后台':'检测后台';
+  const idleLabel=extensionPage?'启动／更新后台':'启动说明';
   button.textContent=idleLabel;
   const remember=url=>{try{localStorage.setItem('physics-shared-service',normalizeServiceUrl(url));}catch{}};
-  const status=text=>{button.textContent=text;document.querySelectorAll('[data-service-start]').forEach(b=>b.disabled=Boolean(starting));};
+  function renderHealth(health,error){
+    const outdated=health&&(health.service!=='codearena-learning'||health.physicsSchema!==1||!health.chapterChat);
+    const ready=health?.configured&&!outdated;
+    menu.dataset.state=ready?'ready':health?'attention':'offline';
+    label.textContent=ready?'已连接':outdated?'需更新':health?'待配置':'未连接';
+    serviceStatus.textContent=ready?health.model+' · 本地服务已连接':outdated?'后台需要更新':health?'本地服务已连接 · 待配置密钥':'讲解服务未连接';
+    detail.textContent=error?.message||('后台地址：'+sharedServiceUrl()+(outdated?'\n请启动／更新后台。':!health?.configured?'\n请在 GESP 中配置模型密钥。':''));
+  }
+  async function syncEndpoint(){
+    if(!extensionPage||!globalThis.chrome?.runtime?.sendNativeMessage)return;
+    try{const info=await sendNative({mode:'capabilities'});if(info.serviceUrl){const next=normalizeServiceUrl(info.serviceUrl);if(next!==sharedServiceUrl()){remember(next);onReady();}}}catch{}
+  }
+  async function checkConnection(){
+    if(starting)return;
+    const version=++statusVersion;
+    menu.dataset.state='checking';label.textContent='连接中';serviceStatus.textContent='正在检测本地服务…';
+    try{await syncEndpoint();const health=await createTutorApi(sharedServiceUrl())('/health');if(version===statusVersion)renderHealth(health);return health;}
+    catch(error){if(version===statusVersion)renderHealth(null,error);}
+  }
+  const progress=text=>{button.textContent=text;label.textContent='连接中';serviceStatus.textContent=text;menu.dataset.state='checking';document.querySelectorAll('[data-service-start]').forEach(b=>b.disabled=Boolean(starting));};
   function showError(text){
     const dialog=document.querySelector('#shared-service-dialog');dialog.querySelector('p').textContent=text;
     if(!dialog.open)dialog.showModal();
   }
-  async function checkWebService(){
-    let health;
-    try{health=await createTutorApi(sharedServiceUrl())('/health');}
-    catch{throw Error('当前是网页模式，暂未连上共享后台。请双击 physics-lab-extension 目录下的 start-learning.bat（与 manifest.json 放在一起），启动后回到本页点击“检测后台”。脚本会调用同级 gesp-lab-extension 的后台。');}
-    if(health.service!=='codearena-learning'||health.physicsSchema!==1||!health.chapterChat)throw Error('当前后台需要更新。请双击 physics-lab-extension 目录下的 restart-learning.bat，然后回到本页点击“检测后台”。');
-    return health;
-  }
   async function start(){
+    if(!extensionPage){menu.open=false;showError('网页模式请双击 physics-lab-extension 目录下的 start-learning.bat（与 manifest.json 放在一起）。更新后台时运行同目录的 restart-learning.bat；两个入口共用同级 GESP 后台。完成后在连接菜单中点击“重新检测”。');return;}
     if(starting)return starting;
+    ++statusVersion;menu.open=false;
     starting=(async()=>{
       try{
-        const health=extensionPage?await startSharedService({onEndpoint:remember,onProgress:status,getHealth:url=>createTutorApi(url)('/health')}):await checkWebService();
-        onReady();notify(health.configured?(extensionPage?'共享后台已启动，可以继续提问。':'共享后台已连接，可以继续提问。'):'后台已连接，请在 GESP 中配置模型密钥。');
-      }catch(error){showError(error.message);}
-      finally{starting=null;status(idleLabel);}
+        const health=await startSharedService({onEndpoint:remember,onProgress:progress,getHealth:url=>createTutorApi(url)('/health')});
+        renderHealth(health);onReady();notify(health.configured?'共享后台已启动，可以继续提问。':'后台已连接，请在 GESP 中配置模型密钥。');
+      }catch(error){renderHealth(null,error);showError(error.message);}
+      finally{starting=null;button.textContent=idleLabel;document.querySelectorAll('[data-service-start]').forEach(b=>b.disabled=false);}
     })();
-    status(extensionPage?'正在启动后台…':'正在检测后台…');return starting;
+    progress('正在启动后台…');return starting;
   }
-  document.addEventListener('click',event=>{if(event.target.closest('[data-service-start]'))start();});
+  document.addEventListener('click',event=>{
+    if(event.target.closest('[data-service-start]'))start();
+    else if(!menu.contains(event.target))menu.open=false;
+  });
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.open){menu.open=false;menu.querySelector('summary').focus({preventScroll:true});}});
   document.querySelector('#shared-service-dialog button').onclick=()=>document.querySelector('#shared-service-dialog').close();
-  // A moved/shared GESP installation may choose another port; use its reported endpoint.
-  if(globalThis.chrome?.runtime?.sendNativeMessage)sendNative({mode:'capabilities'}).then(info=>{
-    if(!info.serviceUrl)return;const next=normalizeServiceUrl(info.serviceUrl);
-    if(next!==sharedServiceUrl()){remember(next);onReady();}
-  }).catch(()=>{});
+  document.querySelector('#check-shared-service').onclick=checkConnection;
+  menu.addEventListener('toggle',()=>{if(menu.open)checkConnection();});
+  window.addEventListener('focus',()=>{if(!document.hidden)checkConnection();});
+  checkConnection();
 }

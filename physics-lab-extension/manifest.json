@@ -19,7 +19,9 @@
     "service_worker": "background.js"
   },
   "options_page": "index.html",
+  "permissions": ["nativeMessaging"],
+  "host_permissions": ["http://127.0.0.1/*", "http://localhost/*"],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; base-uri 'none'; frame-src 'none'"
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'self' http://127.0.0.1:* http://localhost:*; img-src 'self' data:; style-src 'self' 'unsafe-inline'; base-uri 'none'; frame-src 'none'"
   }
 }

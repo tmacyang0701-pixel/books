@@ -15,3 +15,11 @@ if($origins.Count -ne 3 -or "chrome-extension://$expectedId/" -notin $origins -o
 $deduplicated=@(Get-CodeArenaNativeOrigins -ExtensionRoot $current -ExtensionId $expectedId)
 if($deduplicated.Count -ne 2){throw 'Duplicate extension origins'}
 Write-Output 'PASS: current unpacked ID, explicit ID, migration origin, invalid origins and deduplication.'
+
+$physics=Join-Path $fixture 'books\physics-lab-extension'
+New-Item -Path $physics -ItemType Directory -Force | Out-Null
+Set-Content -LiteralPath (Join-Path $physics 'manifest.json') -Value '{"permissions":["nativeMessaging"]}'
+$physicsId=Get-CodeArenaExtensionId $physics
+$shared=@(Get-CodeArenaNativeOrigins -ExtensionRoot $current -ExtensionId $expectedId)
+if($shared.Count -ne 3 -or "chrome-extension://$physicsId/" -notin $shared){throw 'Sibling physics extension cannot start the shared service'}
+Write-Output 'PASS: sibling physics origin added without losing existing registrations.'

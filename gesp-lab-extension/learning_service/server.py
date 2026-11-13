@@ -20,6 +20,7 @@ from .model import ROOT, GenerationError, PROBLEM_SHAPE, completion, make_lesson
 from .knowledge import validate_topic,bank_candidates,make_topic_practice
 from .code_analysis import analyze as analyze_code, authorize as authorize_analysis
 from .analysis_settings import AnalysisSettings
+from . import physics
 from .cpp_code import regenerate_code
 
 MAX_BODY=12*1024*1024
@@ -99,7 +100,9 @@ class Application:
     def __init__(self, config=None, data_dir=None):
         self.config=config or settings()
         self.data=Path(data_dir or os.environ.get('CODEARENA_DATA_DIR',ROOT/'.local'))
-        for folder in ('jobs','lessons','practice'): (self.data/folder).mkdir(parents=True,exist_ok=True)
+        for folder in ('jobs','lessons','practice','physics','physics-questions'): (self.data/folder).mkdir(parents=True,exist_ok=True)
+        self.physics_root=ROOT.parent/'physics-lab-extension'
+        self.physics_origin=physics.extension_origin(self.physics_root)
         self.lock=threading.RLock()
         self.analysis_settings=AnalysisSettings(self.data)
         self.pool=ThreadPoolExecutor(max_workers=2,thread_name_prefix='courseware')
@@ -155,8 +158,19 @@ class Application:
         with self.lock:
             path=self.data/folder/(ident+'.json')
             temporary=path.with_suffix('.tmp')
-            temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2),encoding='utf-8')
-            temporary.replace(path)
+            encoded=json.dumps(value,ensure_ascii=False,indent=2)
+            for attempt in range(4):
+                try:
+                    temporary.write_text(encoded,encoding='utf-8')
+                    temporary.replace(path)
+                    break
+                except PermissionError:
+                    # Windows readers/indexers may briefly hold the destination open.
+                    if attempt==3:
+                        raise GenerationError('storage','本机记录暂时无法保存，请检查文件占用与目录权限后重试。') from None
+                    time.sleep(0.05*(attempt+1))
+                except OSError:
+                    raise GenerationError('storage','本机记录无法保存，请检查磁盘空间与目录权限后重试。') from None
 
     def read(self, folder, ident):
         path=self.data/folder/(identifier(ident)+'.json')
@@ -173,17 +187,17 @@ class Application:
     def update(self, ident, **changes):
         with self.lock:
             self.jobs[ident].update(changes,updatedAt=time.time())
-            if self.jobs[ident]['kind']!='chat': self.save('jobs',ident,self.jobs[ident])
+            if self.jobs[ident]['kind'] not in ('chat','physics-chat'): self.save('jobs',ident,self.jobs[ident])
 
     def enqueue(self, kind, payload):
         with self.lock:
             if kind=='lesson-code' and any(j.get('kind')==kind and j.get('lessonId')==payload['lessonId'] and j.get('pageIndex')==payload['pageIndex'] and j['status'] in ('queued','running') for j in self.jobs.values()):
                 raise GenerationError('busy','本页代码正在重新生成，请等待完成。')
-            key=problem_key(payload['problem']) if kind=='lesson' else None
-            if key and any(j.get('kind')=='lesson' and j.get('problemId')==key and j['status'] in ('queued','running') for j in self.jobs.values()):
+            key=payload['chapter']['id'] if kind in ('physics-questions','physics-chat') else payload['question']['id'] if kind=='physics' else problem_key(payload['problem']) if kind=='lesson' else None
+            if key and any(j.get('kind')==kind and j.get('problemId')==key and j['status'] in ('queued','running') for j in self.jobs.values()):
                 raise GenerationError('busy','本题已有课件正在生成，请等待完成。')
             for job_id,job in list(self.jobs.items()):
-                if job.get('kind')=='chat' and job['status'] in ('completed','failed') and time.time()-job.get('updatedAt',0)>86400:
+                if job.get('kind') in ('chat','physics-chat') and job['status'] in ('completed','failed') and time.time()-job.get('updatedAt',0)>86400:
                     del self.jobs[job_id]
             if sum(j['status'] in ('queued','running') for j in self.jobs.values())>=4:
                 raise GenerationError('busy','当前生成任务较多，请稍后重试。')
@@ -192,7 +206,7 @@ class Application:
             if kind=='lesson-code':job.update(lessonId=payload['lessonId'],pageIndex=payload['pageIndex'])
             if key: job['problemId']=key
             self.jobs[ident]=job
-            if kind!='chat': self.save('jobs',ident,job)
+            if kind not in ('chat','physics-chat'): self.save('jobs',ident,job)
             self.pool.submit(self.work,ident,kind,payload)
             return dict(job)
 
@@ -206,7 +220,22 @@ class Application:
         try:
             self.update(ident,status='running',message='正在准备…')
             progress=lambda text:self.update(ident,message=text)
-            if kind=='lesson-code':
+            if kind=='physics-questions':
+                context=payload['chapter']
+                answer=dict(id=ident,chapterId=context['id'],fingerprint=physics.chapter_fingerprint(context),questions=physics.make_questions(self.config,context,progress),model=self.config['model'],createdAt=time.time())
+                self.save('physics-questions',physics.questions_key(context['id']),answer)
+            elif kind=='physics-chat':
+                answer=dict(chapterId=payload['chapter']['id'],answer=physics.answer_chapter(self.config,payload['chapter'],payload['messages'],progress),model=self.config['model'])
+            elif kind=='physics':
+                q=payload['question']
+                result=physics.generate(self.config,q,payload.get('requirements',''),progress)
+                for index,p in enumerate(result['variants']):
+                    p.update(id=f'physics-{ident}-{index+1}',kind='generated',edition='AI 原创变式',sourceQuestionId=q['id'],difficulty=['巩固','同等','进阶'][index])
+                result.update(id=ident,questionId=q['id'],question=q,knowledgePoints=q['knowledgePoints'],lessonIds=q['lessonIds'],model=self.config['model'],createdAt=time.time(),schema=1)
+                # Publish the complete lesson + three variants together. Failed regeneration keeps the prior file.
+                self.save('physics',physics.lesson_key(q['id']),result)
+                answer=dict(questionId=q['id'],lessonId=ident)
+            elif kind=='lesson-code':
                 lesson=self.read('lessons',payload['lessonId']);index=payload['pageIndex']
                 original=lesson['pages'][index]['code']
                 updated=regenerate_code(self.config,lesson,index,progress)
@@ -321,6 +350,8 @@ def make_handler(app):
             if not origin or origin in (f'http://127.0.0.1:{self.server.server_port}',f'http://localhost:{self.server.server_port}'):
                 return True
             if not re.fullmatch(r'chrome-extension://[a-p]{32}',origin): return False
+            if origin==app.physics_origin and urlsplit(self.path).path.startswith('/api/physics/'):
+                return True
             manifest=ROOT.parent/'native-host/com.codearena.cpp_judge.json'
             if manifest.is_file():
                 try: return origin+'/' in json.loads(manifest.read_text(encoding='utf-8-sig')).get('allowed_origins',[])
@@ -356,8 +387,27 @@ def make_handler(app):
             if not self.origin_allowed(): return self.error(403,'origin','不允许此来源访问本地学习服务。')
             path=unquote(urlsplit(self.path).path)
             try:
+                if path=='/api/physics/health':
+                    return self.respond(200,dict(service='codearena-learning',physicsSchema=1,chapterChat=True,configured=bool(app.config['key']),model=app.config['model']))
+                if path.startswith('/api/physics/jobs/'):
+                    ident=identifier(path.rsplit('/',1)[-1])
+                    with app.lock: value=dict(app.jobs.get(ident) or {})
+                    if value.get('kind') not in ('physics','physics-questions','physics-chat'): raise GenerationError('not_found','物理任务不存在。')
+                    return self.respond(200,value)
+                if path=='/api/physics/lessons':
+                    return self.respond(200,[{k:v.get(k) for k in ('id','questionId','title','summary','model','createdAt')} for v in app.list_records('physics')])
+                if path.startswith('/api/physics/lessons/'):
+                    return self.respond(200,app.read('physics',physics.lesson_key(path.rsplit('/',1)[-1])))
+                if path.startswith('/physics/'):
+                    relative=path[len('/physics/'):] or 'index.html'
+                    allowed=relative in ('index.html','styles.css','exams.css','tutor.css') or relative.startswith(('src/','icons/'))
+                    target=(app.physics_root/relative).resolve()
+                    if not allowed or '\\' in relative or any(p in ('.','..') for p in relative.split('/')) or app.physics_root.resolve() not in target.parents or not target.is_file():
+                        raise GenerationError('not_found','物理页面资源不存在。')
+                    mime='application/javascript' if target.suffix=='.js' else mimetypes.guess_type(target.name)[0] or 'application/octet-stream'
+                    return self.respond(200,target.read_bytes(),mime+'; charset=utf-8')
                 if path=='/api/health':
-                    return self.respond(200,dict(service='codearena-learning',version=12,runCaseSchema=2,processId=os.getpid(),instancePath=str(ROOT),capabilities=['topicSyntaxLabs','knowledgeTopics','pageChat','socraticPageChat','imagePageChat','runCases','codeAnalysis','practiceSourceSelection','regenerateLessonCode','uniqueLessons','deleteLesson'],configured=bool(app.config['key']),model=app.config['model'],visionModel=app.config['visionModel'],configSource=app.config['source']))
+                    return self.respond(200,dict(service='codearena-learning',version=12,runCaseSchema=2,processId=os.getpid(),instancePath=str(ROOT),capabilities=['physicsTutoring','topicSyntaxLabs','knowledgeTopics','pageChat','socraticPageChat','imagePageChat','runCases','codeAnalysis','practiceSourceSelection','regenerateLessonCode','uniqueLessons','deleteLesson'],configured=bool(app.config['key']),model=app.config['model'],visionModel=app.config['visionModel'],configSource=app.config['source']))
                 if path=='/api/analysis-settings':return self.respond(200,app.analysis_settings.public())
                 if path.startswith('/api/jobs/'):
                     ident=identifier(path.rsplit('/',1)[-1])
@@ -397,7 +447,21 @@ def make_handler(app):
                 body=json.loads(self.rfile.read(size))
                 if not isinstance(body,dict): raise ValueError()
                 path=urlsplit(self.path).path
-                if path=='/api/lessons':
+                if path=='/api/physics/questions':
+                    context=physics.chapter(body.get('chapter'))
+                    try: cached=app.read('physics-questions',physics.questions_key(context['id']))
+                    except GenerationError: cached=None
+                    if cached and cached.get('fingerprint')==physics.chapter_fingerprint(context):return self.respond(200,cached)
+                    job=app.enqueue('physics-questions',dict(chapter=context))
+                elif path=='/api/physics/chat':
+                    context=physics.chapter(body.get('chapter'))
+                    messages=physics.chat_messages(body.get('messages'))
+                    job=app.enqueue('physics-chat',dict(chapter=context,messages=messages))
+                elif path=='/api/physics/lessons':
+                    q=physics.question(body.get('question'))
+                    requirements=physics.text(body.get('requirements',''),'补充要求',2000,True)
+                    job=app.enqueue('physics',dict(question=q,requirements=requirements))
+                elif path=='/api/lessons':
                     level=body.get('targetLevel',5)
                     if type(level)!=int or not 1<=level<=8: raise GenerationError('invalid_level','目标等级必须为 1～8。')
                     requirements=body.get('requirements','')

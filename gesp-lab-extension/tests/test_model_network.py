@@ -17,6 +17,17 @@ CFG = dict(key='fixture-secret',base='https://model.example/compatible-mode/v1',
 
 
 class ModelNetworkTests(unittest.TestCase):
+    def test_stream_error_retries_without_exposing_upstream_message(self):
+        failure=io.BytesIO(b'data: {"error":{"code":"overloaded","message":"fixture-secret"}}\n\n')
+        failure.headers={'Content-Type':'text/event-stream'}
+        success=io.BytesIO(json.dumps({'choices':[{'message':{'content':'{"ok":true}'},'finish_reason':'stop'}]}).encode())
+        success.headers={'Content-Type':'application/json'}
+        opener=Mock();opener.open.side_effect=[failure,success];progress=[]
+        with patch.object(model,'build_opener',return_value=opener),patch.object(model.time,'sleep'):
+            result=model.completion(CFG,'Return JSON',{},progress.append)
+        self.assertEqual(result,{'ok':True});self.assertEqual(opener.open.call_count,2)
+        self.assertNotIn('fixture-secret',str(progress))
+
     def test_thinking_stream_is_separate_from_final_json_and_progress(self):
         chunks=[{'reasoning_content':'private reasoning fixture','content':None},
                 {'content':'{"summary":"ok",'}, {'content':'"issues":[]}'}]

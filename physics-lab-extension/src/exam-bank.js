@@ -186,9 +186,10 @@ export function examOutcome(question, record) {
   if (question.needsReview && record.review !== true) return 'review';
   return 'correct';
 }
-export function restoreExamAnswers(saved) {
+export function restoreExamAnswers(saved) { return restoreQuestionAnswers(examQuestions, saved); }
+export function restoreQuestionAnswers(questions, saved) {
   const result = {};
-  for (const q of examQuestions) {
+  for (const q of questions) {
     const record = saved?.[q.id];
     if (!record || typeof record !== 'object') continue;
     result[q.id] = { values: q.parts.map((_, i) => typeof record.values?.[i] === 'string' ? record.values[i].slice(0,200) : ''),

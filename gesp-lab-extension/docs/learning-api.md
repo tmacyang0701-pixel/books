@@ -64,3 +64,20 @@
 - 代码最多 50000 字、2000 行；标准输入最多 20000 字。凭证仅用于本地授权，不写入任务、日志或发给模型。完成结果为 `{problemId,sourceHash,model,summary,issues:[{line,endLine,severity,title,reason,suggestion}]}`，行号从 1 开始，最多 30 条；severity 为 error/warning/suggestion。前端验证代码 SHA-256 与题目 ID 后才展示和保存成功历史。
 
 版本 9 修正旧版“首末失败间隔”的计时：即使设置为 1 次失败，也可在时间到达后免密，不需要再提交一次。倒计时到零不自动生成分析，仍需用户点击。浏览器 IndexedDB `codearena-code-analysis` 分别保存有效尝试与成功分析历史；旧版未成功点击记录自动移除。
+
+## 物理实验室共用接口
+
+所有物理接口与原 GESP 接口由同一 Application、HTTP 服务、模型配置和有限任务池提供。全局健康检查新增 `physicsTutoring` 能力，兼容原服务版本 12。
+
+- `GET /api/physics/health`：返回服务名、`physicsSchema:1`、是否配置模型、模型名称，不返回密钥。
+- `POST /api/physics/lessons`：`{question,requirements?}`，返回 202 任务。question 包含原题 ID、年份、题号、完整题干、小问及参考答案、原解析、章节和知识点。补充要求最多 2000 字。
+- `GET /api/physics/jobs/<任务ID>`：只读取 kind 为 physics 的任务；共用原队列，物理同题并发生成返回 429。
+- `GET /api/physics/lessons`：仅列出物理课件摘要。
+- `GET /api/physics/lessons/<sh-年份-题号>`：读取该原题当前课件与三道变式，不接受文件路径。
+- `GET /physics/`：提供同级物理扩展的静态页面，只允许前端入口、样式、src 和 icons；不开放脚本、配置或私有数据目录。
+
+课件与三道变式作为一个 schema=1 文档保存，未完成或校验失败不发布。pages 需要 6～12 页、六种物理教学环节；variants 恰好三题，章节与知识点限于原题，小问支持 choice / number / text。number 必须提供 calculation，以受限 AST 数值运算核对答案，不执行模型代码。结构或验算失败最多修正一次，仍失败则任务失败。物理语义、量纲与实验条件仍需教学核对。
+
+物理扩展的来源 ID 根据同级目录路径或 manifest.key 计算，与现有 Chromium 注册算法一致；该额外来源仅访问 `/api/physics/`。原有 GESP 来源规则不变。物理任务、课件和浏览器缓存均不包含模型凭证。
+
+章节问答同样共用物理命名空间：`POST /api/physics/questions` 接收 `{chapter}`，首次返回推荐问题生成任务，已缓存且正文指纹一致时直接返回 `{chapterId,questions}`。三个问题由模型生成并检查长度与去重，保存于 `.local/physics-questions/`。`POST /api/physics/chat` 接收 `{chapter,messages}`，messages 限 user/assistant、最多 20 条、合计最多 20000 字、最后为用户问题；完成结果为 `{chapterId,answer,model}`。两种任务均通过 `/api/physics/jobs/<id>` 查询；聊天任务仅在后台内存保存，正文与对话历史不落后台任务盘。前端按章节保存对话、草稿和任务关联。健康检查中的 `chapterChat:true` 标记能力。

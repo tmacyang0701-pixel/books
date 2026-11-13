@@ -18,6 +18,13 @@ function Get-CodeArenaNativeOrigins([string]$ExtensionRoot,[string]$ExtensionId)
     if($ExtensionId -cmatch '^[a-p]{32}$'){$ids+=$ExtensionId}
     $roots=@(Get-CodeArenaInstallationRoots $ExtensionRoot)
     foreach($root in $roots){
+        $physicsRoot=Join-Path (Split-Path -Parent $root) 'physics-lab-extension'
+        if(Test-Path -LiteralPath (Join-Path $physicsRoot 'manifest.json')){
+            try{
+                $physics=Get-Content -LiteralPath (Join-Path $physicsRoot 'manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+                if($physics.permissions -contains 'nativeMessaging'){$ids+=(Get-CodeArenaExtensionId $physicsRoot)}
+            }catch{ Write-Warning 'Could not read the sibling physics extension manifest; its page-start registration was skipped.' }
+        }
         $manifest=Join-Path $root 'native-host\com.codearena.cpp_judge.json'
         if(Test-Path -LiteralPath $manifest){
             try{

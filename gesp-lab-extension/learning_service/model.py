@@ -131,7 +131,10 @@ def completion(cfg, instruction, data, progress=lambda _:None, images=(), attemp
                         text='\n'.join(lines).strip()
                         if not text or text=='[DONE]': return
                         chunk=json.loads(text)
-                        if chunk.get('error'): raise GenerationError('upstream','模型流式接口返回错误，请检查模型服务配置。')
+                        if chunk.get('error'):
+                            upstream=chunk['error'];code=str(upstream.get('code','')) if isinstance(upstream,dict) else ''
+                            suffix=f'（{code}）' if re.fullmatch(r'[A-Za-z0-9_.-]{1,80}',code) else ''
+                            raise GenerationError('upstream','模型流式接口返回错误'+suffix+'，请稍后重试或检查模型服务配置。')
                         for choice in chunk.get('choices',[]):
                             if choice.get('index',0)!=0: continue
                             fragment=choice.get('delta',{})
@@ -161,6 +164,9 @@ def completion(cfg, instruction, data, progress=lambda _:None, images=(), attemp
                     raise GenerationError('incomplete','模型响应不完整，未保存截断内容。请重试，或减少补充要求。')
                 answer=re.sub(r'^```(?:json)?\s*|\s*```$','',answer.strip(),flags=re.I)
                 return json.loads(answer)
+        except GenerationError as exc:
+            if exc.code!='upstream' or attempt+1==attempts: raise
+            reason='模型流式接口暂时失败'
         except HTTPError as exc:
             if exc.code in (408,429,500,502,503,504) and attempt+1<attempts:
                 reason=f'服务暂时不可用（HTTP {exc.code}）'

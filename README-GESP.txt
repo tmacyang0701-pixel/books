@@ -1,4 +1,4 @@
-GESP / CodeArena · Windows 一键安装整合包
+﻿GESP / CodeArena · Windows 一键安装整合包
 
 当前目录默认安装 GESP 编程插件；原来的“数间”作为可选应用保留。
 适用 Windows 10 1809+ / Windows 11，Intel/AMD 64 位电脑。
@@ -21,7 +21,8 @@ GESP / CodeArena · Windows 一键安装整合包
 
 这些组件是否都要
 - Chrome：GESP 插件必需。缺失时下载 Google 官方安装包并验证签名。
-- Python 3.10+：讲解、课件、问答等本地学习服务必需，已有可用版本直接复用。
+- Python 3.10+（64位）：先检查版本及 ssl/sqlite3/venv/ensurepip，兼容可用就跳过。
+  不可用时解压包内 Python 3.14.10 NuGet 到本项目 .local，不调用系统 Python 安装器、不卸载系统旧版本。
 - pypdf：读取上传的 PDF；包内提供已核对 PyPI SHA-256 的离线 wheel。
 - g++ / GCC：编译和运行 C++17 必需。
 - GDB（含 Python 支持）：断点、单步和变量查看必需，安装流程实际检查。
@@ -34,13 +35,13 @@ GESP / CodeArena · Windows 一键安装整合包
 
 包内文件的用途
 gesp-lab-extension/：GESP 扩展、216 道编程题、学习服务和本地评测程序。
-python/：完整 Python 安装包、备用嵌入版和离线 PDF wheel。
+python/：本地 Python NuGet 运行包、备用安装包、嵌入版和离线 PDF wheel。
 devcpp/：含 GCC 和 GDB 的完整 Dev-C++ 安装包。
 node/、application/：原数间应用及其运行资源，GESP 安装不调用它们。
 setup/、setup-tests/：安装辅助代码与验证脚本。
 
 下载与离线范围
-Python 和 Dev-C++ 优先使用包内安装文件，执行前验证 SHA-256，不重复下载。
+GESP 的 Python 使用包内 NuGet 直接解压；Dev-C++ 使用包内安装文件。均先验证 SHA-256，不重复下载。
 PDF 依赖优先使用包内 wheel，安装到 gesp-lab-extension/.venv，不修改全局 Python 包。
 缺少 Chrome 时仍需联网下载；讲解、问答和 AI 生成需要百炼配置及联网。
 因此整个 AI 应用不是完全离线的。安装器会检查模型配置与地址连通性。

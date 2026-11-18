@@ -18,7 +18,7 @@ def validate_topic(body):
 def bank_candidates(bank,topic,level):
     terms={topic,*CATALOG['aliases'].get(topic,[])}
     allowed=terms|set(CATALOG['supportTags'])
-    return [p for p in bank if p['level']<=level and terms.intersection(p.get('tags',[])) and set(p['tags'])<=allowed]
+    return [p for p in bank if p.get('kind')!='theory' and type(p['level']) is int and p['level']<=level and terms.intersection(p.get('knowledgePoints',p.get('tags',[]))) and set(p.get('knowledgePoints',p.get('tags',[])))<=allowed]
 
 def validate_topic_practice(value,topic,level,normalize):
     if not isinstance(value,dict) or not isinstance(value.get('problems'),list) or len(value['problems'])!=3:

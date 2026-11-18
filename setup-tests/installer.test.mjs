@@ -70,3 +70,36 @@ test('request during an installation prevents the next install',async t=>{const 
 test('rerun uses prior successful choices and skips repeated installation',async t=>{const f=fixture(t,{noPython:true,noDev:true});await f.installer.execute();assert.equal(nativeInstallCalls(f).length,2);const again=new Installer(f.root,{host:f.host,bootstrapNode:f.oldNode});await again.execute();assert.equal(nativeInstallCalls(f).length,2);});
 test('compiler failure after installation never reports success',async t=>{const f=fixture(t,{noDev:true,brokenCompiler:true});await assert.rejects(f.installer.execute(),/编译检查失败/);assert.equal(f.states.at(-1).state,'failed');assert.equal(existsSync(join(f.root,'runtime-selection.json')),false);});
 test('native environment merge replaces duplicate case variants of PATH',()=>{const host=nativeHost('',{...process.env,Path:'old-value'});const r=host.probe(process.execPath,['-p',"JSON.stringify(Object.entries(process.env).filter(([key])=>key.toLowerCase()==='path'))"],{PATH:'new-value'});assert.equal(r.status,0);const entries=JSON.parse(r.stdout);assert.equal(entries.length,1);assert.equal(entries[0][0].toLowerCase(),'path');assert.equal(entries[0][1],'new-value');});
+
+test('missing registered bundle Python is repaired before MODIFY can uninstall its test suite',async t=>{
+ const f=fixture(t,{noPython:true}),old=join(f.root,'old bundle','runtime','python-full','python.exe');
+ f.host.pythonRegistry=()=>[old];
+ const run=f.host.run.bind(f.host);
+ f.host.run=async(path,args,env)=>{
+  if(path.endsWith('fixture.exe')){
+   f.calls.push({kind:'run',path,args});
+   if(!args.includes('/repair'))return {status:1603,stderr:'test_JustForMe: 0x80070643'};
+   f.addPython(old,[3,14,10]);return {status:0,stdout:'',stderr:''};
+  }
+  return run(path,args,env);
+ };
+ const report=await f.installer.execute(),calls=nativeInstallCalls(f);
+ assert.equal(report.success,true);assert.equal(report.selection.python,old);
+ assert.equal(calls.length,1);assert.ok(calls[0].args.includes('/repair'));
+ assert.ok(!calls[0].args.some(a=>a.startsWith('TargetDir=')||a.startsWith('Include_')));
+});
+
+test('failed repair stops without attempting MODIFY or writing runtime selection',async t=>{
+ const f=fixture(t,{noPython:true});f.host.pythonRegistry=()=>[join(f.root,'old','runtime','python-full','python.exe')];
+ f.host.run=async(path,args)=>{f.calls.push({kind:'run',path,args});return {status:1603,stderr:'repair failed'};};
+ await assert.rejects(f.installer.execute(),/旧安装修复失败/);
+ assert.equal(nativeInstallCalls(f).length,1);assert.ok(nativeInstallCalls(f)[0].args.includes('/repair'));
+ assert.equal(existsSync(join(f.root,'runtime-selection.json')),false);
+});
+
+test('a repair that restores no runtime is not treated as success',async t=>{
+ const f=fixture(t,{noPython:true});f.host.pythonRegistry=()=>[join(f.root,'old','runtime','python-full','python.exe')];
+ f.host.run=async(path,args)=>{f.calls.push({kind:'run',path,args});return {status:0,stdout:'',stderr:''};};
+ await assert.rejects(f.installer.execute(),/安装后检查失败/);
+ assert.equal(nativeInstallCalls(f).length,1);assert.equal(existsSync(join(f.root,'runtime-selection.json')),false);
+});

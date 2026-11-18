@@ -1,10 +1,40 @@
 . (Join-Path $PSScriptRoot 'bundle-runtime.ps1')
 
+function Get-LearningPythonVersion([string]$Path) {
+    if (-not $Path -or -not (Test-Path -LiteralPath $Path -PathType Leaf)) { return 'unknown' }
+    $previousError=$ErrorActionPreference
+    try {
+        $ErrorActionPreference='Continue'
+        $value=& $Path -I -c 'import sys,struct; print("Python %s (%s-bit)" % (sys.version.split()[0],struct.calcsize("P")*8))' 2>$null
+        if ($LASTEXITCODE -eq 0 -and "$value" -match '^Python \d+\.\d+\.\d+ \((32|64)-bit\)$') { return "$value" }
+    } catch {}
+    finally { $ErrorActionPreference=$previousError }
+    return 'version unavailable'
+}
+
+function Test-LearningPythonExecutable([string]$Path) {
+    if (-not $Path -or -not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $false }
+    $previousError=$ErrorActionPreference
+    try {
+        $ErrorActionPreference='Continue'
+        & $Path -I -c 'import sys,struct,ssl,sqlite3,venv,ensurepip; sys.exit(0 if sys.version_info >= (3,10) and struct.calcsize(chr(80))==8 else 1)' 2>$null | Out-Null
+        return ($LASTEXITCODE -eq 0)
+    } catch { return $false }
+    finally { $ErrorActionPreference=$previousError }
+}
+
 function Find-LearningPython {
     $candidates=@()
     if ($env:CODEARENA_PYTHON) { $candidates=@($env:CODEARENA_PYTHON) }
     else {
         $candidates += Join-Path (Split-Path -Parent $PSScriptRoot) '.venv\Scripts\python.exe'
+        $runtimeSpecPath=Join-Path $PSScriptRoot 'python-runtime.json'
+        if (Test-Path -LiteralPath $runtimeSpecPath -PathType Leaf) {
+            $runtimeSpec=Get-Content -LiteralPath $runtimeSpecPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            if ($runtimeSpec.directory -match '^python-\d+\.\d+\.\d+$') {
+                $candidates+=Join-Path (Split-Path -Parent $PSScriptRoot) ('.local\'+$runtimeSpec.directory+'\tools\python.exe')
+            }
+        }
         $candidates += @(Get-CodeArenaBundledPython)
         $candidates += @(Get-LearningRegisteredPython)
         $candidates += Join-Path $env:USERPROFILE 'lfun-github\explanation\.venv\Scripts\python.exe'
@@ -14,11 +44,7 @@ function Find-LearningPython {
     }
     foreach ($candidate in $candidates) {
         if ($candidate -match '\\Microsoft\\WindowsApps\\python(?:3)?\.exe$') { continue } # Store shortcut, not an installed runtime.
-        if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { continue }
-        try {
-            & $candidate -I -c 'import sys,ssl,sqlite3,venv; sys.exit(0 if sys.version_info >= (3,10) else 1)' 2>$null
-            if ($LASTEXITCODE -eq 0) { return $candidate }
-        } catch {}
+        if (Test-LearningPythonExecutable $candidate) { return $candidate }
     }
     if (-not $env:CODEARENA_PYTHON) {
         $launcher=Get-Command py.exe -ErrorAction SilentlyContinue
@@ -26,8 +52,7 @@ function Find-LearningPython {
             try {
                 $candidate=& $launcher.Source -3 -c 'import sys; print(sys.executable)' 2>$null
                 if ($LASTEXITCODE -eq 0 -and (Test-Path -LiteralPath $candidate)) {
-                    & $candidate -I -c 'import sys,ssl,sqlite3,venv; sys.exit(0 if sys.version_info >= (3,10) else 1)' 2>$null
-                    if ($LASTEXITCODE -eq 0) { return $candidate }
+                    if (Test-LearningPythonExecutable $candidate) { return $candidate }
                 }
             } catch {}
         }

@@ -1,5 +1,6 @@
 # Called by the user-run installer. Importing this file does not download or install anything.
 . (Join-Path $PSScriptRoot 'bundle-runtime.ps1')
+. (Join-Path $PSScriptRoot 'python-runtime.ps1')
 function Assert-LearningWindows {
     param([version]$Version=[Environment]::OSVersion.Version,[string]$Architecture=$(if($env:PROCESSOR_ARCHITEW6432){$env:PROCESSOR_ARCHITEW6432}else{$env:PROCESSOR_ARCHITECTURE}))
     if ($Version.Major -lt 10 -or $Version.Build -lt 17763 -or $Architecture -ne 'AMD64') {
@@ -51,35 +52,22 @@ function Get-LearningInstaller($Spec,$CacheDirectory) {
 }
 
 function Install-LearningApplication($Kind,$Path,$LogDirectory) {
+    if ($Kind -eq 'python') {
+        # Never invoke the EXE/MSI for Python, including through this legacy entry.
+        $null=Initialize-LearningPrivatePython (Split-Path -Parent $PSScriptRoot)
+        return
+    }
     Write-Host "Installing $Kind. Accept the Windows UAC prompt if shown." -ForegroundColor Cyan
     $parameters=@{FilePath=$Path;WindowStyle='Hidden';Wait=$true;PassThru=$true}
     switch ($Kind) {
-        'python' { $parameters.ArgumentList='/quiet InstallAllUsers=0 Include_launcher=0 Include_test=0 Include_pip=1 PrependPath=0 /log "'+(Join-Path $LogDirectory 'python-install.log')+'"' }
         'chrome' { $parameters.FilePath=Join-Path $env:SystemRoot 'System32\msiexec.exe';$parameters.ArgumentList='/i "'+$Path+'" /qn /norestart /L*v "'+(Join-Path $LogDirectory 'chrome-install.log')+'"';$parameters.Verb='RunAs' }
         'compiler' { $parameters.ArgumentList='/S';$parameters.Verb='RunAs' }
         default { throw 'Unknown installer kind.' }
-    }
-    $bundle=Get-CodeArenaBundleRoot
-    if ($Kind -eq 'python' -and $bundle) {
-        $parameters.ArgumentList+=' /norestart Shortcuts=0 TargetDir="'+(Join-Path $bundle 'runtime\python-full')+'"'
     }
     try { $process=Start-Process @parameters }
     catch { throw "Installation of $Kind was cancelled or could not start. No later step will run." }
     if ($process.ExitCode -eq 3010 -or $process.ExitCode -eq 1641) { throw "$Kind requests a Windows restart. Restart Windows and run install-all.bat again." }
     if ($process.ExitCode -ne 0) { throw "$Kind installer failed (exit $($process.ExitCode)). Check .local installer logs. No later step will run." }
-    if ($Kind -eq 'python' -and -not (Find-LearningPython)) {
-        # A matching CPython registration can turn INSTALL into MODIFY without restoring
-        # a deleted old bundle directory. Repair the registered location, then detect it.
-        $missingRegistration=@(Get-LearningRegisteredPython | Where-Object {
-            $_ -match '\\runtime\\python-full\\python\.exe$' -and -not (Test-Path -LiteralPath $_ -PathType Leaf)
-        })
-        if ($missingRegistration.Count) {
-            Write-Host 'Repairing a Python registration whose previous bundle directory is missing...'
-            $repair=Start-Process -FilePath $Path -ArgumentList ('/repair /quiet /norestart Include_launcher=0 PrependPath=0 Shortcuts=0 /log "'+(Join-Path $LogDirectory 'python-repair.log')+'"') -WindowStyle Hidden -Wait -PassThru
-            if ($repair.ExitCode -eq 3010 -or $repair.ExitCode -eq 1641) { throw 'Python repair requires a Windows restart. Restart and rerun the installer.' }
-            if ($repair.ExitCode -ne 0) { throw "Python repair failed (exit $($repair.ExitCode)). See .local/python-repair.log." }
-        }
-    }
 }
 
 function Install-LearningPythonPackages($ExtensionRoot,$HostDirectory) {
@@ -87,14 +75,19 @@ function Install-LearningPythonPackages($ExtensionRoot,$HostDirectory) {
     if (-not $basePython) { throw 'Python installer finished but a working Python 3.10+ was not found.' }
     $venv=Join-Path $ExtensionRoot '.venv'
     $python=Join-Path $venv 'Scripts\python.exe'
-    $venvWorks=$false
-    if (Test-Path -LiteralPath $python) {
-        try { & $python -I -c 'import sys,ssl,sqlite3; sys.exit(0 if sys.version_info >= (3,10) else 1)' 2>$null; $venvWorks=$LASTEXITCODE -eq 0 } catch {}
-    }
+    $venvWorks=Test-LearningPythonExecutable $python
     if (-not $venvWorks) {
+        if (Test-Path -LiteralPath $venv) {
+            $backup=$venv+'.unusable-'+[guid]::NewGuid().ToString('N')
+            Move-Item -LiteralPath $venv -Destination $backup
+            Write-Host "Unusable project environment moved to $backup; replacing only this project's environment."
+        }
         Write-Host 'Creating the project Python environment...'
         & $basePython -m venv $venv
         if ($LASTEXITCODE -ne 0) { throw 'Could not create .venv. Check folder permissions and Python venv support.' }
+        if (-not (Test-LearningPythonExecutable $python)) { throw 'The new project Python environment failed its version/component check.' }
+    } else {
+        Write-Host ("Project environment ready: {0}. Skipping recreation." -f (Get-LearningPythonVersion $python)) -ForegroundColor Green
     }
     if (-not (Test-PythonDependency $python 'pip')) {
         & $python -m ensurepip --upgrade
@@ -132,15 +125,25 @@ function Initialize-LearningPrerequisites($ExtensionRoot,$HostDirectory) {
     Assert-LearningWindows
     if ($env:CODEARENA_PYTHON -and -not (Find-LearningPython)) { throw 'CODEARENA_PYTHON points to an unusable Python. Correct or remove that override first.' }
     $state=Get-LearningBootstrapState $ExtensionRoot
+    if ($state.python) {
+        $detectedPython=Find-LearningPython
+        Write-Host ("Python check passed: {0}; required: 3.10+ / 64-bit with ssl, sqlite3, venv and ensurepip. Skipping Python setup. Path: {1}" -f (Get-LearningPythonVersion $detectedPython),$detectedPython) -ForegroundColor Green
+    } else {
+        Write-Host 'No compatible working Python found (requires 3.10+ / 64-bit). Preparing a private project runtime; system installations will be kept.' -ForegroundColor Yellow
+    }
     $catalog=Get-Content -LiteralPath (Join-Path $ExtensionRoot 'scripts\windows-installers.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $required=@('python','chrome','compiler' | Where-Object { -not $state.$_ })
     $logDirectory=Join-Path $ExtensionRoot '.local'
     $cacheDirectory=Join-Path $logDirectory 'installers'
     $prepared=@{}
     # Prepare every needed application before executing any installer.
-    foreach ($kind in $required) { $prepared[$kind]=Get-LearningInstaller $catalog.$kind $cacheDirectory }
     foreach ($kind in $required) {
-        Install-LearningApplication $kind $prepared[$kind] $logDirectory
+        if ($kind -eq 'python') { $prepared.pythonRuntime=Get-LearningPythonRuntimePackage $ExtensionRoot }
+        else { $prepared[$kind]=Get-LearningInstaller $catalog.$kind $cacheDirectory }
+    }
+    foreach ($kind in $required) {
+        if ($kind -eq 'python') { $null=Initialize-LearningPrivatePython $ExtensionRoot }
+        else { Install-LearningApplication $kind $prepared[$kind] $logDirectory }
         $after=Get-LearningBootstrapState $ExtensionRoot
         if (-not $after.$kind) { throw "$kind was installed but did not pass its runtime check. Installation stopped; rerun after fixing the reported dependency." }
     }

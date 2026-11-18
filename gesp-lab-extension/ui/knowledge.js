@@ -10,8 +10,8 @@ export function knowledgeDirectoryHtml(levels,level,catalog,selected=false){
 }
 export function topicProblems(bank,topic,level,catalog){
   const terms=new Set(knowledgeTerms(topic,catalog)),support=new Set([...terms,...catalog.supportTags]);
-  const related=bank.filter(p=>p.level<=level&&p.tags?.some(t=>terms.has(t))).sort((a,b)=>(b.level===level)-(a.level===level)||b.level-a.level||a.tags.length-b.tags.length||String(b.session).localeCompare(String(a.session))||a.id.localeCompare(b.id));
-  return {single:related.filter(p=>p.tags.every(t=>support.has(t))),related};
+  const related=bank.filter(p=>p.kind!=='theory'&&Number.isInteger(p.level)&&p.level<=level&&(p.knowledgePoints||p.tags)?.some(t=>terms.has(t))).sort((a,b)=>(b.level===level)-(a.level===level)||b.level-a.level||a.tags.length-b.tags.length||String(b.session).localeCompare(String(a.session))||a.id.localeCompare(b.id));
+  return {single:related.filter(p=>(p.knowledgePoints||p.tags).every(t=>support.has(t))),related};
 }
 export function topicProblem(topic,level){
   return {id:knowledgeId(topic,level),kind:'knowledge-topic',title:`${topic} · 知识点讲解`,level,tags:[topic],

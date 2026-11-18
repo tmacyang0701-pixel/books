@@ -11,24 +11,38 @@ export function normalizeProblem(value, fallbackLevel=5) {
   p.description ??= p.statement; p.input ??= p.inputDesc; p.output ??= p.outputDesc;
   for(const key of ['title','description','input','output','constraints','sampleInput','sampleOutput']) {
     p[key] ??= '';
-    if(typeof p[key]!=='string' || p[key].length>40000) throw Error(`${key} 字段无效或过长`);
+    if(typeof p[key]!=='string' || p[key].length>(key.startsWith('sample')?100000:40000)) throw Error(`${key} 字段无效或过长`);
   }
   if(!p.title.trim()||!p.description.trim()) throw Error('请填写标题与题干');
-  p.level ??= fallbackLevel;
-  if(!Number.isInteger(p.level)||p.level<1||p.level>8) throw Error('等级必须是 1～8');
+  const ungraded=p.collection==='xiaohou-bank'&&p.level===null;
+  if(!ungraded)p.level ??= fallbackLevel;
+  if(!ungraded&&(!Number.isInteger(p.level)||p.level<1||p.level>8)) throw Error('等级必须是 1～8');
   p.tags ??= [];
   if(!Array.isArray(p.tags)||p.tags.some(v=>typeof v!=='string')) throw Error('知识点必须为文本数组');
+  if(p.samples!==undefined){
+    if(!Array.isArray(p.samples)||p.samples.length>20||p.samples.some(s=>!s||['input','output'].some(k=>typeof s[k]!=='string'||s[k].length>100000)||(s.explanation!==undefined&&(typeof s.explanation!=='string'||s.explanation.length>40000))))throw Error('样例需要文本 input、output，可选 explanation，最多 20 组');
+    if(p.samples.length){p.sampleInput=p.samples[0].input;p.sampleOutput=p.samples[0].output;}
+  }
   p.cases ??= [];
-  if(!Array.isArray(p.cases)||p.cases.length>30||p.cases.some(c=>!c||typeof c.input!=='string'||typeof c.expected!=='string'||!Number.isInteger(c.score)||c.score<0||c.score>100||c.input.length>20000||c.expected.length>20000)) throw Error('评测点需要 input、expected 与 0～100 的整数 score，最多 30 个');
+  if(!Array.isArray(p.cases)||p.cases.length>30||p.cases.some(c=>!c||typeof c.input!=='string'||typeof c.expected!=='string'||!Number.isInteger(c.score)||c.score<0||c.score>100||c.input.length>100000||c.expected.length>100000)) throw Error('评测点需要 input、expected 与 0～100 的整数 score，最多 30 个');
   if(!p.cases.length && p.sampleInput && p.sampleOutput) p.cases=[{input:p.sampleInput,expected:p.sampleOutput,score:100}];
+
   return p;
 }
+export function problemSamples(problem={}) {
+  return problem.samples?.length?problem.samples:(problem.sampleInput||problem.sampleOutput?[{input:problem.sampleInput||'',output:problem.sampleOutput||''}]:[]);
+}
+export function problemSamplesHtml(problem={}, {compact=false}={}) {
+  const samples=problemSamples(problem),label=problem.sampleLabel||'题目示例';
+  return samples.map((s,i)=>`<section class="problem-section"><h3>${escapeHtml(label)}${samples.length>1?' '+(i+1):''}</h3><div${compact?' class="problem-samples"':''}><div><h4>输入</h4><pre class="sample-box">${escapeHtml(s.input)}</pre></div><div><h4>输出</h4><pre class="sample-box">${escapeHtml(s.output)}</pre></div></div>${s.explanation?`<p class="problem-prose">${escapeHtml(s.explanation)}</p>`:''}</section>`).join('');
+}
 export function recommendProblems(bank, problem, count=3) {
-  const tags=new Set(problem.tags||[]);
-  return bank.filter(p=>p.id!==problem.id&&p.level===problem.level).map(p=>({...p,shared:(p.tags||[]).filter(t=>tags.has(t))})).sort((a,b)=>b.shared.length-a.shared.length||String(b.session).localeCompare(String(a.session))).slice(0,count);
+  const tags=new Set(problem.knowledgePoints||problem.tags||[]);
+  return bank.filter(p=>p.id!==problem.id&&p.kind!=='theory'&&(Number.isInteger(problem.level)?p.level===problem.level:p.group===problem.group)).map(p=>({...p,shared:(p.knowledgePoints||p.tags||[]).filter(t=>tags.has(t))})).sort((a,b)=>b.shared.length-a.shared.length||String(b.session).localeCompare(String(a.session))).slice(0,count);
 }
 export function sampleReferenceHtml(problem={}) {
-  const samples=[['输入',problem.sampleInput,problem.input],['输出',problem.sampleOutput,problem.output]]
+  const groups=problemSamples(problem);
+  const samples=groups.flatMap((s,i)=>[[`${groups.length>1?(i+1)+' · ':''}输入`,s.input,problem.input],[`${groups.length>1?(i+1)+' · ':''}输出`,s.output,problem.output]])
     .filter(([,value])=>typeof value==='string'&&value.trim());
   if(!samples.length)return '';
   const label=typeof problem.sampleLabel==='string'&&problem.sampleLabel.trim()?problem.sampleLabel:'题目示例';

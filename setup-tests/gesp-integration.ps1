@@ -56,7 +56,11 @@ Assert ($null -eq (Get-CodeArenaRuntimeSelection)) 'Old/malformed selection must
 $fakeBin=Join-Path $fixture 'compiler'
 New-Item -ItemType Directory -Path $fakeBin -Force | Out-Null
 $fakeGdb=Join-Path $fakeBin 'gdb.exe'
-Copy-Item -LiteralPath (Join-Path $env:SystemRoot 'System32\where.exe') -Destination $fakeGdb
+if ([Environment]::OSVersion.Platform -eq [PlatformID]::Win32NT) {
+    Copy-Item -LiteralPath (Join-Path $env:SystemRoot 'System32\where.exe') -Destination $fakeGdb
+} else {
+    Copy-Item -LiteralPath '/usr/bin/false' -Destination $fakeGdb
+}
 Assert (-not (Test-LearningDebugger (Join-Path $fakeBin 'g++.exe'))) 'A present executable without GDB Python support must fail.'
 
 # A compiler without the debugger is not a complete GESP toolchain.
@@ -67,19 +71,10 @@ function Find-LearningPython { return 'fixture-python' }
 function Find-LearningChrome { return 'fixture-chrome' }
 Assert (-not (Get-LearningBootstrapState $fixture).compiler) 'Missing GDB must trigger toolchain repair even when C++ compiles.'
 
-# Exercise the stale-registration repair path without launching installers.
-$script:starts=New-Object System.Collections.Generic.List[object]
-function Start-Process {
-    param($FilePath,$ArgumentList,$WindowStyle,[switch]$Wait,[switch]$PassThru,$Verb)
-    $script:starts.Add([pscustomobject]@{file=$FilePath;arguments=$ArgumentList})
-    return [pscustomobject]@{ExitCode=0}
-}
+# All Python entry points must dispatch the private runtime, never the MSI.
+$script:runtimeCalls=0
+function Start-Process { throw 'Python MSI must not be launched' }
+function Initialize-LearningPrivatePython { $script:runtimeCalls++; return 'fixture-python' }
 Install-LearningApplication 'python' $file $fixture
-Assert ($script:starts.Count -eq 1) 'A working Python after install must not run repair.'
-Assert ($script:starts[0].arguments -match 'TargetDir=') 'Fresh Python must target the current bundle runtime.'
-function Find-LearningPython { return $null }
-function Get-LearningRegisteredPython { return (Join-Path $fixture 'old\runtime\python-full\python.exe') }
-$script:starts.Clear()
-Install-LearningApplication 'python' $file $fixture
-Assert ($script:starts.Count -eq 2 -and $script:starts[1].arguments -match '/repair') 'Missing registered bundle Python must request repair before re-detection.'
-Write-Output 'PASS: bundled EXE/wheel checksums, offline reuse, corrupt/missing file rejection, moved/malformed runtime selections, debugger validation, Python install/repair dispatch.'
+Assert ($script:runtimeCalls -eq 1) 'Legacy Python installer entry must delegate to private runtime.'
+Write-Output 'PASS: bundled checksums, offline reuse, corrupt/missing file rejection, runtime selection, debugger validation, private Python dispatch.'

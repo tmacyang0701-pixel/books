@@ -42,7 +42,7 @@ class KnowledgeTests(unittest.TestCase):
         for body in [dict(topic='',targetLevel=5),dict(topic='二分与贪心',targetLevel=5),dict(topic='贪心',targetLevel=True),dict(topic='贪心',targetLevel=9)]:
             with self.assertRaises(GenerationError):validate_topic(body)
         self.assertEqual(validate_topic(dict(topic='高精度',targetLevel=5)),('高精度',5))
-        bank=[dict(id='single',level=5,tags=['贪心','循环']),dict(id='mixed',level=5,tags=['贪心','排序']),dict(id='high',level=6,tags=['贪心'])]
+        bank=[dict(id='single',level=5,tags=['贪心','循环']),dict(id='mixed',level=5,tags=['贪心','排序']),dict(id='high',level=6,tags=['贪心']),dict(id='ungraded',level=None,collection='xiaohou-bank',tags=['贪心'])]
         self.assertEqual([p['id'] for p in bank_candidates(bank,'贪心',5)],['single'])
 
     def test_generated_practice_is_bounded_and_focused(self):
@@ -146,6 +146,8 @@ class KnowledgeTests(unittest.TestCase):
         opener=build_opener(ProxyHandler({}))
         with tempfile.TemporaryDirectory() as tmp:
             app=Application(cfg,tmp);server=ThreadingHTTPServer(('127.0.0.1',0),make_handler(app));threading.Thread(target=server.serve_forever,daemon=True).start();url=f'http://127.0.0.1:{server.server_port}'
+            # Keep the bank/LLM boundary deterministic as the real catalog grows.
+            app.bank=[dict(id='enumeration-fixture',level=3,tags=['枚举'])]
             def post(body,path='/api/knowledge-practice'):
                 try:
                     with opener.open(Request(url+path,json.dumps(body).encode(),{'Content-Type':'application/json'})) as r:return r.status,json.loads(r.read())

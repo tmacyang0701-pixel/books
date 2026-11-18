@@ -34,10 +34,10 @@ export function nativeHost(root,env=process.env){
  const environment=extra=>{const keys=new Set(Object.keys(extra).map(k=>k.toLowerCase()));return {...Object.fromEntries(Object.entries(env).filter(([key])=>!keys.has(key.toLowerCase()))),...extra};};
  const probe=(file,args,extra={})=>spawnSync(file,args,{env:environment(extra),encoding:'utf8',timeout:30000,windowsHide:true});
  const ps=(code,extra={})=>probe(powershell,['-NoProfile','-Command','[Console]::OutputEncoding=New-Object System.Text.UTF8Encoding($false); '+code],extra);
- function registry(script){return resultJSON(ps(script))||[];}
+ function registry(script,extra={}){return resultJSON(ps(script,extra))||[];}
  const where=name=>{const r=probe('where.exe',[name]);return successful(r)?r.stdout.split(/\r?\n/).filter(Boolean):[];};
  return {exists:existsSync,probe,where,powershell,env,
-  pythonRegistry:()=>registry("$r=@(); foreach($base in @('HKCU:\\Software\\Python\\PythonCore','HKLM:\\Software\\Python\\PythonCore','HKLM:\\Software\\WOW6432Node\\Python\\PythonCore')){if(Test-Path $base){foreach($k in Get-ChildItem $base){$p=Get-ItemProperty ($k.PSPath+'\\InstallPath') -ErrorAction SilentlyContinue;if($p){if($p.ExecutablePath){$r+=$p.ExecutablePath}else{$r+=(Join-Path $p.'(default)' 'python.exe')}}}}}; ConvertTo-Json -Compress -InputObject @($r)"),
+  pythonRegistry:(series='')=>registry("$r=@(); foreach($base in @('HKCU:\\Software\\Python\\PythonCore','HKLM:\\Software\\Python\\PythonCore','HKLM:\\Software\\WOW6432Node\\Python\\PythonCore')){if(Test-Path $base){foreach($k in Get-ChildItem $base){if($env:HMT_PYTHON_SERIES -and $k.PSChildName -ne $env:HMT_PYTHON_SERIES){continue};$p=Get-ItemProperty ($k.PSPath+'\\InstallPath') -ErrorAction SilentlyContinue;if($p){if($p.ExecutablePath){$r+=$p.ExecutablePath}else{$r+=(Join-Path $p.'(default)' 'python.exe')}}}}}; ConvertTo-Json -Compress -InputObject @($r)",{HMT_PYTHON_SERIES:series}),
   devRegistry:()=>registry("$r=@();foreach($base in @('HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall','HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall','HKLM:\\Software\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall')){if(Test-Path $base){Get-ChildItem $base -ErrorAction SilentlyContinue | ForEach-Object {$p=Get-ItemProperty $_.PSPath -ErrorAction SilentlyContinue;if($p.DisplayName -match 'Dev-C\\+\\+|Dev-Cpp'){if($p.InstallLocation){$r+=$p.InstallLocation};if($p.DisplayIcon){$r+=Split-Path ($p.DisplayIcon -replace ',\\d+$','' -replace '\"','')};if($p.UninstallString -match '^\"?(.+?\\\\uninstall\\.exe)\"?'){$r+=Split-Path $matches[1]}}}}};ConvertTo-Json -Compress -InputObject @($r)"),
   localPython:()=>{if(!env.LOCALAPPDATA)return [];return [join(env.LOCALAPPDATA,'Programs','Python'),join(env.LOCALAPPDATA,'Python')].flatMap(base=>{try{return readdirSync(base,{withFileTypes:true}).filter(x=>x.isDirectory()).map(x=>join(base,x.name,'python.exe'));}catch{return [];}});},
   fileVersion:path=>{const r=ps("(Get-Item -LiteralPath $env:HMT_INSPECT_FILE).VersionInfo.ProductVersion",{HMT_INSPECT_FILE:path});return successful(r)?r.stdout.trim():'';},
@@ -78,7 +78,8 @@ export class Installer{
   const result={...selected,diagnostics:findings};this.report.components.python=result;return result;
  }
  async repairRegisteredPython(exe,logs,detected){
-  const registered=unique(this.host.pythonRegistry());
+  const series=this.report.pythonInstallation.series||'';
+  const registered=unique(this.host.pythonRegistry(series));
   const stale=registered.filter(path=>isBundlePythonPath(path)&&!this.host.exists(path));
   if(!stale.length)return detected;
   this.checkCancelled();
@@ -88,7 +89,7 @@ export class Installer{
   // CPython changes INSTALL to MODIFY when the bundle is already registered.
   // Explicit REPAIR restores missing MSI files to the registered installation.
   // Do not override TargetDir here: it does not relocate an installed product.
-  const result=await this.during(4,'检测到旧安装记录但 Python 文件缺失，正在离线修复原有安装',()=>this.host.run(exe,['/repair','/quiet','/norestart','/log',logFile,'Include_launcher=0','PrependPath=0','Shortcuts=0']));
+  const result=await this.during(4,'检测到旧安装记录但 Python 文件缺失，正在离线修复原有安装',()=>this.host.run(exe,['/repair','/quiet','/norestart','/log',logFile]));
   Object.assign(this.report.pythonInstallation.repair,{exitCode:result.status,rebootRequired:result.status===3010,stderr:result.stderr});
   this.report.pythonInstallation.rebootRequired ||= result.status===3010;
   this.report.actions.push({component:'python',action:'repair-attempt',exitCode:result.status});
@@ -109,13 +110,18 @@ export class Installer{
  async installPython(){
   const meta=JSON.parse(readFileSync(join(this.root,'python','downloads.json'),'utf8')),record=meta.files.find(x=>x.filename.endsWith('.exe')),exe=await this.verifyArtifact('python',record),target=join(this.root,'runtime','python-full');
   const logs=join(this.root,'.setup','logs');mkdirSync(logs,{recursive:true});const logFile=join(logs,'python-install-'+Date.now()+'.log');
-  this.report.pythonInstallation={target,installer:exe,logFile};
-  const result=await this.during(4,'正在离线安装 Python 与 pip（已有旧版本保留）',()=>this.host.run(exe,['/quiet','/norestart','/log',logFile,'InstallAllUsers=0','Include_pip=1','Include_exe=1','Include_lib=1','Include_test=0','Include_launcher=0','Include_debug=0','Include_symbols=0','PrependPath=0','Shortcuts=0','TargetDir='+target]));
-  Object.assign(this.report.pythonInstallation,{exitCode:result.status,rebootRequired:result.status===3010,stderr:result.stderr});
-  this.previous.python=join(target,'python.exe');let detected=this.python();
-  if(![0,3010].includes(result.status))throw new Error('Python 安装失败，退出码 '+result.status+'。安装日志：'+logFile);
-  this.report.actions.push({component:'python',action:'installer-completed',exitCode:result.status});
-  if(!detected.ready&&!detected.diagnostics.some(info=>info.exists&&!/\\WindowsApps\\/i.test(info.path)))detected=await this.repairRegisteredPython(exe,logs,detected);
+  this.report.pythonInstallation={target,installer:exe,logFile,series:meta.version?.split('.').slice(0,2).join('.')};
+  // Repair before INSTALL: an existing registration turns INSTALL into MODIFY,
+  // where Include_test=0 can fail while uninstalling a missing old test suite.
+  let detected=await this.repairRegisteredPython(exe,logs,this.python());
+  if(!this.report.pythonInstallation.repair){
+   const result=await this.during(4,'正在离线安装 Python 与 pip（已有旧版本保留）',()=>this.host.run(exe,['/quiet','/norestart','/log',logFile,'InstallAllUsers=0','Include_pip=1','Include_exe=1','Include_lib=1','Include_test=0','Include_launcher=0','Include_debug=0','Include_symbols=0','PrependPath=0','Shortcuts=0','TargetDir='+target]));
+   Object.assign(this.report.pythonInstallation,{exitCode:result.status,rebootRequired:result.status===3010,stderr:result.stderr});
+   this.previous.python=join(target,'python.exe');detected=this.python();
+   if(![0,3010].includes(result.status))throw new Error('Python 安装失败，退出码 '+result.status+'。安装日志：'+logFile);
+   this.report.actions.push({component:'python',action:'installer-completed',exitCode:result.status});
+   if(!detected.ready&&!detected.diagnostics.some(info=>info.exists&&!/\\WindowsApps\\/i.test(info.path)))detected=await this.repairRegisteredPython(exe,logs,detected);
+  }
   const registered=unique(this.host.pythonRegistry());
   const local=detected.diagnostics.find(info=>info.stdlib&&info.ensurepip&&!info.pip&&(info.path===this.previous.python||registered.includes(info.path)&&isBundlePythonPath(info.path)));
   if(!detected.ready&&local?.stdlib&&local.ensurepip&&!local.pip&&atLeast(local.version,policy.python)){

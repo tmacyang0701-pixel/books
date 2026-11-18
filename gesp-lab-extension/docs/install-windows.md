@@ -75,3 +75,5 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\install-all.ps1 -CheckOnly
 维护者打包：`python scripts/package-windows.py`。包附文件 SHA-256 清单及整个 ZIP 的 SHA-256 文件。
 
 安装来源：[Python 3.14.10](https://www.python.org/downloads/release/python-31410/)、[Chrome Enterprise 下载](https://chromeenterprise.google/download/)、[Dev-C++ 官方发布](https://github.com/Embarcadero/Dev-Cpp/releases/tag/v6.3)、[Chrome 加载扩展说明](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world)。固定地址和校验值在 `scripts/windows-installers.json`。
+
+Python 安装规则：检测版本、64 位架构和 ssl/sqlite3/venv/ensurepip；兼容可用则跳过。否则校验并解压整合包 `python/python-3.14.10-win-x64.nupkg` 到本项目 `.local`，不调用系统 Python EXE/MSI，不卸载系统版本。不可用的项目 `.venv` 会先备份再重建。日志在 `.local/python-runtime.log`。

@@ -34,30 +34,60 @@ def normalize_problem(value, level=5):
     aliases={'description':'statement','input':'inputDesc','output':'outputDesc'}
     for key in ('title','description','input','output','constraints','sampleInput','sampleOutput'):
         text=value.get(key,value.get(aliases.get(key,''),''))
-        if not isinstance(text,str) or len(text)>40000: raise GenerationError('invalid_problem',f'题目 {key} 字段无效或过长。')
+        if not isinstance(text,str) or len(text)>(100000 if key.startswith('sample') else 40000): raise GenerationError('invalid_problem',f'题目 {key} 字段无效或过长。')
         result[key]=text.strip() if key not in ('sampleInput','sampleOutput') else text
     if not result['title'] or not result['description']: raise GenerationError('invalid_problem','请填写题目标题与完整题干。')
     selected=value.get('level',level)
-    if type(selected)!=int or not 1<=selected<=8: raise GenerationError('invalid_level','等级必须为 1～8。')
+    if not (value.get('collection')=='xiaohou-bank' and selected is None) and (type(selected)!=int or not 1<=selected<=8): raise GenerationError('invalid_level','等级必须为 1～8。')
     result['level']=selected
+    csp=value.get('group') in ('csp-j','csp-s') or value.get('collection')=='xiaohou-bank'
     tags=value.get('tags',[])
-    if not isinstance(tags,list) or len(tags)>20 or any(not isinstance(t,str) or len(t)>100 for t in tags):
+    if not isinstance(tags,list) or len(tags)>(200 if csp else 20) or any(not isinstance(t,str) or len(t)>100 for t in tags):
         raise GenerationError('invalid_problem','知识点标签格式无效。')
     result['tags']=tags
+    if 'samples' in value:
+        samples=value['samples']
+        if not isinstance(samples,list) or len(samples)>20:
+            raise GenerationError('invalid_problem','最多支持 20 组样例。')
+        result['samples']=[]
+        for sample in samples:
+            if not isinstance(sample,dict) or any(not isinstance(sample.get(k),str) or len(sample[k])>100000 for k in ('input','output')) or ('explanation' in sample and (not isinstance(sample['explanation'],str) or len(sample['explanation'])>40000)):
+                raise GenerationError('invalid_problem','样例必须有文本 input、output，可选 explanation。')
+            result['samples'].append({k:sample[k] for k in ('input','output','explanation') if k in sample})
+        if samples:
+            result['sampleInput']=samples[0]['input']
+            result['sampleOutput']=samples[0]['output']
     cases=value.get('cases',[])
     if not isinstance(cases,list) or len(cases)>30: raise GenerationError('invalid_problem','最多支持 30 个测试点。')
     if not cases and result['sampleInput'] and result['sampleOutput']:
         cases=[dict(input=result['sampleInput'],expected=result['sampleOutput'],score=100)]
     checked=[]
     for case in cases:
-        if not isinstance(case,dict) or any(not isinstance(case.get(k),str) or len(case[k])>20000 for k in ('input','expected')):
+        if not isinstance(case,dict) or any(not isinstance(case.get(k),str) or len(case[k])>100000 for k in ('input','expected')):
             raise GenerationError('invalid_problem','测试点必须有文本 input 和 expected。')
         score=case.get('score',0)
         if type(score)!=int or not 0<=score<=100: raise GenerationError('invalid_problem','测试点分值必须为 0～100 的整数。')
-        checked.append(dict(input=case['input'],expected=case['expected'],score=score))
+        checked_case=dict(input=case['input'],expected=case['expected'],score=score)
+        for key in ('label','source'):
+            if isinstance(case.get(key),str): checked_case[key]=case[key][:100]
+        checked.append(checked_case)
     result['cases']=checked
     for key in ('id','kind','session','casesSource','sampleLabel','explanation'):
         if isinstance(value.get(key),str): result[key]=value[key][:5000]
+    if csp:
+        result['group']=value.get('group','bank')
+        if value.get('collection')=='xiaohou-bank': result['collection']='xiaohou-bank'
+        for key in ('levelBasis','levelStatus','cspDifficulty','groupBasis','bankOrigin','bankCode','platformDifficulty','knowledgePointsBasis','tips'):
+            if isinstance(value.get(key),str): result[key]=value[key][:(40000 if key=='tips' else 2000)]
+        points=value.get('knowledgePoints',[])
+        if not isinstance(points,list) or len(points)>20 or any(not isinstance(t,str) or len(t)>100 for t in points):
+            raise GenerationError('invalid_problem','知识点标签格式无效。')
+        result['knowledgePoints']=points
+        occurrences=value.get('occurrences',[])
+        if not isinstance(occurrences,list) or len(occurrences)>200 or any(not isinstance(r,dict) for r in occurrences):
+            raise GenerationError('invalid_problem','赛事来源格式无效。')
+        result['occurrences']=[{k:v[:500] if isinstance(v,str) else v for k,v in r.items()
+            if k in ('periodLabel','group','number','year','season','week','contestName','sourceUrl') and type(v) in (str,int)} for r in occurrences]
     if isinstance(value.get('hints'),list): result['hints']=[str(v)[:1000] for v in value['hints'][:6]]
     if isinstance(value.get('source'),dict):
         result['source']={k:str(v)[:2000] for k,v in value['source'].items() if k in ('url','pdfUrl','referenceUrl','note','edition','organization')}
@@ -88,6 +118,8 @@ class Application:
         self.jobs={}
         self.levels=json.loads((ROOT/'data/gesp/levels.json').read_text(encoding='utf-8'))['levels']
         self.bank=json.loads((ROOT/'data/gesp/index.json').read_text(encoding='utf-8'))['problems']
+        self.bank+=json.loads((ROOT/'data/csp/index.json').read_text(encoding='utf-8'))['problems']
+        self.bank+=json.loads((ROOT/'data/xiaohou-bank/index.json').read_text(encoding='utf-8'))['problems']
         for path in (self.data/'jobs').glob('*.json'):
             try:
                 job=json.loads(path.read_text(encoding='utf-8'))
@@ -190,10 +222,10 @@ class Application:
             return dict(job)
 
     def recommend(self, problem):
-        tags=set(problem.get('tags',[]))
-        candidates=[p for p in self.bank if p['id']!=problem.get('id') and p['level']==problem.get('level',5)]
-        candidates.sort(key=lambda p:(len(tags&set(p['tags'])),p['session']),reverse=True)
-        return [{'id':p['id'],'reason':'共同知识点：'+'、'.join(t for t in p['tags'] if t in tags) if tags&set(p['tags']) else '同级拓展练习'} for p in candidates[:3]]
+        tags=set(problem.get('knowledgePoints',problem.get('tags',[])))
+        candidates=[p for p in self.bank if p['id']!=problem.get('id') and p.get('kind')!='theory' and (p['level']==problem['level'] if type(problem.get('level')) is int else p.get('group')==problem.get('group'))]
+        candidates.sort(key=lambda p:(len(tags&set(p.get('knowledgePoints',p['tags']))),p['session']),reverse=True)
+        return [{'id':p['id'],'reason':'共同知识点：'+'、'.join(t for t in p.get('knowledgePoints',p['tags']) if t in tags) if tags&set(p.get('knowledgePoints',p['tags'])) else '同级拓展练习'} for p in candidates[:3]]
 
     def work(self, ident, kind, payload):
         try:
@@ -398,7 +430,7 @@ def make_handler(app):
                 if path.startswith('/api/lessons/'): return self.respond(200,app.read('lessons',path.rsplit('/',1)[-1]))
                 if path=='/api/practice': return self.respond(200,app.list_records('practice'))
                 relative=path.lstrip('/') or 'index.html'
-                allowed=relative in ('index.html','app.js','styles.css','problem.json') or relative.startswith(('ui/','data/gesp/','vendor/'))
+                allowed=relative in ('index.html','app.js','styles.css','problem.json') or relative.startswith(('ui/','data/gesp/','data/csp/','data/xiaohou-bank/','vendor/'))
                 if '\\' in relative or any(part in ('.','..') for part in relative.split('/')):
                     allowed=False
                 target=(ROOT/relative).resolve()
@@ -521,6 +553,7 @@ def make_handler(app):
                     if 'problem' in body:
                         problem=normalize_problem(body['problem'])
                         if problem.get('kind')=='knowledge-topic':raise GenerationError('invalid_problem','知识点请选择专项练习入口。')
+                        if type(problem.get('level')) is not int:raise GenerationError('invalid_level','本题尚未确定 GESP 等级，请先选择讲解等级或使用编程练习。')
                         job=app.enqueue('practice',dict(problem=problem))
                     else:
                         ident=body.get('lessonId','')

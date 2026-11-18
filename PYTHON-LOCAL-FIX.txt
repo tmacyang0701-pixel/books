@@ -1,0 +1,17 @@
+﻿GESP Python 1603 修复补丁（本地运行包方案）
+
+1. 关闭旧安装窗口。
+2. 将补丁中的 gesp-lab-extension 和 python 文件夹复制到“一键安装.bat”所在目录，合并并覆盖同名文件。
+   按此次报错，目标目录是 C:\Users\86159\Desktop\gesp\CodeArena\books\books\。
+   不要把整个补丁再放进一个新的子目录；不要删除原来的项目文件夹。
+3. 重新双击“一键安装.bat”。不需要卸载系统 Python。
+
+规则：Python 3.10 以上、64 位并且所需组件可用，直接跳过。
+缺失或不兼容时，只为当前项目解压已校验的 Python 3.14.10，不再运行 Python EXE/MSI。
+项目内不可用的运行环境先保留备份再替换；系统里的其他 Python 不删除。
+
+正常提示为“Skipping Python setup”或“正在从本地包解压 Python”。
+若仍看到“Installing python. Accept the Windows UAC prompt”，说明旧脚本未覆盖到实际运行目录。
+解压失败日志：gesp-lab-extension\.local\python-runtime.log。
+
+本地已验证校验、解压、复用、替换与安装入口分发；Windows 可执行文件需要在 Windows 上实际验证。

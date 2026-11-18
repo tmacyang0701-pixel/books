@@ -10,4 +10,22 @@ test('similarity excludes current and other levels, ranks shared tags first',()=
 test('untrusted content and source links cannot execute script',()=>{assert.equal(safeUrl('javascript:alert(1)'),'');assert.equal(safeUrl('file:///secret'),'');assert.ok(escapeHtml('<img src=x onerror=alert(1)>').startsWith('&lt;'));const html=slideHtml({kind:'知识',title:'<script>x</script>',content:['<iframe>'],code:'#include <iostream>',trace:{headers:[],rows:[]}},{codeUnlocked:true});assert.ok(!html.includes('<script>'));assert.ok(html.includes('&lt;iostream&gt;'))});
 test('HTML export is standalone and preserves escaped C++ and narration',()=>{const html=exportHtml({title:'测试',targetLevel:5,model:'test',pages:[{kind:'代码',title:'解法',content:['步骤'],code:'x < 4;',narration:'<img onerror=x>'}]},{includeCode:true});assert.ok(html.includes('x &lt; 4;'));assert.ok(!html.includes('<script'));assert.ok(html.includes('href="#page-1"'));assert.ok(html.includes('&lt;img onerror=x&gt;'))});
 test('all frontend ID references exist and are unique',()=>{const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(new Set(ids).size,ids.length);const js=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');for(const match of js.matchAll(/\$\('([^']+)'\)/g))assert.ok(ids.includes(match[1]),'missing '+match[1]);assert.match(html,/id="outputDrawer"[^>]*hidden/);assert.doesNotMatch(html,/class="bottom"/)});
-test('all 216 packaged questions validate with unique IDs and traceable sources',()=>{const index=JSON.parse(fs.readFileSync(new URL('../data/gesp/index.json',import.meta.url)));assert.equal(index.problems.length,216);assert.equal(new Set(index.problems.map(p=>p.session)).size,15);assert.deepEqual(Array.from({length:8},(_,i)=>index.problems.filter(p=>p.level===i+1).length),[30,30,28,28,26,26,24,24]);const seen=new Set();for(const entry of index.problems){const p=normalizeProblem(JSON.parse(fs.readFileSync(new URL('../'+entry.file,import.meta.url))));assert.ok(!seen.has(p.id));seen.add(p.id);assert.equal(p.level,entry.level);assert.equal(p.cases.reduce((s,c)=>s+c.score,0),100);assert.match(p.source.url,/gesp.ccf.org.cn/);assert.match(p.casesSource,/自编/);assert.equal(p.sampleInput,p.cases[0].input)}});
+test('216 past papers and 10 supplemental questions validate with unique IDs and traceable sources',()=>{
+  const index=JSON.parse(fs.readFileSync(new URL('../data/gesp/index.json',import.meta.url)));
+  const papers=index.problems.filter(p=>p.kind==='past-paper');
+  assert.equal(index.problems.length,226);assert.equal(papers.length,216);
+  assert.equal(new Set(papers.map(p=>p.session)).size,15);
+  assert.deepEqual(Array.from({length:8},(_,i)=>papers.filter(p=>p.level===i+1).length),[30,30,28,28,26,26,24,24]);
+  const seen=new Set();
+  for(const entry of index.problems){
+    const p=normalizeProblem(JSON.parse(fs.readFileSync(new URL('../'+entry.file,import.meta.url))));
+    assert.ok(!seen.has(p.id));seen.add(p.id);assert.equal(p.level,entry.level);
+    assert.equal(p.cases.reduce((s,c)=>s+c.score,0),100);assert.match(p.casesSource,/自编/);
+    assert.equal(p.sampleInput.trim(),p.cases[0].input.trim());
+    if(p.kind==='past-paper')assert.equal(new URL(p.source.url).hostname,'gesp.ccf.org.cn');
+    else{assert.equal(p.kind,'supplemental');assert.equal(p.level,5);assert.equal(new URL(p.source.url).hostname,'www.xiaohoucode.com');assert.equal(p.cases.length,20);assert.ok(fs.existsSync(new URL('../'+p.extraTests,import.meta.url)));}
+  }
+  const coverage=JSON.parse(fs.readFileSync(new URL('../data/gesp/coverage.json',import.meta.url)));
+  assert.equal(coverage.total,index.problems.length);
+  for(const level of coverage.levels)assert.equal(level.count,index.problems.filter(p=>p.level===level.level).length);
+});

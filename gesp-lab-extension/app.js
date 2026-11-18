@@ -1,5 +1,7 @@
 /* global monaco */
-import {escapeHtml as esc, safeUrl, normalizeProblem, recommendProblems, slideHtml, exportHtml} from './ui/core.js';
+import {escapeHtml as esc, safeUrl, normalizeProblem, recommendProblems, slideHtml, exportHtml, problemSamplesHtml} from './ui/core.js';
+import {isSourceTag, librarySources, filterLibrary, belongsToLibrary, libraryPage} from './ui/library-filters.js';
+import {isCspProblem,isTheoryProblem,cspPeriods,cspDetails,theoryFeedback,classificationLabel,problemGroupLabel} from './ui/csp-library.js';
 import {createChatPanel} from './ui/chat-panel.js';
 import {createLessonRunner} from './ui/lesson-runner.js';
 import {createLessonDebugger} from './ui/lesson-debugger.js';
@@ -24,6 +26,7 @@ const blankCode='#include <iostream>\nusing namespace std;\n\nint main() {\n    
 const starter='#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}\n';
 function readLocal(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
 function saveLocal(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{toast('本地存储空间不足，请导出需要保留的内容');return false}}
+let libraryGroup=readLocal('ca-library-group','gesp');if(!['gesp','csp-j','csp-s','bank','ungraded'].includes(libraryGroup))libraryGroup='gesp';
 const state={level:Math.min(8,Math.max(1,Number(readLocal('ca-level',5))||5)),bank:[],levels:[],cache:new Map(),uploaded:readLocal('ca-uploaded',[]),practice:[],lessons:[],lesson:readLocal('ca-last-lesson',null),slide:0,activeProblem:null,preview:null,health:null,view:'learn'};
 if(!Array.isArray(state.uploaded))state.uploaded=[];
 let practiceSource=null;
@@ -49,8 +52,10 @@ const analysisSettings=createAnalysisSettings({api,toast});
 let knowledgeCatalog=null,knowledgeContext=readLocal('ca-knowledge',null),knowledgeReturn=false;
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4200)}
 function empty(title,text,button=''){return `<div class="empty-state"><h3>${esc(title)}</h3><p class="small">${esc(text)}</p>${button}</div>`}
-const tagsHtml=p=>`<div class="card-tags">${(p.tags||[]).map(t=>`${knowledgeTag(t,p.level||state.level)}`).join('')}</div>`;
-const meta=p=>p.kind==='knowledge-topic'?`知识点专题 · GESP ${p.level} 级`:p.kind==='generated'?`AI 原创${p.knowledgeTopic?'专项练习':'变式'} · ${p.difficulty||'练习'} · ${p.level} 级`:p.kind==='uploaded'?`我的题目 · ${p.level} 级`:`${p.session||'入门示例'} · C++ ${p.level||1} 级`;
+const tagsHtml=p=>isCspProblem(p)?`<div class="card-tags">${['来源：学而思',...(p.knowledgePoints||[])].map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:`<div class="card-tags">${(p.tags||[]).map(t=>isSourceTag(t)?`<span class="tag">${esc(t)}</span>`:knowledgeTag(t,p.level||state.level)).join('')}</div>`;
+let libraryPageNumber=1,libraryFilterKey='';
+const listTags=p=>isCspProblem(p)?[classificationLabel(p),...(p.knowledgePoints||[]),'来源：学而思']:(p.tags||[]);
+const meta=p=>isCspProblem(p)?`${problemGroupLabel(p)} · ${isTheoryProblem(p)?'理论题':'编程题'} · ${classificationLabel(p)}`:p.kind==='knowledge-topic'?`知识点专题 · GESP ${p.level} 级`:p.kind==='generated'?`AI 原创${p.knowledgeTopic?'专项练习':'变式'} · ${p.difficulty||'练习'} · ${p.level} 级`:p.kind==='uploaded'?`我的题目 · ${p.level} 级`:`${p.session||'入门示例'} · C++ ${p.level||1} 级`;
 const allProblems=()=>[...state.bank,...state.uploaded];
 async function jsonAsset(path){const r=await fetch(asset(path));if(!r.ok)throw Error('题库文件加载失败');return r.json()}
 async function api(path,body,method=body?'POST':'GET'){
@@ -124,7 +129,7 @@ function setView(name){
 }
 function lessonForProblem(p){return state.lessons.find(l=>l.problemId===p.id)||(state.lesson?.problem?.id===p.id?state.lesson:null)}
 function lessonButton(p,label='生成讲解'){const lesson=lessonForProblem(p);return lesson?`<button class="primary" data-action="open-lesson" data-id="${esc(lesson.id)}">查看课件 →</button>`:`<button class="primary" data-action="study" data-id="${esc(p.id)}">${label}</button>`}
-function previewActions(p){return lessonButton(p,'生成讲解课件')+(lessonForProblem(p)?`<button class="ghost" data-action="study" data-id="${esc(p.id)}">重新生成</button>`:'')+`<button class="ghost" data-action="code" data-id="${esc(p.id)}">编程练习 →</button>`}
+function previewActions(p){if(isTheoryProblem(p))return '<span class="small muted">选择选项后点击“核对答案”。</span>';return lessonButton(p,'生成讲解课件')+(lessonForProblem(p)?`<button class="ghost" data-action="study" data-id="${esc(p.id)}">重新生成</button>`:'')+`<button class="ghost" data-action="code" data-id="${esc(p.id)}">编程练习 →</button>`}
 function relatedLessons(p){const lessons=state.lessons.filter(l=>l.problemId===p.id);return lessons.length?`<section class="related-lessons"><h3>本题已生成的课件 <span>${lessons.length} 份</span></h3>${lessons.map(l=>`<button class="lesson-link" data-action="open-lesson" data-id="${esc(l.id)}"><strong>${esc(l.title)} ↗</strong><small>${new Date(l.createdAt*1000).toLocaleString('zh-CN')} · ${esc(l.model)}</small></button>`).join('')}</section>`:''}
 function refreshLessonLinks(){if(state.view==='knowledge')renderKnowledge();const actions=$('problemPreview').querySelector('.preview-actions'),list=$('problemPreview').querySelector('.problem-lessons');if(actions&&state.preview)actions.innerHTML=previewActions(state.preview);if(list&&state.preview)list.innerHTML=relatedLessons(state.preview);$('workspaceLesson').textContent=state.activeProblem&&lessonForProblem(state.activeProblem)?'查看本题课件':'生成本题讲解';renderLearn();renderPractice()}
 function card(p,reason=''){return `<article class="problem-card"><div class="card-meta">${esc(meta(p))}</div><h3>${esc(p.title)}</h3>${tagsHtml(p)}${reason?`<p class="small muted">${esc(reason)}</p>`:''}<div class="button-row">${lessonButton(p)}<button class="ghost" data-action="code" data-id="${esc(p.id)}">独立练习 →</button></div></article>`}
@@ -135,12 +140,12 @@ function renderLearn(){
   $('navLevel').textContent=`GESP ${state.level} 级`;
   $('levelTitle').textContent=info.title;$('levelSummary').textContent=info.summary;
   $('levelTopics').innerHTML=info.topics.map(t=>knowledgeTag(t,state.level)).join('');$('levelGoals').innerHTML=info.goals.map(g=>`<li>${esc(g)}</li>`).join('');
-  const featured=allProblems().filter(p=>p.level===state.level).slice(-6).reverse();
+  const featured=allProblems().filter(p=>p.level===state.level&&!isTheoryProblem(p)).slice(-6).reverse();
   $('featuredProblems').innerHTML=featured.length?featured.map(learnProblemRow).join(''):empty('本级真题正在整理','可以先上传自己的题目，按当前等级生成讲解。','<button data-action="upload" class="primary">上传一道题</button>');
   $('bankCount').textContent=state.bank.length;$('completedCount').textContent=Object.keys(readLocal('ca-completed',{})).length;
-  $('libraryLevel').value=state.level;
+  $('libraryLevel').value=libraryGroup==='gesp'?state.level:libraryGroup;
 }
-function changeLevel(level){state.level=Number(level);saveLocal('ca-level',state.level);$('sessionFilter').value='';$('tagFilter').value='';renderLearn();renderLibrary()}
+function changeLevel(level){libraryGroup='gesp';saveLocal('ca-library-group',libraryGroup);state.level=Number(level);saveLocal('ca-level',state.level);for(const id of ['sessionFilter','tagFilter','sourceFilter','weekFilter','contestGroupFilter','questionTypeFilter','bankOriginFilter','bankDifficultyFilter'])$(id).value='';renderLearn();renderLibrary()}
 function openKnowledge(topic,level,group=''){
   if(!knowledgeCatalog||typeof topic!=='string'||!topic.trim()||topic.length>100||!Number.isInteger(level)||level<1||level>8)return;
   if(state.level!==level){state.level=level;saveLocal('ca-level',level);renderLearn();}
@@ -158,12 +163,31 @@ function returnToKnowledge(){
   if(knowledgeContext)setView('knowledge');else setView('learn');
 }
 function renderLibrary(){
-  const session=$('sessionFilter').value,tag=$('tagFilter').value,query=$('searchInput').value.trim().toLowerCase();
-  const list=allProblems().filter(p=>p.level===state.level&&(!session||p.session===session)&&(!tag||p.tags?.includes(tag))&&(!query||`${p.title} ${(p.tags||[]).join(' ')}`.toLowerCase().includes(query))).sort((a,b)=>String(b.session||'9999').localeCompare(String(a.session||'9999'))||a.number-b.number);
-  $('libraryCount').textContent=`GESP ${state.level} 级 · ${list.length} 道题目`;
-  $('problemList').innerHTML=list.length?list.map((p,i)=>`<button class="question-row ${state.preview?.id===p.id?'selected':''}" data-action="preview" data-id="${esc(p.id)}" title="${esc(p.title)} · ${esc(meta(p))}"><span class="q-number">${String(i+1).padStart(2,'0')}</span><span class="q-info"><span class="q-heading"><strong>${esc(p.title)}</strong><span class="card-meta">${esc(p.session||'我的题目')}</span></span><span class="q-tags" title="${esc((p.tags||[]).join(' · '))}">${esc((p.tags||[]).join(' · '))}</span></span></button>`).join(''):empty('暂无匹配题目','换个筛选条件，或上传自己的题目。','<button data-action="upload">上传题目</button>');
+  const csp=libraryGroup!=='gesp',problems=allProblems(),groupProblems=problems.filter(p=>belongsToLibrary(p,{group:libraryGroup,level:state.level}));
+  const refill=(id,values,label)=>{const selected=$(id).value;$(id).innerHTML=`<option value="">${label}</option>`+values.map(v=>`<option value="${esc(v)}">${id==='weekFilter'?'第 '+esc(v)+' 周':esc(v)}</option>`).join('');$(id).value=values.includes(selected)?selected:'';};
+  refill('sessionFilter',[...new Set(groupProblems.flatMap(p=>p.occurrences?.length?cspPeriods(p):[p.session]).filter(Boolean))].sort().reverse(),'全部场次');
+  refill('tagFilter',[...new Set(groupProblems.flatMap(p=>isCspProblem(p)?p.knowledgePoints||[]:(p.tags||[]).filter(t=>!isSourceTag(t))))].sort(),'全部知识点');
+  refill('weekFilter',[...new Set(groupProblems.flatMap(p=>(p.occurrences||[]).map(r=>String(r.week))))].sort((a,b)=>Number(a)-Number(b)),'全部周次');
+  refill('contestGroupFilter',[...new Set(groupProblems.flatMap(p=>(p.occurrences||[]).map(r=>r.group)))].sort(),'全部赛事组别');
+  for(const id of ['weekFilter','contestGroupFilter'])$(id).closest('label').hidden=!groupProblems.some(p=>p.occurrences?.length);
+  $('questionTypeFilter').closest('label').hidden=!groupProblems.some(isTheoryProblem);
+  refill('bankOriginFilter',[...new Set(groupProblems.map(p=>p.bankOrigin).filter(Boolean))].sort(),'全部原题源');
+  refill('bankDifficultyFilter',[...new Set(groupProblems.map(p=>p.platformDifficulty).filter(Boolean))].sort(),'全部原难度');
+  for(const id of ['bankOriginFilter','bankDifficultyFilter'])$(id).closest('label').hidden=!groupProblems.some(p=>p.collection==='xiaohou-bank');
+  const sources=librarySources(groupProblems),selectedSource=$('sourceFilter').value;
+  $('sourceFilter').innerHTML='<option value="">全部来源</option>'+sources.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
+  $('sourceFilter').value=sources.includes(selectedSource)?selectedSource:'';
+  const list=filterLibrary(problems,{level:state.level,group:libraryGroup,source:$('sourceFilter').value,session:$('sessionFilter').value,tag:$('tagFilter').value,query:$('searchInput').value,week:$('weekFilter').value,contestGroup:$('contestGroupFilter').value,questionType:$('questionTypeFilter').value,origin:$('bankOriginFilter').value,difficulty:$('bankDifficultyFilter').value});
+  const filterKey=JSON.stringify([libraryGroup,state.level,...['sourceFilter','sessionFilter','tagFilter','searchInput','weekFilter','contestGroupFilter','questionTypeFilter','bankOriginFilter','bankDifficultyFilter'].map(id=>$(id).value)]);
+  if(filterKey!==libraryFilterKey){libraryPageNumber=1;libraryFilterKey=filterKey;}
+  const page=libraryPage(list,libraryPageNumber);libraryPageNumber=page.page;
+  const groupName=libraryGroup==='bank'?'学而思题库':libraryGroup==='ungraded'?'待归级／竞赛拓展':csp?libraryGroup.toUpperCase():`GESP ${state.level} 级`;
+  $('libraryCount').textContent=`${groupName} · ${list.length} 道题目${list.some(isCspProblem)?' · 等级与训练分组详见题面说明':''}`;
+  $('libraryPager').hidden=page.pages<=1;
+  $('libraryPager').innerHTML=`<button data-action="library-page" data-page="${page.page-1}" ${page.page===1?'disabled':''}>上一页</button><span>第 ${page.page} / ${page.pages} 页 · 每页 200 题</span><button data-action="library-page" data-page="${page.page+1}" ${page.page===page.pages?'disabled':''}>下一页</button>`;
+  $('problemList').innerHTML=page.items.length?page.items.map((p,i)=>`<button class="question-row ${state.preview?.id===p.id?'selected':''}" data-action="preview" data-id="${esc(p.id)}" title="${esc(p.title)} · ${esc(meta(p))}"><span class="q-number">${String((page.page-1)*200+i+1).padStart(2,'0')}</span><span class="q-info"><span class="q-heading"><strong>${esc(p.title)}</strong><span class="card-meta">${esc(p.session||'我的题目')}</span></span><span class="q-tags" title="${esc((p.tags||[]).join(' · '))}">${esc(listTags(p).join(' · '))}</span></span></button>`).join(''):empty('暂无匹配题目',csp&&!groupProblems.length?'此分组已建立，当前尚未取得对应赛事组别的题目。':'换个筛选条件，或上传自己的题目。','<button data-action="upload">上传题目</button>');
   if(!list.length){previewToken++;state.preview=null;$('problemPreview').innerHTML=empty('从一道题开始','没有匹配当前筛选条件的题目，请调整条件，也可上传题目。');return}
-  if(!list.some(p=>p.id===state.preview?.id))previewProblem(list[0].id);
+  if(!page.items.some(p=>p.id===state.preview?.id))previewProblem(page.items[0].id);
 }
 async function getProblem(id){
   if(state.cache.has(id))return state.cache.get(id);
@@ -174,8 +198,10 @@ async function getProblem(id){
 function problemHtml(p,{compact=false}={}){
   const source=p.source||{};
   const heading=compact?`<div class="problem-title-row"><h2>${esc(p.title)}</h2><span class="card-meta">${esc(meta(p))}</span></div>`:`<div class="card-meta">${esc(meta(p))}</div><h2>${esc(p.title)}</h2>`;
-  const sources=`${esc(p.casesSource||'上传或自编练习数据')}<br>${esc(source.note||'')}<div class="source-links">${[['原卷 PDF',source.pdfUrl],['题目来源',source.referenceUrl],['CCF 真题目录',source.url]].map(([t,url])=>safeUrl(url)?`<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener noreferrer">${t} ↗</a>`:'').join('')}</div>`;
-  return `${heading}${tagsHtml(p)}<div class="problem-section problem-prose">${esc(p.description)}</div>${[['输入格式',p.input],['输出格式',p.output],['数据范围',p.constraints]].map(([title,text])=>text?`<section class="problem-section"><h3>${title}</h3><p class="problem-prose">${esc(text)}</p></section>`:'').join('')}${p.sampleInput||p.sampleOutput?`<section class="problem-section${compact?' problem-samples':''}"><div><h3>${esc(p.sampleLabel||'题目示例')} · 输入</h3><pre class="sample-box">${esc(p.sampleInput)}</pre></div><div><h3>输出</h3><pre class="sample-box">${esc(p.sampleOutput)}</pre></div></section>`:''}${p.hints?.length?`<details class="problem-section"><summary>需要一点提示？</summary><ul class="hint-list">${p.hints.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></details>`:''}${compact?`<details class="source-note"><summary>题目来源与说明</summary>${sources}</details>`:`<div class="source-note">${sources}</div>`}`;
+  const extraTests=typeof p.extraTests==='string'&&/^data\/gesp\/extra-tests\/[a-z0-9-]+\.zip$/.test(p.extraTests)?`<a href="${esc(p.extraTests)}" download>下载完整测试包（含大数据）</a>`:'';
+  const sources=`${esc(p.casesSource||'上传或自编练习数据')}<br>${esc(source.note||'')}<div class="source-links">${[['原卷 PDF',source.pdfUrl],['题目来源',source.referenceUrl],[source.organization==='CCF GESP'?'CCF 真题目录':'课程来源',source.url]].map(([t,url])=>safeUrl(url)?`<a href="${esc(safeUrl(url))}" target="_blank" rel="noopener noreferrer">${t} ↗</a>`:'').join('')}${extraTests}</div>`;
+  if(isCspProblem(p))return `${heading}${tagsHtml(p)}${cspDetails(p)}${isTheoryProblem(p)?'':problemSamplesHtml(p,{compact})}<div class="source-note">${sources}</div>`;
+  return `${heading}${tagsHtml(p)}<div class="problem-section problem-prose">${esc(p.description)}</div>${[['输入格式',p.input],['输出格式',p.output],['数据范围',p.constraints]].map(([title,text])=>text?`<section class="problem-section"><h3>${title}</h3><p class="problem-prose">${esc(text)}</p></section>`:'').join('')}${problemSamplesHtml(p,{compact})}${p.hints?.length?`<details class="problem-section"><summary>需要一点提示？</summary><ul class="hint-list">${p.hints.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></details>`:''}${compact?`<details class="source-note"><summary>题目来源与说明</summary>${sources}</details>`:`<div class="source-note">${sources}</div>`}`;
 }
 async function previewProblem(id){
   const token=++previewToken;$('problemPreview').innerHTML='<p class="loading-text">正在读取题目…</p>';
@@ -196,6 +222,7 @@ function initEditor(){
   window.require(['vs/editor/editor.main'],()=>{if(editor)return;editor=monaco.editor.create($('editor'),{value:localStorage.getItem(codeKey())??defaultCode(state.activeProblem),language:'cpp',theme:'vs',fontSize:14,minimap:{enabled:false},automaticLayout:true,scrollBeyondLastLine:false,tabSize:4,padding:{top:15},ariaLabel:'C++ 源代码'});editor.onDidChangeModelContent(saveCode);$('editorStatus').textContent='Monaco · 自动保存';editorLoading=false;trackBaseline()},fallback);
 }
 function loadWorkspace(p){
+  if(isTheoryProblem(p)){toast('理论题请在题库中选择选项作答');return;}
   if(judgeBusy){toast('请等待当前评测结束后再切换题目');return}
   workspaceDebugger.close();codeAnalysis.close();analysisSettings.close();
   saveCode();state.activeProblem=normalizeProblem(p);$('workspaceTitle').textContent=p.title;$('workspaceProblem').innerHTML=problemHtml(p);$('stdin').value=p.sampleInput||'';
@@ -312,8 +339,8 @@ function stopSpeech(){globalThis.speechSynthesis?.cancel();$('speakSlide').textC
 function speak(){if(!state.lesson)return;if(!globalThis.speechSynthesis){toast('当前浏览器不支持朗读');return}if(speechSynthesis.speaking){stopSpeech();return}const speech=new SpeechSynthesisUtterance(state.lesson.pages[state.slide].narration);speech.lang='zh-CN';speech.rate=.95;speech.onend=speech.onerror=()=>$('speakSlide').textContent='朗读讲稿';speechSynthesis.speak(speech);$('speakSlide').textContent='停止朗读'}
 async function refreshPractice(){try{const records=await api('/api/practice');state.practice=unpackPracticeRecords(records);renderPractice();if(state.view==='knowledge')renderKnowledge()}catch{renderPractice()}}
 function renderPractice(){
-  const p=practiceProblem();$('generateVariants').disabled=!p;
-  $('practiceContext').innerHTML=p?`<span class="tiny-label">当前学习题目 · GESP ${esc(p.level)} 级</span><h3>${esc(p.title)}</h3>${tagsHtml(p)}`:'<h3>选择一道题，开始同类练习。</h3><p class="small muted">点击右侧“切换题目”，从题库或已有题目中选择。</p>';
+  const p=practiceProblem();$('generateVariants').disabled=!p||!Number.isInteger(p.level);$('generateVariants').title=p&&!Number.isInteger(p.level)?'本题尚未确定 GESP 等级，可先生成讲解或直接编程。':'';
+  $('practiceContext').innerHTML=p?`<span class="tiny-label">当前学习题目 · ${esc(isCspProblem(p)?classificationLabel(p):`GESP ${p.level} 级`)}</span><h3>${esc(p.title)}</h3>${tagsHtml(p)}`:'<h3>选择一道题，开始同类练习。</h3><p class="small muted">点击右侧“切换题目”，从题库或已有题目中选择。</p>';
   const list=p?recommendProblems(state.bank,p):[];
   $('recommendationList').innerHTML=list.length?list.map(item=>card(item,item.shared.length?'共同知识点：'+item.shared.join('、'):'同级拓展练习')).join(''):empty('暂无同级真题推荐','可以上传同类题，或先生成讲解后使用原创变式练习。');
   const variants=variantsForProblem(state.practice,p,[...state.lessons,state.lesson]);
@@ -353,6 +380,8 @@ document.addEventListener('click',async event=>{
     if(action==='knowledge-lesson'){await openLesson(id);knowledgeReturn=true;state.slide=topicPage(state.lesson,target.dataset.topic,knowledgeCatalog);renderLesson();setView('lesson');return;}
     if(action==='knowledge-practice'){const topic=target.dataset.topic,level=Number(target.dataset.topicLevel);if(topicProblems(state.bank,topic,level,knowledgeCatalog).single.length){renderKnowledge();return;}await runTask('/api/knowledge-practice',{topic,targetLevel:level},'topic-practice');return;}
     if(action==='upload')openUpload();
+    if(action==='library-page'){libraryPageNumber=Number(target.dataset.page);renderLibrary();$('problemList').scrollTop=0;}
+    if(action==='check-theory'&&state.preview?.id===id){const form=target.closest('[data-theory]');form.querySelector('.csp-answer-result').textContent=theoryFeedback(state.preview,[...form.querySelectorAll('input:checked')].map(e=>e.value));}
     if(action==='preview')await previewProblem(id);
     if(action==='code')loadWorkspace(await getProblem(id));
     if(action==='study')await showGenerate(await getProblem(id));
@@ -383,7 +412,7 @@ document.addEventListener('change',event=>{
     changeLevel(Number(event.target.value));knowledgeContext=null;saveLocal('ca-knowledge',null);setView('knowledge');
   }
 });
-$('learnLevel').onchange=$('libraryLevel').onchange=e=>changeLevel(e.target.value);for(const id of ['sessionFilter','tagFilter'])$(id).onchange=renderLibrary;$('searchInput').oninput=renderLibrary;
+$('learnLevel').onchange=e=>changeLevel(e.target.value);$('libraryLevel').onchange=e=>{if(!['csp-j','csp-s','bank','ungraded'].includes(e.target.value)){changeLevel(e.target.value);return;}libraryGroup=e.target.value;saveLocal('ca-library-group',libraryGroup);for(const id of ['sessionFilter','tagFilter','sourceFilter','weekFilter','contestGroupFilter','questionTypeFilter','bankOriginFilter','bankDifficultyFilter'])$(id).value='';renderLibrary();};for(const id of ['sessionFilter','tagFilter','sourceFilter','weekFilter','contestGroupFilter','questionTypeFilter','bankOriginFilter','bankDifficultyFilter'])$(id).onchange=renderLibrary;$('searchInput').oninput=renderLibrary;
 $('browseLevel').onclick=$('allProblems').onclick=$('chooseProblem').onclick=$('chooseLessonProblem').onclick=()=>setView('library');
 $('uploadBtn').onclick=openUpload;$('questionFile').onchange=e=>importFile(e.target.files[0]);$('uploadForm').onsubmit=saveUpload;
 $('importJsonBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{const f=e.target.files[0];if(f){openUpload();await importFile(f)}e.target.value=''};
@@ -405,9 +434,10 @@ $('generateVariants').onclick=()=>{const p=practiceProblem();if(p)runTask('/api/
 window.addEventListener('hashchange',()=>setView(location.hash.slice(1)));window.addEventListener('beforeunload',()=>{saveCode();stopSpeech()});
 document.addEventListener('keydown',event=>{if(document.querySelector('dialog[open]')||['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName))return;if(state.view==='lesson'&&state.lesson){if(event.key==='ArrowRight')moveSlide(state.slide+1);if(event.key==='ArrowLeft')moveSlide(state.slide-1)}});
 async function boot(){
-  try{const [catalog,levels,demo,knowledge]=await Promise.all([jsonAsset('data/gesp/index.json'),jsonAsset('data/gesp/levels.json'),jsonAsset('problem.json'),jsonAsset('data/gesp/knowledge.json')]);knowledgeCatalog=knowledge;state.bank=catalog.problems;state.levels=levels.levels;state.activeProblem=normalizeProblem({...demo,id:'demo',level:1,kind:'uploaded'});$('syllabusLink').href=levels.source;
+  try{const [catalog,levels,demo,knowledge,csp,bank]=await Promise.all([jsonAsset('data/gesp/index.json'),jsonAsset('data/gesp/levels.json'),jsonAsset('problem.json'),jsonAsset('data/gesp/knowledge.json'),jsonAsset('data/csp/index.json'),jsonAsset('data/xiaohou-bank/index.json')]);knowledgeCatalog=knowledge;state.bank=[...catalog.problems,...csp.problems,...bank.problems];state.levels=levels.levels;state.activeProblem=normalizeProblem({...demo,id:'demo',level:1,kind:'uploaded'});$('syllabusLink').href=levels.source;
     for(const id of ['learnLevel','libraryLevel','uploadLevel','targetLevel'])$(id).innerHTML=state.levels.map(l=>`<option value="${l.level}">GESP ${l.level} 级</option>`).join('');
-    $('sessionFilter').innerHTML='<option value="">全部场次</option>'+[...new Set(state.bank.map(p=>p.session))].sort().reverse().map(s=>`<option>${esc(s)}</option>`).join('');$('tagFilter').innerHTML='<option value="">全部知识点</option>'+[...new Set(state.bank.flatMap(p=>p.tags))].sort().map(t=>`<option>${esc(t)}</option>`).join('');
+    $('libraryLevel').insertAdjacentHTML('beforeend','<option value="csp-j">CSP-J</option><option value="csp-s">CSP-S</option><option value="bank">学而思题库（全部）</option><option value="ungraded">待归级／竞赛拓展</option>');
+    $('sessionFilter').innerHTML='<option value="">全部场次</option>'+[...new Set(state.bank.map(p=>p.session))].sort().reverse().map(s=>`<option>${esc(s)}</option>`).join('');$('tagFilter').innerHTML='<option value="">全部知识点</option>'+[...new Set(state.bank.flatMap(p=>p.tags).filter(t=>!isSourceTag(t)))].sort().map(t=>`<option>${esc(t)}</option>`).join('');
     $('workspaceTitle').textContent=state.activeProblem.title;$('workspaceProblem').innerHTML=problemHtml(state.activeProblem);$('stdin').value=demo.sampleInput;renderLearn();renderLibrary();renderPractice();if(state.lesson)renderLesson();setView(location.hash.slice(1)||'learn');
     if(await checkService()){refreshHistory();refreshPractice();const pending=readLocal('ca-active-task',null);if(pending?.id){activeTask=pending;retryAction=null;watchTask(pending)}}
   }catch(e){$('featuredProblems').innerHTML=empty('初始化失败',e.message);toast(e.message)}

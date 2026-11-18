@@ -1,5 +1,6 @@
 $ErrorActionPreference='Stop'
 $root=Split-Path -Parent $PSScriptRoot
+. (Join-Path $root 'scripts\windows-dependencies.ps1')
 . (Join-Path $root 'scripts\bootstrap-windows.ps1')
 function Assert($Condition,$Message){if(-not $Condition){throw $Message}}
 function Assert-Fails([scriptblock]$Action,$Message){$failed=$false;try{& $Action}catch{$failed=$true};Assert $failed $Message}
@@ -12,6 +13,7 @@ Assert ($catalog.compiler.filename -notmatch 'No_Compiler') 'Must install the GC
 Assert ($catalog.python.sha256 -match '^[a-f0-9]{64}$') 'Python checksum required'
 $temporary=Join-Path $root ('.tmp\bootstrap-hash-'+[guid]::NewGuid().ToString('N')+'.bin')
 try {
+    New-Item -Path (Split-Path -Parent $temporary) -ItemType Directory -Force | Out-Null
     [IO.File]::WriteAllText($temporary,'fixture')
     Test-LearningInstaller $temporary ([pscustomobject]@{name='fixture';sha256=(Get-FileHash $temporary -Algorithm SHA256).Hash})
     Assert-Fails { Test-LearningInstaller $temporary $catalog.python } 'Corrupt downloads must stop'
@@ -19,8 +21,11 @@ try {
 
 # Run the real orchestrator with inert process/download boundaries; no installed software is changed.
 function Assert-LearningWindows {}
+function Find-LearningPython { return 'fixture-python' }
 function Get-LearningBootstrapState($ExtensionRoot){return [pscustomobject]$script:installed}
 function Get-LearningInstaller($Spec,$CacheDirectory){$script:events.Add('download:'+ $Spec.filename);if($script:failDownload){throw 'simulated download failure'};return $Spec.filename}
+function Get-LearningPythonRuntimePackage($ExtensionRoot){$script:events.Add('download:python-runtime');if($script:failDownload){throw 'simulated runtime preparation failure'};return @{Path='fixture.nupkg'}}
+function Initialize-LearningPrivatePython($ExtensionRoot){$script:events.Add('install:python');if($script:failInstall){throw 'simulated runtime failure'};if(-not $script:failDetection){$script:installed.python=$true};return 'fixture-python'}
 function Install-LearningApplication($Kind,$Path,$LogDirectory){$script:events.Add('install:'+ $Kind);if($script:failInstall){throw 'simulated installer failure'};if(-not $script:failDetection){$script:installed[$Kind]=$true}}
 function Install-LearningPythonPackages($ExtensionRoot,$HostDirectory){$script:events.Add('packages');if($script:failPackages){throw 'simulated pip failure'}}
 function Reset-Fixture($Ready=$false){$script:installed=@{python=$Ready;chrome=$Ready;compiler=$Ready};$script:events=New-Object System.Collections.Generic.List[string];$script:failDownload=$false;$script:failInstall=$false;$script:failDetection=$false;$script:failPackages=$false}

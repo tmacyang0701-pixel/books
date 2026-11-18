@@ -25,3 +25,4 @@ __pycache__/
 .aws/
 .codex/
 .agents/
+/dist/

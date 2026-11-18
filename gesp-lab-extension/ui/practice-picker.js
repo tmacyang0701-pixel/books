@@ -1,9 +1,10 @@
 import {escapeHtml as esc} from './core.js';
+import {classificationLabel} from './csp-library.js';
 
 export function practiceCandidates(groups,query='',level=''){
   const seen=new Set(),term=query.trim().normalize('NFKC').toLowerCase();
   return groups.flat().filter(p=>{
-    if(!p?.id||p.kind==='knowledge-topic'||seen.has(p.id))return false;
+    if(!p?.id||p.kind==='knowledge-topic'||p.kind==='theory'||seen.has(p.id))return false;
     seen.add(p.id);
     return (!level||Number(p.level)===Number(level))&&(!term||[p.title,...(p.tags||[])].join(' ').normalize('NFKC').toLowerCase().includes(term));
   });
@@ -16,7 +17,7 @@ export function createPracticePicker({getGroups,onSelect}){
   document.body.append(dialog);
   const search=dialog.querySelector('input'),level=dialog.querySelector('select'),list=dialog.querySelector('.practice-picker-list'),status=dialog.querySelector('[role=status]');
   let current='',busy=false,epoch=0;
-  function render(){const rows=practiceCandidates(getGroups(),search.value,level.value);status.textContent=`找到 ${rows.length} 道题目`;list.innerHTML=rows.map(p=>`<button type="button" data-problem="${esc(p.id)}" aria-pressed="${p.id===current}"><strong>${esc(p.title)}</strong><span>GESP ${esc(p.level)} 级 · ${esc((p.tags||[]).join(' · '))}${p.id===current?' · 当前题目':''}</span></button>`).join('')||'<p class="muted">没有匹配题目，请调整关键词或等级。</p>';}
+  function render(){const rows=practiceCandidates(getGroups(),search.value,level.value);status.textContent=`找到 ${rows.length} 道题目${rows.length>200?' · 显示前 200 道，请用名称或知识点搜索':''}`;list.innerHTML=rows.slice(0,200).map(p=>`<button type="button" data-problem="${esc(p.id)}" aria-pressed="${p.id===current}"><strong>${esc(p.title)}</strong><span>${p.group?.startsWith('csp-')?esc(p.group.toUpperCase()):esc(classificationLabel(p))} · ${esc((p.tags||[]).join(' · '))}${p.id===current?' · 当前题目':''}</span></button>`).join('')||'<p class="muted">没有匹配题目，请调整关键词或等级。</p>';}
   search.oninput=level.onchange=render;
   dialog.querySelector('.icon-button').onclick=()=>dialog.close();
   dialog.addEventListener('close',()=>{epoch++;document.getElementById('switchPracticeProblem')?.focus();});

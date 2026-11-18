@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-12",
-  "scope": "C++ 1～8 级历年编程题的题意整理版，覆盖各等级开考至 2026-09；不含选择题、判断题和官方隐藏评测数据。",
+  "updatedAt": "2026-11-18",
+  "scope": "C++ 1～8 级历年编程题整理版（216 道，截至 2026-09），另含五级补充练习 10 道；不含选择题、判断题和官方隐藏评测数据。",
   "problems": [
     {
       "id": "gesp-2023-03-1-1",
@@ -2816,6 +2816,158 @@
         "时刻约束"
       ],
       "file": "data/gesp/level-8/gesp-2026-09-8-2.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-1",
+      "level": 5,
+      "session": "2026-11-21 小猴模考训练 I",
+      "number": 1,
+      "kind": "supplemental",
+      "title": "水果集市",
+      "tags": [
+        "模拟",
+        "整数除法",
+        "取余",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-1.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-2",
+      "level": 5,
+      "session": "2026-11-21 小猴模考训练 I",
+      "number": 2,
+      "kind": "supplemental",
+      "title": "火眼金睛",
+      "tags": [
+        "字符串",
+        "计数",
+        "映射",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-2.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-3",
+      "level": 5,
+      "session": "2026-11-21 小猴模考训练 I",
+      "number": 3,
+      "kind": "supplemental",
+      "title": "炸弹猴",
+      "tags": [
+        "队列",
+        "模拟",
+        "循环",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-3.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-4",
+      "level": 5,
+      "session": "2026-11-21 小猴模考训练 I",
+      "number": 4,
+      "kind": "supplemental",
+      "title": "清虚幻境大危机！",
+      "tags": [
+        "排序",
+        "贪心",
+        "前缀和",
+        "二分查找",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-4.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-5",
+      "level": 5,
+      "session": "2026-11-21 小猴课课练",
+      "number": 5,
+      "kind": "supplemental",
+      "title": "卖报纸",
+      "tags": [
+        "贪心",
+        "排序",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-5.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-6",
+      "level": 5,
+      "session": "2026-11-21 小猴课课练",
+      "number": 6,
+      "kind": "supplemental",
+      "title": "发送消息",
+      "tags": [
+        "队列",
+        "双指针",
+        "滑动窗口",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-6.json"
+    },
+    {
+      "id": "xiaohou-2026-11-21-5-7",
+      "level": 5,
+      "session": "2026-11-21 小猴课课练",
+      "number": 7,
+      "kind": "supplemental",
+      "title": "小富翁",
+      "tags": [
+        "模拟",
+        "取余",
+        "循环",
+        "整数溢出",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-21-5-7.json"
+    },
+    {
+      "id": "xiaohou-2026-11-14-5-1",
+      "level": 5,
+      "session": "2026-11-14 小猴综合训练 I",
+      "number": 1,
+      "kind": "supplemental",
+      "title": "中彩票",
+      "tags": [
+        "字符串",
+        "回文",
+        "枚举",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-14-5-1.json"
+    },
+    {
+      "id": "xiaohou-2026-11-14-5-2",
+      "level": 5,
+      "session": "2026-11-14 小猴综合训练 I",
+      "number": 2,
+      "kind": "supplemental",
+      "title": "统计单词数",
+      "tags": [
+        "字符串",
+        "枚举",
+        "大小写转换",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-14-5-2.json"
+    },
+    {
+      "id": "xiaohou-2026-11-14-5-3",
+      "level": 5,
+      "session": "2026-11-14 小猴综合训练 I",
+      "number": 3,
+      "kind": "supplemental",
+      "title": "[入门赛 #14] 扶苏和串 (Hard Version)",
+      "tags": [
+        "字符串",
+        "枚举",
+        "贪心",
+        "字典序",
+        "来源：学而思"
+      ],
+      "file": "data/gesp/level-5/xiaohou-2026-11-14-5-3.json"
     }
   ]
 }

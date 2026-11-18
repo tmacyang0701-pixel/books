@@ -6,12 +6,30 @@ import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT.parent/'scripts'))
 sys.path.insert(0,str(ROOT))
-from import_xiaohou_bank import samples_from, statement_fields, convert, fingerprint, SEED_ID
+from import_xiaohou_bank import samples_from, statement_fields, convert, fingerprint, SEED_ID, clean_placeholder
 from xiaohou_bank_classification import classify
 from learning_service.server import normalize_problem
 
 
 class BankImportTests(unittest.TestCase):
+    def test_platform_null_prose_is_removed_without_changing_real_null_content(self):
+        data=dict(descMD='null\n![](https://example.com/a.png)\n\n正文包含 null。\n```\nnull\n```\n$T \\neq null$',
+                  inputFormatMd='null',inputFormat='<p>一个整数</p>',outputFormatMd=None,
+                  outputFormat='<p>null</p>',tipsMd='null',tips='<p>null</p>',
+                  sample=[dict(inputSample='null\n',outputSample='null')])
+        fields=statement_fields(data)
+        self.assertTrue(fields['description'].startswith('![]('))
+        self.assertIn('正文包含 null。',fields['description'])
+        self.assertIn('```\nnull\n```',fields['description'])
+        self.assertIn('$T \\neq null$',fields['description'])
+        self.assertEqual(fields['input'],'一个整数')
+        self.assertEqual(fields['output'],'')
+        self.assertEqual(fields['tips'],'')
+        self.assertEqual(samples_from(data),[dict(input='null\n',output='null')])
+        self.assertEqual(clean_placeholder('  null\r\nnull\r\n题目'), '题目')
+        for value in ('null 是空指针','nullable','```\nnull\n```','输出 null'):
+            self.assertEqual(clean_placeholder(value),value)
+
     def test_separate_legacy_sample_sections_preserve_sample_explanation_images(self):
         data=dict(descMD='【题目描述】\n题干\n【输入格式】\n两个整数\n【输出格式】\n和\n【输入样例#1】\n\n    1 2\n\n【输出样例#1】\n\n    3\n\n【输入输出样例1说明】\n![](https://example.com/a.png)\n求和\n【数据规模与约定】\n不超过100')
         self.assertEqual(samples_from(data),[dict(input='1 2',output='3')])

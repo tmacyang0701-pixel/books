@@ -23,8 +23,22 @@ SEED_ID = '183f02521a304e709aa096a1a9c20fa2'
 SECTIONS = re.compile(r'^\s*(?:#{1,6}\s*)?【(题目描述|输入格式|输出格式|数据范围|数据规模与约定|样例[^】]*|输入样例[^】]*|输出样例[^】]*|输入输出样例[^】]*)】\s*$', re.M)
 
 
+def clean_placeholder(value):
+    """Remove the platform's leading standalone null prose placeholder only.
+
+    Never use this on samples; inline null, code and math are meaningful content.
+    """
+    if value is None:
+        return ''
+    return re.sub(r'\A(?:null[ \t]*(?:\r?\n|$)\s*)+', '', value.strip())
+
+
+def preferred_prose(data, md, html_field):
+    return clean_placeholder(data.get(md)) or clean_placeholder(plain(data.get(html_field)))
+
+
 def markdown(value):
-    value = value or ''
+    value = clean_placeholder(value)
     value = re.sub(r'<img\b[^>]*>', lambda m: plain(m[0]), value, flags=re.I)
     return re.sub(r'</?center\b[^>]*>', '', value, flags=re.I).strip()
 
@@ -75,8 +89,8 @@ def samples_from(data):
 
 
 def statement_fields(data):
-    raw = data.get('descMD','').strip() or plain(data.get('description',''))
-    fields = {name:markdown(data.get(md,'').strip() or plain(data.get(ht,''))) for name,md,ht in (
+    raw = preferred_prose(data, 'descMD', 'description')
+    fields = {name:markdown(preferred_prose(data, md, ht)) for name,md,ht in (
         ('input','inputFormatMd','inputFormat'), ('output','outputFormatMd','outputFormat'),
         ('constraints','dataRangeMd','dataRange'), ('tips','tipsMd','tips'))}
     sections = list(SECTIONS.finditer(raw))
